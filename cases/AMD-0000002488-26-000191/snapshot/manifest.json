@@ -1,0 +1,81 @@
+{
+  "cik": 2488,
+  "created_at": "2026-11-14T14:55:04Z",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "files": {
+    "docs/periodic.txt": {
+      "accession": "0000002488-26-000191",
+      "document": "amd-20260926.htm",
+      "retrieved_at": "2026-11-14T14:55:04Z",
+      "sha256": "893a9a6b0ae6672a8c505900cbc058eea16ab96a5c33fd75fb402c5861f2de92",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/2488/000000248826000191/amd-20260926.htm"
+      ]
+    },
+    "docs/release_ex99_1.txt": {
+      "accession": "0000002488-26-000188",
+      "document": "q32026991.htm",
+      "retrieved_at": "2026-11-14T14:55:04Z",
+      "sha256": "47144b1d63c23857fe65f98e983ea557ebc844741b55487d6c8a83d4ffef541f",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/2488/000000248826000188/q32026991.htm"
+      ]
+    },
+    "docs/release_ex99_2.txt": {
+      "accession": "0000002488-26-000188",
+      "document": "amdq32026earningsslidesf.htm",
+      "retrieved_at": "2026-11-14T14:55:04Z",
+      "sha256": "7a218935cc231d8ea4e8d0c69a7e46a98764dd1dd5e49b9a65c9526fe15c7df8",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/2488/000000248826000188/amdq32026earningsslidesf.htm"
+      ]
+    },
+    "facts.json": {
+      "retrieved_at": "2026-11-14T14:54:49Z",
+      "sha256": "c1a50f7b0392ed55809d8503ec6e3ed61392400990582d44d1c15d8f798e3529",
+      "sources": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000002488.json"
+      ]
+    },
+    "filings.json": {
+      "retrieved_at": "2026-11-14T14:54:49Z",
+      "sha256": "b8baebdc8b89e7275db2883f900718bbf126321e4fcbee692367df0780c40d03",
+      "sources": [
+        "https://data.sec.gov/submissions/CIK0000002488.json"
+      ]
+    },
+    "peers.json": {
+      "retrieved_at": "2026-11-14T14:55:02Z",
+      "sha256": "fbb01a7eacc75038e05c56bd92d4ec778b7ab106f1ff13c015d4044aef8639c6",
+      "sources": [
+        "submissions/companyfacts/chart for each peer (see http cache metadata)"
+      ]
+    },
+    "prices.json": {
+      "retrieved_at": "2026-11-14T14:54:50Z",
+      "sha256": "022a00f63a6593391399b0e9df9c0bb9067a0a5ce554fa088823cd2785c9b8dd",
+      "sources": [
+        "https://query1.finance.yahoo.com/v8/finance/chart/AMD?range=5y&interval=1d&events=split"
+      ]
+    }
+  },
+  "peers": [
+    "NVDA",
+    "INTC",
+    "AVGO",
+    "MRVL",
+    "MU",
+    "AMAT",
+    "LRCX",
+    "KLAC",
+    "SNPS",
+    "CDNS",
+    "ALAB",
+    "CRDO",
+    "MPWR"
+  ],
+  "period_of_report": "2026-09-26",
+  "ticker": "AMD",
+  "trigger_accession": "0000002488-26-000191",
+  "trigger_form": "10-Q"
+}

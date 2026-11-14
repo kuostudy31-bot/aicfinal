@@ -1,0 +1,8 @@
+{
+ "request_id": "gen-20261114T145504-830038",
+ "role": "gen-narrative",
+ "status": "ok",
+ "quotes": 8,
+ "guidance_items": 5,
+ "notes": "All quotes verified verbatim via substring check. Low/high for revenue computed from stated +/-3% (stated range). Diluted shares given as unit text-free numeric 1.67e9 shares; unit field set to text."
+}

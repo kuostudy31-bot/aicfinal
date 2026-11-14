@@ -1,0 +1,87 @@
+{
+ "request_id": "gen-20261114T145504-830038",
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_1.txt",
+   "topic": "guidance",
+   "text": "For the fourth quarter of 2026, AMD expects revenue to be approximately $17 billion, plus or minus 3%."
+  },
+  {
+   "id": "Q-2",
+   "doc": "release_ex99_1.txt",
+   "topic": "margin",
+   "text": "Non-GAAP gross margin is expected to be approximately 55%."
+  },
+  {
+   "id": "Q-3",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "Operating Expenses ~$3.75 Billion"
+  },
+  {
+   "id": "Q-4",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "Effective Tax Rate 13% of pre-tax income"
+  },
+  {
+   "id": "Q-5",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "Diluted Share Count(2) ~1.67 Billion shares"
+  },
+  {
+   "id": "Q-6",
+   "doc": "release_ex99_1.txt",
+   "topic": "demand",
+   "text": "Demand for our Instinct and EPYC products continued to strengthen, and we expect growth to accelerate further in the fourth quarter as we scale Helios and ‘Venice’ production."
+  },
+  {
+   "id": "Q-7",
+   "doc": "periodic.txt",
+   "topic": "margin",
+   "text": "Gross margin was 54% and 52% for the three months ended September 26, 2026 and September 27, 2025, respectively, where the increase was driven by a favorable product mix, including higher Data Center segment revenue."
+  },
+  {
+   "id": "Q-8",
+   "doc": "periodic.txt",
+   "topic": "risk",
+   "text": "This restriction impacts our AMD Instinct™ MI308 products."
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 17000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1",
+   "low": 16490000000.0,
+   "high": 17510000000.0
+  },
+  {
+   "metric": "gross_margin_next_q",
+   "value": 0.55,
+   "unit": "ratio",
+   "quote_id": "Q-2"
+  },
+  {
+   "metric": "opex_next_q",
+   "value": 3750000000.0,
+   "unit": "USD",
+   "quote_id": "Q-3"
+  },
+  {
+   "metric": "tax_rate_next_q",
+   "value": 0.13,
+   "unit": "ratio",
+   "quote_id": "Q-4"
+  },
+  {
+   "metric": "diluted_shares_next_q",
+   "value": 1670000000.0,
+   "unit": "text",
+   "quote_id": "Q-5"
+  }
+ ]
+}

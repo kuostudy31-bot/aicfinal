@@ -1,0 +1,49 @@
+{
+  "accession": "0000002488-26-000191",
+  "artifacts": {},
+  "candidate_id": null,
+  "case_id": "AMD-0000002488-26-000191",
+  "clean_streak": 0,
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "dispatch_counts": {},
+  "invalid_submissions": 0,
+  "ledger": {},
+  "limits": {
+    "clean_reviews_required": 2,
+    "max_dispatches_per_round": 12,
+    "max_invalid_submissions": 2,
+    "max_rounds": 3,
+    "max_wall_minutes": 240,
+    "stall_rounds": 2
+  },
+  "open_history": [],
+  "opened_at": "2026-11-14T14:55:04Z",
+  "pending": {
+    "issued_at": "2026-11-14T14:55:04Z",
+    "path": "cases/AMD-0000002488-26-000191/rounds/round-001/request.json",
+    "phase": "generator",
+    "request_id": "gen-20261114T145504-830038"
+  },
+  "period_of_report": "2026-09-26",
+  "prompt_versions": {
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "crit-lead": "v1",
+    "crit-provenance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1",
+    "gen-lead": "v1",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v1",
+    "orchestrator": "v1"
+  },
+  "review": 0,
+  "round": 1,
+  "snapshot_manifest_sha256": "31ef73de1e9bb67be2eaa0c1823d73013332d97d800fe85de52b4829354a6815",
+  "status": "GENERATOR_PENDING",
+  "ticker": "AMD",
+  "updated_at": "2026-11-14T14:55:04Z"
+}
