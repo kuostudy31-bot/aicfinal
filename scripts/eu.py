@@ -53,7 +53,8 @@ def cmd_watch(a):
 
 
 def cmd_open(a):
-    st = controller.open_case(a.ticker, a.accession, a.peers.split(",") if a.peers else None)
+    st = controller.open_case(a.ticker, a.accession, a.peers.split(",") if a.peers else None,
+                              revision=a.revision, reason=a.reason)
     print(json.dumps({k: st[k] for k in ("case_id", "status", "round", "pending", "cutoff_utc")}, indent=2))
 
 
@@ -177,7 +178,9 @@ def main(argv=None):
     s = sub.add_parser("watch"); s.add_argument("--as-of"); s.add_argument("--since"); s.add_argument("--tickers", nargs="*")
     s.set_defaults(fn=cmd_watch)
     s = sub.add_parser("open"); s.add_argument("--ticker", required=True); s.add_argument("--accession", required=True)
-    s.add_argument("--peers"); s.set_defaults(fn=cmd_open)
+    s.add_argument("--peers"); s.add_argument("--revision", type=int, default=1)
+    s.add_argument("--reason", help="required for --revision > 1: which input version changed")
+    s.set_defaults(fn=cmd_open)
     for name, fn in (("request", cmd_request), ("compute", cmd_compute), ("submit", cmd_submit),
                      ("resume", cmd_resume), ("publish", cmd_publish)):
         s = sub.add_parser(name); s.add_argument("--case", required=True); s.set_defaults(fn=fn)

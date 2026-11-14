@@ -207,3 +207,15 @@ class ResumeTests(Harness):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RevisionTests(Harness):
+    def test_revision_needs_reason_and_keeps_earlier_case(self):
+        with self.assertRaises(controller.ControllerError):
+            controller.open_case("NVDA", "0001045810-26-000075", peers=["AMD"], revision=2)
+        st = controller.open_case("NVDA", "0001045810-26-000075", peers=["AMD"], revision=2,
+                                  reason="snapshot now keeps all company concepts")
+        self.assertEqual(st["case_id"], "NVDA-0001045810-26-000075-r2")
+        case = read_json(controller.case_dir(st["case_id"]) / "case.json")
+        self.assertEqual(case["supersedes"], "NVDA-0001045810-26-000075")
+        self.assertEqual(self.state["status"], "GENERATOR_PENDING")  # original untouched

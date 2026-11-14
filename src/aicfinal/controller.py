@@ -92,15 +92,35 @@ def candidate_id(gen_dir: Path) -> str:
     return "cand-" + h.hexdigest()[:12]
 
 
+def _git_head() -> str | None:
+    import subprocess
+    try:
+        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True,
+                              timeout=5).stdout.strip() or None
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def prompt_versions() -> dict:
     reg = read_json(ROOT / load_config()["prompt_registry_file"])
     return dict(reg["active"])
 
 
 # ----------------------------------------------------------------- open
-def open_case(ticker: str, accession: str, peers: list[str] | None = None) -> dict:
+def open_case(ticker: str, accession: str, peers: list[str] | None = None, revision: int = 1,
+              reason: str | None = None) -> dict:
+    """Open (or return) a case. ``revision`` > 1 opens a new case for the same filing when an
+    input version changed (e.g. snapshot code); the earlier case is kept and referenced."""
     cfg = load_config()
-    case_id = f"{ticker.upper()}-{accession}"
+    base_id = f"{ticker.upper()}-{accession}"
+    case_id = base_id if revision == 1 else f"{base_id}-r{revision}"
+    supersedes = None
+    if revision > 1:
+        supersedes = base_id if revision == 2 else f"{base_id}-r{revision - 1}"
+        if not (case_dir(supersedes) / "state.json").exists():
+            raise ControllerError(f"revision {revision} needs the earlier case {supersedes}")
+        if not reason:
+            raise ControllerError("a new revision needs --reason (which input version changed)")
     cdir = case_dir(case_id)
     if (cdir / "state.json").exists():  # idempotent: a completed or running case is returned as is
         return load_state(case_id)
@@ -120,7 +140,9 @@ def open_case(ticker: str, accession: str, peers: list[str] | None = None) -> di
                                     "trigger_form": man["trigger_form"], "cutoff_utc": man["cutoff_utc"],
                                     "period_of_report": man["period_of_report"], "peers": peers,
                                     "prompt_versions": state["prompt_versions"],
-                                    "limits": cfg["limits"], "opened_at": state["opened_at"]})
+                                    "limits": cfg["limits"], "opened_at": state["opened_at"],
+                                    "revision": revision, "supersedes": supersedes, "revision_reason": reason,
+                                    "code_commit": _git_head()})
     _save(state, "case_opened", accession=accession, cutoff_utc=man["cutoff_utc"])
     return _issue_generator(state, repair=None)
 
