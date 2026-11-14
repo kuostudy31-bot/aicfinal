@@ -1,0 +1,50 @@
+{
+  "request_id": "crit-20261114T151438-1837ea",
+  "role": "crit-provenance",
+  "candidate_id": "cand-1ea653d6f369",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "minor",
+      "title": "Net-cash understatement disclosed but not quantified; equity securities not covered by the robustness claim",
+      "detail": "valuation.json net_cash = cash 22,443m - debt 33,366m = -10,923m, with short_term_investments = 0 because the catalog concept MarketableSecuritiesCurrent is stale (latest 2025-10-26) and DebtSecuritiesCurrent / EquitySecuritiesFvNi have no observations in snapshot/facts.json (eu.py concepts: in_snapshot=false). The note discloses this correctly, but it does not give the omitted amounts. The balance sheet in periodic.txt (lines 263-265) shows marketable debt securities of 34,143m and marketable equity securities of 42,783m. The note's claim that including the debt securities would not change the rating holds: +34,143m / 24,285m diluted shares = +$1.41 per share in both the DCF and the relative leg, so the blended value is about $185.5 (target $186, upside about -11.3%). The note does not test the equity securities as well. Including both (+76,926m, +$3.17 per share) gives a blended value of about $187.3 (target about $187, upside about -10.8%). That is still Underperform, but only about 0.8 pts from the -10% band edge. gen-mapping's own rationale said these amounts should be sourced from filing text downstream, and that was not done. Because the figure is labelled accurately and the rating does not change, this is minor.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "generator/mapping.json#short_term_investments",
+        "snapshot/docs/periodic.txt:263-265"
+      ],
+      "required_evidence": "The Model and valuation judgment paragraph states the omitted amounts (marketable debt securities $34.1bn, marketable equity securities $42.8bn, from the filing text) and that including both still leaves upside below -10%, or the narrower thin-margin caveat is stated explicitly."
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Net cash described as 'cash and long-term debt' although the debt figure includes short-term debt",
+      "detail": "The note says 'The net cash figure counts only mapped cash and long-term debt.' The mapped total_debt concept is LongTermDebt = 33,366m, which equals short-term debt 1,000m plus long-term debt 32,366m (periodic.txt lines 299-303). That makes it total debt, as the mapping rationale says. The wording slightly misdescribes the value. It does not affect any figure.",
+      "evidence": [
+        "generator/mapping.json#total_debt",
+        "snapshot/docs/periodic.txt:299-303",
+        "generator/note.md (Model and valuation, Judgment paragraph)"
+      ],
+      "required_evidence": "The note describes the debt deducted as total debt (short-term plus long-term)."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "numerical/gates.json: findings empty; request_id matches generator request gen-20261114T144812-0d99ea",
+    "computed/values.json and note_rendered.md are identical to numerical/recompute/ versions",
+    "All F- ids in values.json sources (F-5b8aab8df3, F-e3b41ab7aa, F-8329dec389, F-296b652672, F-5a54513386, F-b33afe3d98, F-36038ed661, F-b8cde30d27) resolve in snapshot/facts.json to the expected concept, period and accession; none accepted after cutoff 2026-08-26T20:36:00Z (max acceptance equals cutoff)",
+    "Derived ids resolve: D-e6100d63c6 (FY2026Q4 revenue = FY 215,938m 10-K - 9M 147,811m = 68,127m), D-286ba7c3b2 (Q2 CFO = YTD 74,421m - Q1 50,344m = 24,077m), D-0158212347 (Q2 capex = 4,434m - 1,757m = 2,677m); fcf_q 21.4bn = 24,077 - 2,677",
+    "All history.json component ids resolve to facts (no missing ids)",
+    "Period labels: FY2027Q2 = CY2026Q2, quarter 2026-04-27 to 2026-07-26; revenue_yoy compares to 2025-04-28..2025-07-27 (105.9% vs release 106%); revenue_qoq vs 2026-01-26..2026-04-26 (17.9% vs release 18%); revenue_ttm sums FY2026Q3-FY2027Q2 = 302,969m; the note describes y/y, q/q and TTM correctly",
+    "Spot-check against periodic.txt statements: revenue 96,221; cost of revenue 24,079; gross profit 72,142; operating income 63,734; net income 59,688; diluted EPS 2.46; diluted shares 24,285; total assets 320,272; total liabilities 91,288; cash 22,443; CFO YTD 74,421; capex YTD 4,434: all match",
+    "gross_margin_q 75.0% and operating_margin_q 66.2% recomputed from facts (GAAP)",
+    "All ten quotes Q-1..Q-10 found verbatim in the cited snapshot docs; surrounding context read, no meaning-changing truncation (Q-6 is from the CEO quote; Q-10 is supplier commitments, described as purchase obligations / supply commitments)",
+    "Guidance values match quotes: revenue 108.0bn +/-2% (105.84-110.16bn), GM 74.0% +/-50bp, GAAP/non-GAAP opex 9.2bn/9.0bn, FY tax 16-18% midpoint 17%, China DC compute none assumed; all for Q3 FY2027 = FY2027Q3",
+    "Mapping currency: MarketableSecuritiesCurrent correctly flagged stale (latest 2025-10-26) and left null; LongTermDebt covers current plus noncurrent debt; EntityCommonStockSharesOutstanding as of 2026-08-21 is before cutoff; the cash-flow lines are YTD and differenced",
+    "Price $209.66 = 2026-08-26 close; that session ended before the 20:36Z cutoff",
+    "Peers named in note (AMD, AVGO, MRVL) match valuation_inputs.json",
+    "Rating sensitivity to omitted marketable securities recomputed (see prov-001)"
+  ]
+}

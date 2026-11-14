@@ -1,6 +1,6 @@
 {
   "case_id": "NVDA-0001045810-26-000075",
-  "phase": "critic",
-  "request_id": "crit-20261114T151438-1837ea",
-  "set_at": "2026-11-14T15:14:38Z"
+  "phase": "generator",
+  "request_id": "gen-20261114T151853-c21825",
+  "set_at": "2026-11-14T15:18:53Z"
 }

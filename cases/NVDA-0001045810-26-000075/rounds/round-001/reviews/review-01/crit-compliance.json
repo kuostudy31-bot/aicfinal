@@ -1,0 +1,58 @@
+{
+  "request_id": "crit-20261114T151438-1837ea",
+  "role": "crit-compliance",
+  "candidate_id": "cand-1ea653d6f369",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Note body does not state the accession, cutoff time or price date. It only points to the case file.",
+      "detail": "policies.md section 6 asks for data sources with their as-of time: SEC EDGAR filing accession and cutoff, plus the price date. The Disclosures section says 'accession and acceptance time as recorded in the case file' and 'the last close in the case price snapshot whose session ended before the cutoff'. It does not print accession 0001045810-26-000075, the cutoff 2026-08-26T20:36:00Z or the price date 2026-08-26. The writer cannot add these because values.json has no accession, cutoff or price-date key, and the untagged-number gate would reject literal digits. The publisher fills them into the PDF Data and Sources block (src/aicfinal/publish.py lines 146-147 and 165-166), so the published product does carry them. The disclosure is substantively present, so this is minor. It would become blocking only if the markdown note were circulated without the PDF.",
+      "evidence": [
+        "rounds/round-001/numerical/recompute/note_rendered.md#Disclosures",
+        "case.json#accession,cutoff_utc",
+        "snapshot/prices.json#closes[-1] (2026-08-26, 209.66)",
+        "src/aicfinal/publish.py:146-166"
+      ],
+      "required_evidence": "Either values.json exposes accession, cutoff_utc and price_date keys that the note's Disclosures section cites, or the note is published only through publish.py, which injects them."
+    },
+    {
+      "id": "cmp-002",
+      "severity": "minor",
+      "title": "Earnings-release exhibits are described as accompanying the 10-Q, but they come from a separate 8-K",
+      "detail": "The Disclosures section reads 'the company's SEC EDGAR 10-Q filing ... and the accompanying earnings release exhibits (EX-99.1, EX-99.2)'. According to snapshot/manifest.json, release_ex99_1.txt and release_ex99_2.txt come from 8-K accession 0001045810-26-000073 (items 2.02, 9.01). That 8-K was accepted at 2026-08-26T20:21:19Z, before the cutoff, so there is no leakage. The source attribution is still slightly inaccurate. Suggested wording: 'earnings release exhibits (EX-99.1, EX-99.2) to the company's same-day Form 8-K'.",
+      "evidence": [
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "snapshot/filings.json#0001045810-26-000073 acceptance_utc 2026-08-26T20:21:19Z"
+      ],
+      "required_evidence": "The Disclosures section attributes EX-99.1 and EX-99.2 to the 8-K, not to the 10-Q."
+    },
+    {
+      "id": "cmp-003",
+      "severity": "minor",
+      "title": "The rating band outcome sits under the 'Judgment' label, but it is a mechanical code output",
+      "detail": "The fourth Key points bullet is labelled **Judgment**. It contains the last close, the target price, the upside and the band the upside falls in. All of these are code outputs, and acceptance.md D says the rating follows the policy bands mechanically. Only the last sentence ('the rating reflects valuation, not a call on the quarter's quality') is analyst judgment. Suggested fix: label the first sentence 'Valuation (code output)', as the Model and valuation section already does, and keep 'Judgment' for the interpretation.",
+      "evidence": [
+        "rounds/round-001/generator/note.md#Key points bullet 4",
+        "references/acceptance.md#D"
+      ],
+      "required_evidence": "The Key points bullet separates the code-output valuation and rating from the analyst's judgment."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Information cutoff: price 209.66 is the 2026-08-26 close; that session ended at 20:00 UTC, before cutoff 2026-08-26T20:36:00Z, and it is the last close in snapshot/prices.json",
+    "Information cutoff: the note, assumptions.json, valuation_inputs.json, mapping.json, narrative.json and the generator reports contain no calendar date after the cutoff and no later-quarter actuals; years 2027 and 2028 appear only as fiscal forecast labels; cover-page shares are dated 2026-08-21, before the cutoff",
+    "Quotes Q-1 to Q-10 appear verbatim in snapshot/docs (whitespace-normalised check); their source 8-K (-000073) was accepted before the cutoff",
+    "Disclosures (policies.md section 6): not-investment-advice line present; data sources and as-of present only by reference (cmp-001, cmp-002); rating definitions present and match the bands (+15% / -10%); statement that figures are code-generated from SEC XBRL and unaudited by the author present",
+    "Rating vs bands: upside -12.24% (valuation.json) <= -10%, so Underperform; matches the title, the body and valuation.json",
+    "Note recommends no action beyond the rating; no promissory or guaranteed language found",
+    "tp_change_needs_rationale is false (prior_target_price null), so no target-price change rationale is required",
+    "Facts, forecasts and judgments carry Reported, Forecast and Judgment labels throughout (one labelling nuance: cmp-003)",
+    "Unsupported-claim check: 'no XBRL concept in the snapshot carries' the marketable securities is confirmed by eu.py concepts (MarketableSecuritiesCurrent stale at 2025-10-26; DebtSecuritiesCurrent, EquitySecuritiesFvNi and others not in snapshot)",
+    "Unsupported-claim check: 'not by enough to change the rating' is confirmed; +$1.41 per share (debt securities) gives about -11.5% upside and +$3.17 (both lines) gives about -10.7%, both still <= -10%, so still Underperform",
+    "Prompt-injection check: grep of snapshot/docs for instruction-like text found none; no filing-embedded instruction was followed",
+    "Gates file reports no findings for this candidate"
+  ]
+}

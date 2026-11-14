@@ -1,0 +1,63 @@
+{
+  "request_id": "crit-20261114T151438-1837ea",
+  "role": "crit-assumption",
+  "candidate_id": "cand-1ea653d6f369",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "major",
+      "title": "Net cash omits $34.1B marketable debt securities (and $42.8B marketable equity securities)",
+      "detail": "valuation.json uses net_cash = cash 22.443B + short_term_investments 0 - debt 33.366B = -10.923B. The 2026-07-26 balance sheet (snapshot/docs/periodic.txt line 263, 265; MD&A line 1828, 1852) reports marketable debt securities of $34,143M (US Treasury and agency debt; the company itself reports 'Cash, cash equivalents, and marketable debt securities' of $56,586M) and marketable equity securities of $42,783M. Debt is complete (short-term 1,000 + long-term 32,366 = 33,366; no commercial paper outstanding, line 1152). Omitting the near-cash debt securities turns about +$23.2B of net cash into -$10.9B. Recomputed with the code's own formula (both DCF and EV/Sales legs subtract net cash): debt securities only gives a blended value of $185.54 (target about $186, upside -11.5%); including both marketable lines gives $187.30 (target about $187, upside -10.7%, 0.7pp from the Neutral band). The rating survives, but the published target price is wrong. The candidate discloses the omission (valuation_inputs.json rationales.net_cash; note Model and valuation section), but disclosure does not fix the figure. No XBRL concept in the snapshot carries these lines (MarketableSecuritiesCurrent stops 2025-10-26; DebtSecuritiesCurrent, EquitySecuritiesFvNi, AvailableForSale* absent; values 34143000000/42783000000 not in facts.json), so the fix probably needs a controller- or code-level mechanism for filing-text balance-sheet items, not just a generator remap.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "generator/mapping.json#short_term_investments",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "snapshot/docs/periodic.txt:261-303",
+        "snapshot/docs/periodic.txt:1824-1852"
+      ],
+      "required_evidence": "valuation.json net_cash includes the $34.143B marketable debt securities (and either includes the $42.783B marketable equity securities with a stated haircut or gives a documented reason for leaving them out), with target price and upside recomputed; or a controller-recorded decision that accepts the understatement, with the note quantifying the target-price effect."
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Rating depends on a 50bp WACC choice; rounding down from about 10.7% to 10.5% is unexplained",
+      "detail": "Reproducing the DCF offline from valuation_inputs.json: WACC 10.0% gives DCF $150.40, blended $191.29, upside -8.8% (Neutral); 10.5% gives -12.2% (Underperform); the unrounded CAPM figure of about 10.7% gives -13.4%. The rationale computes about 10.7% and then rounds to 10.5% with no reason for the direction or size of the rounding. The note says valuation is 'sensitive to the discount rate' but does not say that the rating itself changes within a 50bp WACC move. The terminal share (71.7%) is under 80%, and terminal growth of 3% is reasonable.",
+      "evidence": [
+        "generator/valuation_inputs.json#rationales.wacc",
+        "numerical/recompute/valuation.json#dcf",
+        "numerical/recompute/note_rendered.md#Risks"
+      ],
+      "required_evidence": "WACC rationale explains why 10.5% rather than about 10.7%, and the note states that the rating moves to Neutral at a WACC near 10.0%."
+    },
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Peer period misalignment not stated in the note; peers.json calendar label is inconsistent",
+      "detail": "Peer TTM windows end 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL), against 2026-07-26 for NVDA. The valuation rationale notes this, but the note does not. peers.json labels every peer 'calendar': 'CY2025Q4', which does not match the ttm_end dates; this looks like a code-labelling problem rather than a candidate error. The peer choice itself (AMD, AVGO, MRVL) is relevant and the exclusions are well reasoned.",
+      "evidence": [
+        "numerical/recompute/peers.json",
+        "generator/valuation_inputs.json#rationales.peers"
+      ],
+      "required_evidence": "The note states that peer TTM windows end May-June 2026, against July 2026 for NVDA; the calendar label is either corrected or flagged to the controller."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "next-quarter revenue vs guidance: FY2027Q3 107.998B vs $108.0B midpoint (Q-1), inside the 105.84-110.16B range",
+    "next-quarter gross margin 74.0% = guide midpoint (Q-3); opex 9.201B vs ~$9.2B GAAP guide (Q-4); tax 17% = midpoint of 16-18% (Q-5)",
+    "later-quarter path: revenue QoQ 10%/8%/7% against 17.9-19.6% recent history and 12.2% guide; GM held at 74%; opex growth about 9.7%/9.3%/8.2% QoQ against about 9-10% history; plausible and explained",
+    "share change -0.4%/q against diluted shares 24,483M->24,391M->24,285M (about -0.38%/-0.43%)",
+    "WACC 10.5% / terminal growth 3.0% reasonableness for a large-cap semi; DCF reproduced offline (EV 3.415T, per share 140.17, terminal share 71.7% < 80%)",
+    "WACC sensitivity and rating-band distance (upside -12.2% against -10% threshold)",
+    "FCF margins 42-44% against historical CFO minus capex (FY24 44.4%, FY25 46.6%, FY26 44.8%, TTM 41.9%); quarterly history in eu.py history reviewed",
+    "DCF year-2 growth 15% against FY2028Q2 exit run-rate (about 549B against NTM 492B)",
+    "net cash completeness against balance-sheet text: cash, marketable debt and equity securities, short-term and long-term debt, commercial paper",
+    "facts.json and eu.py concepts searched for any XBRL concept carrying marketable securities at 2026-07-26 (none)",
+    "net cash effect on target price recomputed (185.54 debt-only; 187.30 both lines)",
+    "peer set relevance and period alignment (peers.json ttm_end against NVDA 2026-07-26)",
+    "rationales present for every assumption, and checked that they support the chosen numbers",
+    "gates.json findings empty; open_findings in request empty (nothing to resolve)"
+  ]
+}

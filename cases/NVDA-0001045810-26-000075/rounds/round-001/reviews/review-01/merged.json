@@ -1,0 +1,218 @@
+{
+  "request_id": "crit-20261114T151438-1837ea",
+  "candidate_id": "cand-1ea653d6f369",
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "verdict": "pass",
+      "finding_ids": [
+        "prov-001",
+        "prov-002"
+      ]
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "verdict": "fail",
+      "finding_ids": [
+        "asm-001",
+        "asm-002",
+        "asm-003"
+      ]
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "verdict": "pass",
+      "finding_ids": [
+        "cmp-001",
+        "cmp-002",
+        "cmp-003"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "minor",
+      "title": "Net-cash understatement disclosed but not quantified; equity securities not covered by the robustness claim",
+      "detail": "valuation.json net_cash = cash 22,443m - debt 33,366m = -10,923m, with short_term_investments = 0 because the catalog concept MarketableSecuritiesCurrent is stale (latest 2025-10-26) and DebtSecuritiesCurrent / EquitySecuritiesFvNi have no observations in snapshot/facts.json (eu.py concepts: in_snapshot=false). The note discloses this correctly, but it does not give the omitted amounts. The balance sheet in periodic.txt (lines 263-265) shows marketable debt securities of 34,143m and marketable equity securities of 42,783m. The note's claim that including the debt securities would not change the rating holds: +34,143m / 24,285m diluted shares = +$1.41 per share in both the DCF and the relative leg, so the blended value is about $185.5 (target $186, upside about -11.3%). The note does not test the equity securities as well. Including both (+76,926m, +$3.17 per share) gives a blended value of about $187.3 (target about $187, upside about -10.8%). That is still Underperform, but only about 0.8 pts from the -10% band edge. gen-mapping's own rationale said these amounts should be sourced from filing text downstream, and that was not done. Because the figure is labelled accurately and the rating does not change, this is minor.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "generator/mapping.json#short_term_investments",
+        "snapshot/docs/periodic.txt:263-265"
+      ],
+      "required_evidence": "The Model and valuation judgment paragraph states the omitted amounts (marketable debt securities $34.1bn, marketable equity securities $42.8bn, from the filing text) and that including both still leaves upside below -10%, or the narrower thin-margin caveat is stated explicitly.",
+      "source": "crit-provenance",
+      "conflict": "net_cash_marketable_securities"
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Net cash described as 'cash and long-term debt' although the debt figure includes short-term debt",
+      "detail": "The note says 'The net cash figure counts only mapped cash and long-term debt.' The mapped total_debt concept is LongTermDebt = 33,366m, which equals short-term debt 1,000m plus long-term debt 32,366m (periodic.txt lines 299-303). That makes it total debt, as the mapping rationale says. The wording slightly misdescribes the value. It does not affect any figure.",
+      "evidence": [
+        "generator/mapping.json#total_debt",
+        "snapshot/docs/periodic.txt:299-303",
+        "generator/note.md (Model and valuation, Judgment paragraph)"
+      ],
+      "required_evidence": "The note describes the debt deducted as total debt (short-term plus long-term).",
+      "source": "crit-provenance"
+    },
+    {
+      "id": "asm-001",
+      "severity": "major",
+      "title": "Net cash omits $34.1B marketable debt securities (and $42.8B marketable equity securities)",
+      "detail": "valuation.json uses net_cash = cash 22.443B + short_term_investments 0 - debt 33.366B = -10.923B. The 2026-07-26 balance sheet (snapshot/docs/periodic.txt line 263, 265; MD&A line 1828, 1852) reports marketable debt securities of $34,143M (US Treasury and agency debt; the company itself reports 'Cash, cash equivalents, and marketable debt securities' of $56,586M) and marketable equity securities of $42,783M. Debt is complete (short-term 1,000 + long-term 32,366 = 33,366; no commercial paper outstanding, line 1152). Omitting the near-cash debt securities turns about +$23.2B of net cash into -$10.9B. Recomputed with the code's own formula (both DCF and EV/Sales legs subtract net cash): debt securities only gives a blended value of $185.54 (target about $186, upside -11.5%); including both marketable lines gives $187.30 (target about $187, upside -10.7%, 0.7pp from the Neutral band). The rating survives, but the published target price is wrong. The candidate discloses the omission (valuation_inputs.json rationales.net_cash; note Model and valuation section), but disclosure does not fix the figure. No XBRL concept in the snapshot carries these lines (MarketableSecuritiesCurrent stops 2025-10-26; DebtSecuritiesCurrent, EquitySecuritiesFvNi, AvailableForSale* absent; values 34143000000/42783000000 not in facts.json), so the fix probably needs a controller- or code-level mechanism for filing-text balance-sheet items, not just a generator remap.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "generator/mapping.json#short_term_investments",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "snapshot/docs/periodic.txt:261-303",
+        "snapshot/docs/periodic.txt:1824-1852"
+      ],
+      "required_evidence": "valuation.json net_cash includes the $34.143B marketable debt securities (and either includes the $42.783B marketable equity securities with a stated haircut or gives a documented reason for leaving them out), with target price and upside recomputed; or a controller-recorded decision that accepts the understatement, with the note quantifying the target-price effect.",
+      "source": "crit-assumption",
+      "conflict": "net_cash_marketable_securities"
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Rating depends on a 50bp WACC choice; rounding down from about 10.7% to 10.5% is unexplained",
+      "detail": "Reproducing the DCF offline from valuation_inputs.json: WACC 10.0% gives DCF $150.40, blended $191.29, upside -8.8% (Neutral); 10.5% gives -12.2% (Underperform); the unrounded CAPM figure of about 10.7% gives -13.4%. The rationale computes about 10.7% and then rounds to 10.5% with no reason for the direction or size of the rounding. The note says valuation is 'sensitive to the discount rate' but does not say that the rating itself changes within a 50bp WACC move. The terminal share (71.7%) is under 80%, and terminal growth of 3% is reasonable.",
+      "evidence": [
+        "generator/valuation_inputs.json#rationales.wacc",
+        "numerical/recompute/valuation.json#dcf",
+        "numerical/recompute/note_rendered.md#Risks"
+      ],
+      "required_evidence": "WACC rationale explains why 10.5% rather than about 10.7%, and the note states that the rating moves to Neutral at a WACC near 10.0%.",
+      "source": "crit-assumption"
+    },
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Peer period misalignment not stated in the note; peers.json calendar label is inconsistent",
+      "detail": "Peer TTM windows end 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL), against 2026-07-26 for NVDA. The valuation rationale notes this, but the note does not. peers.json labels every peer 'calendar': 'CY2025Q4', which does not match the ttm_end dates; this looks like a code-labelling problem rather than a candidate error. The peer choice itself (AMD, AVGO, MRVL) is relevant and the exclusions are well reasoned.",
+      "evidence": [
+        "numerical/recompute/peers.json",
+        "generator/valuation_inputs.json#rationales.peers"
+      ],
+      "required_evidence": "The note states that peer TTM windows end May-June 2026, against July 2026 for NVDA; the calendar label is either corrected or flagged to the controller.",
+      "source": "crit-assumption"
+    },
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Note body does not state the accession, cutoff time or price date. It only points to the case file.",
+      "detail": "policies.md section 6 asks for data sources with their as-of time: SEC EDGAR filing accession and cutoff, plus the price date. The Disclosures section says 'accession and acceptance time as recorded in the case file' and 'the last close in the case price snapshot whose session ended before the cutoff'. It does not print accession 0001045810-26-000075, the cutoff 2026-08-26T20:36:00Z or the price date 2026-08-26. The writer cannot add these because values.json has no accession, cutoff or price-date key, and the untagged-number gate would reject literal digits. The publisher fills them into the PDF Data and Sources block (src/aicfinal/publish.py lines 146-147 and 165-166), so the published product does carry them. The disclosure is substantively present, so this is minor. It would become blocking only if the markdown note were circulated without the PDF.",
+      "evidence": [
+        "rounds/round-001/numerical/recompute/note_rendered.md#Disclosures",
+        "case.json#accession,cutoff_utc",
+        "snapshot/prices.json#closes[-1] (2026-08-26, 209.66)",
+        "src/aicfinal/publish.py:146-166"
+      ],
+      "required_evidence": "Either values.json exposes accession, cutoff_utc and price_date keys that the note's Disclosures section cites, or the note is published only through publish.py, which injects them.",
+      "source": "crit-compliance"
+    },
+    {
+      "id": "cmp-002",
+      "severity": "minor",
+      "title": "Earnings-release exhibits are described as accompanying the 10-Q, but they come from a separate 8-K",
+      "detail": "The Disclosures section reads 'the company's SEC EDGAR 10-Q filing ... and the accompanying earnings release exhibits (EX-99.1, EX-99.2)'. According to snapshot/manifest.json, release_ex99_1.txt and release_ex99_2.txt come from 8-K accession 0001045810-26-000073 (items 2.02, 9.01). That 8-K was accepted at 2026-08-26T20:21:19Z, before the cutoff, so there is no leakage. The source attribution is still slightly inaccurate. Suggested wording: 'earnings release exhibits (EX-99.1, EX-99.2) to the company's same-day Form 8-K'.",
+      "evidence": [
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "snapshot/filings.json#0001045810-26-000073 acceptance_utc 2026-08-26T20:21:19Z"
+      ],
+      "required_evidence": "The Disclosures section attributes EX-99.1 and EX-99.2 to the 8-K, not to the 10-Q.",
+      "source": "crit-compliance"
+    },
+    {
+      "id": "cmp-003",
+      "severity": "minor",
+      "title": "The rating band outcome sits under the 'Judgment' label, but it is a mechanical code output",
+      "detail": "The fourth Key points bullet is labelled **Judgment**. It contains the last close, the target price, the upside and the band the upside falls in. All of these are code outputs, and acceptance.md D says the rating follows the policy bands mechanically. Only the last sentence ('the rating reflects valuation, not a call on the quarter's quality') is analyst judgment. Suggested fix: label the first sentence 'Valuation (code output)', as the Model and valuation section already does, and keep 'Judgment' for the interpretation.",
+      "evidence": [
+        "rounds/round-001/generator/note.md#Key points bullet 4",
+        "references/acceptance.md#D"
+      ],
+      "required_evidence": "The Key points bullet separates the code-output valuation and rating from the analyst's judgment.",
+      "source": "crit-compliance"
+    }
+  ],
+  "conflicts": {
+    "net_cash_marketable_securities": {
+      "finding_ids": [
+        "asm-001",
+        "prov-001"
+      ],
+      "note": "Same underlying issue (net cash excludes $34.1B marketable debt and $42.8B marketable equity securities). crit-assumption rates it major (verdict fail); crit-provenance rates it minor (verdict pass); crit-compliance did not raise it as a finding and confirmed that the note's 'not enough to change the rating' claim holds. Both findings kept unchanged; the higher severity (major) governs blocking under acceptance.md B."
+    }
+  },
+  "blocking_findings": [
+    "asm-001"
+  ],
+  "coverage": {
+    "crit-provenance": {
+      "checked": [
+        "numerical/gates.json: findings empty; request_id matches generator request gen-20261114T144812-0d99ea",
+        "computed/values.json and note_rendered.md are identical to numerical/recompute/ versions",
+        "All F- ids in values.json sources (F-5b8aab8df3, F-e3b41ab7aa, F-8329dec389, F-296b652672, F-5a54513386, F-b33afe3d98, F-36038ed661, F-b8cde30d27) resolve in snapshot/facts.json to the expected concept, period and accession; none accepted after cutoff 2026-08-26T20:36:00Z (max acceptance equals cutoff)",
+        "Derived ids resolve: D-e6100d63c6 (FY2026Q4 revenue = FY 215,938m 10-K - 9M 147,811m = 68,127m), D-286ba7c3b2 (Q2 CFO = YTD 74,421m - Q1 50,344m = 24,077m), D-0158212347 (Q2 capex = 4,434m - 1,757m = 2,677m); fcf_q 21.4bn = 24,077 - 2,677",
+        "All history.json component ids resolve to facts (no missing ids)",
+        "Period labels: FY2027Q2 = CY2026Q2, quarter 2026-04-27 to 2026-07-26; revenue_yoy compares to 2025-04-28..2025-07-27 (105.9% vs release 106%); revenue_qoq vs 2026-01-26..2026-04-26 (17.9% vs release 18%); revenue_ttm sums FY2026Q3-FY2027Q2 = 302,969m; the note describes y/y, q/q and TTM correctly",
+        "Spot-check against periodic.txt statements: revenue 96,221; cost of revenue 24,079; gross profit 72,142; operating income 63,734; net income 59,688; diluted EPS 2.46; diluted shares 24,285; total assets 320,272; total liabilities 91,288; cash 22,443; CFO YTD 74,421; capex YTD 4,434: all match",
+        "gross_margin_q 75.0% and operating_margin_q 66.2% recomputed from facts (GAAP)",
+        "All ten quotes Q-1..Q-10 found verbatim in the cited snapshot docs; surrounding context read, no meaning-changing truncation (Q-6 is from the CEO quote; Q-10 is supplier commitments, described as purchase obligations / supply commitments)",
+        "Guidance values match quotes: revenue 108.0bn +/-2% (105.84-110.16bn), GM 74.0% +/-50bp, GAAP/non-GAAP opex 9.2bn/9.0bn, FY tax 16-18% midpoint 17%, China DC compute none assumed; all for Q3 FY2027 = FY2027Q3",
+        "Mapping currency: MarketableSecuritiesCurrent correctly flagged stale (latest 2025-10-26) and left null; LongTermDebt covers current plus noncurrent debt; EntityCommonStockSharesOutstanding as of 2026-08-21 is before cutoff; the cash-flow lines are YTD and differenced",
+        "Price $209.66 = 2026-08-26 close; that session ended before the 20:36Z cutoff",
+        "Peers named in note (AMD, AVGO, MRVL) match valuation_inputs.json",
+        "Rating sensitivity to omitted marketable securities recomputed (see prov-001)"
+      ]
+    },
+    "crit-assumption": {
+      "checked": [
+        "next-quarter revenue vs guidance: FY2027Q3 107.998B vs $108.0B midpoint (Q-1), inside the 105.84-110.16B range",
+        "next-quarter gross margin 74.0% = guide midpoint (Q-3); opex 9.201B vs ~$9.2B GAAP guide (Q-4); tax 17% = midpoint of 16-18% (Q-5)",
+        "later-quarter path: revenue QoQ 10%/8%/7% against 17.9-19.6% recent history and 12.2% guide; GM held at 74%; opex growth about 9.7%/9.3%/8.2% QoQ against about 9-10% history; plausible and explained",
+        "share change -0.4%/q against diluted shares 24,483M->24,391M->24,285M (about -0.38%/-0.43%)",
+        "WACC 10.5% / terminal growth 3.0% reasonableness for a large-cap semi; DCF reproduced offline (EV 3.415T, per share 140.17, terminal share 71.7% < 80%)",
+        "WACC sensitivity and rating-band distance (upside -12.2% against -10% threshold)",
+        "FCF margins 42-44% against historical CFO minus capex (FY24 44.4%, FY25 46.6%, FY26 44.8%, TTM 41.9%); quarterly history in eu.py history reviewed",
+        "DCF year-2 growth 15% against FY2028Q2 exit run-rate (about 549B against NTM 492B)",
+        "net cash completeness against balance-sheet text: cash, marketable debt and equity securities, short-term and long-term debt, commercial paper",
+        "facts.json and eu.py concepts searched for any XBRL concept carrying marketable securities at 2026-07-26 (none)",
+        "net cash effect on target price recomputed (185.54 debt-only; 187.30 both lines)",
+        "peer set relevance and period alignment (peers.json ttm_end against NVDA 2026-07-26)",
+        "rationales present for every assumption, and checked that they support the chosen numbers",
+        "gates.json findings empty; open_findings in request empty (nothing to resolve)"
+      ]
+    },
+    "crit-compliance": {
+      "checked": [
+        "Information cutoff: price 209.66 is the 2026-08-26 close; that session ended at 20:00 UTC, before cutoff 2026-08-26T20:36:00Z, and it is the last close in snapshot/prices.json",
+        "Information cutoff: the note, assumptions.json, valuation_inputs.json, mapping.json, narrative.json and the generator reports contain no calendar date after the cutoff and no later-quarter actuals; years 2027 and 2028 appear only as fiscal forecast labels; cover-page shares are dated 2026-08-21, before the cutoff",
+        "Quotes Q-1 to Q-10 appear verbatim in snapshot/docs (whitespace-normalised check); their source 8-K (-000073) was accepted before the cutoff",
+        "Disclosures (policies.md section 6): not-investment-advice line present; data sources and as-of present only by reference (cmp-001, cmp-002); rating definitions present and match the bands (+15% / -10%); statement that figures are code-generated from SEC XBRL and unaudited by the author present",
+        "Rating vs bands: upside -12.24% (valuation.json) <= -10%, so Underperform; matches the title, the body and valuation.json",
+        "Note recommends no action beyond the rating; no promissory or guaranteed language found",
+        "tp_change_needs_rationale is false (prior_target_price null), so no target-price change rationale is required",
+        "Facts, forecasts and judgments carry Reported, Forecast and Judgment labels throughout (one labelling nuance: cmp-003)",
+        "Unsupported-claim check: 'no XBRL concept in the snapshot carries' the marketable securities is confirmed by eu.py concepts (MarketableSecuritiesCurrent stale at 2025-10-26; DebtSecuritiesCurrent, EquitySecuritiesFvNi and others not in snapshot)",
+        "Unsupported-claim check: 'not by enough to change the rating' is confirmed; +$1.41 per share (debt securities) gives about -11.5% upside and +$3.17 (both lines) gives about -10.7%, both still <= -10%, so still Underperform",
+        "Prompt-injection check: grep of snapshot/docs for instruction-like text found none; no filing-embedded instruction was followed",
+        "Gates file reports no findings for this candidate"
+      ]
+    },
+    "acceptance_areas": {
+      "A_numerical_gates": "covered: all three critics read gates.json (no findings); provenance confirmed recompute files identical; compliance checked information cutoff and quote verbatim",
+      "B_critic_review": "covered: three fresh critics ran; no open findings in request",
+      "C_research_acceptance": "not met this review: crit-assumption verdict fail (asm-001 major)",
+      "D_publication": "partially covered: compliance checked rating bands, disclosures and tp_change_needs_rationale (false, no prior TP); named approval (approvals.jsonl) not covered by any critic (controller/approver step)",
+      "E_limits": "not covered by any critic (controller-enforced)"
+    }
+  }
+}
