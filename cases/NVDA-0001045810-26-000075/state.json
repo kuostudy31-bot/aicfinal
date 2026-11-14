@@ -1,11 +1,22 @@
 {
   "accession": "0001045810-26-000075",
-  "artifacts": {},
-  "candidate_id": null,
+  "artifacts": {
+    "round-001": {
+      "assumptions.json": "9ae34509f0542e9229265545bd26103348ab4f1007a9284e7dc30f6b668bff92",
+      "gates.json": "aaadffd5d930a06494a3ffb2b47fb934e3939aa978146a1eadf92644b241db17",
+      "mapping.json": "09ef7ab22323e2eab0b9783e079ed046fcc9cbb45088b5d9e7d18dbcab230829",
+      "narrative.json": "61b4dd25d851c1ed1e8f5d1dd61e70b34d0816f49741503af1f923d2dc3a6921",
+      "note.md": "4d9dbd2e1adc451ceaf413def7ad8ae906c0449afddf1a1555406ccc357a51b7",
+      "valuation_inputs.json": "aee90b0f96c6e3a5b036e509e68f1020b1f55ab82feb78cabf96e7e60daa43f7"
+    }
+  },
+  "candidate_id": "cand-1ea653d6f369",
   "case_id": "NVDA-0001045810-26-000075",
   "clean_streak": 0,
   "cutoff_utc": "2026-08-26T20:36:00Z",
-  "dispatch_counts": {},
+  "dispatch_counts": {
+    "gen-20261114T144812-0d99ea": 9
+  },
   "invalid_submissions": 0,
   "ledger": {},
   "limits": {
@@ -19,10 +30,10 @@
   "open_history": [],
   "opened_at": "2026-11-14T14:48:12Z",
   "pending": {
-    "issued_at": "2026-11-14T14:48:12Z",
-    "path": "cases/NVDA-0001045810-26-000075/rounds/round-001/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261114T144812-0d99ea"
+    "issued_at": "2026-11-14T15:14:38Z",
+    "path": "cases/NVDA-0001045810-26-000075/rounds/round-001/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261114T151438-1837ea"
   },
   "period_of_report": "2026-07-26",
   "prompt_versions": {
@@ -40,10 +51,10 @@
     "gen-writer": "v1",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 1,
   "snapshot_manifest_sha256": "c5a3f072e1fd5260fe85389bd0ec4eee37c1334652d613612ea7868f72e4e55e",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "NVDA",
-  "updated_at": "2026-11-14T14:48:12Z"
+  "updated_at": "2026-11-14T15:14:38Z"
 }
