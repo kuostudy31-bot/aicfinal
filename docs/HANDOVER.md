@@ -19,6 +19,12 @@ whose initial task is: run `python3 scripts/eu.py resume --case <case>`, record 
 case's RUN_NOTES.md, dispatch the `orchestrator` from that next_action, commit only the case
 directory, `git pull --rebase --autostash`, push. (Template: the Live run 5 prompt.)
 
+## Paused by the owner
+* **Evolution demo (Live run 6, `session_01ERG3WY9725KJyr9Rhv5Gvf`)** was paused by the owner at
+  16:20 UTC, right after it started; nothing was pushed (no `evolution/` folder yet). Do not
+  resume or restart it until the owner asks. When resumed, use a new session whose initial task
+  is the Run 6 prompt (the stash it needed is already committed in 220c535).
+
 ## Next steps, in order
 1. **AMD approval.** When AMD reaches AWAITING_APPROVAL: review `decision.json` of both reviews,
    the ledger and `note_rendered.md`, then approve under the owner's delegation (the owner
