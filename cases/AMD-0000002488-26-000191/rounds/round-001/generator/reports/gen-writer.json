@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T145504-830038",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "Prompt gen-writer v1. note.md uses only {{key}} placeholders from computed/values.json and [[Q-1]]..[[Q-8]] from narrative.json, in the required sections, with all policies.md section 6 disclosures. Re-ran eu.py compute: no gate-note findings; TP 265, Underperform unchanged. Deliberately not used: {{guide_opex_next_q}}, because its display '$3.8bn' does not match Q-3 '~$3.75 Billion' (open gate-guidance-opex_next_q, owned by gen-narrative); opex guidance is cited only as verbatim Q-3. Also not used: {{guide_diluted_shares_next_q}}, because its display is a raw unformatted number; share guidance is cited as verbatim Q-5. Accession number, exact cutoff timestamp and price date contain digits that are not allowed in the note. The disclosure names the source and the cutoff basis, says the price is the last close on the cutoff date, and points to the published report's data block (publish.py prints accession, cutoff and price source there). The product name in Q-8 appears only inside the quote. Non-GAAP guidance and GAAP reported figures are labelled separately. Unresolved: gate-guidance-opex_next_q is still open (not mine to fix)."
+}

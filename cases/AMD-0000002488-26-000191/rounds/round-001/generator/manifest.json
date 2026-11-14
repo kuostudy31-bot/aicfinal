@@ -1,0 +1,38 @@
+{
+  "request_id": "gen-20261114T145504-830038",
+  "files": {
+    "mapping.json": "0384f113281bee1754699ce1179bc801f7844c362253a2cdc3de81788fae946c",
+    "narrative.json": "248eb84bb952fab8fc5a8b34ffee3b5ee539c0287115620b844cf66d1c4795ab",
+    "assumptions.json": "1019e1e41bc426ef5c31e43cbcf1b78e7d37b764ad0dd061596160ccabe14884",
+    "valuation_inputs.json": "dda8e3440328a0627c36b07ecba9f51aa42d423cbd942bdb332b1cd47f58df13",
+    "note.md": "56cdcd36448675ed5bbd0f88e0a98717674a5ea145d72e8ecfc17ac1967db5e2",
+    "reports/gen-mapping.json": "074ce8a6b1ad0fabd0e1627ee79e10266659bf293fa77a6565c4b1f0b67b1b42",
+    "reports/gen-model.json": "948096cbc8d349f8859af74289888432605ef4fef43a87f7b8333c2879f0b68e",
+    "reports/gen-narrative.json": "04faea907ed586cf5699e3b3d10802129fa336b2e58dc7349ff546b321af427c",
+    "reports/gen-valuation.json": "5ae38a4afea19435b43c95610368b598dfd3d543d63513703d6342ef79a82509",
+    "reports/gen-writer.json": "81d22ca60a40d067a63ce219acfb35eb4f0a62690f25a3d570d5eed595250906"
+  },
+  "reports": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation",
+    "gen-writer"
+  ],
+  "integration": {
+    "compute": "ok",
+    "target_price": 265,
+    "rating": "Underperform",
+    "gate_findings": [
+      {
+        "id": "gate-guidance-opex_next_q",
+        "severity": "major",
+        "check": "guidance_source",
+        "detail": "opex_next_q value 3.8 not visible in Q-3",
+        "owner": "gen-narrative",
+        "status": "open; not re-dispatched (resume instruction limited re-dispatch to gen-writer)"
+      }
+    ],
+    "notes": "Resumed request: gen-mapping, gen-narrative, gen-model and gen-valuation reports reused after checking they carry the current request_id; only gen-writer was dispatched."
+  }
+}
