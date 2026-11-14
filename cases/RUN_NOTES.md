@@ -115,7 +115,7 @@ were removed.
 
 ## NVDA-0001045810-26-000075 — Resume after controller fix, 2026-11-14
 
-Another session (session_01ERG3WZcbWkidht1tadsh6H) reported that commit 9240e7c fixed the controller defects recorded above: text guidance in gate_quotes, non-additive share counts, range midpoints, and cover-page share dates. It relayed that the owner decided to keep the completed reports. The entry session pulled the branch and confirmed that gates.py now skips text-unit guidance. It made no code edits.
+Another session (session_01ERG3WZcbWkidht1tadsh6H) reported that commit 9240e7c fixed the controller defects recorded above: text guidance in gate_quotes, non-additive share counts, range midpoints, and cover-page share dates. Keeping the completed reports is that coordinating session's application of the resume rule: completed reports are kept and only missing work is re-dispatched. The other session first called this the human owner's decision, then corrected itself at 15:11:47Z. The human has not made or approved any decision about this case. The entry session pulled the branch and confirmed that gates.py now skips text-unit guidance. It made no code edits.
 
 `python3 scripts/eu.py resume --case NVDA-0001045810-26-000075` (exit 0):
 ```json
