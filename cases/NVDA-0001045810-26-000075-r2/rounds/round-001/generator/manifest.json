@@ -1,0 +1,35 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "files": {
+    "assumptions.json": "d48689ee817756de9f3006313d72a3c4c1585cc50a778733ab2860f1311faeb8",
+    "mapping.json": "ecba05d5bfe2ca3ebd8868394568293f5f2686dd2050d7b832710e7a36a5e3fd",
+    "narrative.json": "288dc6cc7589dc8d5ddba2992f8233a2ab7d4c148ab2050b62970e5dc04bac51",
+    "note.md": "231445d2069914961eb991ba680f65cef629707ca410bdcb3f9ba45cb7b81764",
+    "reports/gen-mapping.json": "ae27e547b8daa94cbccd7633dfee38b072d37c46df215cc15f6b9d7833ee7f28",
+    "reports/gen-model.json": "bd140ba26a6333332537dfba881497eed469b16595942d1ae578bbef2cc335dd",
+    "reports/gen-narrative.json": "e7f9800b92ccb4febf46a9e39f61819c490d882fc9fcc7568ff86d5acddaa9be",
+    "reports/gen-valuation.json": "815fb84797a3129320bdfda8c0a7d745e0f47f00dc01bf2dd84a886ebcd734e6",
+    "reports/gen-writer.json": "af6d8da68a48fce94cb7395cc8c80bf8faa52de57d18f71d96ee17ac9a0178c7",
+    "valuation_inputs.json": "f609d97d081a5c6e5e5440d35872ab7108591aaa4e8481cb2152a86bdd5d8129"
+  },
+  "reports": [
+    "reports/gen-mapping.json",
+    "reports/gen-narrative.json",
+    "reports/gen-model.json",
+    "reports/gen-valuation.json",
+    "reports/gen-writer.json"
+  ],
+  "integration": {
+    "compute": "ok",
+    "gate_findings": [],
+    "target_price": 186,
+    "rating": "Underperform",
+    "computed_hashes": {
+      "history.json": "873236008558d7cf83f35da3a92330766ca24eeb62b081d9fb6510a59cec3bb5",
+      "forecast.json": "3aa070471fc5e11855d4c915f2bf3b4eab766a18ff4e1d0522a6d0325ac8eec7",
+      "peers.json": "7b8b5f434925112733d08af4079e86fc7ffe415d50e2e02b6572ce9458f107fd",
+      "valuation.json": "e1e8b771d6a012e58ea693644b9f9be5b46c94d46b4e5d99648a45161b64cea8",
+      "values.json": "57e5f7b2d2045a6e7cd08f249e9efb4c40d6df1320076c10f5a54e5bcb2b1b9c"
+    }
+  }
+}
