@@ -1,0 +1,48 @@
+{
+  "request_id": "crit-20261114T152629-224a85",
+  "role": "crit-assumption",
+  "candidate_id": "cand-bfc95339b3e9",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "major",
+      "title": "Net cash still omits $34.1B marketable debt securities (and $42.8B marketable equity securities); published target price unchanged by the fix",
+      "detail": "Round 2 numerical/recompute/valuation.json (identical to computed/) still has net_cash = cash 22.443B + short_term_investments 0 - debt 33.366B = -10.923B. The 2026-07-26 balance sheet reports marketable debt securities of 34,143m (Q-11; Treasury 33,003m Q-15 plus agency 1,140m Q-16; the company reports cash, cash equivalents and marketable debt securities of 56,586m, Q-14) and marketable equity securities of 42,783m (Q-12). Debt is complete. The generator has done what it can: gen-mapping re-verified that no snapshot concept or sum of concepts carries these balances; valuation_inputs.json rationales.net_cash gives a reasoned treatment (debt securities at full value; equity securities at a 30% haircut, justified by $36.9B of lock-ups (Q-17), concentration and tax on unrealised gains; non-marketable securities excluded) and a preferred net cash of +53.168B; and the note quotes the amounts and says the rating does not change. I reproduced the offline figures with src/aicfinal/valuation.py dcf() and the blending formula at WACC 10.7%: code as published gives blended $181.53, TP $182, upside -13.2%; debt securities only gives $182.94, TP $183, -12.7%; debt plus haircut equity gives $184.17, TP $184, -12.2%; both at full value gives $184.70, TP $185, -11.8%. All are Underperform. Neither alternative in the required evidence has been met, though. valuation.json net_cash does not include the debt securities, so the published TP of $182 is still below the candidate's own preferred $184. No controller-recorded decision accepting the understatement exists: state.json, decision_note.md and the round-1 decision.json contain none. The note gives the effect only qualitatively ('raises the target only slightly'; 'margin to the Neutral band edge narrows to about two percentage points at most'), with no target-price figures. This is a code/controller issue, not a generator error (see the gen-lead manifest integration.unresolved). It stays major until either a code mechanism feeds filing-text balance-sheet items into net_cash or the controller records acceptance.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "generator/mapping.json#mapping.short_term_investments",
+        "generator/narrative.json#Q-11,Q-12,Q-14,Q-15,Q-16,Q-17",
+        "generator/manifest.json#integration.unresolved",
+        "src/aicfinal/valuation.py value(): net_cash = cash + sti - debt"
+      ],
+      "required_evidence": "valuation.json net_cash includes the $34.143B marketable debt securities (and either includes the $42.783B marketable equity securities with a stated haircut or gives a documented reason for leaving them out), with target price and upside recomputed; or a controller-recorded decision that accepts the understatement, with the note quantifying the target-price effect (about $1-3 per share; upside -12.7% to -11.8%)."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "asm-002",
+      "evidence": "valuation_inputs.json now uses WACC 0.107, the unrounded CAPM figure. The rationale explains that the round-1 round-down had no basis and shows the arithmetic: 0.9934 x 10.75% + 0.0066 x 3.7% = 10.70%; equity of 24,100M x $209.66 = about $5.05T; debt weight about 0.66%. I checked all of these. I reproduced the stated Neutral thresholds with code's dcf() and blend: on code's net cash, blended $188.45 at 10.19% against the 188.5 needed for TP $189, so the threshold is about 10.18-10.19%; about 10.28-10.29% with debt securities; 10.37% with debt plus haircut equity; 10.41% with both at full value. The note's Model and valuation (discount rate) paragraph and its Risks section state that a WACC roughly a third to a half of a percentage point lower would move the rating to Neutral. That matches the 33-51bp gaps. Moving to 10.7% takes the rating further from Neutral, but it is the computed figure the round-1 finding pointed to, not a rating-driven choice. The terminal share is 71.1%, under 80%."
+    },
+    {
+      "id": "asm-003",
+      "evidence": "The note's Model and valuation section states that peer TTM windows end in May-June 2026 (AVGO and MRVL in May, AMD in June) against July 2026 for NVDA, which matches the peers.json ttm_end dates 2026-05-03, 2026-05-02 and 2026-06-27. rationales.peers explains that the 'CY2025Q4' calendar label comes from code (xbrl.calendar_label, TTM-window midpoint) and records that it was flagged to the controller; the gen-lead manifest lists it under integration.unresolved. That is the 'flagged to the controller' branch of the required evidence. Correcting the label itself is a code matter."
+    }
+  ],
+  "checked": [
+    "next-quarter revenue vs guidance: FY2027Q3 revenue_qoq 12.24% gives $107.998B against the $108.0B midpoint (Q-1), inside the +/-2% range",
+    "next-quarter gross margin 74.0% equals the guidance midpoint (Q-3); opex 8.52% x $108.0B gives $9.20B against GAAP guidance of about $9.2B (Q-4); tax 17% is the midpoint of the 16-18% FY guide (Q-5)",
+    "later-quarter path: QoQ growth of 10%, 8% and 7% against recent 19-20% (history 57.0B, 68.1B, 81.6B, 96.2B) and a guided step-down to about 12%: a conservative deceleration with a stated rationale; GM held at 74% with a stated memory-cost rationale; opex ratio drifting from 8.5% to 8.7% is plausible",
+    "share change of -0.4% per quarter matches the 24,483M, 24,391M, 24,285M diluted trend",
+    "WACC 10.7% CAPM arithmetic reproduced; terminal growth 3% is reasonable and below WACC; terminal value is 71.1% of EV (under 80%)",
+    "FCF margins 42/44/44/43/42% against CFO minus capex history: FY24 44.4%, FY25 46.6%, FY26 44.8%, TTM 41.9% (TTM arithmetic reproduced: 127.0/303.0)",
+    "net cash completeness: debt complete (1,000 + 32,366); marketable debt and equity securities still omitted from valuation.json (asm-001)",
+    "offline TP and upside under alternative net-cash treatments reproduced with src/aicfinal/valuation.py dcf() and blend: 182/183/184/185",
+    "peer set AMD/AVGO/MRVL relevant; exclusions reasoned; median EV/Sales 23.02x (AVGO); period misalignment stated in the note",
+    "rationales exist for every input and support the numbers chosen",
+    "computed/ and numerical/recompute/ are identical; gates.json has no findings",
+    "no controller-recorded acceptance of the net-cash understatement in state.json or the decision files"
+  ]
+}

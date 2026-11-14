@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-14T15:30:44Z",
+  "candidate_id": "cand-bfc95339b3e9",
+  "clean": false,
+  "open_blocking": [
+    "asm-001"
+  ],
+  "request_id": "crit-20261114T152629-224a85",
+  "verdicts": {
+    "crit-assumption": "fail",
+    "crit-compliance": "pass",
+    "crit-provenance": "pass"
+  }
+}

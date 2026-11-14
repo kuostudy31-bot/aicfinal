@@ -1,0 +1,14 @@
+{
+  "approval": null,
+  "candidate_id": "cand-bfc95339b3e9",
+  "case_id": "NVDA-0001045810-26-000075",
+  "cutoff_utc": "2026-08-26T20:36:00Z",
+  "price": 209.66,
+  "rating": "Underperform",
+  "round": 2,
+  "status": "STALLED",
+  "stop_reason": "same open findings across 2 repairs: ['asm-001']",
+  "target_price": 182,
+  "ticker": "NVDA",
+  "written_at": "2026-11-14T15:30:44Z"
+}

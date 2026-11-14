@@ -1,0 +1,46 @@
+{
+  "request_id": "crit-20261114T152629-224a85",
+  "role": "crit-compliance",
+  "candidate_id": "cand-bfc95339b3e9",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "cmp-004",
+      "severity": "minor",
+      "title": "Sensitivity magnitudes in the note are spelled out in words, not supplied by code, and 'about two percentage points at most' misstates the range",
+      "detail": "The 'Judgment (net cash)' and 'Judgment (discount rate)' paragraphs and the Risks section give quantitative results as words: 'margin to the Neutral band edge narrows to about two percentage points at most', 'a WACC roughly half a percentage point lower ... (about a third to a half of a percentage point ...)', 'a cut of roughly half a percentage point or less'. None of these come from values.json or a quote. They pass the untagged_number gate only because they are written as words. They are labelled Judgment and can be traced to gen-valuation's offline check in valuation_inputs.json rationales.wacc and rationales.net_cash (Neutral thresholds about 10.19/10.29/10.37/10.41% vs 10.7%, i.e. 51/41/33/29bp; band margins 2.7pp debt-only, 2.2pp debt plus haircut equity, 1.8pp both at full value). The WACC wording is consistent with that check. The net-cash wording is not quite right: the margin is 1.8-2.7pp depending on treatment, so 'about two percentage points at most' understates the debt-only case (2.7pp). The more natural reading, that two points is the narrowest case, would need 'at least' or 'as little as'. This is not a figure error, because the rating is unchanged in all cases and the direction is conservative. It is recorded so the practice of spelling out offline numbers in words is visible to the controller (policies.md section 4: numbers come from code or sourced inputs).",
+      "evidence": [
+        "computed/note_rendered.md#Model and valuation (Judgment (net cash), Judgment (discount rate))",
+        "generator/valuation_inputs.json#rationales.wacc",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "generator/reports/gen-valuation.json#notes"
+      ],
+      "required_evidence": "Either the band margin is described accurately (e.g. 'narrows to roughly two to three percentage points, about two in the least favourable case'), or code exposes the sensitivity values as values.json keys the note can cite."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "cmp-001",
+      "evidence": "The Disclosures section now says the accession, exact cutoff time and price date are printed in the Data and Sources block of the published PDF, and that the note is distributed only through that publication. Verified: the only publication path is scripts/eu.py publish -> publish.render. It renders note_rendered.md and injects st['accession'] (ReportScope macro and Data block), st['cutoff_utc'] (DataDate macro, and 'SEC EDGAR filings accepted at or before ...') and 'last close ... on the cutoff date' (src/aicfinal/publish.py around lines 146-167). This meets the second option in required_evidence. Residual: the price date appears in the PDF only as 'on the cutoff date' plus the cutoff timestamp 2026-08-26T20:36:00Z, which identifies 2026-08-26 unambiguously."
+    },
+    {
+      "id": "cmp-002",
+      "evidence": "The Disclosures section now reads 'the earnings release exhibits (EX-99.1, EX-99.2) to the company's same-day Form 8-K, which was accepted before the cutoff'. Checked against snapshot/manifest.json (release_ex99_1/2 come from accession 0001045810-26-000073) and snapshot/filings.json (that 8-K was accepted 2026-08-26T20:21:19Z, before the 10-Q at 20:36:00Z)."
+    },
+    {
+      "id": "cmp-003",
+      "evidence": "The fourth Key points bullet is now '**Valuation (code output):**' (last close, target, upside, band). The interpretation is a separate fifth '**Judgment:**' bullet. The facts, code outputs and judgment are labelled distinctly."
+    }
+  ],
+  "checked": [
+    "Information cutoff: the note uses only snapshot documents (10-Q 0001045810-26-000075 accepted 2026-08-26T20:36:00Z; 8-K 0001045810-26-000073 accepted 20:21:19Z). Nothing in the note refers to later quarters, prices or events. The price of $209.66 is the 2026-08-26 close, which ended before the 20:36Z cutoff. Gate information_cutoff passed (gates.json findings []).",
+    "New quotes Q-11, Q-12, Q-13 and Q-17 checked verbatim against snapshot/docs/periodic.txt lines 263, 265, 1852 and 792. Q-17 ($36.9bn lock-up) refers to the 2026-07-26 table, not the prior-period $10.5bn footnote at line 840.",
+    "Disclosures under policies.md section 6: not-investment-advice line present; data sources and as-of present (accession, cutoff and price date via the PDF, see cmp-001); rating definitions match the bands (Outperform >= +15%, Underperform <= -10%, otherwise Neutral); statement that figures are code-generated from SEC XBRL and unaudited by the author is present.",
+    "Rating vs bands: upside -13.19% <= -10%, so Underperform. valuation.json rating = Underperform and target_price = 182, matching the note title and text.",
+    "No recommendation beyond the rating; no promissory or guaranteed language.",
+    "Fact, forecast, valuation-code-output and judgment labels are distinct throughout; the net-cash limitation and the marketable securities amounts are disclosed and labelled Judgment.",
+    "tp_change_needs_rationale = false (prior_target_price null), so no TP-change explanation is required.",
+    "Searched snapshot docs for embedded instructions (e.g. 'ignore previous', 'upload'); found none, and no filing text was followed as an instruction.",
+    "Open findings outside the compliance area (asm-001, asm-002, asm-003, prov-001, prov-002) were not adjudicated here. Noted for context: asm-001 stays unresolved in code (valuation.json net_cash -10.923B) per gen-lead manifest."
+  ]
+}

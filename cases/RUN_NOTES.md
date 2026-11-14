@@ -147,3 +147,71 @@ Another session (session_01ERG3WZcbWkidht1tadsh6H) reported that commit 9240e7c 
 ```
 
 A fresh orchestrator was dispatched to continue from this next_action only.
+
+### Outcome of the resume after controller fix (2026-11-14 15:30:44Z)
+
+**Final status: `STALLED`, a terminal status.** stop_reason: "same open findings across 2 repairs: ['asm-001']".
+Nothing was accepted, so there is no approval command. `eu.py approve` was never run. No eu.py call
+printed REFUSED or a traceback, and nothing was patched.
+
+**Rounds:** 2 generator rounds, with one critic review each.
+
+eu.py submit results, in order:
+1. Round 1 generator (request gen-20261114T144812-0d99ea) → CRITIC_PENDING (crit-20261114T151438-1837ea).
+2. Round 1 review (candidate cand-1ea653d6f369) → GENERATOR_PENDING, round 2 (gen-20261114T151853-c21825).
+3. Round 2 generator → CRITIC_PENDING (crit-20261114T152629-224a85).
+4. Round 2 review (candidate cand-bfc95339b3e9) → STALLED.
+
+**Findings:** 10 opened, 7 closed, 3 open at the stop.
+- Opened in round 1 (8):
+  - asm-001 (major): net cash omits $34.143B of marketable debt securities and $42.783B of
+    marketable equity securities.
+  - Minor: prov-001, prov-002, asm-002 (rating flips within a 50bp WACC move), asm-003, cmp-001,
+    cmp-002, cmp-003.
+- Closed in round 2 (7): prov-001, prov-002, asm-002, asm-003, cmp-001, cmp-002, cmp-003.
+- Opened in round 2 (2):
+  - prov-003 (minor): the disclosures limit filing-text quotes to guidance, but the note now also
+    quotes the balance sheet.
+  - cmp-004 (minor): sensitivity sizes are written in words rather than supplied by code.
+- Open at the stop: asm-001 (major, the only blocking finding), prov-003 and cmp-004.
+- Why asm-001 could not be closed by the generator: no XBRL concept in the snapshot carries the
+  securities (MarketableSecuritiesCurrent stops at 2025-10-26). The amounts exist only in the
+  10-Q text. Closing it needs either a code path for balance-sheet items taken from filing text or
+  a controller-recorded decision to accept the understatement. **That needs a human decision.**
+
+**Target price and rating (not accepted):**
+
+| | Target | Rating | Upside vs $209.66 close (2026-08-26) | Notes |
+|---|---|---|---|---|
+| Last candidate (round 2, result.json) | $182 | Underperform | -13.2% | WACC 10.7% |
+| Round 1 candidate | $184 | Underperform | | |
+| Critics' rechecks with the securities included | $182–$185 | Underperform | | |
+
+**Agents dispatched:**
+- Orchestrator #3: a4ecc6dfc939ca3e5.
+- Round 1:
+  - gen-lead a618471c80fbcbf08, which dispatched gen-writer aee5fc535ddc9b670.
+  - crit-lead ac21997e4c5f8fd06, which dispatched crit-provenance afc8cff8cfd94b5c6,
+    crit-assumption afe6739c058f31e69 and crit-compliance abedb088603df9468.
+- Round 2:
+  - gen-lead acdbe2006a33835d2, which dispatched gen-mapping a33920de83528ec64, gen-narrative
+    aee252f5c415c781b, gen-model a58f6323d9b674593, gen-valuation a93e126dd2add13f3 and
+    gen-writer a7998b51f4a7c4199.
+  - crit-lead aad20f693a6622b85, which dispatched crit-provenance a7d6b004a58d9d4b7,
+    crit-assumption ad8e85d67c2e38da1 and crit-compliance a7680e9864b4e4db2.
+
+**Runtime and coordination notes:**
+- Several agents again started in the background although the foreground was requested. This
+  time each parent waited for its children's completion notices and checked their files before
+  continuing.
+- A second case, `NVDA-0001045810-26-000075-r2`, is being run concurrently by another session on
+  the same branch. `cases/ACTIVE.json` is a single shared pointer that both runs write. In this run,
+  all of this case's transcripts were filed in this case's folder and none in the r2 folder, but
+  the shared pointer is a misrouting risk.
+- An open code labelling issue, not fixed: `peers.json` labels every peer period "CY2025Q4",
+  which does not match the TTM window end dates.
+
+**Evidence:** `evidence/transcripts/` holds 26 transcripts. Every agent ID listed above is present.
+A grep for secrets (GitHub, Anthropic or OpenAI, AWS and Slack tokens, Bearer and Authorization
+headers, private keys, and key/secret/token/password assignments) found no matches, so no lines
+were removed.
