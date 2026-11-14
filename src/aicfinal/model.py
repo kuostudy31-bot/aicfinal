@@ -24,7 +24,8 @@ def history(facts_snapshot: dict, mapping: dict, catalog: dict) -> dict:
         kind = catalog[line]["kind"]
         unit = catalog[line].get("unit", "USD")
         concepts = concept if isinstance(concept, list) else [concept]
-        parts = [xbrl.quarterly(rows, c, unit) if kind == "duration" else xbrl.instants(rows, c, unit)
+        additive = catalog[line].get("additive", True)
+        parts = [xbrl.quarterly(rows, c, unit, additive) if kind == "duration" else xbrl.instants(rows, c, unit)
                  for c in concepts]
         lines[line] = parts[0] if len(parts) == 1 else sum_series(parts)
     anchor = lines.get("revenue") or next(iter(lines.values()), [])
@@ -36,7 +37,15 @@ def history(facts_snapshot: dict, mapping: dict, catalog: dict) -> dict:
     table: dict[str, list] = {}
     for line, series in lines.items():
         by_end = {s["end"]: s for s in series}
-        table[line] = [by_end.get(q["end"]) for q in quarters]
+        col = [by_end.get(q["end"]) for q in quarters]
+        if catalog[line]["kind"] == "instant" and quarters and col and col[-1] is None:
+            # Cover-page counts (dei) are dated after the quarter end, at the filing date.
+            from datetime import date, timedelta
+            qe = date.fromisoformat(quarters[-1]["end"])
+            later = [s for s in series if qe < date.fromisoformat(s["end"]) <= qe + timedelta(days=75)]
+            if later:
+                col[-1] = later[-1]
+        table[line] = col
     return {"quarters": quarters, "lines": table, "fiscal_year_end": fye}
 
 

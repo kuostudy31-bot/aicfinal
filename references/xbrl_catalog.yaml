@@ -27,10 +27,12 @@ line_items:
   diluted_shares:
     kind: duration
     unit: shares
+    additive: false   # weighted average: never derived by differencing
     candidates: [WeightedAverageNumberOfDilutedSharesOutstanding]
   eps_diluted:
     kind: duration
     unit: USD/shares
+    additive: false
     candidates: [EarningsPerShareDiluted]
   cfo:
     kind: duration

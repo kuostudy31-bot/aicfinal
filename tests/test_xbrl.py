@@ -88,3 +88,14 @@ class PriceCutoffTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NonAdditiveTests(unittest.TestCase):
+    def test_share_counts_are_never_differenced(self):
+        data = cf(it("2025-01-01", "2025-03-31", 100, "A1"), it("2025-01-01", "2025-12-31", 101, "K1"),
+                  it("2025-01-01", "2025-09-30", 100.5, "A3"), concept="WeightedAverageNumberOfDilutedSharesOutstanding",
+                  unit="shares")
+        rows = xbrl.facts_table(data, ACC, "2026-12-31T00:00:00Z")
+        q = xbrl.quarterly(rows, "WeightedAverageNumberOfDilutedSharesOutstanding", "shares", additive=False)
+        self.assertEqual([x["val"] for x in q], [100])  # no derived (and negative) Q4
+        self.assertTrue(all(not x["derived"] for x in q))

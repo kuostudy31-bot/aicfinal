@@ -140,9 +140,20 @@ def gate_quotes(narrative: dict, docs: dict[str, str]) -> list[dict]:
         if q is None:
             out.append(f(f"gate-guidance-{g['metric']}", "blocker", "guidance_source", f"{g['metric']} cites unknown quote"))
             continue
-        val = g["value"] / 1e9 if g.get("unit") == "USD" else (g["value"] * 100 if g.get("unit") == "ratio" else g["value"])
+        if g.get("unit") not in ("USD", "ratio") or not isinstance(g.get("value"), (int, float)):
+            continue  # text guidance (e.g. "none assumed") is checked by the verbatim quote alone
+        def visible(x):
+            v = x / 1e9 if g["unit"] == "USD" else x * 100
+            t = f"{v:.1f}"
+            return t in q["text"] or t.rstrip("0").rstrip(".") in q["text"]
+
+        val = g["value"] / 1e9 if g["unit"] == "USD" else g["value"] * 100
         token = f"{val:.1f}"
-        if token not in q["text"] and token.rstrip("0").rstrip(".") not in q["text"]:
+        # A midpoint of a stated range is visible through its stated low and high.
+        rng = isinstance(g.get("low"), (int, float)) and isinstance(g.get("high"), (int, float))
+        ok = visible(g["value"]) or (rng and visible(g["low"]) and visible(g["high"])
+                                     and g["low"] <= g["value"] <= g["high"])
+        if not ok:
             out.append(f(f"gate-guidance-{g['metric']}", "major", "guidance_source",
                          f"{g['metric']} value {token} not visible in {g['quote_id']}"))
     return out

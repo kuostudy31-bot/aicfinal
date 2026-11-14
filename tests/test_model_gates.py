@@ -85,3 +85,24 @@ class SumSeriesTests(unittest.TestCase):
         self.assertEqual([(o["end"], o["val"]) for o in out], [("2026-07-26", 12)])
         self.assertEqual(out[0]["components"], ["F-a2", "F-b2"])
         self.assertTrue(out[0]["id"].startswith("S-"))
+
+
+class TextGuidanceTests(unittest.TestCase):
+    def test_text_guidance_does_not_crash_the_gate(self):
+        docs = {"r.txt": "We are not assuming any Data Center compute revenue from China in our outlook."}
+        nar = {"quotes": [{"id": "Q-2", "doc": "r.txt",
+                           "text": "We are not assuming any Data Center compute revenue from China in our outlook."}],
+               "guidance": [{"metric": "china_dc", "value": "none assumed", "unit": "text", "quote_id": "Q-2"}]}
+        self.assertEqual(gates.gate_quotes(nar, docs), [])
+
+
+class RangeGuidanceTests(unittest.TestCase):
+    def test_midpoint_visible_through_low_and_high(self):
+        docs = {"r.txt": "we expect tax rates to be between 16.0% and 18.0%, excluding discrete items."}
+        q = {"id": "Q-5", "doc": "r.txt", "text": "we expect tax rates to be between 16.0% and 18.0%"}
+        ok = {"quotes": [q], "guidance": [{"metric": "tax", "value": 0.17, "low": 0.16, "high": 0.18,
+                                            "unit": "ratio", "quote_id": "Q-5"}]}
+        bad = {"quotes": [q], "guidance": [{"metric": "tax", "value": 0.17, "low": 0.15, "high": 0.19,
+                                             "unit": "ratio", "quote_id": "Q-5"}]}
+        self.assertEqual(gates.gate_quotes(ok, docs), [])
+        self.assertEqual(gates.gate_quotes(bad, docs)[0]["check"], "guidance_source")

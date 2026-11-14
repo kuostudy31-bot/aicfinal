@@ -73,8 +73,12 @@ def _days(start: str, end: str) -> int:
     return (_d(end) - _d(start)).days + 1
 
 
-def quarterly(rows: list[dict], concept: str, unit: str = "USD") -> list[dict]:
-    """Discrete quarters for a duration concept, oldest first."""
+def quarterly(rows: list[dict], concept: str, unit: str = "USD", additive: bool = True) -> list[dict]:
+    """Discrete quarters for a duration concept, oldest first.
+
+    ``additive=False`` (weighted-average share counts, per-share amounts) uses only
+    directly reported ~3-month facts: averages and ratios cannot be differenced.
+    """
     sel = [r for r in rows if r["concept"] == concept and r["unit"] == unit and r["start"]]
     periods = _latest(sel)
     quarters: dict[tuple, dict] = {}
@@ -82,7 +86,7 @@ def quarterly(rows: list[dict], concept: str, unit: str = "USD") -> list[dict]:
         if QUARTER_DAYS[0] <= _days(s, e) <= QUARTER_DAYS[1]:
             quarters[(s, e)] = {"start": s, "end": e, "val": r["val"], "id": r["fact_id"],
                                 "derived": False, "components": [r["fact_id"]], "formula": None}
-    changed = True
+    changed = additive
     while changed:  # derive by differencing nested periods with a common start
         changed = False
         known = {**{k: {"val": v["val"], "id": v["id"]} for k, v in quarters.items()},
