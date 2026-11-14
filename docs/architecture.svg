@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <style>
+    .box{fill:#fff;stroke:#203E70;stroke-width:1.6;rx:8}
+    .lead{fill:#EAF0F8;stroke:#203E70;stroke-width:1.8}
+    .code{fill:#F4F4F4;stroke:#555;stroke-width:1.4;stroke-dasharray:5 3}
+    .human{fill:#FFF4E5;stroke:#B26B00;stroke-width:1.8}
+    .crit{fill:#F3EEF8;stroke:#5B3A8C;stroke-width:1.6}
+    .t{font-weight:bold}
+    .s{font-size:11px;fill:#333}
+    .n{font-size:11px;fill:#7A3E00}
+    .a{stroke:#203E70;stroke-width:1.6;fill:none;marker-end:url(#ar)}
+    .r{stroke:#B00020;stroke-width:1.6;fill:none;stroke-dasharray:6 4;marker-end:url(#arr)}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#203E70"/></marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B00020"/></marker>
+  </defs>
+
+  <text x="20" y="30" font-size="20" class="t">Semiconductor earnings-update workflow: roles, controls and evidence</text>
+  <text x="20" y="50" class="s">Solid box = agent (Claude Code subagent) · dashed grey = deterministic code · orange = human authority · purple = independent critics · red dashed = repair edge</text>
+
+  <!-- trigger -->
+  <rect x="20" y="75" width="220" height="70" class="code" rx="8"/>
+  <text x="32" y="98" class="t">① Watcher (eu.py watch)</text>
+  <text x="32" y="116" class="s">new 10-Q/10-K on EDGAR → event</text>
+  <text x="32" y="132" class="s">accession = idempotency key</text>
+
+  <rect x="270" y="75" width="250" height="70" class="code" rx="8"/>
+  <text x="282" y="98" class="t">② Snapshot (point in time)</text>
+  <text x="282" y="116" class="s">cutoff = SEC acceptance time; facts,</text>
+  <text x="282" y="132" class="s">prices, peers, filing text + sha256</text>
+
+  <rect x="550" y="75" width="300" height="70" class="code" rx="8"/>
+  <text x="562" y="98" class="t">③ Controller (scripts/eu.py)</text>
+  <text x="562" y="116" class="s">only writer of state.json · request IDs · ledger</text>
+  <text x="562" y="132" class="s">advance / repair / wait / stop · limits · resume</text>
+
+  <rect x="880" y="75" width="300" height="70" class="human" rx="8"/>
+  <text x="892" y="98" class="t">Analyst (human)</text>
+  <text x="892" y="116" class="n">owns config, acceptance rules, prompt versions;</text>
+  <text x="892" y="132" class="n">approves publication and system changes</text>
+
+  <path d="M240,110 L268,110" class="a"/>
+  <path d="M520,110 L548,110" class="a"/>
+
+  <!-- orchestrator -->
+  <rect x="430" y="185" width="340" height="62" class="lead" rx="8"/>
+  <text x="442" y="208" class="t">Orchestrator (subagent, depth 1)</text>
+  <text x="442" y="226" class="s">reads pending request → dispatches the right lead →</text>
+  <text x="442" y="240" class="s">calls eu.py submit; never edits state or approves</text>
+  <path d="M700,145 L640,183" class="a"/>
+
+  <!-- generator team -->
+  <rect x="20" y="290" width="540" height="58" class="lead" rx="8"/>
+  <text x="32" y="313" class="t">Generator lead (depth 2)</text>
+  <text x="32" y="331" class="s">dispatches 5 specialists in dependency order · integration compute · manifest.json</text>
+  <path d="M500,247 L330,288" class="a"/>
+
+  <rect x="20" y="380" width="100" height="78" class="box" rx="8"/><text x="28" y="400" class="t">mapping</text><text x="28" y="418" class="s">XBRL concept</text><text x="28" y="432" class="s">per line +</text><text x="28" y="446" class="s">rationale</text>
+  <rect x="128" y="380" width="100" height="78" class="box" rx="8"/><text x="136" y="400" class="t">narrative</text><text x="136" y="418" class="s">verbatim</text><text x="136" y="432" class="s">guidance &amp;</text><text x="136" y="446" class="s">quotes (Q-n)</text>
+  <rect x="236" y="380" width="100" height="78" class="box" rx="8"/><text x="244" y="400" class="t">model</text><text x="244" y="418" class="s">4-quarter</text><text x="244" y="432" class="s">assumptions</text><text x="244" y="446" class="s">+ rationales</text>
+  <rect x="344" y="380" width="100" height="78" class="box" rx="8"/><text x="352" y="400" class="t">valuation</text><text x="352" y="418" class="s">WACC, g, FCF</text><text x="352" y="432" class="s">margins, peers</text><text x="352" y="446" class="s">+ rationales</text>
+  <rect x="452" y="380" width="108" height="78" class="box" rx="8"/><text x="460" y="400" class="t">writer</text><text x="460" y="418" class="s">note.md with</text><text x="460" y="432" class="s">{{key}} and</text><text x="460" y="446" class="s">[[Q-id]] only</text>
+  <path d="M70,348 L70,378" class="a"/><path d="M178,348 L178,378" class="a"/><path d="M286,348 L286,378" class="a"/><path d="M394,348 L394,378" class="a"/><path d="M506,348 L506,378" class="a"/>
+  <text x="20" y="476" class="s">depth 3 · specialists have no Agent tool · each writes only its own files (roles.yaml)</text>
+
+  <!-- numerical gates -->
+  <rect x="20" y="500" width="540" height="76" class="code" rx="8"/>
+  <text x="32" y="522" class="t">④ Numerical &amp; provenance gates (controller recomputes everything)</text>
+  <text x="32" y="540" class="s">balance sheet · EPS identity · gross profit · stale mapping · cutoff · bounds · rationales</text>
+  <text x="32" y="556" class="s">quotes verbatim · guidance in quote · no untagged number in note · recompute hash match</text>
+  <text x="32" y="571" class="s">model.py / valuation.py / values.py: agents choose inputs, code does all arithmetic</text>
+  <path d="M290,458 L290,498" class="a"/>
+
+  <!-- critic team -->
+  <rect x="640" y="290" width="540" height="58" class="lead" rx="8"/>
+  <text x="652" y="313" class="t">Critic lead (depth 2, fresh each review)</text>
+  <text x="652" y="331" class="s">dispatches 3 critics · checks all reports present · merged.json keeps conflicts</text>
+  <path d="M700,247 L860,288" class="a"/>
+  <rect x="640" y="380" width="170" height="78" class="crit" rx="8"/><text x="650" y="400" class="t">provenance</text><text x="650" y="418" class="s">figures ↔ fact IDs ↔</text><text x="650" y="432" class="s">filing text; quotes</text><text x="650" y="446" class="s">in context</text>
+  <rect x="825" y="380" width="170" height="78" class="crit" rx="8"/><text x="835" y="400" class="t">assumption</text><text x="835" y="418" class="s">vs guidance &amp; history;</text><text x="835" y="432" class="s">net cash complete;</text><text x="835" y="446" class="s">terminal share, peers</text>
+  <rect x="1010" y="380" width="170" height="78" class="crit" rx="8"/><text x="1020" y="400" class="t">compliance</text><text x="1020" y="418" class="s">cutoff/leakage,</text><text x="1020" y="432" class="s">disclosures, rating</text><text x="1020" y="446" class="s">bands, TP change</text>
+  <path d="M725,348 L725,378" class="a"/><path d="M910,348 L910,378" class="a"/><path d="M1095,348 L1095,378" class="a"/>
+  <path d="M560,540 L700,460" class="a"/>
+  <text x="575" y="520" class="s">gates pass</text>
+
+  <!-- ledger / decision -->
+  <rect x="640" y="500" width="540" height="76" class="code" rx="8"/>
+  <text x="652" y="522" class="t">⑤ Finding ledger &amp; decision (controller)</text>
+  <text x="652" y="540" class="s">finding closes only when a critic verifies the repair or the recomputed gate clears it</text>
+  <text x="652" y="556" class="s">accept = 2 consecutive clean full reviews of the same candidate; change resets the streak</text>
+  <text x="652" y="571" class="s">stops: BLOCKED · EXHAUSTED (3 rounds/240 min) · STALLED · USER_STOPPED</text>
+  <path d="M910,458 L910,498" class="a"/>
+  <path d="M650,576 L650,592 L10,592 L10,420 L16,420" class="r"/>
+  <text x="200" y="608" class="n" fill="#B00020">repair packet (all open findings) → next generator round</text>
+
+  <!-- approval and publish -->
+  <rect x="640" y="610" width="260" height="70" class="human" rx="8"/>
+  <text x="652" y="632" class="t">⑥ Publication approval</text>
+  <text x="652" y="650" class="n">eu.py approve --approver NAME</text>
+  <text x="652" y="666" class="n">TP move &gt;10% needs written rationale</text>
+  <rect x="920" y="610" width="260" height="70" class="code" rx="8"/>
+  <text x="932" y="632" class="t">⑦ Publish (latex + plot skills)</text>
+  <text x="932" y="650" class="s">A4 PDF memo from recomputed values;</text>
+  <text x="932" y="666" class="s">generated exhibits kept separate</text>
+  <path d="M910,576 L800,608" class="a"/><path d="M900,645 L918,645" class="a"/>
+
+  <!-- evolution -->
+  <rect x="20" y="700" width="1160" height="80" class="box" rx="8" style="stroke-dasharray:2 2"/>
+  <text x="32" y="722" class="t">⑧ Evolution (/evo): failure → evo-proposer (via gen-lead) → evo-evaluate on fixed dev + held-out cases vs baseline, plus controller regression tests</text>
+  <text x="32" y="742" class="s">→ evo-reviewer (via crit-lead, fresh) → evo-submit → human evo-adopt (prompts/&lt;role&gt;/vN.md, registry pointer, git tag) · evo-rollback restores the prior pointer</text>
+  <text x="32" y="760" class="s">scope: one role's prompt only; acceptance rules, gates, limits, policy and code are out of scope; a proposal cannot weaken its own checks; existing cases keep pinned versions</text>
+
+  <!-- evidence bar -->
+  <rect x="20" y="795" width="1160" height="50" class="code" rx="8"/>
+  <text x="32" y="815" class="t">Shared state &amp; evidence per case:</text>
+  <text x="270" y="815" class="s">case.json · state.json · trace.jsonl (controller + hook dispatch records) · rounds/round-NNN/{request, generator, numerical, reviews}</text>
+  <text x="270" y="833" class="s">approvals.jsonl · result.json · evidence/transcripts (each subagent's own transcript, copied by the SubagentStop hook) · snapshot/manifest.json hashes</text>
+</svg>
