@@ -240,3 +240,7 @@ temp/
 # settings) is a deliverable and must be tracked despite the hidden-file rule.
 !.claude/
 !.claude/**
+
+# Runtime pointer written by the controller in each checkout (which request is active for the
+# dispatch hook). It is per-session state, so tracking it made concurrent runs conflict on pull.
+cases/ACTIVE.json
