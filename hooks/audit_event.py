@@ -49,6 +49,17 @@ def main():
     elif case and (ROOT / "cases" / case).is_dir():
         target = ROOT / "cases" / case / "trace.jsonl"
     if target is not None and target.parent.is_dir():
+        # Evidence of separate contexts: keep each finished subagent's own transcript.
+        src = payload.get("agent_transcript_path")
+        if payload.get("hook_event_name") == "SubagentStop" and src and Path(src).is_file():
+            dest = target.parent / "evidence" / "transcripts"
+            dest.mkdir(parents=True, exist_ok=True)
+            name = f"{rec['agent_type']}-{rec['agent_id']}.jsonl"
+            try:
+                (dest / name).write_bytes(Path(src).read_bytes())
+                rec["transcript_copy"] = str((dest / name).relative_to(ROOT))
+            except OSError as exc:
+                rec["transcript_copy_error"] = str(exc)
         with open(target, "a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec, sort_keys=True) + "\n")
 
