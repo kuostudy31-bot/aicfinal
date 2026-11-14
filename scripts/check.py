@@ -16,6 +16,6 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
     if pattern:
         loader.testNamePatterns = [f"*{pattern}*"]
-    suite = loader.discover(str(ROOT / "tests"), top_level_dir=str(ROOT))
+    suite = loader.discover(str(ROOT / "tests"))
     result = unittest.TextTestRunner(verbosity=1).run(suite)
     sys.exit(0 if result.wasSuccessful() else 1)
