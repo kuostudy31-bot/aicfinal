@@ -19,12 +19,14 @@ def history(facts_snapshot: dict, mapping: dict, catalog: dict) -> dict:
     lines: dict[str, list[dict]] = {}
     for line, spec in mapping.items():
         concept = spec["concept"]
-        if concept is None:
+        if not concept:
             continue
         kind = catalog[line]["kind"]
         unit = catalog[line].get("unit", "USD")
-        series = xbrl.quarterly(rows, concept, unit) if kind == "duration" else xbrl.instants(rows, concept, unit)
-        lines[line] = series
+        concepts = concept if isinstance(concept, list) else [concept]
+        parts = [xbrl.quarterly(rows, c, unit) if kind == "duration" else xbrl.instants(rows, c, unit)
+                 for c in concepts]
+        lines[line] = parts[0] if len(parts) == 1 else sum_series(parts)
     anchor = lines.get("revenue") or next(iter(lines.values()), [])
     quarters = []
     for q in anchor[-HISTORY_QUARTERS:]:
@@ -36,6 +38,25 @@ def history(facts_snapshot: dict, mapping: dict, catalog: dict) -> dict:
         by_end = {s["end"]: s for s in series}
         table[line] = [by_end.get(q["end"]) for q in quarters]
     return {"quarters": quarters, "lines": table, "fiscal_year_end": fye}
+
+
+def sum_series(parts: list[list[dict]]) -> list[dict]:
+    """Sum several concepts period by period (e.g. debt + equity securities).
+
+    A period is kept only when every component reports it, so a missing
+    component never turns into a silent zero.
+    """
+    import hashlib
+    by_end = [{p["end"]: p for p in part} for part in parts]
+    common = sorted(set.intersection(*(set(b) for b in by_end)))
+    out = []
+    for end in common:
+        comps = [b[end] for b in by_end]
+        ids = [c["id"] for c in comps]
+        out.append({"start": comps[0].get("start"), "end": end, "val": sum(c["val"] for c in comps),
+                    "id": "S-" + hashlib.sha1("+".join(ids).encode()).hexdigest()[:10], "derived": True,
+                    "components": ids, "formula": " + ".join(ids)})
+    return out
 
 
 def latest(hist: dict, line: str):

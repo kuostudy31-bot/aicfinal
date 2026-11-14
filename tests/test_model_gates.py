@@ -74,3 +74,14 @@ class RenderTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SumSeriesTests(unittest.TestCase):
+    def test_sum_keeps_only_periods_with_all_components(self):
+        from aicfinal.model import sum_series
+        a = [{"end": "2026-04-26", "val": 1, "id": "F-a1"}, {"end": "2026-07-26", "val": 2, "id": "F-a2"}]
+        b = [{"end": "2026-07-26", "val": 10, "id": "F-b2"}]
+        out = sum_series([a, b])
+        self.assertEqual([(o["end"], o["val"]) for o in out], [("2026-07-26", 12)])
+        self.assertEqual(out[0]["components"], ["F-a2", "F-b2"])
+        self.assertTrue(out[0]["id"].startswith("S-"))

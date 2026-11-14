@@ -14,7 +14,10 @@ submission invalid.
 }}
 ```
 Lines are those in `references/xbrl_catalog.yaml`. `concept` may be any us-gaap concept
-that has data in the snapshot; `null` means deliberately unmapped (explain why).
+that has data in the snapshot, or a **list of concepts that are summed per period** (for a line
+the company reports in parts, e.g. `["DebtSecuritiesCurrent", "EquitySecuritiesFvNi"]`);
+`null` means deliberately unmapped (explain why). Use `eu.py concepts --search` to find
+concepts outside the catalog.
 
 ### gen-narrative -> `narrative.json`
 ```json

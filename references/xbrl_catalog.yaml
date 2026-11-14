@@ -46,7 +46,8 @@ line_items:
     candidates: [CashAndCashEquivalentsAtCarryingValue, CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents]
   short_term_investments:
     kind: instant
-    candidates: [MarketableSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesCurrent, ShortTermInvestments]
+    candidates: [MarketableSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesCurrent, ShortTermInvestments, DebtSecuritiesCurrent, EquitySecuritiesFvNi]
+    note: "a line may map to a list of concepts that are summed per period (e.g. [DebtSecuritiesCurrent, EquitySecuritiesFvNi])"
   total_debt:
     kind: instant
     candidates: [LongTermDebt, LongTermDebtNoncurrent, DebtLongtermAndShorttermCombinedAmount, LongTermDebtAndCapitalLeaseObligations]

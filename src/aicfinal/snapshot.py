@@ -100,7 +100,10 @@ def build(case_dir: Path, ticker: str, accession: str, peers: list[str]) -> dict
                if f["form"] in edgar.PERIODIC}
     cf, cf_meta = edgar.company_facts(cik)
     concepts_cat = catalog_concepts()
-    rows = facts_table(cf, acc_map, cutoff, min_end=min_end, concepts=concepts_cat)
+    # The covered company's snapshot keeps every concept it reports (companies rename and split
+    # XBRL lines; a catalog-only snapshot hid NVDA's DebtSecuritiesCurrent / EquitySecuritiesFvNi
+    # in the first live run). Peers keep catalog concepts only.
+    rows = facts_table(cf, acc_map, cutoff, min_end=min_end, concepts=None)
     available = sorted({c for c, body in cf["facts"].get("us-gaap", {}).items()
                         if any(it["accn"] in acc_map and acc_map[it["accn"]] <= cutoff
                                for u in body["units"].values() for it in u)})

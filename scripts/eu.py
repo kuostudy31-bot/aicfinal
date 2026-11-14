@@ -149,8 +149,8 @@ def cmd_concepts(a):
                     "in_catalog": c in spec["candidates"]})
     print(json.dumps({"line": a.line, "kind": spec["kind"], "period_of_report": st["period_of_report"],
                       "candidates": out,
-                      "note": "Concepts outside the catalog are only in facts.json if catalogued; "
-                              "use --search to see names reported by the company."}, indent=2))
+                      "note": "facts.json holds every concept the company reported before the cutoff; "
+                              "use --search <word> to list them, and map a list to sum parts."}, indent=2))
 
 
 def cmd_history(a):
