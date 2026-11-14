@@ -1,0 +1,20 @@
+{
+  "active": {
+    "orchestrator": "v1",
+    "gen-lead": "v1",
+    "crit-lead": "v1",
+    "gen-mapping": "v1",
+    "gen-narrative": "v1",
+    "gen-model": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v1",
+    "crit-provenance": "v1",
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1"
+  },
+  "history": [
+    {"event": "initial", "versions": "all v1", "at": "2026-11-14", "approver": "project owner"}
+  ]
+}

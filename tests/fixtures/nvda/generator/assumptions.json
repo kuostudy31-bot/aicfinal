@@ -1,0 +1,36 @@
+{
+ "tax_rate": 0.17,
+ "share_change_qoq": -0.002,
+ "next_quarters": [
+  {
+   "label": "FY2027Q3",
+   "revenue_qoq": 0.122,
+   "gross_margin": 0.74,
+   "opex_pct_revenue": 0.085
+  },
+  {
+   "label": "FY2027Q4",
+   "revenue_qoq": 0.08,
+   "gross_margin": 0.74,
+   "opex_pct_revenue": 0.085
+  },
+  {
+   "label": "FY2028Q1",
+   "revenue_qoq": 0.06,
+   "gross_margin": 0.735,
+   "opex_pct_revenue": 0.086
+  },
+  {
+   "label": "FY2028Q2",
+   "revenue_qoq": 0.05,
+   "gross_margin": 0.735,
+   "opex_pct_revenue": 0.086
+  }
+ ],
+ "rationales": {
+  "revenue_qoq": "guide",
+  "gross_margin": "guide",
+  "opex_pct_revenue": "guide",
+  "tax_rate": "guide"
+ }
+}

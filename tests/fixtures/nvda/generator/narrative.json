@@ -1,0 +1,18 @@
+{
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_2.txt",
+   "text": "Revenue is expected to be $108.0 billion, plus or minus 2%.",
+   "topic": "guidance"
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 108000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1"
+  }
+ ]
+}

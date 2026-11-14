@@ -1,0 +1,28 @@
+{
+ "peers": [
+  "AMD",
+  "MU"
+ ],
+ "dcf_weight": 0.7,
+ "dcf": {
+  "wacc": 0.1,
+  "terminal_growth": 0.03,
+  "revenue_growth": [
+   0.2,
+   0.12,
+   0.08,
+   0.06
+  ],
+  "fcf_margin": [
+   0.45,
+   0.45,
+   0.44,
+   0.43,
+   0.42
+  ]
+ },
+ "rationales": {
+  "wacc": "x",
+  "terminal_growth": "x"
+ }
+}

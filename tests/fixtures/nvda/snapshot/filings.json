@@ -1,0 +1,448 @@
+{
+  "cik": 1045810,
+  "cutoff_utc": "2026-08-26T20:36:00Z",
+  "filings": [
+    {
+      "acceptance_utc": "2026-08-26T20:36:00Z",
+      "accessionNumber": "0001045810-26-000075",
+      "filingDate": "2026-08-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20260726.htm",
+      "reportDate": "2026-07-26"
+    },
+    {
+      "acceptance_utc": "2026-08-26T20:21:19Z",
+      "accessionNumber": "0001045810-26-000073",
+      "filingDate": "2026-08-26",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20260826.htm",
+      "reportDate": "2026-08-26"
+    },
+    {
+      "acceptance_utc": "2026-05-20T20:35:52Z",
+      "accessionNumber": "0001045810-26-000052",
+      "filingDate": "2026-05-20",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20260426.htm",
+      "reportDate": "2026-04-26"
+    },
+    {
+      "acceptance_utc": "2026-05-20T20:21:19Z",
+      "accessionNumber": "0001045810-26-000051",
+      "filingDate": "2026-05-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20260520.htm",
+      "reportDate": "2026-05-20"
+    },
+    {
+      "acceptance_utc": "2026-02-25T21:42:19Z",
+      "accessionNumber": "0001045810-26-000021",
+      "filingDate": "2026-02-25",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20260125.htm",
+      "reportDate": "2026-01-25"
+    },
+    {
+      "acceptance_utc": "2026-02-25T21:31:25Z",
+      "accessionNumber": "0001045810-26-000019",
+      "filingDate": "2026-02-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20260225.htm",
+      "reportDate": "2026-02-25"
+    },
+    {
+      "acceptance_utc": "2025-11-19T21:36:17Z",
+      "accessionNumber": "0001045810-25-000230",
+      "filingDate": "2025-11-19",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20251026.htm",
+      "reportDate": "2025-10-26"
+    },
+    {
+      "acceptance_utc": "2025-11-19T21:20:44Z",
+      "accessionNumber": "0001045810-25-000228",
+      "filingDate": "2025-11-19",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20251119.htm",
+      "reportDate": "2025-11-19"
+    },
+    {
+      "acceptance_utc": "2025-08-27T20:52:07Z",
+      "accessionNumber": "0001045810-25-000209",
+      "filingDate": "2025-08-27",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20250727.htm",
+      "reportDate": "2025-07-27"
+    },
+    {
+      "acceptance_utc": "2025-08-27T20:22:14Z",
+      "accessionNumber": "0001045810-25-000207",
+      "filingDate": "2025-08-27",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20250827.htm",
+      "reportDate": "2025-08-27"
+    },
+    {
+      "acceptance_utc": "2025-05-28T20:32:57Z",
+      "accessionNumber": "0001045810-25-000116",
+      "filingDate": "2025-05-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20250427.htm",
+      "reportDate": "2025-04-27"
+    },
+    {
+      "acceptance_utc": "2025-05-28T20:21:30Z",
+      "accessionNumber": "0001045810-25-000115",
+      "filingDate": "2025-05-28",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20250528.htm",
+      "reportDate": "2025-05-28"
+    },
+    {
+      "acceptance_utc": "2025-02-26T21:48:33Z",
+      "accessionNumber": "0001045810-25-000023",
+      "filingDate": "2025-02-26",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20250126.htm",
+      "reportDate": "2025-01-26"
+    },
+    {
+      "acceptance_utc": "2025-02-26T21:21:32Z",
+      "accessionNumber": "0001045810-25-000021",
+      "filingDate": "2025-02-26",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20250226.htm",
+      "reportDate": "2025-02-26"
+    },
+    {
+      "acceptance_utc": "2024-11-20T21:31:22Z",
+      "accessionNumber": "0001045810-24-000316",
+      "filingDate": "2024-11-20",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20241027.htm",
+      "reportDate": "2024-10-27"
+    },
+    {
+      "acceptance_utc": "2024-11-20T21:21:20Z",
+      "accessionNumber": "0001045810-24-000315",
+      "filingDate": "2024-11-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20241120.htm",
+      "reportDate": "2024-11-20"
+    },
+    {
+      "acceptance_utc": "2024-08-28T21:05:08Z",
+      "accessionNumber": "0001045810-24-000264",
+      "filingDate": "2024-08-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20240728.htm",
+      "reportDate": "2024-07-28"
+    },
+    {
+      "acceptance_utc": "2024-08-28T20:21:16Z",
+      "accessionNumber": "0001045810-24-000262",
+      "filingDate": "2024-08-28",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20240828.htm",
+      "reportDate": "2024-08-28"
+    },
+    {
+      "acceptance_utc": "2024-05-29T20:36:32Z",
+      "accessionNumber": "0001045810-24-000124",
+      "filingDate": "2024-05-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20240428.htm",
+      "reportDate": "2024-04-28"
+    },
+    {
+      "acceptance_utc": "2024-05-22T20:21:29Z",
+      "accessionNumber": "0001045810-24-000113",
+      "filingDate": "2024-05-22",
+      "form": "8-K",
+      "items": "2.02,8.01,9.01",
+      "primaryDocument": "nvda-20240522.htm",
+      "reportDate": "2024-05-22"
+    },
+    {
+      "acceptance_utc": "2024-02-21T21:36:57Z",
+      "accessionNumber": "0001045810-24-000029",
+      "filingDate": "2024-02-21",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20240128.htm",
+      "reportDate": "2024-01-28"
+    },
+    {
+      "acceptance_utc": "2024-02-21T21:22:09Z",
+      "accessionNumber": "0001045810-24-000028",
+      "filingDate": "2024-02-21",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20240221.htm",
+      "reportDate": "2024-02-21"
+    },
+    {
+      "acceptance_utc": "2023-11-21T21:36:29Z",
+      "accessionNumber": "0001045810-23-000227",
+      "filingDate": "2023-11-21",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20231029.htm",
+      "reportDate": "2023-10-29"
+    },
+    {
+      "acceptance_utc": "2023-11-21T21:22:00Z",
+      "accessionNumber": "0001045810-23-000225",
+      "filingDate": "2023-11-21",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20231121.htm",
+      "reportDate": "2023-11-21"
+    },
+    {
+      "acceptance_utc": "2023-08-25T23:36:34Z",
+      "accessionNumber": "0001045810-23-000175",
+      "filingDate": "2023-08-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20230730.htm",
+      "reportDate": "2023-07-30"
+    },
+    {
+      "acceptance_utc": "2023-08-23T20:21:42Z",
+      "accessionNumber": "0001045810-23-000171",
+      "filingDate": "2023-08-23",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20230823.htm",
+      "reportDate": "2023-08-23"
+    },
+    {
+      "acceptance_utc": "2023-05-26T20:17:32Z",
+      "accessionNumber": "0001045810-23-000093",
+      "filingDate": "2023-05-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20230430.htm",
+      "reportDate": "2023-04-30"
+    },
+    {
+      "acceptance_utc": "2023-05-24T20:22:18Z",
+      "accessionNumber": "0001045810-23-000087",
+      "filingDate": "2023-05-24",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20230524.htm",
+      "reportDate": "2023-05-24"
+    },
+    {
+      "acceptance_utc": "2023-02-24T22:23:43Z",
+      "accessionNumber": "0001045810-23-000017",
+      "filingDate": "2023-02-24",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20230129.htm",
+      "reportDate": "2023-01-29"
+    },
+    {
+      "acceptance_utc": "2023-02-22T21:52:26Z",
+      "accessionNumber": "0001045810-23-000014",
+      "filingDate": "2023-02-22",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20230222.htm",
+      "reportDate": "2023-02-22"
+    },
+    {
+      "acceptance_utc": "2022-11-18T21:35:31Z",
+      "accessionNumber": "0001045810-22-000166",
+      "filingDate": "2022-11-18",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20221030.htm",
+      "reportDate": "2022-10-30"
+    },
+    {
+      "acceptance_utc": "2022-11-16T21:21:18Z",
+      "accessionNumber": "0001045810-22-000163",
+      "filingDate": "2022-11-16",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20221116.htm",
+      "reportDate": "2022-11-16"
+    },
+    {
+      "acceptance_utc": "2022-08-31T21:01:35Z",
+      "accessionNumber": "0001045810-22-000147",
+      "filingDate": "2022-08-31",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20220731.htm",
+      "reportDate": "2022-07-31"
+    },
+    {
+      "acceptance_utc": "2022-08-24T20:24:34Z",
+      "accessionNumber": "0001045810-22-000136",
+      "filingDate": "2022-08-24",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20220824.htm",
+      "reportDate": "2022-08-24"
+    },
+    {
+      "acceptance_utc": "2022-08-08T13:16:50Z",
+      "accessionNumber": "0001045810-22-000133",
+      "filingDate": "2022-08-08",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20220808.htm",
+      "reportDate": "2022-08-08"
+    },
+    {
+      "acceptance_utc": "2022-05-27T20:21:55Z",
+      "accessionNumber": "0001045810-22-000079",
+      "filingDate": "2022-05-27",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20220501.htm",
+      "reportDate": "2022-05-01"
+    },
+    {
+      "acceptance_utc": "2022-05-25T20:22:25Z",
+      "accessionNumber": "0001045810-22-000073",
+      "filingDate": "2022-05-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20220525.htm",
+      "reportDate": "2022-05-25"
+    },
+    {
+      "acceptance_utc": "2022-03-18T00:33:34Z",
+      "accessionNumber": "0001045810-22-000036",
+      "filingDate": "2022-03-18",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20220130.htm",
+      "reportDate": "2022-01-30"
+    },
+    {
+      "acceptance_utc": "2022-02-16T21:21:16Z",
+      "accessionNumber": "0001045810-22-000008",
+      "filingDate": "2022-02-16",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20220216.htm",
+      "reportDate": "2022-02-16"
+    },
+    {
+      "acceptance_utc": "2021-11-20T02:16:20Z",
+      "accessionNumber": "0001045810-21-000163",
+      "filingDate": "2021-11-22",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20211031.htm",
+      "reportDate": "2021-10-31"
+    },
+    {
+      "acceptance_utc": "2021-11-17T21:20:59Z",
+      "accessionNumber": "0001045810-21-000160",
+      "filingDate": "2021-11-17",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20211117.htm",
+      "reportDate": "2021-11-17"
+    },
+    {
+      "acceptance_utc": "2021-08-20T20:32:40Z",
+      "accessionNumber": "0001045810-21-000131",
+      "filingDate": "2021-08-20",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20210801.htm",
+      "reportDate": "2021-08-01"
+    },
+    {
+      "acceptance_utc": "2021-08-18T20:21:07Z",
+      "accessionNumber": "0001045810-21-000128",
+      "filingDate": "2021-08-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20210818.htm",
+      "reportDate": "2021-08-18"
+    },
+    {
+      "acceptance_utc": "2021-05-26T20:35:56Z",
+      "accessionNumber": "0001045810-21-000064",
+      "filingDate": "2021-05-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20210502.htm",
+      "reportDate": "2021-05-02"
+    },
+    {
+      "acceptance_utc": "2021-05-26T20:20:35Z",
+      "accessionNumber": "0001045810-21-000063",
+      "filingDate": "2021-05-26",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20210526.htm",
+      "reportDate": "2021-05-26"
+    },
+    {
+      "acceptance_utc": "2021-02-26T22:03:14Z",
+      "accessionNumber": "0001045810-21-000010",
+      "filingDate": "2021-02-26",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "nvda-20210131.htm",
+      "reportDate": "2021-01-31"
+    },
+    {
+      "acceptance_utc": "2021-02-24T21:22:27Z",
+      "accessionNumber": "0001045810-21-000007",
+      "filingDate": "2021-02-24",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20210224.htm",
+      "reportDate": "2021-02-24"
+    },
+    {
+      "acceptance_utc": "2020-11-18T21:35:57Z",
+      "accessionNumber": "0001045810-20-000189",
+      "filingDate": "2020-11-18",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "nvda-20201025.htm",
+      "reportDate": "2020-10-25"
+    },
+    {
+      "acceptance_utc": "2020-11-18T21:21:51Z",
+      "accessionNumber": "0001045810-20-000187",
+      "filingDate": "2020-11-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "nvda-20201118.htm",
+      "reportDate": "2020-11-18"
+    }
+  ],
+  "ticker": "NVDA"
+}

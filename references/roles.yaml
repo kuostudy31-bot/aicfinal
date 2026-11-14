@@ -1,0 +1,40 @@
+# Who may dispatch whom, and which reports each phase must deliver.
+# Claude Code does not enforce Agent(...) allowlists inside subagent definitions,
+# so the controller enforces this file against the dispatch log written by
+# hooks/audit_event.py (SubagentStart/SubagentStop) before the case may advance.
+dispatch_check: enforce   # enforce | warn
+
+roles:
+  orchestrator:
+    may_dispatch: [gen-lead, crit-lead]
+    writes: [rounds/*/decision_note.md]
+  gen-lead:
+    may_dispatch: [gen-mapping, gen-narrative, gen-model, gen-valuation, gen-writer, evo-proposer]
+    writes: [rounds/*/generator/manifest.json]
+  crit-lead:
+    may_dispatch: [crit-provenance, crit-assumption, crit-compliance, evo-reviewer]
+    writes: [rounds/*/reviews/*/merged.json]
+  gen-mapping:    {may_dispatch: [], writes: [rounds/*/generator/mapping.json, rounds/*/generator/reports/gen-mapping.json]}
+  gen-narrative:  {may_dispatch: [], writes: [rounds/*/generator/narrative.json, rounds/*/generator/reports/gen-narrative.json]}
+  gen-model:      {may_dispatch: [], writes: [rounds/*/generator/assumptions.json, rounds/*/generator/reports/gen-model.json]}
+  gen-valuation:  {may_dispatch: [], writes: [rounds/*/generator/valuation_inputs.json, rounds/*/generator/reports/gen-valuation.json]}
+  gen-writer:     {may_dispatch: [], writes: [rounds/*/generator/note.md, rounds/*/generator/reports/gen-writer.json]}
+  crit-provenance: {may_dispatch: [], writes: [rounds/*/reviews/*/crit-provenance.json]}
+  crit-assumption: {may_dispatch: [], writes: [rounds/*/reviews/*/crit-assumption.json]}
+  crit-compliance: {may_dispatch: [], writes: [rounds/*/reviews/*/crit-compliance.json]}
+  evo-proposer:   {may_dispatch: [], writes: [evolution/changes/*/proposal.json, prompts/*/candidate-*.md]}
+  evo-reviewer:   {may_dispatch: [], writes: [evolution/changes/*/review.json]}
+
+phases:
+  generator:
+    lead: gen-lead
+    specialists: [gen-mapping, gen-narrative, gen-model, gen-valuation, gen-writer]
+  critic:
+    lead: crit-lead
+    specialists: [crit-provenance, crit-assumption, crit-compliance]
+  evo-generator:
+    lead: gen-lead
+    specialists: [evo-proposer]
+  evo-critic:
+    lead: crit-lead
+    specialists: [evo-reviewer]

@@ -37,7 +37,7 @@ limits:
   max_invalid_submissions: 2   # second invalid submission at the same step -> BLOCKED
   clean_reviews_required: 2    # consecutive clean full reviews of the same candidate
   max_dispatches_per_round: 12 # cost proxy: subagent dispatches per round
-  max_wall_minutes: 120        # elapsed time per case before escalation
+  max_wall_minutes: 240        # elapsed time per case before escalation
   stall_rounds: 2              # identical open-finding set across this many repairs -> STALLED
 
 publication:

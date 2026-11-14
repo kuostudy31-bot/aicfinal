@@ -1,0 +1,72 @@
+{
+ "mapping": {
+  "revenue": {
+   "concept": "Revenues",
+   "rationale": "fixture"
+  },
+  "cost_of_revenue": {
+   "concept": "CostOfRevenue",
+   "rationale": "fixture"
+  },
+  "gross_profit": {
+   "concept": "GrossProfit",
+   "rationale": "fixture"
+  },
+  "rnd": {
+   "concept": "ResearchAndDevelopmentExpense",
+   "rationale": "fixture"
+  },
+  "sga": {
+   "concept": "SellingGeneralAndAdministrativeExpense",
+   "rationale": "fixture"
+  },
+  "operating_income": {
+   "concept": "OperatingIncomeLoss",
+   "rationale": "fixture"
+  },
+  "net_income": {
+   "concept": "NetIncomeLoss",
+   "rationale": "fixture"
+  },
+  "diluted_shares": {
+   "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+   "rationale": "fixture"
+  },
+  "eps_diluted": {
+   "concept": "EarningsPerShareDiluted",
+   "rationale": "fixture"
+  },
+  "cfo": {
+   "concept": "NetCashProvidedByUsedInOperatingActivities",
+   "rationale": "fixture"
+  },
+  "capex": {
+   "concept": "PaymentsToAcquireProductiveAssets",
+   "rationale": "fixture"
+  },
+  "cash": {
+   "concept": "CashAndCashEquivalentsAtCarryingValue",
+   "rationale": "fixture"
+  },
+  "total_debt": {
+   "concept": "LongTermDebt",
+   "rationale": "fixture"
+  },
+  "assets": {
+   "concept": "Assets",
+   "rationale": "fixture"
+  },
+  "liabilities": {
+   "concept": "Liabilities",
+   "rationale": "fixture"
+  },
+  "equity": {
+   "concept": "StockholdersEquity",
+   "rationale": "fixture"
+  },
+  "liabilities_and_equity": {
+   "concept": "LiabilitiesAndStockholdersEquity",
+   "rationale": "fixture"
+  }
+ }
+}
