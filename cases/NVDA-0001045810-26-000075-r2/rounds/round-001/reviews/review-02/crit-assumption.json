@@ -1,0 +1,52 @@
+{
+  "request_id": "crit-20261114T153315-b869dc",
+  "role": "crit-assumption",
+  "candidate_id": "cand-73474e2b30c1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "minor",
+      "title": "Lock-up restrictions on marketable equity securities not reflected in net cash judgment",
+      "detail": "Still open; the candidate is unchanged since review-01 (generator file hashes match manifest.json). Net cash (66,003M) includes marketable equity securities of 42,783M at full balance-sheet fair value. Note 5 of the 10-Q (snapshot/docs/periodic.txt line 792, footnote (1) to the Jul 26, 2026 table) says $36.9B of these investments are subject to short-term lock-up restrictions on the ability to sell. The mapping rationale says 'the valuation step may haircut them', but valuation_inputs.json applies no haircut and its rationales do not discuss the point. note.md (Net cash paragraph) mentions fair-value volatility but not the lock-up. Re-computed impact: excluding the full $36.9B lowers both the DCF and the peer per-share values by about $1.52/share, so the blended value falls from $186.14 to about $184.6 (upside about -12.0%). The rating stays Underperform, so the conclusion does not change. This corrects review-01's estimate of about $1.2. The restriction should still be disclosed.",
+      "evidence": [
+        "snapshot/docs/periodic.txt lines 792-794 (Note 5 footnotes (1)-(2))",
+        "numerical/recompute/valuation.json#net_cash",
+        "generator/mapping.json#short_term_investments",
+        "generator/note.md (Results, Net cash paragraph)"
+      ],
+      "required_evidence": "note.md net-cash judgment (or valuation_inputs rationale) mentions that about $36.9B of marketable equity is under short-term lock-up and states whether a haircut is applied"
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Peer calendar label inconsistent with peer TTM end dates",
+      "detail": "Still open (code output unchanged). numerical/recompute/peers.json labels every peer 'calendar': 'CY2025Q4', but the ttm_end dates are 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL). NVIDIA's TTM ends 2026-07-26 (CY2026Q2). The label is not rendered in the note. note.md correctly says that peer TTM periods end one to three months before NVIDIA's quarter end. Informational for the code owner; the generator cannot fix it, and it does not affect the conclusion.",
+      "evidence": [
+        "numerical/recompute/peers.json#calendar",
+        "numerical/recompute/peers.json#ttm_end",
+        "generator/note.md (Model and valuation, Judgment paragraph)"
+      ],
+      "required_evidence": "peers.json calendar label consistent with ttm_end, or the label is not used in the note"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Candidate identity: sha256 of generator assumptions/mapping/narrative/note/valuation_inputs match manifest.json; candidate unchanged since review-01, so open findings were re-verified against the same files",
+    "Next-quarter revenue vs guidance: FY2027Q3 revenue_qoq 0.1224 on 96,221M gives 107,998M, matching the $108.0B midpoint (Q-1)",
+    "Next-quarter gross margin 74.0% = guidance midpoint (Q-3); step-down from about 75.0% reported is tied to the Vera Rubin introduction (Q-12) and labelled as such",
+    "Next-quarter opex 9,201M vs GAAP guidance of about $9.2B (Q-4); later-quarter opex q/q growth recomputed from forecast.json: +9.0%, +8.0%, +8.0% against revenue +10%, +8%, +7% (the prose overstatement is already tracked as prov-001, which belongs to crit-provenance)",
+    "Tax 17% = midpoint of FY2027 16-18% guidance (Q-5); zero other income disclosed in rationale and note",
+    "Later-quarter revenue path +10%/+8%/+7% continues the reported deceleration (22.0%, 19.5%, 19.8%, 17.9%, guided 12.2%); labelled judgment",
+    "WACC 11% (assumed rf 4.5%, beta 1.3, ERP 5%) and terminal growth 3%: reasonable for a large-cap semiconductor and disclosed as judgment",
+    "Terminal value share of EV 70.8% (below 80% threshold); disclosed in note",
+    "WACC sensitivity recomputed from valuation.json FCFs (g=3%): 10.0% -> -4.4% (Neutral), 10.5% -> -8.0% (Neutral), 11.0% -> -11.2%, 11.5% -> -14.0%, 12.0% -> -16.5%. Note states the rating is boundary-sensitive and not high-conviction",
+    "FCF margins 40/42/42/41/40% vs history recomputed from history.json: TTM (CFO - capex)/revenue 41.9%, 8-quarter 42.5%; rationale consistent",
+    "Net cash completeness vs balance sheet text (periodic.txt lines 263-303, 1152, 2073): cash 22,443 + marketable debt 34,143 + marketable equity 42,783 - (short-term debt 1,000 + long-term debt 32,366) = 66,003M, matching valuation.json; no commercial paper outstanding; senior notes $33.5B principal consistent. No material item omitted",
+    "Peer set AMD/AVGO/MRVL relevant; exclusions reasoned; period misalignment noted in note.md",
+    "Blend arithmetic: 0.7 x 141.68 + 0.3 x 289.88 = 186.14 -> target $186, upside -11.3%, Underperform",
+    "Price date 2026-08-26 close precedes cutoff 2026-08-26T20:36Z",
+    "Rationales exist for every assumption and support the chosen numbers",
+    "Open findings prov-001, prov-002, prov-003 and cmp-001 are outside crit-assumption scope; not re-adjudicated here (candidate unchanged, so they presumably remain open)"
+  ]
+}
