@@ -1,0 +1,118 @@
+{
+  "acceptance_rules": "references/acceptance.md",
+  "candidate_dir": "cases/NVDA-0001045810-26-000075/rounds/round-002/generator",
+  "candidate_id": "cand-bfc95339b3e9",
+  "case_id": "NVDA-0001045810-26-000075",
+  "computed_dir": "cases/NVDA-0001045810-26-000075/rounds/round-002/numerical/recompute",
+  "gates_file": "cases/NVDA-0001045810-26-000075/rounds/round-002/numerical/gates.json",
+  "issued_at": "2026-11-14T15:26:29Z",
+  "open_findings": [
+    {
+      "check": "Net cash omits $34.1B marketable debt securities (and $42.8B marketable equity securities)",
+      "detail": "valuation.json uses net_cash = cash 22.443B + short_term_investments 0 - debt 33.366B = -10.923B. The 2026-07-26 balance sheet (snapshot/docs/periodic.txt line 263, 265; MD&A line 1828, 1852) reports marketable debt securities of $34,143M (US Treasury and agency debt; the company itself reports 'Cash, cash equivalents, and marketable debt securities' of $56,586M) and marketable equity securities of $42,783M. Debt is complete (short-term 1,000 + long-term 32,366 = 33,366; no commercial paper outstanding, line 1152). Omitting the near-cash debt securities turns about +$23.2B of net cash into -$10.9B. Recomputed with the code's own formula (both DCF and EV/Sales legs subtract net cash): debt securities only gives a blended value of $185.54 (target about $186, upside -11.5%); including both marketable lines gives $187.30 (target about $187, upside -10.7%, 0.7pp from the Neutral band). The rating survives, but the published target price is wrong. The candidate discloses the omission (valuation_inputs.json rationales.net_cash; note Model and valuation section), but disclosure does not fix the figure. No XBRL concept in the snapshot carries these lines (MarketableSecuritiesCurrent stops 2025-10-26; DebtSecuritiesCurrent, EquitySecuritiesFvNi, AvailableForSale* absent; values 34143000000/42783000000 not in facts.json), so the fix probably needs a controller- or code-level mechanism for filing-text balance-sheet items, not just a generator remap.",
+      "first_round": 1,
+      "id": "asm-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "valuation.json net_cash includes the $34.143B marketable debt securities (and either includes the $42.783B marketable equity securities with a stated haircut or gives a documented reason for leaving them out), with target price and upside recomputed; or a controller-recorded decision that accepts the understatement, with the note quantifying the target-price effect.",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Rating depends on a 50bp WACC choice; rounding down from about 10.7% to 10.5% is unexplained",
+      "detail": "Reproducing the DCF offline from valuation_inputs.json: WACC 10.0% gives DCF $150.40, blended $191.29, upside -8.8% (Neutral); 10.5% gives -12.2% (Underperform); the unrounded CAPM figure of about 10.7% gives -13.4%. The rationale computes about 10.7% and then rounds to 10.5% with no reason for the direction or size of the rounding. The note says valuation is 'sensitive to the discount rate' but does not say that the rating itself changes within a 50bp WACC move. The terminal share (71.7%) is under 80%, and terminal growth of 3% is reasonable.",
+      "first_round": 1,
+      "id": "asm-002",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "WACC rationale explains why 10.5% rather than about 10.7%, and the note states that the rating moves to Neutral at a WACC near 10.0%.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Peer period misalignment not stated in the note; peers.json calendar label is inconsistent",
+      "detail": "Peer TTM windows end 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL), against 2026-07-26 for NVDA. The valuation rationale notes this, but the note does not. peers.json labels every peer 'calendar': 'CY2025Q4', which does not match the ttm_end dates; this looks like a code-labelling problem rather than a candidate error. The peer choice itself (AMD, AVGO, MRVL) is relevant and the exclusions are well reasoned.",
+      "first_round": 1,
+      "id": "asm-003",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The note states that peer TTM windows end May-June 2026, against July 2026 for NVDA; the calendar label is either corrected or flagged to the controller.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Note body does not state the accession, cutoff time or price date. It only points to the case file.",
+      "detail": "policies.md section 6 asks for data sources with their as-of time: SEC EDGAR filing accession and cutoff, plus the price date. The Disclosures section says 'accession and acceptance time as recorded in the case file' and 'the last close in the case price snapshot whose session ended before the cutoff'. It does not print accession 0001045810-26-000075, the cutoff 2026-08-26T20:36:00Z or the price date 2026-08-26. The writer cannot add these because values.json has no accession, cutoff or price-date key, and the untagged-number gate would reject literal digits. The publisher fills them into the PDF Data and Sources block (src/aicfinal/publish.py lines 146-147 and 165-166), so the published product does carry them. The disclosure is substantively present, so this is minor. It would become blocking only if the markdown note were circulated without the PDF.",
+      "first_round": 1,
+      "id": "cmp-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "Either values.json exposes accession, cutoff_utc and price_date keys that the note's Disclosures section cites, or the note is published only through publish.py, which injects them.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Earnings-release exhibits are described as accompanying the 10-Q, but they come from a separate 8-K",
+      "detail": "The Disclosures section reads 'the company's SEC EDGAR 10-Q filing ... and the accompanying earnings release exhibits (EX-99.1, EX-99.2)'. According to snapshot/manifest.json, release_ex99_1.txt and release_ex99_2.txt come from 8-K accession 0001045810-26-000073 (items 2.02, 9.01). That 8-K was accepted at 2026-08-26T20:21:19Z, before the cutoff, so there is no leakage. The source attribution is still slightly inaccurate. Suggested wording: 'earnings release exhibits (EX-99.1, EX-99.2) to the company's same-day Form 8-K'.",
+      "first_round": 1,
+      "id": "cmp-002",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The Disclosures section attributes EX-99.1 and EX-99.2 to the 8-K, not to the 10-Q.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "The rating band outcome sits under the 'Judgment' label, but it is a mechanical code output",
+      "detail": "The fourth Key points bullet is labelled **Judgment**. It contains the last close, the target price, the upside and the band the upside falls in. All of these are code outputs, and acceptance.md D says the rating follows the policy bands mechanically. Only the last sentence ('the rating reflects valuation, not a call on the quarter's quality') is analyst judgment. Suggested fix: label the first sentence 'Valuation (code output)', as the Model and valuation section already does, and keep 'Judgment' for the interpretation.",
+      "first_round": 1,
+      "id": "cmp-003",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The Key points bullet separates the code-output valuation and rating from the analyst's judgment.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Net-cash understatement disclosed but not quantified; equity securities not covered by the robustness claim",
+      "detail": "valuation.json net_cash = cash 22,443m - debt 33,366m = -10,923m, with short_term_investments = 0 because the catalog concept MarketableSecuritiesCurrent is stale (latest 2025-10-26) and DebtSecuritiesCurrent / EquitySecuritiesFvNi have no observations in snapshot/facts.json (eu.py concepts: in_snapshot=false). The note discloses this correctly, but it does not give the omitted amounts. The balance sheet in periodic.txt (lines 263-265) shows marketable debt securities of 34,143m and marketable equity securities of 42,783m. The note's claim that including the debt securities would not change the rating holds: +34,143m / 24,285m diluted shares = +$1.41 per share in both the DCF and the relative leg, so the blended value is about $185.5 (target $186, upside about -11.3%). The note does not test the equity securities as well. Including both (+76,926m, +$3.17 per share) gives a blended value of about $187.3 (target about $187, upside about -10.8%). That is still Underperform, but only about 0.8 pts from the -10% band edge. gen-mapping's own rationale said these amounts should be sourced from filing text downstream, and that was not done. Because the figure is labelled accurately and the rating does not change, this is minor.",
+      "first_round": 1,
+      "id": "prov-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The Model and valuation judgment paragraph states the omitted amounts (marketable debt securities $34.1bn, marketable equity securities $42.8bn, from the filing text) and that including both still leaves upside below -10%, or the narrower thin-margin caveat is stated explicitly.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Net cash described as 'cash and long-term debt' although the debt figure includes short-term debt",
+      "detail": "The note says 'The net cash figure counts only mapped cash and long-term debt.' The mapped total_debt concept is LongTermDebt = 33,366m, which equals short-term debt 1,000m plus long-term debt 32,366m (periodic.txt lines 299-303). That makes it total debt, as the mapping rationale says. The wording slightly misdescribes the value. It does not affect any figure.",
+      "first_round": 1,
+      "id": "prov-002",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The note describes the debt deducted as total debt (short-term plus long-term).",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    }
+  ],
+  "output_dir": "cases/NVDA-0001045810-26-000075/rounds/round-002/reviews/review-01",
+  "phase": "critic",
+  "request_id": "crit-20261114T152629-224a85",
+  "required_reports": [
+    "crit-provenance",
+    "crit-assumption",
+    "crit-compliance"
+  ],
+  "review": 1,
+  "round": 2,
+  "snapshot_dir": "cases/NVDA-0001045810-26-000075/snapshot"
+}

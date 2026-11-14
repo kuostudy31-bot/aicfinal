@@ -1,0 +1,26 @@
+{
+  "request_id": "gen-20261114T151853-c21825",
+  "role": "gen-valuation",
+  "status": "complete",
+  "outputs": [
+    "valuation_inputs.json"
+  ],
+  "repairs": [
+    {
+      "finding": "asm-001",
+      "status": "unresolved-in-code",
+      "action": "Code cannot read filing-text balance-sheet items and short_term_investments stays null (gen-mapping confirmed in round 2). rationales.net_cash now gives our judgment: marketable debt securities of $34.143B at full value (Treasury/agency near-cash, Q-11, Q-15, Q-16), marketable equity securities of $42.783B at a 30% haircut, worth $29.948B (lock-ups $36.9B Q-17, volatility, tax leakage on unrealized gains), non-marketable securities excluded. Preferred net cash is +53.168B against code's -10.923B. Quantified with code's formula at the final WACC of 10.7%: code target $182 (-13.2%); (i) debt securities only: target $183 (-12.7%); (ii) debt plus haircut equity: target $184 (-12.2%); both at full value: $185 (-11.8%). All Underperform. Needs a controller/code mechanism (e.g. a net-cash adjustment input or filing-text balance-sheet lines) to fix the published figure; alternatively, a controller-recorded decision accepting the understatement. No other input was distorted to compensate."
+    },
+    {
+      "finding": "asm-002",
+      "status": "repaired",
+      "action": "Adopted the unrounded CAPM WACC of 10.7% (cost of equity 10.75%, debt weight about 0.66%, after-tax cost of debt about 3.7% assumed). The round-1 rounding down to 10.5% had no basis. The wacc rationale now gives the Neutral thresholds. The target rounds to $189 or more (upside above -10%) at WACC of about 10.19% or lower on code net cash, 10.29% with debt securities, 10.37% with debt plus haircut equity and 10.41% with both at full value. The base is 33-51bp above these thresholds."
+    },
+    {
+      "finding": "asm-003",
+      "status": "repaired-in-inputs; label flagged",
+      "action": "rationales.peers states the peer TTM window ends (AMD 2026-06-27, AVGO 2026-05-03, MRVL 2026-05-02 vs NVDA 2026-07-26) and the direction of the bias. The peers.json 'calendar: CY2025Q4' label is produced by code (xbrl.calendar_label uses the midpoint of the TTM window) and does not describe the window end. Flagged to the controller; code not edited."
+    }
+  ],
+  "notes": "Inputs changed from round 1: WACC 0.105 -> 0.107 only. Peers (AMD, AVGO, MRVL), terminal growth 3.0%, revenue growth 15/10/7/5%, FCF margins 42/44/44/43/42% and dcf_weight 0.7 are unchanged; on review I found no error in them. Round-2 assumptions.json is the same as round 1 in substance, so code NTM revenue stays about $492.4B and TTM revenue about $303.0B. Offline results (code's dcf() plus blending, which the authoritative compute should reproduce): DCF $136.46, relative $286.71, blended $181.53, target $182, upside -13.2%, Underperform; terminal value 71.1% of EV. Target moves from $184 in round 1 to $182 purely because of WACC. For the writer, in plain terms: (1) Including marketable debt securities only: target about $183, upside about -12.7%, 2.7pp below the -10% band edge. (2) Including debt securities plus equity securities at a 30% haircut (our preferred view): target about $184, upside about -12.2%, 2.2pp from the band. (3) Both lines at full value: target about $185, upside about -11.8%, 1.8pp from the band. (4) The rating would turn Neutral at a WACC of about 10.2% on code's net cash, about 10.3% with debt securities and about 10.4% with debt plus haircut equity, roughly 30-50bp below our 10.7%. For the controller: (a) asm-001 needs a mechanism for filing-text balance-sheet items; code's net_cash (-10.923B) understates our preferred +53.168B by about $2.6 per share in both legs, or about $2 in target price. (b) The peers.json 'calendar' label (CY2025Q4) is the TTM-window midpoint from xbrl.calendar_label and does not match the ttm_end dates. Unchanged caveat: H1 FY2027 net income includes $23.707B of gains on equity securities, so TTM P/E overstates operating earnings; FCF here is CFO-based."
+}

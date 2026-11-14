@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261114T151853-c21825",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": [
+    "assumptions.json"
+  ],
+  "repairs": [],
+  "notes": "Repair round 2: no model finding was open (asm-001, asm-002 and asm-003, prov-* and cmp-* concern net cash, WACC, peers, provenance and wording, not the forecast assumptions). Round-001 assumptions.json was re-issued under the new request_id. All numeric inputs are unchanged: FY2027Q3 revenue_qoq 12.24% (Q-1), GM 74.0% (Q-3), opex 8.52% (Q-4); later quarters 10%/8%/7% revenue, GM 74%, opex 8.5%-8.7%; tax 17% (Q-5); share_change_qoq -0.4%. I re-checked the arithmetic and found no error. Every cited fact ID is present in the round-2 history, and Q-1..Q-10 are unchanged in the round-2 narrative. The only edit is to the share_change_qoq rationale wording: it no longer cites D-30c5a1282c/D-475c151c60, because the round-2 mapping now shows those quarters' diluted shares as null."
+}

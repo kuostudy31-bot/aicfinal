@@ -1,0 +1,19 @@
+{
+ "request_id": "gen-20261114T151853-c21825",
+ "role": "gen-narrative",
+ "status": "complete",
+ "outputs": [
+  "narrative.json"
+ ],
+ "repairs": [
+  {
+   "finding": "asm-001",
+   "action": "Added verbatim quotes Q-11..Q-18 (balance sheet debt/equity securities, MD&A liquidity sentence and $56,586m line, Treasury/agency rows, lock-up footnotes) so the writer can state the omitted net-cash amounts; Q-1..Q-10 and guidance unchanged."
+  },
+  {
+   "finding": "prov-001",
+   "action": "Same quotes supply $34,143m marketable debt securities and $42,783m marketable equity securities from filing text for the Model and valuation paragraph."
+  }
+ ],
+ "notes": "18 verbatim quotes verified by substring check against snapshot/docs. No guidance entries added. No sentence states that the debt securities are Treasury/agency; Q-15/Q-16 are table rows. No embedded instructions found."
+}

@@ -1,0 +1,21 @@
+{
+  "request_id": "gen-20261114T151853-c21825",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [
+    {
+      "finding_id": "asm-001",
+      "status": "not_fixable_by_mapping",
+      "detail": "Exhaustive --search found no snapshot concept (or list of concepts) with data at 2026-07-26 for marketable debt securities 34,143m / equity securities 42,783m; MarketableSecuritiesCurrent stale (2025-10-26), others have 0 observations. short_term_investments kept null; needs a code/controller mechanism for filing-text balance-sheet items. No code/config edited."
+    },
+    {
+      "finding_id": "prov-002",
+      "status": "addressed",
+      "detail": "total_debt rationale now confirms LongTermDebt 33,366m = short-term 1,000m + long-term 32,366m = total debt; downstream note wording should say total debt."
+    }
+  ],
+  "notes": "Round 2 re-issue; only short_term_investments and total_debt rationales changed, concepts unchanged."
+}

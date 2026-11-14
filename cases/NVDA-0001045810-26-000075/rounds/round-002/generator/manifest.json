@@ -1,0 +1,49 @@
+{
+  "request_id": "gen-20261114T151853-c21825",
+  "files": {
+    "assumptions.json": "7dbebf6cbeba463c08ddda84e97c7c69c5706951e59509753b144b699fca86a1",
+    "mapping.json": "1bf4aae254986877b7abbcfbee028d1f59fca3d37498150bcd15d74e82c886aa",
+    "narrative.json": "3c71fcd6b03d4ba2d72054db801f3d74db8a1fd39c5e5ddedd7c0da0daf6f4a0",
+    "note.md": "6248071de4c18c3a036de53451b581e06c86a4b0f3cf31dacccaa21af37f7009",
+    "reports/gen-mapping.json": "6efbc3297841abaf3a1117c54070c2c3960639cba38d4a24790f1730a47104fe",
+    "reports/gen-model.json": "15ee6df09acfed90db7f2a6a715a04d6feb73d0cff52b5cfbfc1feaaedce1113",
+    "reports/gen-narrative.json": "0039098ed93856cf4578222e8c1a3184bd92ad5966f0669cb2072538071b780c",
+    "reports/gen-valuation.json": "ff3f847bec139b7fd8ef9c0f7932fd167a7c05c4bb679a2e19c4ec3e9006061e",
+    "reports/gen-writer.json": "7066e6934da92465639c0512c864f01bb65b370412d113ddbd9e8944c060f10f",
+    "valuation_inputs.json": "e4deeb528c68e59fa4fd3878db0f38a8ed41fa1e534c2224b05b1f580ae4b0d4"
+  },
+  "reports": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation",
+    "gen-writer"
+  ],
+  "integration": {
+    "compute": "ok",
+    "gate_findings": [],
+    "target_price": 182,
+    "rating": "Underperform",
+    "computed_hashes": {
+      "history.json": "968c429d6842193f3adafc89fcef499176dc88312e6e7cd4fe80294e143e948b",
+      "forecast.json": "c678bc3d2369bbb3e27a81cfb76c61a756180a81c6963164722496e3be8b41e8",
+      "peers.json": "7b8b5f434925112733d08af4079e86fc7ffe415d50e2e02b6572ce9458f107fd",
+      "valuation.json": "50de5cbf6e52a0bb759bc68596d9e614dc72c27d1f17b57c062f8fc641a994f8",
+      "values.json": "bd88f7c0fed0ada079bcbb57d49e867f3b122f05651f7cb92d89c1af4aaf6cdd"
+    },
+    "unresolved": [
+      {
+        "finding": "asm-001",
+        "reason": "valuation.json net_cash remains -10.923B: no snapshot XBRL concept carries marketable debt securities (34.143B) or marketable equity securities (42.783B), and valuation.py has no input for filing-text balance-sheet items. Needs a controller/code mechanism or a controller-recorded acceptance. The note quotes the amounts (Q-11, Q-12, Q-13, Q-17) and states the effect: per gen-valuation's offline check, target 183-185 and upside -12.7% to -11.8%, rating still Underperform."
+      },
+      {
+        "finding": "cmp-001",
+        "reason": "values.json has no accession/cutoff_utc/price_date keys; the note states these are printed by publish.py in the PDF Data and Sources block and that the note is distributed only through it. Closing it needs code keys or a controller confirmation."
+      },
+      {
+        "finding": "asm-003 (label part)",
+        "reason": "peers.json 'calendar: CY2025Q4' label comes from code (xbrl.calendar_label on the TTM window midpoint); flagged to the controller. The note states the peer TTM window ends."
+      }
+    ]
+  }
+}

@@ -8,15 +8,24 @@
       "narrative.json": "61b4dd25d851c1ed1e8f5d1dd61e70b34d0816f49741503af1f923d2dc3a6921",
       "note.md": "4d9dbd2e1adc451ceaf413def7ad8ae906c0449afddf1a1555406ccc357a51b7",
       "valuation_inputs.json": "aee90b0f96c6e3a5b036e509e68f1020b1f55ab82feb78cabf96e7e60daa43f7"
+    },
+    "round-002": {
+      "assumptions.json": "7dbebf6cbeba463c08ddda84e97c7c69c5706951e59509753b144b699fca86a1",
+      "gates.json": "628a131a27451229d94fa10194e6f85b82c1bba6bee26186bb1ad93e05d50a7d",
+      "mapping.json": "1bf4aae254986877b7abbcfbee028d1f59fca3d37498150bcd15d74e82c886aa",
+      "narrative.json": "3c71fcd6b03d4ba2d72054db801f3d74db8a1fd39c5e5ddedd7c0da0daf6f4a0",
+      "note.md": "6248071de4c18c3a036de53451b581e06c86a4b0f3cf31dacccaa21af37f7009",
+      "valuation_inputs.json": "e4deeb528c68e59fa4fd3878db0f38a8ed41fa1e534c2224b05b1f580ae4b0d4"
     }
   },
-  "candidate_id": "cand-1ea653d6f369",
+  "candidate_id": "cand-bfc95339b3e9",
   "case_id": "NVDA-0001045810-26-000075",
   "clean_streak": 0,
   "cutoff_utc": "2026-08-26T20:36:00Z",
   "dispatch_counts": {
     "crit-20261114T151438-1837ea": 4,
-    "gen-20261114T144812-0d99ea": 9
+    "gen-20261114T144812-0d99ea": 9,
+    "gen-20261114T151853-c21825": 6
   },
   "invalid_submissions": 0,
   "ledger": {
@@ -124,10 +133,10 @@
   ],
   "opened_at": "2026-11-14T14:48:12Z",
   "pending": {
-    "issued_at": "2026-11-14T15:18:53Z",
-    "path": "cases/NVDA-0001045810-26-000075/rounds/round-002/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261114T151853-c21825"
+    "issued_at": "2026-11-14T15:26:29Z",
+    "path": "cases/NVDA-0001045810-26-000075/rounds/round-002/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261114T152629-224a85"
   },
   "period_of_report": "2026-07-26",
   "prompt_versions": {
@@ -145,10 +154,10 @@
     "gen-writer": "v1",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 2,
   "snapshot_manifest_sha256": "c5a3f072e1fd5260fe85389bd0ec4eee37c1334652d613612ea7868f72e4e55e",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "NVDA",
-  "updated_at": "2026-11-14T15:18:53Z"
+  "updated_at": "2026-11-14T15:26:29Z"
 }
