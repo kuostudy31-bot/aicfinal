@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "Round 1, no open findings. note.md uses only {{key}} placeholders from computed/values.json and [[Q-1]]..[[Q-12]] quotes. eu.py compute re-run after writing: gate_findings [] (gate_note also checked directly: no findings). Upstream points reflected as labelled judgments: net cash includes current marketable securities, and marketable equity securities are at fair value and move with market prices; quarters after FY2027Q3 are analyst judgments, not guidance; outlook and model assume no China Data Center compute revenue (Q-2). Lessons from revision-1 reviews applied: debt described as total debt (short- plus long-term); release exhibits attributed to a separate 8-K accepted before the cutoff; the rating band outcome is labelled as a code output, separate from judgment; peer TTM period misalignment and sensitivity of the rating to the discount rate are disclosed qualitatively (an offline check with valuation.dcf showed a WACC half a point lower gives Neutral; no number printed). Unresolved, a gate/policy tension: policies.md section 6 asks for the accession, cutoff and price date, but the provenance gate forbids digits outside code values and values.json has no accession or cutoff key. The note gives the cutoff and price date as August twenty-sixth, 2026 (spelled out) and says the accession number and exact timestamp are in the case manifest and the published report's source line (publish.py prints both). A compliance critic may still raise this as minor (compare revision 1's cmp-001)."
+}
