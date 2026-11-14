@@ -1,13 +1,36 @@
 {
   "accession": "0000002488-26-000191",
-  "artifacts": {},
-  "candidate_id": null,
+  "artifacts": {
+    "round-001": {
+      "assumptions.json": "1019e1e41bc426ef5c31e43cbcf1b78e7d37b764ad0dd061596160ccabe14884",
+      "gates.json": "fb645fcb53c4a56a17c8393a2ed2754ac625b5fd568f7f64f220ec4f78899b43",
+      "mapping.json": "0384f113281bee1754699ce1179bc801f7844c362253a2cdc3de81788fae946c",
+      "narrative.json": "248eb84bb952fab8fc5a8b34ffee3b5ee539c0287115620b844cf66d1c4795ab",
+      "note.md": "56cdcd36448675ed5bbd0f88e0a98717674a5ea145d72e8ecfc17ac1967db5e2",
+      "valuation_inputs.json": "dda8e3440328a0627c36b07ecba9f51aa42d423cbd942bdb332b1cd47f58df13"
+    }
+  },
+  "candidate_id": "cand-e93d02c961c7",
   "case_id": "AMD-0000002488-26-000191",
   "clean_streak": 0,
   "cutoff_utc": "2026-11-03T23:00:17Z",
-  "dispatch_counts": {},
+  "dispatch_counts": {
+    "gen-20261114T145504-830038": 9
+  },
   "invalid_submissions": 0,
-  "ledger": {},
+  "ledger": {
+    "gate-guidance-opex_next_q": {
+      "check": "guidance_source",
+      "detail": "opex_next_q value 3.8 not visible in Q-3",
+      "first_round": 1,
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": null,
+      "severity": "major",
+      "source": "gate",
+      "status": "open"
+    }
+  },
   "limits": {
     "clean_reviews_required": 2,
     "max_dispatches_per_round": 12,
@@ -16,13 +39,17 @@
     "max_wall_minutes": 240,
     "stall_rounds": 2
   },
-  "open_history": [],
+  "open_history": [
+    [
+      "gate-guidance-opex_next_q"
+    ]
+  ],
   "opened_at": "2026-11-14T14:55:04Z",
   "pending": {
-    "issued_at": "2026-11-14T14:55:04Z",
-    "path": "cases/AMD-0000002488-26-000191/rounds/round-001/request.json",
+    "issued_at": "2026-11-14T16:07:00Z",
+    "path": "cases/AMD-0000002488-26-000191/rounds/round-002/request.json",
     "phase": "generator",
-    "request_id": "gen-20261114T145504-830038"
+    "request_id": "gen-20261114T160700-654fe5"
   },
   "period_of_report": "2026-09-26",
   "prompt_versions": {
@@ -41,9 +68,9 @@
     "orchestrator": "v1"
   },
   "review": 0,
-  "round": 1,
+  "round": 2,
   "snapshot_manifest_sha256": "31ef73de1e9bb67be2eaa0c1823d73013332d97d800fe85de52b4829354a6815",
   "status": "GENERATOR_PENDING",
   "ticker": "AMD",
-  "updated_at": "2026-11-14T14:55:04Z"
+  "updated_at": "2026-11-14T16:07:00Z"
 }

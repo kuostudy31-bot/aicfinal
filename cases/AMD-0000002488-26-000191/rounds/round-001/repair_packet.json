@@ -1,0 +1,18 @@
+{
+  "instruction": "Repair every open finding and supply the required evidence; findings close only when a fresh critic or the recomputed gates verify the repaired output.",
+  "open_findings": [
+    {
+      "check": "guidance_source",
+      "detail": "opex_next_q value 3.8 not visible in Q-3",
+      "first_round": 1,
+      "id": "gate-guidance-opex_next_q",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": null,
+      "severity": "major",
+      "source": "gate",
+      "status": "open"
+    }
+  ],
+  "reason": "numerical gates failed"
+}

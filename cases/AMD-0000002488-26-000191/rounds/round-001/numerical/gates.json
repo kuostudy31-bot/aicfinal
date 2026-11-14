@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-14T16:07:00Z",
+  "findings": [
+    {
+      "check": "guidance_source",
+      "detail": "opex_next_q value 3.8 not visible in Q-3",
+      "id": "gate-guidance-opex_next_q",
+      "severity": "major"
+    }
+  ],
+  "hashes": {
+    "forecast.json": "45a0049deaa4843c68232eb6a4ae5b39c792e173f41fdf6ffde70a053a2bfbcf",
+    "history.json": "c7ea79722740e44a9dff353922947e2e7ef9ddfc3da10964c3e4a7867a2e411a",
+    "peers.json": "6882d9b28cb32b58c651e9e30da9ef4859a3707a144b9bc22f24fba28028df3d",
+    "valuation.json": "9a7a3f771c6af326420d1e7f2195c383bcbfa982d41a3bbbf174b11a3ecceff1",
+    "values.json": "fc9248f5fe234d410650a95bfc743b8db5313f668df03aa46be48ef62207515e"
+  },
+  "request_id": "gen-20261114T145504-830038"
+}
