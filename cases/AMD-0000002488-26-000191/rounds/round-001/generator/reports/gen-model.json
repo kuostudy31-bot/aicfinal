@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T145504-830038",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": ["assumptions.json"],
+  "repairs": [],
+  "notes": "Resumed run (prompt gen-model v1). Used the existing mapping.json and narrative.json without changing them. Basis is GAAP, to match the mapped history. AMD guides margins, opex and tax on a non-GAAP basis, so FY2026Q4 is the guidance midpoint bridged to GAAP with the FY2026Q3 reconciliation in release_ex99_2.txt: revenue +27.08% (Q-1); gross margin 55% non-GAAP less about 1.6 pts = 53.4% (Q-2); opex $3.75B non-GAAP plus about $0.84B of SBC, amortization and acquisition costs = 27.0% of revenue (Q-3). Tax is 13% (Q-4), the normalized guided rate. GAAP effective rates were (29.6)% in Q3 and (1.1)% YTD because of discrete SBC tax benefits, so they are not a run-rate. Share change +0.4% per quarter (Q-5 and trailing trend). FY2027Q1-Q3 revenue growth of +2%, +7% and +9% is analyst judgment; it deliberately decelerates from the recent trend for Q1 seasonality and the guided Q4 step-up. Gate check gate_assumptions returned no findings. Assumptions were not tuned toward any target price or rating. Not resolved: customer warrants (up to 320M shares) are not modelled; other income is set to zero (guided at about $4M; warrant remeasurement cannot be forecast); acquisition-driven opex from World Labs and Taalas is only roughly covered by the 5% q/q opex growth assumption. Downstream note: the FY2026Q4 forecast GAAP EPS (about $2.34) is not comparable with FY2026Q3 GAAP EPS of $1.46, which included a $1,097M warrant charge and a tax benefit."
+}
