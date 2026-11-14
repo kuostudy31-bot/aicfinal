@@ -29,10 +29,10 @@ no model. `--as-of` replays history, which is how the evidence cases were produc
 **Inputs, permitted sources, cutoff.** SEC EDGAR (submissions, companyfacts XBRL, filing
 documents) and one daily-price endpoint. `config/project.yaml` lists the permitted hosts and
 `src/aicfinal/http.py` enforces them in code. The cloud environment's network allowlist
-enforces them again. A case's **cutoff is the SEC acceptance time of the filing that opened it**.
-Facts come only from filings accepted before it, prices only from sessions that closed
-before it, and restatements filed later are invisible to an earlier case (`tests/test_xbrl.py`,
-`tests/test_leakage.py`).
+enforces them again. A case's cutoff is the SEC acceptance time of the filing that opened it.
+Facts come only from filings accepted at or before the cutoff, and prices only from
+sessions that closed at or before it. A restatement filed later is invisible to an earlier
+case (`tests/test_xbrl.py`, `tests/test_leakage.py`).
 
 **Work products and acceptance.** For each case: `mapping.json`, `narrative.json`,
 `assumptions.json`, `valuation_inputs.json`, a note in which every figure is a code-generated
@@ -66,13 +66,12 @@ system's own prompts must be improved and rolled back without disturbing cases i
 | **Analyst (human)** | publication, adoption of system changes, policy | `eu.py approve`, `evo-adopt` | evidence → decision |
 
 **Why this split.** Each role differs from the others in context, permissions or the need to
-be independent. The work splits where the reasoning differs: mapping concepts, reading text,
-forecasting, valuing and writing are separate judgments, and each has its own repairable
-artifact. That lets a repair packet go to the specialist that owns the finding. Critics run
-in fresh contexts, see only evidence (never the generator's reasoning) and cannot edit the
-candidate. **All arithmetic is deterministic code** (`model.py`, `valuation.py`, `values.py`).
-Agents choose inputs and justify them, and the writer cannot type a number because the
-provenance gate rejects any digit not supplied by code or by a quote.
+be independent. Mapping concepts, reading text, forecasting, valuing and writing are separate
+judgments, and each produces its own artifact, so a repair packet can go to the specialist
+that owns the finding. Critics run in fresh contexts, see only evidence (never the
+generator's reasoning) and cannot edit the candidate. All arithmetic is deterministic code
+(`model.py`, `valuation.py`, `values.py`). Agents choose inputs and justify them. The writer
+cannot type a number: the provenance gate rejects any digit not supplied by code or by a quote.
 
 **Agent decisions vs. harness control.** Agents decide *content*: mappings, assumptions,
 wording, findings. The controller decides *process*. It checks request IDs and report
@@ -130,9 +129,10 @@ refuses direct edits to control files, and during a run it also refuses edits to
   controller regression suite. `evo-reviewer` checks scope and evidence in a fresh context.
   Only then can the human adopt it.
 * **Version, rollback.** Adoption copies the candidate to `prompts/<role>/vN.md`, moves the
-  registry pointer and records the approver and the evaluation hash in the registry. The
-  commit is tagged `prompt-<role>-vN`. Existing cases keep the versions pinned in `case.json`.
-  `evo-rollback` restores the prior pointer and keeps both versions.
+  registry pointer, and records the approver, the evaluation hash and a suggested tag
+  (`prompt-<role>-vN`) in the registry. The person who adopts the change commits and tags it.
+  Existing cases keep the versions pinned in `case.json`. `evo-rollback` restores the prior
+  pointer and keeps both versions.
 * **Leakage prevention.** Cutoff by SEC acceptance time; price observability by session
   close; restatements resolved per cutoff; a perturbation test (lecture slide 44) that alters
   later filings, later restatements and later prices and requires identical outputs, with a
@@ -156,6 +156,14 @@ refuses direct edits to control files, and during a run it also refuses edits to
    `evidence/transcripts/`, which also shows that the contexts were separate.
 3. **A newly created `.claude/agents/` directory is not picked up by a running session.**
    Live runs therefore start in a fresh session on the committed branch.
+4. **A catalog-only snapshot hid data the agents needed.** In the NVDA run, gen-mapping
+   rejected the stale `MarketableSecuritiesCurrent` (last value 2025-10-26) and noted that the
+   balance sheet now reports marketable debt and equity securities separately. Those concepts
+   (`DebtSecuritiesCurrent`, `EquitySecuritiesFvNi`) were not in the snapshot, so net cash
+   left them out. The fix is a code change, not a prompt change: snapshots now keep every
+   concept the company reports, and a line may map to a list of concepts summed per period.
+   Cases opened before the fix keep their original snapshot. A changed input version means a
+   new case, as in lecture slide 26.
 
 ## 4. Borrowed from industry, and what was added
 
