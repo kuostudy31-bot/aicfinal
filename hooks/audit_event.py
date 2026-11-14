@@ -42,6 +42,16 @@ def main():
     logs.mkdir(exist_ok=True)
     with open(logs / "hook_events.jsonl", "a", encoding="utf-8") as fh:
         fh.write(json.dumps(rec) + "\n")
+    # Only workflow roles are case evidence; other subagents (built-in helpers, other
+    # sessions' tooling) go to the local log only.
+    known = set()
+    try:
+        import re
+        known = set(re.findall(r"^  ([a-z][a-z-]+):", (ROOT / "references" / "roles.yaml").read_text(), re.M))
+    except OSError:
+        pass
+    if rec["agent_type"] not in known:
+        return
     case = active.get("case_id")
     target = None
     if active.get("trace_path"):
