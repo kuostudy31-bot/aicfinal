@@ -520,3 +520,27 @@ def resume(case_id: str) -> dict:
                                         "status": state["status"], "round": state["round"],
                                         "next_action": report["next_action"]})
     return report
+
+
+# ----------------------------------------------------------------- watchdog
+def watchdog(minutes: int) -> list[dict]:
+    """Cases with an outstanding generator/critic request and no trace activity for `minutes`.
+
+    State alone guarantees that work *can* resume; it does not make anyone resume it. The
+    watchdog closes that gap: a scheduled run reports stale cases (exit code 1) with the
+    resume inspection's next action, so a person or a scheduled session can act.
+    """
+    stale = []
+    now = utcnow()
+    for sp in sorted(CASES.glob("*/state.json")):
+        st = read_json(sp)
+        if st["status"] not in ("GENERATOR_PENDING", "CRITIC_PENDING"):
+            continue
+        events = read_jsonl(sp.parent / "trace.jsonl")
+        last = max((parse_iso(e["ts"]) for e in events if e.get("ts")), default=parse_iso(st["updated_at"]))
+        idle = (now - last).total_seconds() / 60
+        if idle >= minutes:
+            stale.append({"case_id": st["case_id"], "status": st["status"], "round": st["round"],
+                          "idle_minutes": round(idle, 1), "last_event_at": iso(last),
+                          "pending_request": (st.get("pending") or {}).get("request_id")})
+    return stale

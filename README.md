@@ -133,6 +133,8 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
 * `cases/RUN_NOTES.md`: the first live run stopped at GENERATOR_PENDING because of a
   platform limit on nested subagents. It was resumed from the pending request in a new
   session.
+* `docs/incidents.md`: every problem met during the build and the runs, with timeline, impact,
+  root cause and fix (including the 50-minute AMD stall and the watchdog added for it).
 * `evolution/changes/`: a prompt change evaluated against the baseline on fixed cases,
   reviewed, decided and versioned.
 

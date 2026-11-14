@@ -219,3 +219,14 @@ class RevisionTests(Harness):
         case = read_json(controller.case_dir(st["case_id"]) / "case.json")
         self.assertEqual(case["supersedes"], "NVDA-0001045810-26-000075")
         self.assertEqual(self.state["status"], "GENERATOR_PENDING")  # original untouched
+
+
+class WatchdogTests(Harness):
+    def test_idle_pending_case_is_reported_and_active_case_is_not(self):
+        self.assertEqual(controller.watchdog(minutes=20), [])  # just opened: activity now
+        from datetime import timedelta
+        later = controller.utcnow() + timedelta(minutes=45)
+        with mock.patch.object(controller, "utcnow", return_value=later):
+            stale = controller.watchdog(minutes=20)
+        self.assertEqual([s["case_id"] for s in stale], [self.cid])
+        self.assertGreaterEqual(stale[0]["idle_minutes"], 45)

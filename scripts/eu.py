@@ -167,6 +167,14 @@ def cmd_history(a):
     print(json.dumps(rows, indent=1))
 
 
+def cmd_watchdog(a):
+    stale = controller.watchdog(a.minutes)
+    for c in stale:  # add the resume inspection's next action (read-only apart from the trace note)
+        c["next_action"] = controller.resume(c["case_id"])["next_action"] if a.inspect else None
+    print(json.dumps({"checked_at": iso(utcnow()), "threshold_minutes": a.minutes, "stale": stale}, indent=2))
+    sys.exit(1 if stale else 0)
+
+
 def cmd_publish(a):
     from aicfinal import publish
     print(publish.render(a.case))
@@ -185,6 +193,9 @@ def main(argv=None):
                      ("resume", cmd_resume), ("publish", cmd_publish)):
         s = sub.add_parser(name); s.add_argument("--case", required=True); s.set_defaults(fn=fn)
     s = sub.add_parser("status"); s.set_defaults(fn=cmd_status)
+    s = sub.add_parser("watchdog"); s.add_argument("--minutes", type=int, default=20)
+    s.add_argument("--inspect", action="store_true", help="also run resume inspection for stale cases")
+    s.set_defaults(fn=cmd_watchdog)
     s = sub.add_parser("concepts"); s.add_argument("--case", required=True); s.add_argument("--line", required=True)
     s.add_argument("--search"); s.add_argument("--extra", nargs="*"); s.set_defaults(fn=cmd_concepts)
     s = sub.add_parser("history"); s.add_argument("--case", required=True); s.set_defaults(fn=cmd_history)

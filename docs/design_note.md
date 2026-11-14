@@ -101,6 +101,10 @@ refuses direct edits to control files, and during a run it also refuses edits to
   are missing are re-dispatched under the *same* request ID, and a terminal case returns its
   saved result. Opening an existing case returns it unchanged, and snapshots are never rebuilt
   once their hashes verify.
+* **Who resumes.** Saved state guarantees that work *can* resume, not that anyone *will*. In
+  the AMD run a session sat idle for about 50 minutes after an interruption (see
+  [`incidents.md`](incidents.md) #8). `eu.py watchdog --minutes N` reports cases with an
+  outstanding request and no activity for N minutes (exit code 1), for a scheduled check.
 * **Limits.** Per case: 3 rounds, 2 invalid submissions per step, 12 dispatches per round
   (cost proxy; checked from the hook log), 240 minutes. Per role: `maxTurns` and a minimal
   tool list in each agent file (specialists have no Agent tool, critics write only their
