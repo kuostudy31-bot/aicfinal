@@ -1,0 +1,14 @@
+{
+  "approval": null,
+  "candidate_id": "cand-a79550285e39",
+  "case_id": "AMD-0000002488-26-000191",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "price": 483.9,
+  "rating": "Underperform",
+  "round": 2,
+  "status": "STALLED",
+  "stop_reason": "same open findings across 2 repairs: ['gate-guidance-opex_next_q']",
+  "target_price": 265,
+  "ticker": "AMD",
+  "written_at": "2026-11-14T16:11:02Z"
+}

@@ -1,0 +1,85 @@
+{
+  "request_id": "gen-20261114T160700-654fe5",
+  "mapping": {
+    "revenue": {
+      "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "rationale": "Net revenue; 15 observations, latest 2026-09-26 = $13,377M, matches income statement. Revenues has no data in snapshot."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfGoodsAndServicesSold",
+      "rationale": "Cost of sales; 15 observations, latest 2026-09-26 = $6,167M. CostOfRevenue absent."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "Gross profit; 15 observations, latest 2026-09-26 = $7,210M (13,377-6,167)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "R&D expense; 15 observations, latest 2026-09-26 = $2,803M."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "Marketing, general and administrative line; 15 observations, latest 2026-09-26 = $1,298M. Judgment: AMD's MG&A mapped to SG&A."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "Operating income; 15 observations, latest 2026-09-26 = $2,832M."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "Net income; 15 observations, latest 2026-09-26 = $2,428M, matches income statement."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "Diluted weighted-average shares; 15 observations, latest 2026-09-26 = 1,661M."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "Diluted EPS; 15 observations, latest 2026-09-26 = $1.46."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "Operating cash flow; 15 observations, latest 2026-09-26 = $1,202M. Cash flow facts are year-to-date style as reported; model must handle de-cumulation."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "rationale": "Purchases of PP&E; 15 observations, latest 2026-09-26 = $648M. PaymentsToAcquireProductiveAssets absent."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "Cash-flow add-back; 15 observations, latest 2026-09-26 = $523M. AllocatedShareBasedCompensationExpense has identical latest value; cash-flow concept chosen for consistency with cfo."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "Balance sheet cash and equivalents; 16 observations, latest 2026-09-26 = $7,404M, matches balance sheet. The restricted-cash concept is stale (latest 2025-12-27) and not used."
+    },
+    "short_term_investments": {
+      "concept": "ShortTermInvestments",
+      "rationale": "Balance sheet short-term investments; 16 observations, latest 2026-09-26 = $8,372M, matches balance sheet. Catalog marketable-securities concepts have no data."
+    },
+    "total_debt": {
+      "concept": "DebtLongtermAndShorttermCombinedAmount",
+      "rationale": "Total debt incl. current portion; 15 observations, latest 2026-09-26 = $7,079M. Balance sheet shows current portion nil now but $874M at prior year-end, so LongTermDebtNoncurrent (16 obs, same latest value) would understate earlier periods. Judgment."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "Total assets; 16 observations, latest 2026-09-26 = $94,812M, matches balance sheet."
+    },
+    "liabilities": {
+      "concept": null,
+      "rationale": "Liabilities concept has no data in snapshot (company does not report a total liabilities line); left unmapped. Derivable as liabilities_and_equity minus equity."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "Total stockholders' equity; 16 observations, latest 2026-09-26 = $68,389M. Noncontrolling-interest variant absent."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "16 observations, latest 2026-09-26 = $94,812M, equals total assets."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "dei cover-page shares; 16 observations, latest 2026-10-28 = 1,640,087,251."
+    }
+  }
+}

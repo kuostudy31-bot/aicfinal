@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T160700-654fe5",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "Prompt gen-writer v1, round 2 repair. gen-writer owns no open findings. The round-1 note.md is still valid and is re-issued unchanged under this round. All 30 distinct {{key}} placeholders resolve against round-2 computed/values.json, which matches round 1 (TP $265, Underperform, upside -45.2%, NTM revenue $73.1bn, NTM EPS $10.11, DCF $185.79, terminal share 73%). Every [[Q-id]] used (Q-1 to Q-8) exists in round-2 narrative.json. Re-ran eu.py compute after writing: no gate-note-* findings. Still deliberately not used: {{guide_opex_next_q}} (display '$3.8bn' vs Q-3 '~$3.75 Billion'); opex guidance appears only as the verbatim Q-3 quote. Also not used: {{guide_diluted_shares_next_q}}; share guidance appears as verbatim Q-5. Unresolved, not mine: gate-guidance-opex_next_q (major) remains open in the round-2 compute. gen-narrative reports it as a gate rounding artifact: 3.75e9 is shown to one decimal as 3.8. The note does not depend on it."
+}

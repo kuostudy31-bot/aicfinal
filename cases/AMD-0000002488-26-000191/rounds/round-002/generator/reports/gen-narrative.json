@@ -1,0 +1,15 @@
+{
+ "request_id": "gen-20261114T160700-654fe5",
+ "role": "gen-narrative",
+ "status": "ok",
+ "quotes": 8,
+ "guidance_items": 5,
+ "notes": "All 8 quotes re-verified verbatim (whitespace/apostrophe-normalised substring check); quote IDs unchanged from round 1. Revenue low/high computed from the stated +/-3%. Diluted shares unit is text (1.67e9 shares) as in round 1.",
+ "repairs": [
+  {
+   "finding_id": "gate-guidance-opex_next_q",
+   "status": "not_closable_by_narrative_change",
+   "explanation": "The filing states non-GAAP opex guidance only as 'Operating Expenses ~$3.75 Billion' (release_ex99_2.txt slide 17; no other sentence in release_ex99_1.txt, release_ex99_2.txt or periodic.txt gives the Q4'26 opex outlook; the only occurrence of 3.75 is this one). The accurate value is 3.75e9 USD, which Q-3 states verbatim. gate_quotes formats USD values in billions to one decimal (f'{v:.1f}'), so 3.75 becomes '3.8', which cannot appear in a quote that says 3.75. Closing it would require changing the value to 3.8e9 or 3.7e9 (not stated by the filing), inventing a low/high range, or relabelling the unit as text; none was done. Value kept at 3750000000.0 USD citing Q-3. Residual finding is a gate rounding artifact for a two-decimal guidance figure; the human/gate lead should treat it as a false positive or fix the gate to compare at the quote's precision."
+  }
+ ]
+}

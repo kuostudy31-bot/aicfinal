@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T160700-654fe5",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": ["mapping.json"],
+  "repairs": [],
+  "notes": "Round-1 mapping rechecked against snapshot (revenue, net income, cash, assets, liabilities, total_debt concept coverage unchanged) and reissued under the new request_id. No mapping findings open; the guidance_source finding belongs to gen-narrative."
+}

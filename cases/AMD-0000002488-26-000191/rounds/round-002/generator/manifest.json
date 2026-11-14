@@ -1,0 +1,38 @@
+{
+  "request_id": "gen-20261114T160700-654fe5",
+  "files": {
+    "mapping.json": "0eb7ffada8ec96356981c4685db4b368ef3ebe51d29521df67313c9891f37842",
+    "narrative.json": "263b6bcf4765c383227a290b7d9b7584996f128f738a78ee542bb21557fbec37",
+    "assumptions.json": "774ffc3bc9d7e4d0ec3f78b38f54e8deb29f83b0d4b0242d26fc5b65bac17f69",
+    "valuation_inputs.json": "d00dd56e2a34241b8cd7e5930bd3ca4c7c6373f52d4046b29e8fc4e6d834d47a",
+    "note.md": "56cdcd36448675ed5bbd0f88e0a98717674a5ea145d72e8ecfc17ac1967db5e2",
+    "reports/gen-mapping.json": "bf41bbf19a47a772ad3f6ffab0d4b9190d12e8dd7d7a0e21cbedb322e543c9cd",
+    "reports/gen-narrative.json": "42f34ec47b81ef0f34511975490d4286ff7a904e03bc1f6ee34493f2cc8761d6",
+    "reports/gen-model.json": "3d6099baf7a400fb68e446be867fd9da3c0ed39fd263cd79a6480f411c48e78d",
+    "reports/gen-valuation.json": "33328b6511dc670134d01f2e92b18aab6885add5bc8900a4d96178ec57ecc7d0",
+    "reports/gen-writer.json": "c1884221301877572533239f0f0787b81d1446e41c354655cef697176c89c5d7"
+  },
+  "reports": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation",
+    "gen-writer"
+  ],
+  "integration": {
+    "compute": "ok",
+    "target_price": 265,
+    "rating": "Underperform",
+    "gate_findings": [
+      {
+        "id": "gate-guidance-opex_next_q",
+        "severity": "major",
+        "check": "guidance_source",
+        "detail": "opex_next_q value 3.8 not visible in Q-3",
+        "owner": "gen-narrative",
+        "status": "open; dispatched to gen-narrative this round. Not re-dispatched after compute because gen-narrative already showed that no honest narrative repair exists. The only opex guidance in the snapshot is Q-3 'Operating Expenses ~$3.75 Billion' (release_ex99_2.txt). The accurate value 3.75e9 USD is kept. The gate formats USD guidance in billions to one decimal (3.75 -> '3.8'), so it cannot match the quote. Passing would need a number or range the filing does not state, or relabelling the unit as text, and none of these was done. Closing it needs a controller or human decision (false positive, or compare at the quote's own precision)."
+      }
+    ],
+    "notes": "All five specialists dispatched under the new request_id. Outputs are unchanged from round 1 apart from request_id. The note avoids {{guide_opex_next_q}} and cites Q-3 verbatim."
+  }
+}

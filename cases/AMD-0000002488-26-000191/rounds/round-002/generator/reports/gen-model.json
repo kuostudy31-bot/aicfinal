@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261114T160700-654fe5",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": [
+    "assumptions.json"
+  ],
+  "repairs": [],
+  "notes": "Round 2 repair (prompt gen-model v1). gen-model owns no open findings. The open gate finding gate-guidance-opex_next_q (3.8 not visible in Q-3) belonged to the narrative guidance value; this round's narrative.json records opex_next_q as 3.75e9 against Q-3 ('Operating Expenses ~$3.75 Billion'). Round-1 assumptions already used the $3.75B figure, so they are re-issued unchanged under the new request_id. Before re-issuing I checked them against this round's mapping and narrative, which are unchanged apart from request_id. The history from eu.py history matches every cited fact (revenue F-6fa20ae3f8 $13,377M, gross profit F-59fdd96a71 $7,210M, operating income F-8bf147bca4 $2,832M, diluted shares F-15b3d74691 1,661M). The release_ex99_2.txt figures also match: the outlook slide (Q-1 to Q-5) and the opex reconciliation (GAAP $4,378M; SBC $514M; amortization $277M; acquisition costs $27M; non-GAAP $3,560M). The assumptions remain: GAAP basis; FY2026Q4 revenue +27.08% (Q-1 midpoint), GM 53.4% (Q-2 bridged to GAAP), opex 27.0% of revenue (Q-3 $3.75B plus GAAP adjustments); tax 13% (Q-4); shares +0.4% q/q (Q-5 and trend); FY2027Q1-Q3 revenue growth of +2%, +7% and +9% is analyst judgment. Not tuned to any target price or rating. Still unresolved, as in round 1: customer warrants (up to 320M shares) are not modelled; other income is set to zero; World Labs/Taalas acquisition opex is only roughly covered."
+}
