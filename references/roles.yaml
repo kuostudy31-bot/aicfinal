@@ -3,6 +3,9 @@
 # so the controller enforces this file against the dispatch log written by
 # hooks/audit_event.py (SubagentStart/SubagentStop) before the case may advance.
 dispatch_check: enforce   # enforce | warn
+# The orchestrator sits above the phases (dispatched by the main session), so its
+# own start event is not counted against a phase allowlist.
+ignore_in_phase_check: [orchestrator]
 
 roles:
   orchestrator:

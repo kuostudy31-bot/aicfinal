@@ -130,6 +130,42 @@ def cmd_prompt(a):
     print(path.relative_to(ROOT))
 
 
+def cmd_concepts(a):
+    """Read-only helper for gen-mapping: candidate concepts for a line and their coverage."""
+    from aicfinal import snapshot as snap, xbrl
+    st = controller.load_state(a.case)
+    facts = read_json(controller.case_dir(a.case) / "snapshot" / "facts.json")
+    cat = snap.catalog()
+    spec = cat[a.line]
+    names = spec["candidates"] + [c for c in (a.extra or [])]
+    if a.search:
+        names += [c for c in facts["available_us_gaap_concepts"] if a.search.lower() in c.lower()]
+    out = []
+    for c in dict.fromkeys(names):
+        unit = spec.get("unit", "USD")
+        ser = xbrl.quarterly(facts["facts"], c, unit) if spec["kind"] == "duration" else xbrl.instants(facts["facts"], c, unit)
+        out.append({"concept": c, "in_snapshot": bool(ser), "observations": len(ser),
+                    "latest_end": ser[-1]["end"] if ser else None, "latest_val": ser[-1]["val"] if ser else None,
+                    "in_catalog": c in spec["candidates"]})
+    print(json.dumps({"line": a.line, "kind": spec["kind"], "period_of_report": st["period_of_report"],
+                      "candidates": out,
+                      "note": "Concepts outside the catalog are only in facts.json if catalogued; "
+                              "use --search to see names reported by the company."}, indent=2))
+
+
+def cmd_history(a):
+    """Read-only helper: quarterly history table from the current round's mapping."""
+    from aicfinal import model, snapshot as snap
+    st = controller.load_state(a.case)
+    cdir = controller.case_dir(a.case)
+    mp = cdir / "rounds" / f"round-{st['round']:03d}" / "generator" / "mapping.json"
+    hist = model.history(read_json(cdir / "snapshot" / "facts.json"), read_json(mp)["mapping"], snap.catalog())
+    rows = {"quarters": [f"{q['fiscal']} ({q['calendar']}, ends {q['end']})" for q in hist["quarters"]]}
+    for line, vals in hist["lines"].items():
+        rows[line] = [None if v is None else {"val": v["val"], "id": v["id"], "derived": v["derived"]} for v in vals]
+    print(json.dumps(rows, indent=1))
+
+
 def cmd_publish(a):
     from aicfinal import publish
     print(publish.render(a.case))
@@ -146,6 +182,9 @@ def main(argv=None):
                      ("resume", cmd_resume), ("publish", cmd_publish)):
         s = sub.add_parser(name); s.add_argument("--case", required=True); s.set_defaults(fn=fn)
     s = sub.add_parser("status"); s.set_defaults(fn=cmd_status)
+    s = sub.add_parser("concepts"); s.add_argument("--case", required=True); s.add_argument("--line", required=True)
+    s.add_argument("--search"); s.add_argument("--extra", nargs="*"); s.set_defaults(fn=cmd_concepts)
+    s = sub.add_parser("history"); s.add_argument("--case", required=True); s.set_defaults(fn=cmd_history)
     s = sub.add_parser("approve"); s.add_argument("--case", required=True); s.add_argument("--approver", required=True)
     s.add_argument("--decision", choices=["approve", "reject"], required=True); s.add_argument("--note")
     s.set_defaults(fn=cmd_approve)

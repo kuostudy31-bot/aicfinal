@@ -188,6 +188,8 @@ def dispatch_problems(state: dict, phase: str) -> list[str]:
     rid = state["pending"]["request_id"]
     events = [e for e in read_jsonl(case_dir(state["case_id"]) / "trace.jsonl")
               if e.get("event") == "SubagentStart" and e.get("request_id") == rid]
+    ignore = set(r.get("ignore_in_phase_check", []))
+    events = [e for e in events if e.get("agent_type") not in ignore]
     started = [e.get("agent_type") for e in events]
     allowed = {spec["lead"], *spec["specialists"]}
     problems = []

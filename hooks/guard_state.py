@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""PreToolUse hook: keep control state and policy out of agents' reach.
+
+* Control files (state.json, ACTIVE.json, result.json, approvals.jsonl, trace.jsonl)
+  may be changed only through scripts/eu.py. Direct Write/Edit is refused, and so is a
+  shell command that writes to them without going through the controller.
+* While a case has a generator or critic request outstanding, policy files
+  (config/, references/, prompts/registry.json) are read-only for everyone.
+
+Refusal = exit code 2 with the reason on stderr (Claude Code shows it to the agent).
+"""
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[1])
+CONTROL = re.compile(r"(cases/[^\s'\"]*/(state\.json|result\.json|approvals\.jsonl|trace\.jsonl)|cases/ACTIVE\.json)")
+POLICY = re.compile(r"(^|/)(config/[^\s'\"]+|references/[^\s'\"]+|prompts/registry\.json)")
+WRITE_OPS = re.compile(r"(>|>>|\btee\b|\bsed\s+-i|\bcp\b|\bmv\b|\brm\b|\btruncate\b|open\([^)]*['\"][wa]['\"]|write_text|json\.dump)")
+
+
+def run_active() -> bool:
+    p = ROOT / "cases" / "ACTIVE.json"
+    try:
+        return json.loads(p.read_text()).get("phase") in ("generator", "critic")
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def refuse(msg: str):
+    print(f"Refused by hooks/guard_state.py: {msg}", file=sys.stderr)
+    sys.exit(2)
+
+
+def main():
+    try:
+        data = json.load(sys.stdin)
+    except Exception:  # noqa: BLE001
+        sys.exit(0)
+    tool = data.get("tool_name", "")
+    ti = data.get("tool_input", {}) or {}
+    if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
+        path = str(ti.get("file_path") or ti.get("notebook_path") or "")
+        rel = path.replace(str(ROOT) + "/", "")
+        if CONTROL.search(rel):
+            refuse(f"{rel} is controller state; use scripts/eu.py")
+        if run_active() and POLICY.search(rel):
+            refuse(f"{rel} is policy and is read-only while a case request is outstanding")
+    elif tool == "Bash":
+        cmd = str(ti.get("command", ""))
+        if "scripts/eu.py" in cmd or "scripts/check.py" in cmd:
+            sys.exit(0)
+        if CONTROL.search(cmd) and WRITE_OPS.search(cmd):
+            refuse("shell writes to controller state are not allowed; use scripts/eu.py")
+        if run_active() and POLICY.search(cmd) and WRITE_OPS.search(cmd):
+            refuse("policy files are read-only while a case request is outstanding")
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
