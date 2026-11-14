@@ -1,0 +1,81 @@
+{
+  "cik": 1045810,
+  "created_at": "2026-11-14T14:48:12Z",
+  "cutoff_utc": "2026-08-26T20:36:00Z",
+  "files": {
+    "docs/periodic.txt": {
+      "accession": "0001045810-26-000075",
+      "document": "nvda-20260726.htm",
+      "retrieved_at": "2026-11-14T14:48:12Z",
+      "sha256": "97b1b768bc735e7acf00d1d1446c2165e64609c02e1703d8a0967da0ca2b85fd",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+      ]
+    },
+    "docs/release_ex99_1.txt": {
+      "accession": "0001045810-26-000073",
+      "document": "q2fy27pr.htm",
+      "retrieved_at": "2026-11-14T14:48:12Z",
+      "sha256": "404e1bc8042aaa64670de5c9a6cc52e68fe45b9373c9819273ce6b36a43a1c88",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm"
+      ]
+    },
+    "docs/release_ex99_2.txt": {
+      "accession": "0001045810-26-000073",
+      "document": "q2fy27cfocommentary.htm",
+      "retrieved_at": "2026-11-14T14:48:12Z",
+      "sha256": "4186e5f0679cc4ddff2176328951a6edbde22e02afb7beb7dd8267f4001af614",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm"
+      ]
+    },
+    "facts.json": {
+      "retrieved_at": "2026-11-14T14:47:55Z",
+      "sha256": "acba7fa550a5893562c25e65aaed68e0c402ec886c47803efe5ead1e12e42d7e",
+      "sources": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json"
+      ]
+    },
+    "filings.json": {
+      "retrieved_at": "2026-11-14T14:47:54Z",
+      "sha256": "ec11c1436e2c1caf6bc4b38ab555424da9f60dbc625749db96dd76affa568ae7",
+      "sources": [
+        "https://data.sec.gov/submissions/CIK0001045810.json"
+      ]
+    },
+    "peers.json": {
+      "retrieved_at": "2026-11-14T14:48:11Z",
+      "sha256": "f1d6aa89a9487cf845ef6ba1d49880d10febd30f7128e0f2762ad9a28ab2b3d1",
+      "sources": [
+        "submissions/companyfacts/chart for each peer (see http cache metadata)"
+      ]
+    },
+    "prices.json": {
+      "retrieved_at": "2026-11-14T14:47:55Z",
+      "sha256": "3c8b8c99f47a6a698ec6886fba6fe5e3f4edb9606ece446f30d852b52bcd79a9",
+      "sources": [
+        "https://query1.finance.yahoo.com/v8/finance/chart/NVDA?range=5y&interval=1d&events=split"
+      ]
+    }
+  },
+  "peers": [
+    "AMD",
+    "INTC",
+    "AVGO",
+    "MRVL",
+    "MU",
+    "AMAT",
+    "LRCX",
+    "KLAC",
+    "SNPS",
+    "CDNS",
+    "ALAB",
+    "CRDO",
+    "MPWR"
+  ],
+  "period_of_report": "2026-07-26",
+  "ticker": "NVDA",
+  "trigger_accession": "0001045810-26-000075",
+  "trigger_form": "10-Q"
+}

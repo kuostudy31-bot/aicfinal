@@ -1,0 +1,47 @@
+{
+  "accession": "0001045810-26-000075",
+  "case_id": "NVDA-0001045810-26-000075",
+  "cutoff_utc": "2026-08-26T20:36:00Z",
+  "limits": {
+    "clean_reviews_required": 2,
+    "max_dispatches_per_round": 12,
+    "max_invalid_submissions": 2,
+    "max_rounds": 3,
+    "max_wall_minutes": 240,
+    "stall_rounds": 2
+  },
+  "opened_at": "2026-11-14T14:48:12Z",
+  "peers": [
+    "AMD",
+    "INTC",
+    "AVGO",
+    "MRVL",
+    "MU",
+    "AMAT",
+    "LRCX",
+    "KLAC",
+    "SNPS",
+    "CDNS",
+    "ALAB",
+    "CRDO",
+    "MPWR"
+  ],
+  "period_of_report": "2026-07-26",
+  "prompt_versions": {
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "crit-lead": "v1",
+    "crit-provenance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1",
+    "gen-lead": "v1",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v1",
+    "orchestrator": "v1"
+  },
+  "ticker": "NVDA",
+  "trigger_form": "10-Q"
+}
