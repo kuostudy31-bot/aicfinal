@@ -38,9 +38,14 @@ directory, `git pull --rebase --autostash`, push. (Template: the Live run 5 prom
 4. **Wrap-up.** README identity (owner's name and student ID still needed), design note
    evidence section, `scripts/make_submission.sh <studentID>`.
 
+## Scheduled wake-up
+A one-shot message (trigger `trig_0193Ab9zLhWFXzHZLCGhXXXa`) fires at 2026-11-14 20:15 UTC into
+the coordinating session to continue steps 2-4. AMD revision 2 waits for the owner's request.
+
 ## Owner decisions on record
 * Topic A (sell-side earnings update), AI-semiconductor coverage, English notes, Claude Code
   subagents with mandatory orchestrator / generator lead / critic lead.
 * Delegated publication approval (2026-11-14). `SEC_USER_AGENT`: not needed.
+* AMD revision 2: not now; the owner will ask for it after the usage reset.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.
