@@ -1,0 +1,69 @@
+# Model line items and candidate us-gaap concepts, in preference order.
+# gen-mapping chooses one concept per line for a company (and must justify it);
+# peers use the first candidate that has data (deterministic default).
+# kind: duration (flow over a period) | instant (balance at a date)
+line_items:
+  revenue:
+    kind: duration
+    candidates: [Revenues, RevenueFromContractWithCustomerExcludingAssessedTax, SalesRevenueNet]
+  cost_of_revenue:
+    kind: duration
+    candidates: [CostOfRevenue, CostOfGoodsAndServicesSold, CostOfGoodsSold]
+  gross_profit:
+    kind: duration
+    candidates: [GrossProfit]
+  rnd:
+    kind: duration
+    candidates: [ResearchAndDevelopmentExpense, ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost]
+  sga:
+    kind: duration
+    candidates: [SellingGeneralAndAdministrativeExpense, GeneralAndAdministrativeExpense]
+  operating_income:
+    kind: duration
+    candidates: [OperatingIncomeLoss]
+  net_income:
+    kind: duration
+    candidates: [NetIncomeLoss, NetIncomeLossAvailableToCommonStockholdersBasic, ProfitLoss]
+  diluted_shares:
+    kind: duration
+    unit: shares
+    candidates: [WeightedAverageNumberOfDilutedSharesOutstanding]
+  eps_diluted:
+    kind: duration
+    unit: USD/shares
+    candidates: [EarningsPerShareDiluted]
+  cfo:
+    kind: duration
+    candidates: [NetCashProvidedByUsedInOperatingActivities]
+  capex:
+    kind: duration
+    candidates: [PaymentsToAcquirePropertyPlantAndEquipment, PaymentsToAcquireProductiveAssets]
+  sbc:
+    kind: duration
+    candidates: [ShareBasedCompensation, AllocatedShareBasedCompensationExpense]
+  cash:
+    kind: instant
+    candidates: [CashAndCashEquivalentsAtCarryingValue, CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents]
+  short_term_investments:
+    kind: instant
+    candidates: [MarketableSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesCurrent, ShortTermInvestments]
+  total_debt:
+    kind: instant
+    candidates: [LongTermDebt, LongTermDebtNoncurrent, DebtLongtermAndShorttermCombinedAmount, LongTermDebtAndCapitalLeaseObligations]
+  assets:
+    kind: instant
+    candidates: [Assets]
+  liabilities:
+    kind: instant
+    candidates: [Liabilities]
+  equity:
+    kind: instant
+    candidates: [StockholdersEquity, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest]
+  liabilities_and_equity:
+    kind: instant
+    candidates: [LiabilitiesAndStockholdersEquity]
+  shares_outstanding:
+    kind: instant
+    unit: shares
+    taxonomy: dei
+    candidates: [EntityCommonStockSharesOutstanding]

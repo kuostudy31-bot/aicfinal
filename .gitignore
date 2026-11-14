@@ -218,3 +218,25 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- project specific ---
+# HTTP cache of raw SEC/price downloads (re-fetchable; case snapshots are committed)
+data/cache/
+temp/
+# LaTeX build by-products
+*.aux
+*.fdb_latexmk
+*.fls
+*.xdv
+*.out
+*.synctex.gz
+
+# Hidden files and directories
+.*
+!.gitignore
+!.env.example
+
+# Project override: the Claude Code harness (skills, subagents, commands, hooks
+# settings) is a deliverable and must be tracked despite the hidden-file rule.
+!.claude/
+!.claude/**

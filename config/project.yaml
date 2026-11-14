@@ -1,0 +1,51 @@
+# Semiconductor earnings-update workflow: project configuration.
+# Policy values here are owned by the human analyst; agents may read but never edit them.
+project: semis-earnings-update
+version: 1
+
+coverage:          # full earnings-update notes
+  - NVDA
+  - AMD
+  - INTC
+  - AVGO
+  - MRVL
+  - MU
+  - AMAT
+comps:             # valuation comparison only (deterministic multiples, no notes)
+  - LRCX
+  - KLAC
+  - SNPS
+  - CDNS
+  - ALAB
+  - CRDO
+  - MPWR
+
+triggers:
+  forms: [10-Q, 10-K]          # a new periodic filing opens a case
+  earnings_release_item: "2.02" # 8-K item whose EX-99.1 supplies guidance text
+
+sources:                       # permitted sources (enforced by src/aicfinal/http.py)
+  sec:
+    hosts: [data.sec.gov, www.sec.gov]
+    user_agent_env: SEC_USER_AGENT   # set "Name contact-email" yourself; never committed
+    min_interval_seconds: 0.15       # SEC fair-access: stay well under 10 req/s
+  prices:
+    hosts: [query1.finance.yahoo.com]
+
+limits:
+  max_rounds: 3                # generator rounds per case (repair loop bound)
+  max_invalid_submissions: 2   # second invalid submission at the same step -> BLOCKED
+  clean_reviews_required: 2    # consecutive clean full reviews of the same candidate
+  max_dispatches_per_round: 12 # cost proxy: subagent dispatches per round
+  max_wall_minutes: 120        # elapsed time per case before escalation
+  stall_rounds: 2              # identical open-finding set across this many repairs -> STALLED
+
+publication:
+  approval_always_required: true
+  tp_change_threshold_pct: 10  # TP move above this also requires a written rationale
+  rating_bands:                # upside to target price -> rating (deterministic)
+    outperform_min: 0.15
+    underperform_max: -0.10
+
+dispatch_allowlist_file: references/roles.yaml
+prompt_registry_file: prompts/registry.json
