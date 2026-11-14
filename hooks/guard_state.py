@@ -18,7 +18,11 @@ from pathlib import Path
 ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[1])
 CONTROL = re.compile(r"(cases/[^\s'\"]*/(state\.json|result\.json|approvals\.jsonl|trace\.jsonl)|cases/ACTIVE\.json)")
 POLICY = re.compile(r"(^|/)(config/[^\s'\"]+|references/[^\s'\"]+|prompts/registry\.json)")
-WRITE_OPS = re.compile(r"(>|>>|\btee\b|\bsed\s+-i|\bcp\b|\bmv\b|\brm\b|\btruncate\b|open\([^)]*['\"][wa]['\"]|write_text|json\.dump)")
+# Write operations: a redirect into a project path (not 2>/dev/null), file-moving commands,
+# in-place edits and Python writes. A read-only command that merely mentions a control file passes.
+WRITE_OPS = re.compile(r"((?<![0-9&])>>?\s*[^\s&|;]*(cases/|config/|references/|prompts/registry)"
+                       r"|\btee\b|\bsed\s+-i|\bcp\b|\bmv\b|\brm\b|\btruncate\b"
+                       r"|open\([^)]*['\"][wa]\+?['\"]|write_text|write_bytes|json\.dump\()")
 
 
 def run_active() -> bool:
