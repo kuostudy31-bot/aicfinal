@@ -1,0 +1,53 @@
+[
+  {
+    "calendar": "CY2025Q4",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 782371221949.06,
+    "ev_sales": 18.94131998424065,
+    "market_cap": 785106221949.06,
+    "net_income_ttm": 6434000000,
+    "pe": 122.02459153700032,
+    "price": 480.93,
+    "price_date": "2026-08-26",
+    "revenue_ttm": 41305000000,
+    "ticker": "AMD",
+    "ttm_end": "2026-06-27"
+  },
+  {
+    "calendar": "CY2025Q4",
+    "concepts": {
+      "net_income": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 1737026942606.8198,
+    "ev_sales": 23.01764980596064,
+    "market_cap": 1691747942606.8198,
+    "net_income_ttm": 11633000000,
+    "pe": 145.42662620191007,
+    "price": 355.59,
+    "price_date": "2026-08-26",
+    "revenue_ttm": 75465000000,
+    "ticker": "AVGO",
+    "ttm_end": "2026-05-03"
+  },
+  {
+    "calendar": "CY2025Q4",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 215539928000.0,
+    "ev_sales": 24.726104782553833,
+    "market_cap": 214422228000.0,
+    "net_income_ttm": 2526700000,
+    "pe": 84.86255906914157,
+    "price": 245.11,
+    "price_date": "2026-08-26",
+    "revenue_ttm": 8717100000,
+    "ticker": "MRVL",
+    "ttm_end": "2026-05-02"
+  }
+]
