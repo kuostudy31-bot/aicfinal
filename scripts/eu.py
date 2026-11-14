@@ -175,6 +175,16 @@ def cmd_watchdog(a):
     sys.exit(1 if stale else 0)
 
 
+def cmd_hold(a):
+    st = controller.hold(a.case, a.reason, a.by)
+    print(json.dumps({"case_id": a.case, "status": st["status"], "hold": st["hold"]}, indent=2))
+
+
+def cmd_release(a):
+    st = controller.release(a.case, a.note or "")
+    print(json.dumps({"case_id": a.case, "status": st["status"], "hold": st.get("hold")}, indent=2))
+
+
 def cmd_publish(a):
     from aicfinal import publish
     print(publish.render(a.case))
@@ -193,6 +203,10 @@ def main(argv=None):
                      ("resume", cmd_resume), ("publish", cmd_publish)):
         s = sub.add_parser(name); s.add_argument("--case", required=True); s.set_defaults(fn=fn)
     s = sub.add_parser("status"); s.set_defaults(fn=cmd_status)
+    s = sub.add_parser("hold"); s.add_argument("--case", required=True); s.add_argument("--reason", required=True)
+    s.add_argument("--by", default="run session"); s.set_defaults(fn=cmd_hold)
+    s = sub.add_parser("release"); s.add_argument("--case", required=True); s.add_argument("--note")
+    s.set_defaults(fn=cmd_release)
     s = sub.add_parser("watchdog"); s.add_argument("--minutes", type=int, default=20)
     s.add_argument("--inspect", action="store_true", help="also run resume inspection for stale cases")
     s.set_defaults(fn=cmd_watchdog)

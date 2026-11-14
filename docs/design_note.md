@@ -104,7 +104,9 @@ refuses direct edits to control files, and during a run it also refuses edits to
 * **Who resumes.** Saved state guarantees that work *can* resume, not that anyone *will*. In
   the AMD run a session sat idle for about 50 minutes after an interruption (see
   [`incidents.md`](incidents.md) #8). `eu.py watchdog --minutes N` reports cases with an
-  outstanding request and no activity for N minutes (exit code 1), for a scheduled check.
+  outstanding request and no activity for N minutes (exit code 1), for a scheduled check. A Stop
+  hook keeps a run session from ending its turn while its case silently waits, and
+  `eu.py hold --reason` makes an intentional pause explicit and visible.
 * **Limits.** Per case: 3 rounds, 2 invalid submissions per step, 12 dispatches per round
   (cost proxy; checked from the hook log), 240 minutes. Per role: `maxTurns` and a minimal
   tool list in each agent file (specialists have no Agent tool, critics write only their

@@ -499,6 +499,9 @@ def resume(case_id: str) -> dict:
         report["next_action"] = f"none: case is {state['status']}; return saved result.json"
     elif state["status"] == "AWAITING_APPROVAL":
         report["next_action"] = "wait for a named approver: eu.py approve"
+    elif state.get("hold"):
+        report["next_action"] = (f"on hold since {state['hold']['at']}: {state['hold']['reason']} "
+                                 "-- resolve it, then eu.py release, then resume")
     elif state.get("pending"):
         pend = state["pending"]
         base = _round_dir(state) / "generator" if pend["phase"] == "generator" else _review_dir(state)
@@ -522,6 +525,29 @@ def resume(case_id: str) -> dict:
     return report
 
 
+# ----------------------------------------------------------------- hold
+def hold(case_id: str, reason: str, by: str = "run session") -> dict:
+    """Record an intentional pause (error to fix, decision needed). The case stays pending;
+    the Stop hook and the watchdog treat a held case as accounted for, not stalled."""
+    state = load_state(case_id)
+    if state["status"] not in ("GENERATOR_PENDING", "CRITIC_PENDING"):
+        raise ControllerError(f"only a pending case can be held (now {state['status']})")
+    if len(reason.strip()) < 10:
+        raise ControllerError("a hold needs a reason (>= 10 characters)")
+    state["hold"] = {"reason": reason, "by": by, "at": iso(utcnow())}
+    _save(state, "hold_recorded", reason=reason, by=by)
+    return state
+
+
+def release(case_id: str, note: str = "") -> dict:
+    state = load_state(case_id)
+    if not state.get("hold"):
+        raise ControllerError("case is not on hold")
+    prev = state.pop("hold")
+    _save(state, "hold_released", previous=prev, note=note)
+    return state
+
+
 # ----------------------------------------------------------------- watchdog
 def watchdog(minutes: int) -> list[dict]:
     """Cases with an outstanding generator/critic request and no trace activity for `minutes`.
@@ -534,8 +560,8 @@ def watchdog(minutes: int) -> list[dict]:
     now = utcnow()
     for sp in sorted(CASES.glob("*/state.json")):
         st = read_json(sp)
-        if st["status"] not in ("GENERATOR_PENDING", "CRITIC_PENDING"):
-            continue
+        if st["status"] not in ("GENERATOR_PENDING", "CRITIC_PENDING") or st.get("hold"):
+            continue  # terminal, waiting for approval, or an intentional recorded pause
         events = read_jsonl(sp.parent / "trace.jsonl")
         last = max((parse_iso(e["ts"]) for e in events if e.get("ts")), default=parse_iso(st["updated_at"]))
         idle = (now - last).total_seconds() / 60

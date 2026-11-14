@@ -230,3 +230,17 @@ class WatchdogTests(Harness):
             stale = controller.watchdog(minutes=20)
         self.assertEqual([s["case_id"] for s in stale], [self.cid])
         self.assertGreaterEqual(stale[0]["idle_minutes"], 45)
+
+
+class HoldTests(Harness):
+    def test_hold_needs_reason_is_skipped_by_watchdog_and_released(self):
+        with self.assertRaises(controller.ControllerError):
+            controller.hold(self.cid, "short")
+        controller.hold(self.cid, "controller traceback, waiting for a fix")
+        from datetime import timedelta
+        later = controller.utcnow() + timedelta(minutes=90)
+        with mock.patch.object(controller, "utcnow", return_value=later):
+            self.assertEqual(controller.watchdog(minutes=20), [])
+        self.assertIn("on hold", controller.resume(self.cid)["next_action"])
+        controller.release(self.cid, "fixed")
+        self.assertNotIn("hold", self.state)

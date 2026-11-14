@@ -121,6 +121,12 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   stall within one interval instead of when someone happens to ask. Without a schedule, the
   coordinating session's own monitor now wakes on "pending and idle for 12 minutes" as well as
   on state changes (the earlier monitor watched only state changes, which a stalled case never
-  produces). Planned next: a Stop hook in run sessions that will not let a session end its turn
-  while its case has an unrecorded pending request, and `eu.py hold --reason` to make an
-  intentional pause explicit.
+  produces).
+* **Prevention added (16:25).** `hooks/stop_guard.py` (Stop hook) refuses to let a run session
+  end its turn while the case it dispatched agents for is pending with no recorded hold. It tells
+  the session to resume, or to record why it must stop with `eu.py hold --case … --reason …`.
+  It never blocks coordinating or development sessions, and it lets a second stop through
+  (`stop_hook_active`) so it cannot loop. The watchdog skips held cases, and `eu.py release` ends
+  a hold. Covered by `tests/test_stop_guard.py` and `HoldTests`; live verification in a fresh
+  session is pending. Limit: a hook runs only while a session is alive. Waking a session that
+  no longer runs still needs a person, a new session, or a scheduled check.
