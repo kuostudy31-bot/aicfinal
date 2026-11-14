@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-14T15:36:36Z",
+  "candidate_id": "cand-73474e2b30c1",
+  "clean": true,
+  "open_blocking": [],
+  "request_id": "crit-20261114T153315-b869dc",
+  "verdicts": {
+    "crit-assumption": "pass",
+    "crit-compliance": "pass",
+    "crit-provenance": "pass"
+  }
+}

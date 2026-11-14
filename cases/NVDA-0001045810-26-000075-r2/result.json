@@ -1,0 +1,14 @@
+{
+  "approval": null,
+  "candidate_id": "cand-73474e2b30c1",
+  "case_id": "NVDA-0001045810-26-000075-r2",
+  "cutoff_utc": "2026-08-26T20:36:00Z",
+  "price": 209.66,
+  "rating": "Underperform",
+  "round": 1,
+  "status": "AWAITING_APPROVAL",
+  "stop_reason": null,
+  "target_price": 186,
+  "ticker": "NVDA",
+  "written_at": "2026-11-14T15:36:36Z"
+}
