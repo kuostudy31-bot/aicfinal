@@ -1,5 +1,15 @@
 {
   "accession": "0001045810-26-000075",
+  "approval": {
+    "approver": "Repository owner (kuostudy31-bot); executed by Claude under the owner's delegation of 2026-11-14",
+    "at": "2026-11-14T15:38:42Z",
+    "candidate_id": "cand-73474e2b30c1",
+    "case_id": "NVDA-0001045810-26-000075-r2",
+    "decision": "approve",
+    "note": "Delegated approval. Reviewed before approving: two consecutive clean full reviews (6/6 critic passes, no blocking findings; 6 minor findings recorded); net cash now includes marketable securities (DebtSecuritiesCurrent + EquitySecuritiesFvNi); every figure is code-generated and every quote verbatim; disclosures present; the note flags that the rating sits near the Underperform/Neutral boundary. First publication for NVDA, so no prior target price.",
+    "rating": "Underperform",
+    "target_price": 186
+  },
   "artifacts": {
     "round-001": {
       "assumptions.json": "d48689ee817756de9f3006313d72a3c4c1585cc50a778733ab2860f1311faeb8",
@@ -98,11 +108,7 @@
   },
   "open_history": [],
   "opened_at": "2026-11-14T15:21:01Z",
-  "pending": {
-    "issued_at": "2026-11-14T15:36:36Z",
-    "phase": "approval",
-    "request_id": "appr-20261114T153636-6e384b"
-  },
+  "pending": null,
   "period_of_report": "2026-07-26",
   "prompt_versions": {
     "crit-assumption": "v1",
@@ -122,7 +128,7 @@
   "review": 2,
   "round": 1,
   "snapshot_manifest_sha256": "2962c6df2ef5971352a3b9494a1107162878f11520564abc4a3059ba7e35410e",
-  "status": "AWAITING_APPROVAL",
+  "status": "PUBLISHED",
   "ticker": "NVDA",
-  "updated_at": "2026-11-14T15:36:36Z"
+  "updated_at": "2026-11-14T15:38:42Z"
 }

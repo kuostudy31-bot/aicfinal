@@ -1,14 +1,23 @@
 {
-  "approval": null,
+  "approval": {
+    "approver": "Repository owner (kuostudy31-bot); executed by Claude under the owner's delegation of 2026-11-14",
+    "at": "2026-11-14T15:38:42Z",
+    "candidate_id": "cand-73474e2b30c1",
+    "case_id": "NVDA-0001045810-26-000075-r2",
+    "decision": "approve",
+    "note": "Delegated approval. Reviewed before approving: two consecutive clean full reviews (6/6 critic passes, no blocking findings; 6 minor findings recorded); net cash now includes marketable securities (DebtSecuritiesCurrent + EquitySecuritiesFvNi); every figure is code-generated and every quote verbatim; disclosures present; the note flags that the rating sits near the Underperform/Neutral boundary. First publication for NVDA, so no prior target price.",
+    "rating": "Underperform",
+    "target_price": 186
+  },
   "candidate_id": "cand-73474e2b30c1",
   "case_id": "NVDA-0001045810-26-000075-r2",
   "cutoff_utc": "2026-08-26T20:36:00Z",
   "price": 209.66,
   "rating": "Underperform",
   "round": 1,
-  "status": "AWAITING_APPROVAL",
+  "status": "PUBLISHED",
   "stop_reason": null,
   "target_price": 186,
   "ticker": "NVDA",
-  "written_at": "2026-11-14T15:36:36Z"
+  "written_at": "2026-11-14T15:38:42Z"
 }
