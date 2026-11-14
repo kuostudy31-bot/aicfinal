@@ -51,7 +51,10 @@ def run(case_dir: Path, round_dir: Path, out_subdir: str = "computed") -> dict:
     price = prices["closes"][-1]["close"]
     val = valuation.value(hist, fc, vinputs, price, peers_table, cfg["publication"],
                           prior_target(case_dir, facts["ticker"], facts["cutoff_utc"]))
-    vals = values.build(facts["ticker"], hist, fc, val, narrative)
+    man = read_json(snap / "manifest.json")
+    vals = values.build(facts["ticker"], hist, fc, val, narrative,
+                        {"accession": man.get("trigger_accession"), "cutoff_utc": facts["cutoff_utc"],
+                         "price_date": prices["closes"][-1]["date"]})
 
     note_path = gen / "note.md"
     note_md = note_path.read_text(encoding="utf-8") if note_path.exists() else None

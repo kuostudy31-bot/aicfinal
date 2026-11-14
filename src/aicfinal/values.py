@@ -26,11 +26,20 @@ def money(x: float) -> str:
     return f"${x:,.2f}"
 
 
-def build(ticker: str, hist: dict, fc: dict, val: dict, narrative: dict) -> dict:
+def build(ticker: str, hist: dict, fc: dict, val: dict, narrative: dict, meta: dict | None = None) -> dict:
     v: dict[str, dict] = {}
 
     def put(key, value, display, sources):
         v[key] = {"value": value, "display": display, "sources": sources}
+
+    meta = meta or {}
+    if meta.get("accession"):  # data-source disclosure values (code-supplied, so no typed digits)
+        put("trigger_accession", meta["accession"], meta["accession"], ["snapshot/manifest.json"])
+    if meta.get("cutoff_utc"):
+        c = meta["cutoff_utc"]
+        put("cutoff_utc", c, c[:10] + " " + c[11:16] + " UTC", ["snapshot/manifest.json cutoff_utc"])
+    if meta.get("price_date"):
+        put("price_date", meta["price_date"], meta["price_date"], ["snapshot/prices.json last close"])
 
     q = hist["quarters"]
     cur, prev, yago = q[-1], q[-2], q[-5] if len(q) >= 5 else None

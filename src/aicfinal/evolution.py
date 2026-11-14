@@ -74,12 +74,11 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
     }
     write_json(_cdir(change_id) / "failure.json", failure_rec)
     for cid in dev_cases + heldout_cases:  # frozen inputs for the evaluation runs
-        st = read_json(ROOT / "cases" / cid / "state.json")
-        rnd = f"cases/{cid}/rounds/round-{st['round']:03d}"
+        frozen = _freeze_case_inputs(change_id, cid)
         for arm, ver in (("baseline", parent), ("candidate", f"candidate-{change_id}")):
             write_json(_cdir(change_id) / "runs" / cid / arm / "inputs.json", {
                 "mode": "evaluation", "case_id": cid, "role": role, "prompt_file": f"prompts/{role}/{ver}.md",
-                "values": f"{rnd}/numerical/recompute/values.json", "narrative": f"{rnd}/generator/narrative.json",
+                "values": frozen["values"], "narrative": frozen["narrative"],
                 "output": f"evolution/changes/{change_id}/runs/{cid}/{arm}/note.md",
                 "instructions": "Evaluation mode: follow prompt_file, but do not run eu.py compute and do not "
                                 "write inside cases/; read keys from `values` and quotes from `narrative`; write "
@@ -91,13 +90,36 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
     return failure_rec
 
 
-def _case_inputs(case_id: str) -> tuple[dict, dict]:
-    """values.json and quotes of a case's latest round (frozen evaluation inputs)."""
+def _freeze_case_inputs(change_id: str, case_id: str) -> dict:
+    """Recompute a case's latest-round generator inputs with the current code in a scratch
+    directory and keep only values.json and narrative.json in the change folder. The case's
+    own files are never written."""
+    import tempfile
+    from . import compute
     cdir = ROOT / "cases" / case_id
     st = read_json(cdir / "state.json")
     rdir = cdir / "rounds" / f"round-{st['round']:03d}"
-    vals = read_json(rdir / "numerical" / "recompute" / "values.json")
-    quotes = {q["id"]: q for q in read_json(rdir / "generator" / "narrative.json").get("quotes", [])}
+    out = _cdir(change_id) / "runs" / case_id / "inputs"
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        shutil.copytree(cdir / "snapshot", tmp / "snapshot")
+        shutil.copytree(rdir / "generator", tmp / "rounds" / "r" / "generator")
+        compute.run(tmp, tmp / "rounds" / "r")
+        out.mkdir(parents=True, exist_ok=True)
+        shutil.copy(tmp / "rounds" / "r" / "computed" / "values.json", out / "values.json")
+        shutil.copy(rdir / "generator" / "narrative.json", out / "narrative.json")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    rel = out.relative_to(ROOT)
+    return {"values": f"{rel}/values.json", "narrative": f"{rel}/narrative.json",
+            "source_round": str(rdir.relative_to(ROOT))}
+
+
+def _case_inputs(change_id: str, case_id: str) -> tuple[dict, dict]:
+    """The frozen evaluation inputs saved by evo-prepare."""
+    d = _cdir(change_id) / "runs" / case_id / "inputs"
+    vals = read_json(d / "values.json")
+    quotes = {q["id"]: q for q in read_json(d / "narrative.json").get("quotes", [])}
     return vals, quotes
 
 
@@ -135,7 +157,7 @@ def evaluate(change_id: str) -> dict:
     rows, regressions, fixes = [], [], True
     for split in ("development", "held_out"):
         for case_id in fail["evaluation_cases"][split]:
-            vals, quotes = _case_inputs(case_id)
+            vals, quotes = _case_inputs(change_id, case_id)
             row = {"case": case_id, "split": split}
             for arm in ("baseline", "candidate"):
                 p = cd / "runs" / case_id / arm / "note.md"
