@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T144812-0d99ea",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": ["assumptions.json"],
+  "repairs": [],
+  "notes": "FY2027Q3 anchored on guidance midpoints: revenue_qoq 12.24% (Q-1), GM 74.0% (Q-3), opex 8.52% ($9.2B GAAP, Q-4); tax 17% (Q-5, cross-checked to the 16.5% H1 ETR in the 10-Q text). Later quarters are judgment: revenue_qoq 10%/8%/7%, GM held at 74%, opex 8.5%-8.7%. share_change_qoq -0.4% from the diluted share trend. Data issue for gen-mapping/gen-lead: history shows diluted_shares derived values for FY2025Q4 (D-30c5a1282c = -33M) and FY2026Q4 (D-475c151c60 = -28M), which look like annual-minus-quarters differencing applied to a weighted-average share count; EPS derived values for those quarters should be checked too. No XBRL income tax expense or pre-tax income fact was available for recent quarters."
+}

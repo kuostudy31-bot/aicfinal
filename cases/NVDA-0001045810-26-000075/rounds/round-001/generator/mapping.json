@@ -1,0 +1,85 @@
+{
+  "request_id": "gen-20261114T144812-0d99ea",
+  "mapping": {
+    "revenue": {
+      "concept": "Revenues",
+      "rationale": "16 obs, latest 2026-07-26 = 96,221m; matches Revenue 96,221 on income statement. Other catalog candidates absent."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfRevenue",
+      "rationale": "16 obs, latest 2026-07-26 = 24,079m; only catalog candidate with data."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "16 obs, latest 2026-07-26 = 72,142m (96,221 - 24,079 ties)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "16 obs, latest 2026-07-26 = 7,054m; other candidate absent."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "16 obs, latest 2026-07-26 = 1,354m; the G&A-only candidate has no data."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "16 obs, latest 2026-07-26 = 63,734m."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "16 obs, latest 2026-07-26 = 59,688m; matches income statement Net income 59,688."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "16 obs, latest 2026-07-26 = 24,285m shares; only candidate."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "16 obs, latest 2026-07-26 = 2.46; matches reported net income per diluted share 2.46."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "15 obs, latest 2026-07-26 (YTD 74,421m, matches cash flow statement). Judgment: cash-flow facts are cumulative year-to-date, so quarterly values must be derived by differencing."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquireProductiveAssets",
+      "rationale": "15 obs, latest 2026-07-26 (YTD 4,434m, matches 'Purchases related to property and equipment and intangible assets'). PaymentsToAcquirePropertyPlantAndEquipment has no data. Judgment: broader than PP&E alone (includes intangibles); cash-flow facts are YTD."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "15 obs, latest 2026-07-26 (YTD 3,954m, matches cash flow add-back). Judgment: cash-flow (YTD) concept preferred over AllocatedShareBasedCompensationExpense (16 obs, quarterly 2,027m, discrete quarter) because it is the cash-flow reconciling item; the two differ slightly in quarter values (2,026 vs 2,027)."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "16 obs, latest 2026-07-26 = 22,443m; matches balance sheet. Restricted-cash alternative gives same value."
+    },
+    "short_term_investments": {
+      "concept": null,
+      "rationale": "Catalog candidate MarketableSecuritiesCurrent is STALE: 13 obs, latest 2025-10-26 (49,122m); other candidates absent; no other short-term investment concept is in the snapshot. Balance sheet at 2026-07-26 now reports Marketable debt securities 34,143m and Marketable equity securities 42,783m separately, so not mapped silently; left null. Downstream must source these from filing text, not XBRL."
+    },
+    "total_debt": {
+      "concept": "LongTermDebt",
+      "rationale": "16 obs, latest 2026-07-26 = 33,366m = short-term debt 1,000 + long-term debt 32,366 per balance sheet, so it captures total debt; LongTermDebtNoncurrent (32,366m) would omit the current portion."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "16 obs, latest 2026-07-26 = 320,272m; matches total assets."
+    },
+    "liabilities": {
+      "concept": "Liabilities",
+      "rationale": "16 obs, latest 2026-07-26 = 91,288m."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "16 obs, latest 2026-07-26 = 228,984m; no noncontrolling interest candidate data."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "16 obs, latest 2026-07-26 = 320,272m, equals Assets."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "16 obs, latest 2026-08-21 = 24,100m (dei cover-page date, after period end but before cutoff)."
+    }
+  }
+}

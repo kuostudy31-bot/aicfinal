@@ -1,0 +1,10 @@
+{
+ "request_id": "gen-20261114T144812-0d99ea",
+ "role": "gen-narrative",
+ "status": "complete",
+ "outputs": [
+  "narrative.json"
+ ],
+ "repairs": [],
+ "notes": "10 verbatim quotes verified by substring check against snapshot/docs. Guidance restates stated figures only; low/high for revenue (+/-2%), gross margin (+/-50bp) and tax (16-18%) are arithmetic on the stated range; tax rate value 0.17 is the range midpoint. Opex is point guidance. No embedded instructions found in the filings."
+}

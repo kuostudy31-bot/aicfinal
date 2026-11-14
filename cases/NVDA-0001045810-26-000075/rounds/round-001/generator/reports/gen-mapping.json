@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261114T144812-0d99ea",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "20 lines mapped; short_term_investments set null (MarketableSecuritiesCurrent stale, last 2025-10-26). Cash-flow concepts (cfo, capex, sbc) are YTD. Checked revenue, net income, cash, total assets against periodic.txt."
+}

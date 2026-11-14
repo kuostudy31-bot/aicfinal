@@ -1,0 +1,18 @@
+{
+  "request_id": "gen-20261114T144812-0d99ea",
+  "tax_rate": 0.17,
+  "share_change_qoq": -0.004,
+  "next_quarters": [
+    {"label": "FY2027Q3", "revenue_qoq": 0.1224, "gross_margin": 0.74, "opex_pct_revenue": 0.0852},
+    {"label": "FY2027Q4", "revenue_qoq": 0.10, "gross_margin": 0.74, "opex_pct_revenue": 0.085},
+    {"label": "FY2028Q1", "revenue_qoq": 0.08, "gross_margin": 0.74, "opex_pct_revenue": 0.086},
+    {"label": "FY2028Q2", "revenue_qoq": 0.07, "gross_margin": 0.74, "opex_pct_revenue": 0.087}
+  ],
+  "rationales": {
+    "revenue_qoq": "FY2027Q3 is anchored on the guidance midpoint of $108.0B (Q-1) over FY2027Q2 revenue of $96.221B (F-5b8aab8df3): 108.0/96.221 - 1 = 12.24%; the guided range of +/-2% implies about 10.0% to 14.5%. Later quarters are judgment: sequential growth has run about 18% to 20% for the last four quarters (F-296b652672, D-e6100d63c6, F-e3b41ab7aa, F-5b8aab8df3), but the guide itself steps down to about 12%, so we assume further deceleration to 10%, 8% and 7%. Demand commentary (Q-6, Q-8) and the step-up in supply commitments to $279B (Q-10) support continued growth; no China Data Center compute revenue is assumed, consistent with the outlook (Q-2), so any China resumption is upside not modeled.",
+    "gross_margin": "FY2027Q3 uses the 74.0% guidance midpoint (Q-3; range 73.5% to 74.5%). This is below the about 75.0% reported in FY2027Q2 (F-5a54513386 / F-5b8aab8df3) and FY2027Q1 (F-417baf8cdf / F-e3b41ab7aa). We hold 74.0% for later quarters rather than reverting to 75%: margins were flat sequentially with Blackwell the vast majority of revenue (Q-9), and commitments rose mainly for memory procurement (Q-10), which we treat as a cost headwind risk; no guidance exists beyond FY2027Q3.",
+    "opex_pct_revenue": "FY2027Q3 uses GAAP opex guidance of about $9.2B (Q-4) over the $108.0B revenue midpoint (Q-1) = 8.52%. FY2027Q2 GAAP R&D plus SG&A was $8.408B (F-e4589deab2 + F-2725b021df), 8.74% of revenue; opex has grown about 9% to 10% per quarter recently (F-e87c3f5cfd, F-44396bc561, F-e4589deab2, F-2725b021df). With revenue growth assumed to decelerate toward or below opex growth, the ratio is held at 8.5% in FY2027Q4 and drifts up to 8.6% and 8.7%.",
+    "tax_rate": "17.0% is the midpoint of FY2027 GAAP tax-rate guidance of 16.0% to 18.0%, excluding discrete items (Q-5). It is consistent with the 16.5% effective rate reported for both Q2 and the first half of FY2027 in the 10-Q MD&A (periodic.txt); no XBRL income-tax or pre-tax income fact was found for the latest quarter in the snapshot, so the cross-check relies on that filing text.",
+    "share_change_qoq": "-0.4% per quarter, from the recent trend in diluted weighted-average shares: 24,483M (F-cfa87cf1cf) to 24,391M (F-7b160f6df2) to 24,285M (F-ce6be3a0b0), about -0.4% per quarter, with buybacks continuing (Q-7: about $26.0B returned in FY2027Q2). The derived Q4 values in history (D-30c5a1282c, D-475c151c60) are negative and are not usable as share counts, so they were excluded from the trend."
+  }
+}
