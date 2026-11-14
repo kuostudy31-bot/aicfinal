@@ -144,8 +144,11 @@ def gate_quotes(narrative: dict, docs: dict[str, str]) -> list[dict]:
             continue  # text guidance (e.g. "none assumed") is checked by the verbatim quote alone
         def visible(x):
             v = x / 1e9 if g["unit"] == "USD" else x * 100
-            t = f"{v:.1f}"
-            return t in q["text"] or t.rstrip("0").rstrip(".") in q["text"]
+            # the value as the company may have written it: 3.75, 3.8, 108.0, 108, 74
+            forms = {f"{v:.{d}f}" for d in (0, 1, 2, 3)}
+            forms |= {t.rstrip("0").rstrip(".") for t in forms if "." in t}
+            forms = {t for t in forms if t and abs(float(t) - v) <= 1e-9 * max(1.0, abs(v)) + 1e-12}
+            return any(re.search(r"(?<![\d.])" + re.escape(t) + r"(?![\d])", q["text"]) for t in forms)
 
         val = g["value"] / 1e9 if g["unit"] == "USD" else g["value"] * 100
         token = f"{val:.1f}"

@@ -106,3 +106,18 @@ class RangeGuidanceTests(unittest.TestCase):
                                              "unit": "ratio", "quote_id": "Q-5"}]}
         self.assertEqual(gates.gate_quotes(ok, docs), [])
         self.assertEqual(gates.gate_quotes(bad, docs)[0]["check"], "guidance_source")
+
+
+class GuidancePrecisionTests(unittest.TestCase):
+    def test_two_decimal_guidance_is_visible(self):  # AMD: "Operating Expenses ~$3.75 Billion"
+        q = {"id": "Q-3", "doc": "r.txt", "text": "Operating Expenses ~$3.75 Billion"}
+        docs = {"r.txt": q["text"]}
+        ok = {"quotes": [q], "guidance": [{"metric": "opex", "value": 3.75e9, "unit": "USD", "quote_id": "Q-3"}]}
+        rounded = {"quotes": [q], "guidance": [{"metric": "opex", "value": 3.8e9, "unit": "USD", "quote_id": "Q-3"}]}
+        self.assertEqual(gates.gate_quotes(ok, docs), [])
+        self.assertEqual(gates.gate_quotes(rounded, docs)[0]["check"], "guidance_source")  # rounding is not exact
+
+    def test_no_partial_number_match(self):
+        q = {"id": "Q-1", "doc": "r.txt", "text": "Revenue is expected to be $13.75 billion"}
+        bad = {"quotes": [q], "guidance": [{"metric": "rev", "value": 3.75e9, "unit": "USD", "quote_id": "Q-1"}]}
+        self.assertEqual(gates.gate_quotes(bad, {"r.txt": q["text"]})[0]["check"], "guidance_source")

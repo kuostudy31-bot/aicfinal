@@ -12,7 +12,7 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 | 4 | Agents may not copy subagent transcripts out of `~/.claude` | resolved (hook copies) |
 | 5 | Development session's hook wrote a stray line into a case trace | resolved |
 | 6 | Catalog-only snapshot hid NVDA's marketable-securities concepts | resolved for new cases |
-| 7 | Four controller defects surfaced by the NVDA run | resolved |
+| 7 | Five controller defects surfaced by the NVDA and AMD runs | resolved |
 | 8 | AMD run idle after a deliberate interruption (two stalls) | resolved by handover; watchdog added; Stop hook planned |
 
 ## 1. New subagents not visible in the creating session
@@ -66,6 +66,12 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   from its quote; and cover-page share counts were reported stale.
 * **Fix.** Commit 9240e7c, with regression tests. The run resumed and kept the completed
   specialist reports.
+* **Fifth defect (AMD, 16:10).** `gate_quotes` compared guidance at one decimal, so AMD's
+  "Operating Expenses ~$3.75 Billion", correctly recorded as 3.75e9, was flagged as "3.8 not
+  visible" and sent to repair. A repair could have "fixed" a correct value into a wrong one.
+  The gate now accepts the value only in forms that equal it exactly (3.75, not 3.8) and as a
+  whole number (not inside 13.75). The round-001 inputs of NVDA r2 and AMD recompute with no
+  findings.
 
 ## 8. AMD run idle after the recovery test (14:58–15:48)
 * **Timeline (from `cases/AMD-0000002488-26-000191/trace.jsonl` and commits).**
