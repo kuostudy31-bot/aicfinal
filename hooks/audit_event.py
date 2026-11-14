@@ -43,8 +43,13 @@ def main():
     with open(logs / "hook_events.jsonl", "a", encoding="utf-8") as fh:
         fh.write(json.dumps(rec) + "\n")
     case = active.get("case_id")
-    if case and (ROOT / "cases" / case).is_dir():
-        with open(ROOT / "cases" / case / "trace.jsonl", "a", encoding="utf-8") as fh:
+    target = None
+    if active.get("trace_path"):
+        target = ROOT / active["trace_path"]           # evolution changes
+    elif case and (ROOT / "cases" / case).is_dir():
+        target = ROOT / "cases" / case / "trace.jsonl"
+    if target is not None and target.parent.is_dir():
+        with open(target, "a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec, sort_keys=True) + "\n")
 
 
