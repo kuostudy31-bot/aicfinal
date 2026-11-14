@@ -112,3 +112,38 @@ Transcripts in `evidence/transcripts/`: two orchestrator, two gen-lead, gen-mapp
 gen-model, and both gen-valuation runs. A grep for tokens, keys and credentials (GitHub, Anthropic
 or OpenAI, AWS, Slack, Bearer and Authorization headers, private keys) found nothing, so no lines
 were removed.
+
+## NVDA-0001045810-26-000075 — Resume after controller fix, 2026-11-14
+
+Another session (session_01ERG3WZcbWkidht1tadsh6H) reported that commit 9240e7c fixed the controller defects recorded above: text guidance in gate_quotes, non-additive share counts, range midpoints, and cover-page share dates. It relayed that the owner decided to keep the completed reports. The entry session pulled the branch and confirmed that gates.py now skips text-unit guidance. It made no code edits.
+
+`python3 scripts/eu.py resume --case NVDA-0001045810-26-000075` (exit 0):
+```json
+{
+  "case_id": "NVDA-0001045810-26-000075",
+  "status": "GENERATOR_PENDING",
+  "checks": [
+    {
+      "snapshot_hashes": "ok"
+    }
+  ],
+  "next_action": "re-dispatch only ['gen-writer'] for request gen-20261114T144812-0d99ea (completed reports ['gen-mapping', 'gen-narrative', 'gen-model', 'gen-valuation'] are kept)",
+  "pending": {
+    "issued_at": "2026-11-14T14:48:12Z",
+    "path": "cases/NVDA-0001045810-26-000075/rounds/round-001/request.json",
+    "phase": "generator",
+    "request_id": "gen-20261114T144812-0d99ea"
+  },
+  "reports_present": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation"
+  ],
+  "reports_missing": [
+    "gen-writer"
+  ]
+}
+```
+
+A fresh orchestrator was dispatched to continue from this next_action only.

@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T144812-0d99ea",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "note.md written with the seven required sections, using only {{key}} placeholders from computed/values.json and [[Q-1]]..[[Q-10]] from narrative.json. Re-ran eu.py compute after writing: gate_findings empty, target_price 184, rating Underperform; computed/note_rendered.md produced. Reported, forecast and judgment content are labelled separately. Disclosures cover all policies.md section 6 items. Rating band thresholds are spelled out in words because the no-digit rule allows no numerals there. Unresolved for gen-lead/controller: (1) values.json has no keys for the filing accession, cutoff timestamp or price date, and the no-digit rule blocks writing them literally. The disclosure therefore names the source (SEC EDGAR 10-Q plus EX-99.1/EX-99.2), the quarter end via {{period_end}}, the cutoff as the 10-Q acceptance time and the price as the last close before the cutoff, but the rendered note does not show the accession number or exact dates. Adding accession/cutoff_utc/price_date keys to values.json would close this. (2) As gen-valuation flagged, net_cash ({{net_cash}}) leaves out marketable debt and equity securities. The note discloses this qualitatively and judges that adding the debt securities (about +$1.41/share per gen-valuation) would not change the rating; that number is not shown in the note because no values key carries it."
+}
