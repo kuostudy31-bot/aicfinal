@@ -1,0 +1,18 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "tax_rate": 0.17,
+  "share_change_qoq": -0.0027,
+  "next_quarters": [
+    {"label": "FY2027Q3", "revenue_qoq": 0.1224, "gross_margin": 0.74, "opex_pct_revenue": 0.0852},
+    {"label": "FY2027Q4", "revenue_qoq": 0.10, "gross_margin": 0.74, "opex_pct_revenue": 0.0844},
+    {"label": "FY2028Q1", "revenue_qoq": 0.08, "gross_margin": 0.74, "opex_pct_revenue": 0.0844},
+    {"label": "FY2028Q2", "revenue_qoq": 0.07, "gross_margin": 0.74, "opex_pct_revenue": 0.0852}
+  ],
+  "rationales": {
+    "revenue_qoq": "FY2027Q3 anchored on the guidance midpoint: $108.0B (Q-1) over FY2027Q2 revenue of $96,221M (F-5b8aab8df3) = +12.24% q/q; guidance range +/-2% (Q-1) implies roughly +10.0% to +14.5%. The outlook assumes no China Data Center compute revenue (Q-2), so none is assumed in any quarter. Later quarters (analyst judgment): reported q/q growth has decelerated from +22.0% (FY2026Q3, F-296b652672 vs F-8329dec389) to +19.5%, +19.8% and +17.9% (FY2027Q2, F-5b8aab8df3 vs F-e3b41ab7aa), with guidance stepping down to +12.2%. We extend that deceleration to +10%, +8% and +7%. Supports for continued growth: Data Center revenue up 18% sequentially on the Blackwell Ultra ramp (Q-6), Vera Rubin introduction in Q3 with inventory built for it (Q-12), and supply commitments raised to $279B, mainly memory (Q-8). Restraints: larger revenue base, no China (Q-2), and longer payment terms (DSO 60 days, Q-9) that point to concentration in large multi-quarter agreements. These later-quarter rates are judgments, not guidance.",
+    "gross_margin": "FY2027Q3 set at the 74.0% guidance midpoint (Q-3; range 73.5%-74.5%). Recent reported margins were about 75.0% in FY2026Q4 (D-2e438021b6 / D-e6100d63c6), 74.9% in FY2027Q1 (F-417baf8cdf / F-e3b41ab7aa) and 75.0% in FY2027Q2 (F-5a54513386 / F-5b8aab8df3), described as roughly flat with Blackwell as the vast majority of revenue (Q-7). The guided step-down to 74.0% coincides with the Vera Rubin introduction (Q-12). Judgment: held at 74.0% for FY2027Q4-FY2028Q2. We assume no further transition dilution and no recovery to 75%. The FY2026Q1 margin of 60.5% (F-c1ec7862bb / F-9221c84b01) was a one-off low and is not used as a base.",
+    "opex_pct_revenue": "FY2027Q3: GAAP opex guidance of about $9.2B (Q-4) divided by $108.0B guided revenue (Q-1) = 8.52%. FY2027Q2 GAAP opex was $8,408M (R&D F-e4589deab2 + SG&A F-2725b021df), or 8.74% of revenue, so the guide implies +9.4% q/q opex growth. Opex grew +12.2% in FY2027Q1 (F-e87c3f5cfd + F-44396bc561 vs D-7673c35548 + D-ba914608b4) and +10.3% in FY2027Q2. Later quarters (judgment): opex grows about +9%, +8% and +8% q/q, consistent with that trend, against the revenue path above. That gives 8.44%, 8.44% and 8.52% of revenue. The ratio stays below recent levels because revenue grows faster than opex.",
+    "tax_rate": "17.0% = midpoint of the FY2027 GAAP tax rate guidance of 16.0%-18.0%, excluding discrete items (Q-5), applied to all four quarters. The model applies tax to operating income and assumes zero other income/expense (no assumption made for interest or investment gains).",
+    "share_change_qoq": "-0.27% per quarter: compound average change in weighted diluted shares from 24,611M (FY2026Q1, F-132c01694e) to 24,285M (FY2027Q2, F-ce6be3a0b0) over five quarters. Buybacks continue: about $26.0B returned in FY2027Q2 through repurchases and dividends (Q-11). The latest quarter's -0.43% (vs F-7b160f6df2) is above the average; we do not extrapolate it."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": ["assumptions.json"],
+  "repairs": [],
+  "notes": "Round 1, no open findings. FY2027Q3 anchored on guidance midpoints: revenue $108.0B (+12.24% q/q, Q-1), gross margin 74.0% (Q-3), GAAP opex $9.2B = 8.52% of revenue (Q-4), tax 17% (Q-5 midpoint). No China Data Center compute revenue assumed (Q-2). FY2027Q4-FY2028Q2 are analyst judgments: revenue growth slows to +10%/+8%/+7% q/q following the reported trend; gross margin held at 74.0%; opex grows about 9%/8%/8% q/q. Shares -0.27%/q (five-quarter average). Model ignores other income (none assumed). Assumptions were not tuned to any target price or rating."
+}
