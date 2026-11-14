@@ -73,6 +73,17 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
         "created_at": iso(utcnow()),
     }
     write_json(_cdir(change_id) / "failure.json", failure_rec)
+    for cid in dev_cases + heldout_cases:  # frozen inputs for the evaluation runs
+        st = read_json(ROOT / "cases" / cid / "state.json")
+        rnd = f"cases/{cid}/rounds/round-{st['round']:03d}"
+        for arm, ver in (("baseline", parent), ("candidate", f"candidate-{change_id}")):
+            write_json(_cdir(change_id) / "runs" / cid / arm / "inputs.json", {
+                "mode": "evaluation", "case_id": cid, "role": role, "prompt_file": f"prompts/{role}/{ver}.md",
+                "values": f"{rnd}/numerical/recompute/values.json", "narrative": f"{rnd}/generator/narrative.json",
+                "output": f"evolution/changes/{change_id}/runs/{cid}/{arm}/note.md",
+                "instructions": "Evaluation mode: follow prompt_file, but do not run eu.py compute and do not "
+                                "write inside cases/; read keys from `values` and quotes from `narrative`; write "
+                                "only `output`."})
     status = {"change_id": change_id, "state": "PREPARED", "request_id": rid, "role": role,
               "parent_version": parent}
     _save(change_id, status, "prepared", role=role, parent=parent)
@@ -100,10 +111,20 @@ def check_note(note: str, vals: dict, quotes: dict, checks: dict) -> dict:
     return res
 
 
+def _dispatched(change_id: str, request_id: str) -> set[str]:
+    from .util import read_jsonl
+    return {e.get("agent_type") for e in read_jsonl(_cdir(change_id) / "trace.jsonl")
+            if e.get("event") == "SubagentStart" and e.get("request_id") == request_id}
+
+
 def evaluate(change_id: str) -> dict:
     cd = _cdir(change_id)
     fail = read_json(cd / "failure.json")
     status = _status(change_id)
+    seen = _dispatched(change_id, status["request_id"])
+    missing = {"gen-lead", "evo-proposer", fail["role"]} - seen
+    if missing:
+        raise ValueError(f"no dispatch record for {sorted(missing)} under {status['request_id']}")
     prop = cd / "proposal.json"
     if not prop.exists():
         raise ValueError("proposal.json missing: dispatch evo-proposer first")
@@ -147,6 +168,9 @@ def submit(change_id: str) -> dict:
     if not rv.exists():
         raise ValueError("review.json missing: dispatch evo-reviewer first")
     review = read_json(rv)
+    missing = {"crit-lead", "evo-reviewer"} - _dispatched(change_id, status["review_request_id"])
+    if missing:
+        raise ValueError(f"no dispatch record for {sorted(missing)} under {status['review_request_id']}")
     if review.get("request_id") != status["review_request_id"]:
         raise ValueError("review.json request_id is stale")
     ev = read_json(cd / "evaluation.json")

@@ -13,6 +13,7 @@ roles:
     writes: [rounds/*/decision_note.md]
   gen-lead:
     may_dispatch: [gen-mapping, gen-narrative, gen-model, gen-valuation, gen-writer, evo-proposer]
+    # evolution mode: evo-proposer plus the change's target role (checked by evolution.py)
     writes: [rounds/*/generator/manifest.json]
   crit-lead:
     may_dispatch: [crit-provenance, crit-assumption, crit-compliance, evo-reviewer]

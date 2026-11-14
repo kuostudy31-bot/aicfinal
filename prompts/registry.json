@@ -1,13 +1,13 @@
 {
   "active": {
     "orchestrator": "v1",
-    "gen-lead": "v1",
-    "crit-lead": "v1",
+    "gen-lead": "v2",
+    "crit-lead": "v2",
     "gen-mapping": "v1",
     "gen-narrative": "v1",
     "gen-model": "v1",
     "gen-valuation": "v1",
-    "gen-writer": "v1",
+    "gen-writer": "v2",
     "crit-provenance": "v1",
     "crit-assumption": "v1",
     "crit-compliance": "v1",
@@ -15,6 +15,25 @@
     "evo-reviewer": "v1"
   },
   "history": [
-    {"event": "initial", "versions": "all v1", "at": "2026-11-14", "approver": "project owner"}
+    {
+      "event": "initial",
+      "versions": "all v1",
+      "at": "2026-11-14",
+      "approver": "project owner"
+    },
+    {
+      "event": "development",
+      "roles": [
+        "gen-lead",
+        "crit-lead",
+        "gen-writer"
+      ],
+      "from": "v1",
+      "to": "v2",
+      "change": "add evaluation/evolution-mode sections only; case procedure unchanged",
+      "at": "2026-11-14",
+      "approver": "project owner (development phase, before the first evolution cycle)",
+      "note": "cases opened earlier keep v1 pinned in case.json"
+    }
   ]
 }
