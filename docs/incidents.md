@@ -72,6 +72,14 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   The gate now accepts the value only in forms that equal it exactly (3.75, not 3.8) and as a
   whole number (not inside 13.75). The round-001 inputs of NVDA r2 and AMD recompute with no
   findings.
+* **Consequence: a false stop (16:15).** The fix reached the branch while AMD round 2 was
+  already running, and the run pulls only after a submit. gen-narrative correctly kept 3.75e9.
+  The old gate flagged it again, and the controller stopped the case as STALLED ("same open
+  findings across 2 repairs"). The stop rule worked as designed; its input was a defective
+  gate. AMD's round-2 inputs pass the fixed gate. The stall stays on record. Opening a revision
+  (`--revision 2 --reason "gate defect fixed in 6fddfe2"`) is the documented way to continue
+  the case. Lesson: a controller fix that changes a verdict should reach running cases before
+  their next submit. A run should pull at the start of each round, not only after a submit.
 
 ## 8. AMD run idle after the recovery test (14:58–15:48)
 * **Timeline (from `cases/AMD-0000002488-26-000191/trace.jsonl` and commits).**
