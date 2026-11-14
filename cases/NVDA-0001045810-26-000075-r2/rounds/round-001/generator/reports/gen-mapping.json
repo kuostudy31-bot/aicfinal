@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "All 21 lines mapped. short_term_investments is a sum [DebtSecuritiesCurrent, EquitySecuritiesFvNi] (history only from 2026-01-25; MarketableSecuritiesCurrent stale after 2025-10-26, excluded). total_debt uses LongTermDebt (already includes current portion). Cash, assets, and balance sheet items checked against periodic.txt."
+}

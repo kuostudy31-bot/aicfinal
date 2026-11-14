@@ -1,0 +1,88 @@
+{
+  "request_id": "gen-20261114T152101-24eabe",
+  "mapping": {
+    "revenue": {
+      "concept": "Revenues",
+      "rationale": "Total revenue; 16 observations, latest 2026-07-26 (96,221M). Matches income statement."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfRevenue",
+      "rationale": "16 observations, latest 2026-07-26 (24,079M)."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "16 observations, latest 2026-07-26 (72,142M)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "16 observations, latest 2026-07-26 (7,054M)."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "16 observations, latest 2026-07-26 (1,354M)."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "16 observations, latest 2026-07-26 (63,734M)."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "16 observations, latest 2026-07-26 (59,688M)."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "Weighted-average diluted shares; 16 observations, latest 2026-07-26 (24,285M). Non-additive."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "16 observations, latest 2026-07-26 (2.46 USD)."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "15 observations (year-to-date flows differenced into quarters), latest 2026-07-26 (24,077M for the quarter)."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquireProductiveAssets",
+      "rationale": "PaymentsToAcquirePropertyPlantAndEquipment has no data in snapshot; this concept has 15 observations, latest 2026-07-26 (2,677M). Judgment: it is the company's purchases of property and equipment and intangible assets line."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "Cash-flow add-back; 15 observations, latest 2026-07-26 (2,026M). AllocatedShareBasedCompensationExpense (16 obs, 2,027M) is a near-identical alternative; the cash-flow concept was preferred as it is consistent with cfo."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "16 observations, latest 2026-07-26 (22,443M); matches balance sheet."
+    },
+    "short_term_investments": {
+      "concept": [
+        "DebtSecuritiesCurrent",
+        "EquitySecuritiesFvNi"
+      ],
+      "rationale": "Balance sheet reports marketable debt securities (DebtSecuritiesCurrent, 34,143M at 2026-07-26) and marketable equity securities (EquitySecuritiesFvNi, 42,783M) separately; summed = 76,926M. Each has 3 observations (2026-01-25, 2026-04-26, 2026-07-26), so the sum covers only those periods. MarketableSecuritiesCurrent (13 obs) is the earlier combined total and ends 2025-10-26 (stale); it is excluded to avoid double counting, since no period overlaps with the two parts. Pre-2026-01 history for this line is therefore absent from the sum (sum keeps only periods where both parts exist). Non-marketable securities (51,157M, non-current) are not included. Judgment: marketable equity securities are included as liquid investments; the valuation step may haircut them."
+    },
+    "total_debt": {
+      "concept": "LongTermDebt",
+      "rationale": "16 observations, latest 2026-07-26 (33,366M) = long-term debt 32,366M + short-term debt 1,000M per balance sheet, so it already includes the current portion. LongTermDebtNoncurrent (32,366M) would omit it; not summed to avoid double counting."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "16 observations, latest 2026-07-26 (320,272M); matches balance sheet."
+    },
+    "liabilities": {
+      "concept": "Liabilities",
+      "rationale": "16 observations, latest 2026-07-26 (91,288M)."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "16 observations, latest 2026-07-26 (228,984M)."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "16 observations, latest 2026-07-26 (320,272M); equals assets."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "dei cover-page count; 16 observations, latest 2026-08-21 (24,100M)."
+    }
+  }
+}

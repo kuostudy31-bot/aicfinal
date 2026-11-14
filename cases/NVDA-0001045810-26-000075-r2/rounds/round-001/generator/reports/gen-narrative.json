@@ -1,0 +1,10 @@
+{
+ "request_id": "gen-20261114T152101-24eabe",
+ "role": "gen-narrative",
+ "status": "complete",
+ "outputs": [
+  "narrative.json"
+ ],
+ "repairs": [],
+ "notes": "12 verbatim quotes checked against snapshot docs; 5 guidance items. Tax rate value 0.17 is the midpoint of the stated 16-18% range; gross margin low/high are 74.0% +/- 50bp. Q-2 notes no China Data Center compute revenue assumed."
+}
