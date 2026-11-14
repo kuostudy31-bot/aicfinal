@@ -1,0 +1,52 @@
+{
+  "request_id": "crit-20261114T152957-c99513",
+  "role": "crit-assumption",
+  "candidate_id": "cand-73474e2b30c1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "minor",
+      "title": "Lock-up restrictions on marketable equity securities not reflected in net cash judgment",
+      "detail": "Net cash (66,003M) includes marketable equity securities of 42,783M at full balance-sheet fair value. Note 5 of the 10-Q (snapshot/docs/periodic.txt, footnote (1) to the Jul 26, 2026 table) states that $36.9B of publicly-held equity investments are subject to short-term lock-up restrictions on the ability to sell, and $10.8B are Level 2 (unregistered warrants and convertible preferred). The mapping rationale says 'the valuation step may haircut them', but valuation_inputs.json applies no haircut and its rationales do not discuss it. note.md mentions price volatility but not the lock-up or Level 2 composition. Impact is small: a full exclusion lowers the blended target by roughly $1.2/share and keeps the rating Underperform, so the conclusion does not change. It should still be disclosed.",
+      "evidence": [
+        "snapshot/docs/periodic.txt (Note 5, footnotes (1)-(3))",
+        "numerical/recompute/valuation.json#net_cash",
+        "generator/mapping.json#short_term_investments",
+        "generator/note.md line 18"
+      ],
+      "required_evidence": "note.md net-cash judgment (or valuation_inputs rationale) mentions that about $36.9B of marketable equity is under short-term lock-up and states whether a haircut is applied"
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Peer calendar label inconsistent with peer TTM end dates",
+      "detail": "peers.json labels every peer 'calendar': 'CY2025Q4', but the ttm_end dates are 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL), i.e. CY2026Q2 or late CY2026Q1/early Q2. NVIDIA's TTM ends 2026-07-26 (CY2026Q2). note.md already says correctly that peer TTM periods end one to three months before NVIDIA's quarter end, so the prose is right and only the code label looks wrong. Raised for the code/lead to check; no candidate change required for the conclusion.",
+      "evidence": [
+        "numerical/recompute/peers.json#calendar",
+        "numerical/recompute/peers.json#ttm_end",
+        "generator/note.md line 45"
+      ],
+      "required_evidence": "peers.json calendar label consistent with ttm_end, or the label is not used in the note"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Next-quarter revenue vs guidance: FY2027Q3 revenue_qoq 0.1224 on 96,221M = 107,998M, matching the $108.0B midpoint (Q-1); range +/-2% stated",
+    "Next-quarter gross margin 74.0% = guidance midpoint (Q-3); history 74.9-75.0% in last three quarters, step-down tied to Vera Rubin (Q-12)",
+    "Next-quarter opex 9,201M vs GAAP guidance ~$9.2B (Q-4); FY2027Q1/Q2 opex growth +12.2%/+10.3% verified from history (rnd+sga)",
+    "Tax 17% = midpoint of FY2027 16-18% guidance (Q-5); zero other income assumption disclosed in rationale and note",
+    "Later-quarter path: revenue q/q +10%/+8%/+7% continue the deceleration (22.0%, 19.5%, 19.8%, 17.9%, guided 12.2%); GM held at 74%; opex +9%/+8%/+8% q/q. Plausible, labelled as judgment",
+    "Share change -0.27%/q verified: (24,285/24,611)^(1/5)-1",
+    "WACC 11% (assumed rf 4.5%, beta 1.3, ERP 5%) and terminal growth 3%: within a reasonable range for a large-cap semiconductor; no market data in snapshot, disclosed as judgment",
+    "Terminal value share of EV 70.8% (<80% threshold)",
+    "Sensitivity recomputed from valuation.json FCFs: WACC 10.5%/g 3% gives upside -8.0% (Neutral); WACC 10% gives -4.4%. Rating is boundary-sensitive, and note.md says so explicitly (line 45, line 53)",
+    "FCF margins 40/42/42/41/40% vs history: TTM CFO-capex 127,006M / 302,969M = 41.9%; 8-quarter 199,029M / 468,187M = 42.5% (all sums verified against history.json). Year-1 FCF/NOPAT 73.5% vs TTM 77%, consistent",
+    "Year-2 growth +25%: verified that extending sequential decel (6/5/4/3%) gives ~26% over NTM sum",
+    "Net cash completeness vs balance sheet text: cash 22,443 + marketable debt 34,143 + marketable equity 42,783 - (short-term debt 1,000 + long-term debt 32,366) = 66,003M, matching valuation.json; commercial paper nil; senior notes principal $33.5B consistent. Non-marketable securities (51,157M), long-term locked-up public equity in other assets (4,957M) and leases excluded; disclosed as conservative in note.md",
+    "Peer set AMD/AVGO/MRVL: relevant AI data-center silicon designers; exclusions reasoned; period misalignment noted in note.md",
+    "Peer cross-check arithmetic: 23.018x * 302,969M + net cash, divided by 24,285M = 289.88; blend 0.7*141.68 + 0.3*289.88 = 186.14",
+    "Price date 2026-08-26 close precedes cutoff 2026-08-26T20:36Z (session ended 20:00Z)",
+    "Rationales exist for every assumption and cite quote/fact IDs that support the chosen numbers"
+  ]
+}

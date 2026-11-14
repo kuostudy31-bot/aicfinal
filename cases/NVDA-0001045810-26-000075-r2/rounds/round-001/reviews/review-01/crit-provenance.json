@@ -1,0 +1,46 @@
+{
+  "request_id": "crit-20261114T152957-c99513",
+  "role": "crit-provenance",
+  "candidate_id": "cand-73474e2b30c1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "minor",
+      "title": "Forecast prose says opex grows more slowly than revenue; assumptions do not show that across the horizon",
+      "detail": "note.md (Guidance and outlook, Judgment) says the model lets operating expenses grow more slowly than revenue after FY2027Q3. assumptions.json opex_pct_revenue runs 0.0852, 0.0844, 0.0844, 0.0852. Opex therefore grows more slowly than revenue in FY2027Q4, at the same rate in FY2028Q1 and faster in FY2028Q2 (+8.0% opex vs +7% revenue). The exit ratio equals the starting ratio. The numbers are correct, but the sentence overstates the operating leverage assumed.",
+      "evidence": ["generator/note.md#guidance-and-outlook", "generator/assumptions.json#next_quarters", "numerical/recompute/forecast.json#quarters"],
+      "required_evidence": "Sentence describes opex as roughly constant at about 8.4-8.5% of revenue, or assumptions changed to match the prose"
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Lead-in 'The outlook excludes China' is broader than the quote",
+      "detail": "Key points: 'The outlook excludes China: [[Q-2]]'. Q-2 says only that no Data Center compute revenue from China is assumed. The verbatim quote that follows corrects the scope and the later sections word it accurately, so the meaning is not changed. The lead-in could still be read as excluding all China revenue.",
+      "evidence": ["generator/note.md#key-points", "generator/narrative.json#Q-2", "snapshot/docs/release_ex99_2.txt (Outlook section)"],
+      "required_evidence": "Lead-in reads e.g. 'The outlook assumes no China Data Center compute revenue'"
+    },
+    {
+      "id": "prov-003",
+      "severity": "minor",
+      "title": "peers.json 'calendar' label inconsistent with ttm_end (code output, not used in note)",
+      "detail": "numerical/recompute/peers.json labels AMD (ttm_end 2026-06-27), AVGO (2026-05-03) and MRVL (2026-05-02) as calendar 'CY2025Q4'. The TTM end dates are consistent with the note's statement that peer periods end one to three months before NVIDIA's quarter end, and the label is not rendered in the note. This is informational only: the label comes from controller code, which no generator role can fix.",
+      "evidence": ["numerical/recompute/peers.json#calendar", "numerical/recompute/peers.json#ttm_end"],
+      "required_evidence": "None for this candidate; code owner may review the calendar labelling"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "gates.json: request_id gen-20261114T152101-24eabe, findings empty; sha256 of all five recompute files matches gates.json hashes and the files are byte-identical to computed/",
+    "Every {{key}} in note.md exists in values.json; every F- source resolves in snapshot/facts.json with the correct concept/period (Revenues Q2 FY27 F-5b8aab8df3 96,221M; Q1 F-e3b41ab7aa 81,615M; prior-year Q2 F-8329dec389 46,743M; GrossProfit F-5a54513386 72,142M; OperatingIncomeLoss F-b33afe3d98 63,734M; NetIncomeLoss F-36038ed661 59,688M; EPS F-b8cde30d27 2.46)",
+    "Derived IDs: D-286ba7c3b2 (CFO 74,421M YTD - 50,344M = 24,077M), D-0158212347 (capex 4,434M - 1,757M = 2,677M), D-e6100d63c6 (FY26 215,938M - 9M YTD 147,811M = 68,127M); all components in facts.json",
+    "Arithmetic recomputed: q/q 17.9%, y/y 105.9%, TTM 302,969M, GM 75.0%, OM 66.2%, FCF 21.4bn, net cash 22,443+76,926-33,366 = 66,003M, upside 186/209.66-1 = -11.3% -> Underperform (<= -10%)",
+    "Labels: q/q vs y/y correct, quarter vs TTM correct, FY2027 Q2 fiscal / CY2026Q2 calendar / period end 2026-07-26 consistent",
+    "Spot-check vs periodic.txt statements: revenue 96,221, gross profit 72,142, operating income 63,734, net income 59,688, diluted EPS 2.46, diluted shares 24,285, total assets 320,272, cash 22,443, marketable debt 34,143, marketable equity 42,783, short-term debt 1,000 + long-term debt 32,366 = LongTermDebt 33,366, capex 4,434 YTD",
+    "All 12 quotes found verbatim in snapshot docs; surrounding context reviewed and none truncated in a way that changes meaning (Q-6 Data Center, Q-7 margins, Q-8 commitments, Q-10 guarantees, Q-11 capital return, Q-12 inventory/Vera Rubin)",
+    "Guidance values match quotes: revenue 108.0bn +/-2% (105.84-110.16bn), GM 74.0% +/-50bp, opex GAAP 9.2bn / non-GAAP 9.0bn, FY tax 16-18% midpoint 17%; forecast FY2027Q3 revenue 107.998bn and opex 9.201bn consistent with guidance",
+    "Mapping currency: every mapped concept has its latest observation at 2026-07-26 (shares outstanding 2026-08-21 cover date); stale MarketableSecuritiesCurrent (ends 2025-10-26) correctly excluded; PaymentsToAcquirePropertyPlantAndEquipment has no data; LongTermDebt includes the current portion (no double count)",
+    "Leakage: no fact in facts.json accepted after cutoff 2026-08-26T20:36:00Z; price 209.66 is the 2026-08-26 close (session ended before cutoff); 8-K 0001045810-26-000073 accepted 2026-08-26T20:21:19Z, before cutoff; peer prices dated 2026-08-26",
+    "Peer list in note (AMD, Broadcom, Marvell) matches valuation_inputs.json; peer median EV/Sales 23.0x = AVGO; peer TTM ends one to three months before 2026-07-26 as stated"
+  ]
+}
