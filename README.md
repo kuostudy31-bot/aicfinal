@@ -127,16 +127,20 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
   the gate-to-repair loop, two clean reviews, approval rules, resume after an interruption
   and after tampered evidence, and recompute tampering.
 * `tests/test_leakage.py`: the no-leakage perturbation test.
-* `cases/NVDA-0001045810-26-000075/`: the live case. `trace.jsonl` holds the controller
-  transitions and hook dispatch records, `rounds/` the requests, candidates, gate results,
-  reviews and repair packets, and `evidence/transcripts/` each subagent's transcript.
-* `cases/RUN_NOTES.md`: the first live run stopped at GENERATOR_PENDING because of a
-  platform limit on nested subagents. It was resumed from the pending request in a new
-  session.
+* `cases/NVDA-0001045810-26-000075-r2/`: the published case (two clean reviews, delegated
+  approval in `approvals.jsonl`, PDF in `report/NVDA-0001045810-26-000075-r2/`).
+* `cases/NVDA-0001045810-26-000075/` (r1, STALLED): a critic finding the specialists could not
+  fix with the old snapshot, the bounded repair loop, and the first run's stop on the nesting limit
+  followed by a resume.
+* `cases/AMD-0000002488-26-000191/`: a deliberate interruption, then `resume` keeping completed
+  reports; later a false stall from a gate defect (recorded, fixed).
+* Each case: `trace.jsonl` (controller transitions and hook dispatch records), `rounds/`
+  (requests, candidates, gate results, reviews, repair packets), `evidence/transcripts/`.
+* `cases/RUN_NOTES.md` and each case's `RUN_NOTES.md`: run logs written by the run sessions.
 * `docs/incidents.md`: every problem met during the build and the runs, with timeline, impact,
   root cause and fix (including the 50-minute AMD stall and the watchdog added for it).
-* `evolution/changes/`: a prompt change evaluated against the baseline on fixed cases,
-  reviewed, decided and versioned.
+* Evolution (`/evo`, `eu.py evo-*`): implemented and prepared for gen-writer (finding cmp-001);
+  the live run was paused by the owner before producing `evolution/changes/`.
 
 ## My contribution
 

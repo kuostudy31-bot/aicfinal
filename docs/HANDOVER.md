@@ -25,6 +25,23 @@ directory, `git pull --rebase --autostash`, push. (Template: the Live run 5 prom
   resume or restart it until the owner asks. When resumed, use a new session whose initial task
   is the Run 6 prompt (the stash it needed is already committed in 220c535).
 
+## Proposed (not started): live Stop-hook verification
+Cheap by design (one lightweight subagent; estimated well under the cost of one case round).
+Needs the owner's go-ahead because it uses quota. A fresh session on this branch, whose
+initial task is:
+1. `python3 scripts/eu.py open --ticker AMD --accession 0000002488-26-000123` (AMD's earlier
+   10-Q, a throwaway verification case, GENERATOR_PENDING after opening).
+2. Dispatch only **gen-mapping** for the pending request, so the case trace holds a dispatch from
+   this session; then try to end the turn without finishing the round.
+3. Expected: the Stop hook blocks the first stop (stderr names `eu.py resume` and `eu.py hold`).
+   The session records `eu.py hold --case … --reason "Stop-hook verification test"`; the second
+   stop is allowed.
+4. Evidence: copy `.logs/stop_guard.jsonl` to `docs/verification/stop_hook.jsonl`, plus the case
+   trace lines `hold_recorded`; then `eu.py stop --case … --reason "verification complete"`
+   (USER_STOPPED) and commit `docs/verification/` and the case directory.
+Pass criteria: one `blocked` record, then `hold_recorded`, then the session ends; a watchdog run
+afterwards does not list the case.
+
 ## Next steps, in order
 1. **AMD approval.** When AMD reaches AWAITING_APPROVAL: review `decision.json` of both reviews,
    the ledger and `note_rendered.md`, then approve under the owner's delegation (the owner
