@@ -13,7 +13,7 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 | 5 | Development session's hook wrote a stray line into a case trace | resolved |
 | 6 | Catalog-only snapshot hid NVDA's marketable-securities concepts | resolved for new cases |
 | 7 | Four controller defects surfaced by the NVDA run | resolved |
-| 8 | AMD run idle for about 50 minutes after a deliberate interruption | resolved; gap closed by a watchdog |
+| 8 | AMD run idle after a deliberate interruption (two stalls) | resolved by handover; watchdog added; Stop hook planned |
 
 ## 1. New subagents not visible in the creating session
 * **What happened.** `.claude/agents/` was created during the development session; the Agent
@@ -78,10 +78,19 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 * **Impact.** About 50 minutes without progress. **No loss of state:** the case stayed at
   `GENERATOR_PENDING` with request `gen-20261114T145504-830038`. The two completed reports were
   intact, and `eu.py resume` names only the three missing specialists.
-* **Root cause.** Two instructions sent close together (resume, then "pull the controller fixes
-  first") left the session waiting for confirmation instead of resuming. The deeper gap: saved
-  state guarantees that work **can** resume, but nothing guaranteed that someone **would**
-  resume it. The stall was found by a person asking, not by the system.
+* **Root cause (corrected after a second stall).** The first diagnosis was that two instructions
+  sent close together had left the session waiting for confirmation. The run's transcript shows
+  otherwise. The platform treats a message from another session (`send_message`) as **data, not
+  as an instruction**, so a session does not push or resume solely because a peer asks. The AMD
+  session therefore correctly waited for a human after each of the coordinator's messages
+  (15:48 and 15:57). The second time it also reported a pull conflict on `cases/ACTIVE.json`,
+  a per-session runtime pointer that was wrongly tracked by git. The deeper gap is the same:
+  saved state guarantees that work **can** resume, but nothing guaranteed that someone **would**.
+  The stall was found by a person asking, not by the system.
+* **Second stall (15:48–15:58).** Two more coordinator messages were received and, correctly,
+  not acted on. `cases/ACTIVE.json` is now git-ignored (commit 6ad1ad1). The case was handed to
+  a **new session whose initial task is the resume** (Live run 5, 15:59), the same way NVDA moved
+  from run 1 to run 2. A session's assigned task is an instruction. A peer's message is not.
 * **Fix.** `eu.py watchdog --minutes N` lists cases with an outstanding request and no trace
   activity for N minutes, and exits with code 1 so a scheduler can alert or start a resume
   session (test `WatchdogTests`). Its first run on the real repository at 15:51 reported:
@@ -92,6 +101,12 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
    "pending_request": "gen-20261114T145504-830038"}
   ```
   The NVDA revision-1 case, which was active at the time, was correctly not reported.
-* **Lesson for operation.** Send one complete instruction per resume. Run the watchdog on a
-  schedule (for example every 15 minutes as a cloud scheduled task) so that a stall is detected
-  within one interval rather than when someone happens to ask.
+* **Lesson for operation.** To resume a stalled run, start a session whose initial task is the
+  resume, or have the human answer the stalled session. Do not rely on cross-session messages.
+  Give one complete instruction. Detect stalls with the watchdog: run on a schedule, it finds a
+  stall within one interval instead of when someone happens to ask. Without a schedule, the
+  coordinating session's own monitor now wakes on "pending and idle for 12 minutes" as well as
+  on state changes (the earlier monitor watched only state changes, which a stalled case never
+  produces). Planned next: a Stop hook in run sessions that will not let a session end its turn
+  while its case has an unrecorded pending request, and `eu.py hold --reason` to make an
+  intentional pause explicit.
