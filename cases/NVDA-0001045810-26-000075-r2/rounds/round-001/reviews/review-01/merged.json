@@ -1,0 +1,247 @@
+{
+  "request_id": "crit-20261114T152957-c99513",
+  "candidate_id": "cand-73474e2b30c1",
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "request_id": "crit-20261114T152957-c99513",
+      "candidate_id": "cand-73474e2b30c1",
+      "verdict": "pass",
+      "finding_ids": [
+        "prov-001",
+        "prov-002",
+        "prov-003"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "request_id": "crit-20261114T152957-c99513",
+      "candidate_id": "cand-73474e2b30c1",
+      "verdict": "pass",
+      "finding_ids": [
+        "asm-001",
+        "asm-002"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "request_id": "crit-20261114T152957-c99513",
+      "candidate_id": "cand-73474e2b30c1",
+      "verdict": "pass",
+      "finding_ids": [
+        "cmp-001"
+      ],
+      "resolved": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "minor",
+      "title": "Forecast prose says opex grows more slowly than revenue; assumptions do not show that across the horizon",
+      "detail": "note.md (Guidance and outlook, Judgment) says the model lets operating expenses grow more slowly than revenue after FY2027Q3. assumptions.json opex_pct_revenue runs 0.0852, 0.0844, 0.0844, 0.0852. Opex therefore grows more slowly than revenue in FY2027Q4, at the same rate in FY2028Q1 and faster in FY2028Q2 (+8.0% opex vs +7% revenue). The exit ratio equals the starting ratio. The numbers are correct, but the sentence overstates the operating leverage assumed.",
+      "evidence": [
+        "generator/note.md#guidance-and-outlook",
+        "generator/assumptions.json#next_quarters",
+        "numerical/recompute/forecast.json#quarters"
+      ],
+      "required_evidence": "Sentence describes opex as roughly constant at about 8.4-8.5% of revenue, or assumptions changed to match the prose",
+      "source_critic": "crit-provenance"
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Lead-in 'The outlook excludes China' is broader than the quote",
+      "detail": "Key points: 'The outlook excludes China: [[Q-2]]'. Q-2 says only that no Data Center compute revenue from China is assumed. The verbatim quote that follows corrects the scope and the later sections word it accurately, so the meaning is not changed. The lead-in could still be read as excluding all China revenue.",
+      "evidence": [
+        "generator/note.md#key-points",
+        "generator/narrative.json#Q-2",
+        "snapshot/docs/release_ex99_2.txt (Outlook section)"
+      ],
+      "required_evidence": "Lead-in reads e.g. 'The outlook assumes no China Data Center compute revenue'",
+      "source_critic": "crit-provenance"
+    },
+    {
+      "id": "prov-003",
+      "severity": "minor",
+      "title": "peers.json 'calendar' label inconsistent with ttm_end (code output, not used in note)",
+      "detail": "numerical/recompute/peers.json labels AMD (ttm_end 2026-06-27), AVGO (2026-05-03) and MRVL (2026-05-02) as calendar 'CY2025Q4'. The TTM end dates are consistent with the note's statement that peer periods end one to three months before NVIDIA's quarter end, and the label is not rendered in the note. This is informational only: the label comes from controller code, which no generator role can fix.",
+      "evidence": [
+        "numerical/recompute/peers.json#calendar",
+        "numerical/recompute/peers.json#ttm_end"
+      ],
+      "required_evidence": "None for this candidate; code owner may review the calendar labelling",
+      "source_critic": "crit-provenance",
+      "related_findings": [
+        "asm-002"
+      ],
+      "merge_note": "Two critics independently raised the same issue (peers.json labels peer data CY2025Q4 although peer TTM periods end May-June 2026). Both are minor and they agree; both are kept unchanged."
+    },
+    {
+      "id": "asm-001",
+      "severity": "minor",
+      "title": "Lock-up restrictions on marketable equity securities not reflected in net cash judgment",
+      "detail": "Net cash (66,003M) includes marketable equity securities of 42,783M at full balance-sheet fair value. Note 5 of the 10-Q (snapshot/docs/periodic.txt, footnote (1) to the Jul 26, 2026 table) states that $36.9B of publicly-held equity investments are subject to short-term lock-up restrictions on the ability to sell, and $10.8B are Level 2 (unregistered warrants and convertible preferred). The mapping rationale says 'the valuation step may haircut them', but valuation_inputs.json applies no haircut and its rationales do not discuss it. note.md mentions price volatility but not the lock-up or Level 2 composition. Impact is small: a full exclusion lowers the blended target by roughly $1.2/share and keeps the rating Underperform, so the conclusion does not change. It should still be disclosed.",
+      "evidence": [
+        "snapshot/docs/periodic.txt (Note 5, footnotes (1)-(3))",
+        "numerical/recompute/valuation.json#net_cash",
+        "generator/mapping.json#short_term_investments",
+        "generator/note.md line 18"
+      ],
+      "required_evidence": "note.md net-cash judgment (or valuation_inputs rationale) mentions that about $36.9B of marketable equity is under short-term lock-up and states whether a haircut is applied",
+      "source_critic": "crit-assumption"
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Peer calendar label inconsistent with peer TTM end dates",
+      "detail": "peers.json labels every peer 'calendar': 'CY2025Q4', but the ttm_end dates are 2026-06-27 (AMD), 2026-05-03 (AVGO) and 2026-05-02 (MRVL), i.e. CY2026Q2 or late CY2026Q1/early Q2. NVIDIA's TTM ends 2026-07-26 (CY2026Q2). note.md already says correctly that peer TTM periods end one to three months before NVIDIA's quarter end, so the prose is right and only the code label looks wrong. Raised for the code/lead to check; no candidate change required for the conclusion.",
+      "evidence": [
+        "numerical/recompute/peers.json#calendar",
+        "numerical/recompute/peers.json#ttm_end",
+        "generator/note.md line 45"
+      ],
+      "required_evidence": "peers.json calendar label consistent with ttm_end, or the label is not used in the note",
+      "source_critic": "crit-assumption",
+      "related_findings": [
+        "prov-003"
+      ],
+      "merge_note": "Two critics independently raised the same issue (peers.json labels peer data CY2025Q4 although peer TTM periods end May-June 2026). Both are minor and they agree; both are kept unchanged."
+    },
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Code-generated disclosure attributes all figures to SEC XBRL, but the share price and peer prices come from the Yahoo price snapshot",
+      "detail": "The final Disclosures bullet says 'All figures in this note are generated by code from SEC XBRL data (and, for guidance, taken from verbatim filing quotes)'. The last close ($209.66), the upside, the peer EV/Sales multiple (23.0x) and the target price all depend on the Yahoo chart-endpoint closes in snapshot/prices.json and snapshot/peers.json, not on XBRL. The data-source bullet does name the Yahoo source for the price, so readers are not misled about provenance. Still, the blanket statement is broader than the facts support. Suggested wording: 'generated by code from SEC XBRL data and the case price snapshot'.",
+      "evidence": [
+        "numerical/recompute/note_rendered.md#Disclosures",
+        "snapshot/prices.json#note",
+        "numerical/recompute/peers.json"
+      ],
+      "required_evidence": "The disclosure names both SEC XBRL and the price snapshot as the sources of code-generated figures",
+      "source_critic": "crit-compliance"
+    }
+  ],
+  "conflicts": [],
+  "overlaps": [
+    {
+      "ids": [
+        "prov-003",
+        "asm-002"
+      ],
+      "note": "Same issue raised by two critics, same severity (minor), no disagreement."
+    }
+  ],
+  "summary": {
+    "all_verdicts_pass": true,
+    "blocking_findings": [],
+    "minor_findings": [
+      "prov-001",
+      "prov-002",
+      "prov-003",
+      "asm-001",
+      "asm-002",
+      "cmp-001"
+    ],
+    "open_findings_from_request": []
+  },
+  "coverage": {
+    "checks_by_critic": {
+      "crit-provenance": [
+        "gates.json: request_id gen-20261114T152101-24eabe, findings empty; sha256 of all five recompute files matches gates.json hashes and the files are byte-identical to computed/",
+        "Every {{key}} in note.md exists in values.json; every F- source resolves in snapshot/facts.json with the correct concept/period (Revenues Q2 FY27 F-5b8aab8df3 96,221M; Q1 F-e3b41ab7aa 81,615M; prior-year Q2 F-8329dec389 46,743M; GrossProfit F-5a54513386 72,142M; OperatingIncomeLoss F-b33afe3d98 63,734M; NetIncomeLoss F-36038ed661 59,688M; EPS F-b8cde30d27 2.46)",
+        "Derived IDs: D-286ba7c3b2 (CFO 74,421M YTD - 50,344M = 24,077M), D-0158212347 (capex 4,434M - 1,757M = 2,677M), D-e6100d63c6 (FY26 215,938M - 9M YTD 147,811M = 68,127M); all components in facts.json",
+        "Arithmetic recomputed: q/q 17.9%, y/y 105.9%, TTM 302,969M, GM 75.0%, OM 66.2%, FCF 21.4bn, net cash 22,443+76,926-33,366 = 66,003M, upside 186/209.66-1 = -11.3% -> Underperform (<= -10%)",
+        "Labels: q/q vs y/y correct, quarter vs TTM correct, FY2027 Q2 fiscal / CY2026Q2 calendar / period end 2026-07-26 consistent",
+        "Spot-check vs periodic.txt statements: revenue 96,221, gross profit 72,142, operating income 63,734, net income 59,688, diluted EPS 2.46, diluted shares 24,285, total assets 320,272, cash 22,443, marketable debt 34,143, marketable equity 42,783, short-term debt 1,000 + long-term debt 32,366 = LongTermDebt 33,366, capex 4,434 YTD",
+        "All 12 quotes found verbatim in snapshot docs; surrounding context reviewed and none truncated in a way that changes meaning (Q-6 Data Center, Q-7 margins, Q-8 commitments, Q-10 guarantees, Q-11 capital return, Q-12 inventory/Vera Rubin)",
+        "Guidance values match quotes: revenue 108.0bn +/-2% (105.84-110.16bn), GM 74.0% +/-50bp, opex GAAP 9.2bn / non-GAAP 9.0bn, FY tax 16-18% midpoint 17%; forecast FY2027Q3 revenue 107.998bn and opex 9.201bn consistent with guidance",
+        "Mapping currency: every mapped concept has its latest observation at 2026-07-26 (shares outstanding 2026-08-21 cover date); stale MarketableSecuritiesCurrent (ends 2025-10-26) correctly excluded; PaymentsToAcquirePropertyPlantAndEquipment has no data; LongTermDebt includes the current portion (no double count)",
+        "Leakage: no fact in facts.json accepted after cutoff 2026-08-26T20:36:00Z; price 209.66 is the 2026-08-26 close (session ended before cutoff); 8-K 0001045810-26-000073 accepted 2026-08-26T20:21:19Z, before cutoff; peer prices dated 2026-08-26",
+        "Peer list in note (AMD, Broadcom, Marvell) matches valuation_inputs.json; peer median EV/Sales 23.0x = AVGO; peer TTM ends one to three months before 2026-07-26 as stated"
+      ],
+      "crit-assumption": [
+        "Next-quarter revenue vs guidance: FY2027Q3 revenue_qoq 0.1224 on 96,221M = 107,998M, matching the $108.0B midpoint (Q-1); range +/-2% stated",
+        "Next-quarter gross margin 74.0% = guidance midpoint (Q-3); history 74.9-75.0% in last three quarters, step-down tied to Vera Rubin (Q-12)",
+        "Next-quarter opex 9,201M vs GAAP guidance ~$9.2B (Q-4); FY2027Q1/Q2 opex growth +12.2%/+10.3% verified from history (rnd+sga)",
+        "Tax 17% = midpoint of FY2027 16-18% guidance (Q-5); zero other income assumption disclosed in rationale and note",
+        "Later-quarter path: revenue q/q +10%/+8%/+7% continue the deceleration (22.0%, 19.5%, 19.8%, 17.9%, guided 12.2%); GM held at 74%; opex +9%/+8%/+8% q/q. Plausible, labelled as judgment",
+        "Share change -0.27%/q verified: (24,285/24,611)^(1/5)-1",
+        "WACC 11% (assumed rf 4.5%, beta 1.3, ERP 5%) and terminal growth 3%: within a reasonable range for a large-cap semiconductor; no market data in snapshot, disclosed as judgment",
+        "Terminal value share of EV 70.8% (<80% threshold)",
+        "Sensitivity recomputed from valuation.json FCFs: WACC 10.5%/g 3% gives upside -8.0% (Neutral); WACC 10% gives -4.4%. Rating is boundary-sensitive, and note.md says so explicitly (line 45, line 53)",
+        "FCF margins 40/42/42/41/40% vs history: TTM CFO-capex 127,006M / 302,969M = 41.9%; 8-quarter 199,029M / 468,187M = 42.5% (all sums verified against history.json). Year-1 FCF/NOPAT 73.5% vs TTM 77%, consistent",
+        "Year-2 growth +25%: verified that extending sequential decel (6/5/4/3%) gives ~26% over NTM sum",
+        "Net cash completeness vs balance sheet text: cash 22,443 + marketable debt 34,143 + marketable equity 42,783 - (short-term debt 1,000 + long-term debt 32,366) = 66,003M, matching valuation.json; commercial paper nil; senior notes principal $33.5B consistent. Non-marketable securities (51,157M), long-term locked-up public equity in other assets (4,957M) and leases excluded; disclosed as conservative in note.md",
+        "Peer set AMD/AVGO/MRVL: relevant AI data-center silicon designers; exclusions reasoned; period misalignment noted in note.md",
+        "Peer cross-check arithmetic: 23.018x * 302,969M + net cash, divided by 24,285M = 289.88; blend 0.7*141.68 + 0.3*289.88 = 186.14",
+        "Price date 2026-08-26 close precedes cutoff 2026-08-26T20:36Z (session ended 20:00Z)",
+        "Rationales exist for every assumption and cite quote/fact IDs that support the chosen numbers"
+      ],
+      "crit-compliance": [
+        "Information cutoff: cutoff_utc 2026-08-26T20:36:00Z. The price used is the 2026-08-26 close of $209.66 (session ended 20:00 UTC, before the cutoff), and it is the last entry in snapshot/prices.json. Peer prices are dated 2026-08-26. Peer TTM periods end 2026-05-02 to 2026-06-27. The note and the rationales in assumptions.json and valuation_inputs.json mention no later quarters, prices or events. FY2027Q3 to FY2028Q2 appear only as labelled forecasts.",
+        "Quote sources: Q-1 to Q-12 all appear verbatim in snapshot/docs (Q-11 in release_ex99_1.txt, the rest in release_ex99_2.txt). Both exhibits belong to 8-K 0001045810-26-000073, accepted 2026-08-26T20:21:19Z, which is before the cutoff, as the note says.",
+        "Disclosures (policies.md section 6): the not-investment-advice line is present. Data sources and as-of are present: SEC EDGAR 10-Q, cutoff date, 8-K exhibits, and price date and source. The note leaves out the accession number and exact timestamp because of the untagged-number gate. src/aicfinal/publish.py adds both to the published report (DataDate, ReportScope and data-source line), so the requirement is met in the published artifact. Rating definitions are present and match the policy (+15% / -10%). The code-generated and unaudited statement is present (scope wording: see cmp-001).",
+        "Rating vs bands: valuation.json upside is -0.1128, which is at or below -10%, so Underperform is correct. The rating in the title, key points and valuation sections matches valuation.json. Target price 186 = blended 186.14.",
+        "No recommendation beyond the rating, and no promissory or guaranteed language. The near-boundary and low-conviction caveats are labelled as judgment.",
+        "Facts, forecasts and judgments are labelled distinctly (Reported / Company guidance / Forecast / Valuation (code output) / Judgment). Judgment claims checked against inputs: terminal share is 71% (0.708). Peer TTM ends lag NVDA's 2026-07-26 by one to three months (AMD 06-27, AVGO 05-03, MRVL 05-02), as stated. Net cash = 22.443 + 76.926 - 33.366 = 66.003bn, as described. The peers named (AMD, Broadcom, Marvell) match valuation_inputs.json.",
+        "tp_change_needs_rationale is false (no prior target price), so no rationale for a target price change is needed.",
+        "Prompt injection: no instruction-like text in snapshot/docs was found or followed. The note and rationales only quote or cite filing text as evidence.",
+        "Gates file: gates.json reports no findings for this candidate."
+      ]
+    },
+    "acceptance_areas": {
+      "A.numerical_gates": {
+        "covered_by": [
+          "crit-provenance",
+          "crit-compliance"
+        ],
+        "note": "gates.json reviewed (no findings); provenance verified recompute hashes, mapping currency/stale mapping, EPS, gross profit, quote verbatim, guidance source, placeholders; assumption re-checked bounds and rationales; compliance and provenance re-checked information cutoff."
+      },
+      "A.balance_sheet": {
+        "covered_by": [
+          "crit-provenance",
+          "crit-assumption"
+        ],
+        "note": "Total assets and balance-sheet items spot-checked against 10-Q; assets=liabilities+equity identity relied on gates.json, not separately recomputed by a critic."
+      },
+      "A.untagged_number": {
+        "covered_by": [
+          "crit-provenance"
+        ],
+        "note": "Covered via gates.json (no findings) and placeholder resolution; no critic listed a separate scan for untagged digits."
+      },
+      "B.critic_review": {
+        "covered_by": [
+          "crit-provenance",
+          "crit-assumption",
+          "crit-compliance"
+        ],
+        "note": "Three fresh critics, all reports carry current request_id and candidate_id; no open findings carried into this review."
+      },
+      "C.research_acceptance": {
+        "covered_by": [],
+        "note": "Determined by the controller (needs two consecutive clean reviews of the same candidate); not a critic check."
+      },
+      "D.publication": {
+        "covered_by": [
+          "crit-compliance"
+        ],
+        "note": "Disclosures, rating bands, target-price-change rationale (none required, no prior target) checked; approval is outside critic scope."
+      },
+      "E.limits": {
+        "covered_by": [],
+        "note": "Controller-enforced; not a critic check."
+      }
+    },
+    "uncovered_flags": [
+      "A.balance_sheet identity and A.untagged_number were relied on from gates.json rather than independently re-run by a critic.",
+      "C and E are controller responsibilities and were not covered by any critic."
+    ]
+  }
+}
