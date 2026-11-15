@@ -1,0 +1,267 @@
+{
+  "request_id": "crit-20261115T080121-5bb2e2",
+  "candidate_id": "cand-b70a3fbcac71",
+  "case_id": "MU-0000723125-26-000023",
+  "round": 1,
+  "review": 1,
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "verdict": "fail",
+      "finding_ids": [
+        "prov-001",
+        "prov-002",
+        "prov-003",
+        "prov-004"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "verdict": "fail",
+      "finding_ids": [
+        "asm-001",
+        "asm-002",
+        "asm-003"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "verdict": "fail",
+      "finding_ids": [
+        "cmp-001",
+        "cmp-002",
+        "cmp-003"
+      ],
+      "resolved": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "major",
+      "title": "Guidance table breaks on rendering: pipe characters inside quotes Q-1..Q-4 truncate the quotes and drop the code-value column",
+      "detail": "The texts of quotes Q-1 to Q-4 in narrative.json are copied from the release's flattened table and contain the separator ' | | ' (e.g. Q-2 'Approximately 85.95% | | Approximately 86.25%'). note.md puts these quotes inside a three-column Markdown table, so each rendered row (computed/note_rendered.md lines 32-35) contains five cells instead of three. A GFM renderer ignores the extra cells, so the published table shows only the GAAP half of each quote with an unclosed quotation mark ('“Approximately 85.95%'), an empty cell, and no 'Code value used' column at all. As a result the non-GAAP guidance wording and all of the code-generated guidance figures ($61.5bn midpoint, 86.0% / 86.2%, $2.3bn / $2.1bn, $37.84 / $38.15) disappear from the table. The quotes are then shown truncated in a way the source does not support, and the evidence trail from quote to code value is broken. A related issue appears in Key points: Q-1 and Q-4 render as '$61.5 billion ± $1.5 billion | | $61.5 billion ± $1.5 billion' with no GAAP/non-GAAP labels. The underlying values themselves are correct; I checked them against release lines 161-178.",
+      "evidence": [
+        "generator/narrative.json#quotes[Q-1..Q-4].text",
+        "generator/note.md#Guidance and outlook table",
+        "computed/note_rendered.md lines 32-35",
+        "snapshot/docs/release_ex99_1 earnings release.txt lines 161-178"
+      ],
+      "required_evidence": "Every rendered guidance-table row in note_rendered.md has exactly three cells, and each quote appears whole. One fix: give gen-narrative separate verbatim quotes without pipes for GAAP and non-GAAP (e.g. '$61.5 billion ± $1.5 billion', 'Approximately 85.95%', 'Approximately 86.25%', 'Approximately $2.31 billion', 'Approximately $2.06 billion', '$37.84 ± $1.00', '$38.15 ± $1.00') and bind guidance quote_ids to them. Another: move the quotes out of the table.",
+      "source_role": "crit-provenance"
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Guidance code values display with less precision than the adjacent quotes (86.25% shown as 86.2%)",
+      "detail": "values.json shows guide_gross_margin_next_q_nongaap 0.8625 as '86.2%' (the float rounds down; the conventional result is 86.3%), guide_gross_margin_next_q_gaap 0.8595 as '86.0%', guide_opex_next_q_gaap 2.31e9 as '$2.3bn' and guide_opex_next_q_nongaap 2.06e9 as '$2.1bn'. Next to the verbatim quotes (85.95%, 86.25%, $2.31bn, $2.06bn), the code column looks inconsistent with its source. The stored values themselves are exact.",
+      "evidence": [
+        "numerical/recompute/values.json#guide_gross_margin_next_q_nongaap",
+        "numerical/recompute/values.json#guide_opex_next_q_gaap",
+        "computed/note_rendered.md lines 34-35"
+      ],
+      "required_evidence": "The note relies on the verbatim quotes for guidance precision (for example, the code column says 'rounded'), or the figures shown match the quoted precision.",
+      "source_role": "crit-provenance"
+    },
+    {
+      "id": "prov-003",
+      "severity": "minor",
+      "title": "EPS guidance entries use unit 'USD' instead of the contract unit 'USD/share'",
+      "detail": "In narrative.json the guidance metrics eps_next_q_gaap (37.84) and eps_next_q_nongaap (38.15) carry unit 'USD'. references/contracts.md requires 'USD/share' for per-share amounts. The displayed values ($37.84 / $38.15) are correct and match Q-4. Only the unit label is off.",
+      "evidence": [
+        "generator/narrative.json#guidance[eps_next_q_gaap].unit",
+        "generator/narrative.json#guidance[eps_next_q_nongaap].unit"
+      ],
+      "required_evidence": "Both EPS guidance entries in narrative.json have unit 'USD/share'.",
+      "source_role": "crit-provenance"
+    },
+    {
+      "id": "prov-004",
+      "severity": "minor",
+      "title": "Claim that including long-term marketable investments leaves the rating unchanged is unquantified and attributed to a specialist rather than to evidence",
+      "detail": "The Model and valuation section says that including long-term marketable investments 'would raise the equity value somewhat; according to the valuation specialist, the rating would stay Neutral (not recomputed in code here)'. The snapshot shows long-term marketable investments of $30,019M at 2026-09-03 (periodic.txt line 2032; AvailableForSaleSecuritiesDebtSecuritiesNoncurrent 30,019,000,000 in the 10-K, accn 0000723125-26-000023). That is about 78% of the $38.3bn net cash the note reports, so 'somewhat' understates it. My own arithmetic agrees with the conclusion: both the DCF and the relative method add net cash per share, so adding $30.019bn / 1.145bn shares = +$26.2 per share to both gives a blended value of about $1,110 and upside of about 7.2%. That is still inside the Neutral band. The claim therefore holds, but the note gives no supporting figure. Overlap: the net-cash definition itself belongs to crit-assumption; this finding covers only how the sentence is evidenced.",
+      "evidence": [
+        "generator/note.md#Model and valuation (Net cash bullet)",
+        "numerical/recompute/valuation.json#net_cash",
+        "snapshot/docs/periodic.txt line 2032"
+      ],
+      "required_evidence": "The sentence either cites the excluded amount through a code value or quote and states the effect as analyst arithmetic, or it is reworded so it makes no unsupported attribution to a specialist.",
+      "source_role": "crit-provenance"
+    },
+    {
+      "id": "asm-001",
+      "severity": "major",
+      "title": "Net cash omits $30.0B of long-term marketable investments",
+      "detail": "valuation.json gives net_cash = cash 38,364M + short_term_investments 5,070M - debt 5,179M = 38,255M. The 10-K balance sheet (snapshot/docs/periodic.txt, line 2032) also reports 'Long-term marketable investments | 30,019' at 2026-09-03. The release balance sheet (release_ex99_1, line 312) shows the same figure. These are available-for-sale, investment-grade fixed-income securities, mostly maturing in one to five years (periodic.txt lines 2296, 2378, 2416). Management describes them as part of 'Cash and marketable investments totaled $73.45 billion' (periodic.txt line 1761). The item is material: it is about 41% of cash plus investments, almost six times total debt, and about $26 per share on 1,145M diluted shares. My own arithmetic, not code output, adds it to both the DCF and EV/Sales legs: DCF per share goes from about $847 to about $874, relative value from $1,792 to about $1,819, blended target price from $1,084 to about $1,110, and upside from 4.6% to about 7.1%. The rating probably stays Neutral, but the target price and every per-share value are understated. The generator knew about the gap: gen-valuation's report flagged it, and note.md discloses it as 'not recomputed in code here' and cites 'the valuation specialist' for the rating claim. Disclosure does not substitute for the fix, and an uncomputed claim about the rating should not be in the note. A fix needs no code change. The snapshot has AvailableForSaleSecuritiesDebtSecuritiesNoncurrent with 16 observations, latest 30,019M at 2026-09-03 (eu.py concepts --line short_term_investments). contracts.md allows a list of concepts summed per period. Non-marketable equity investments of $1.30B in other noncurrent assets (periodic.txt line 2432) can reasonably stay excluded.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "snapshot/docs/periodic.txt:2032 'Long-term marketable investments | 30,019 | | 1,629'",
+        "snapshot/docs/periodic.txt:1761 'Cash and marketable investments totaled $73.45 billion as of September 3, 2026'",
+        "generator/mapping.json#short_term_investments (AvailableForSaleSecuritiesDebtSecuritiesCurrent only)",
+        "computed/note_rendered.md line 60 (omission disclosed, not corrected)"
+      ],
+      "required_evidence": "mapping.json maps the investments line to [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent], or equivalent, with a rationale. Recomputed valuation.json then shows investments of 35,089M and net_cash of 68,274M at 2026-09-03. note.md describes net cash as cash and marketable investments less debt and drops the uncomputed 'rating would stay Neutral' claim.",
+      "source_role": "crit-assumption"
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Refundable customer deposits ($12.9B) not considered as a debt-like claim",
+      "detail": "The balance sheet shows 'Noncurrent customer contract liabilities | 12,895' (periodic.txt line 2056; $142M a year earlier). These are mainly customer deposits under the strategic customer agreements, received as a $12.75B financing inflow in FY2026 (line 1842; cash flow line 2228). The deposits are returned if customers meet their purchase commitments, and 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031' (line 2961). That falls inside DCF years 3-5. Reported cash includes this money, but neither net cash nor the FCF path reflects the repayment. The WACC rationale also calls debt 'small ($5.179B ...)' without mentioning these deposits. The balance sheet does not label them debt, so excluding them is a defensible judgment. The impact is about $11 per share, roughly 1% of the target price. The rationale should acknowledge the exclusion, and the note should mention it as a valuation caveat.",
+      "evidence": [
+        "snapshot/docs/periodic.txt:2056",
+        "snapshot/docs/periodic.txt:2344",
+        "snapshot/docs/periodic.txt:2961",
+        "generator/valuation_inputs.json#rationales.wacc"
+      ],
+      "required_evidence": "valuation_inputs.json rationale, ideally also the note, states how the $12.9B refundable customer deposits are treated (excluded as operating liabilities, or deducted as debt-like) and why.",
+      "source_role": "crit-assumption"
+    },
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Year-1 FCF margin rationale ignores the guided capex and working capital",
+      "detail": "Year-1 FCF margin is 55%, which gives FCF of $148.2B on NTM revenue of $269.5B. The rationale anchors it on history (FY2026 44.3%, FY2026Q4 60.6% in a 14-week quarter) and says capex keeps rising. It does not cite the 10-K's explicit capex outlook: 'approximately $11.5 billion in the first quarter of 2027, approximately $25 billion in the first six months of 2027, and higher in the second half of 2027' (periodic.txt line 1771). My rough check, not code output: NTM net income $188.7B plus D&A of about $10B (FY2026 $9.5B, line 2187) minus capex of at least about $50B gives about $148B, or 55%, only if working capital is zero. Receivables rose from $9.3B to $36.2B in FY2026, so working-capital absorption is likely while revenue grows. FY2026Q4 CFO was also helped by noncurrent Pillar Two taxes payable (line 1832). 55% is at the top of the plausible range. It needs the guided capex in its support, or a small reduction.",
+      "evidence": [
+        "generator/valuation_inputs.json#dcf.fcf_margin",
+        "generator/valuation_inputs.json#rationales.fcf_margin",
+        "snapshot/docs/periodic.txt:1771",
+        "numerical/recompute/forecast.json#ntm.net_income"
+      ],
+      "required_evidence": "The fcf_margin rationale cites the FY2027 capex guidance (as a quote) and reconciles the year-1 margin with NTM net income + D&A - guided capex - working capital, or lowers the year-1 margin accordingly.",
+      "source_role": "crit-assumption"
+    },
+    {
+      "id": "cmp-001",
+      "severity": "major",
+      "title": "Data-source disclosure misattributes the earnings release to the 10-K accession and omits the 8-K accession",
+      "detail": "The Disclosures section (note.md line 74) says: 'SEC EDGAR filing accession 0000723125-26-000023 (Form 10-K and the accompanying earnings release exhibit)'. The earnings release is not an exhibit to the 10-K. snapshot/manifest.json lists docs/release_ex99_1 earnings release.txt as accession 0000723125-26-000018 (document a2026q4ex991-pressrelease.htm), and snapshot/filings.json shows that accession is a Form 8-K (items 2.02, 9.01) accepted 2026-09-30T20:02:22Z. The 10-K (accession ...-000023) was accepted 2026-10-09T12:21:00Z. The guidance table, the CEO quote, the dividend quote and the Q4 EPS guidance all come from the 8-K release, and the note never discloses that source's accession. Policy section 6 requires the data sources with SEC EDGAR filing accession and as-of time. The disclosure is there but inaccurate for a main data source. Timing is fine: the 8-K is before the cutoff, so there is no leakage. Note for repair: values.json has no key for the release accession (only trigger_accession), and the writer may not type digits. A full fix may need a code-provided key such as release_accession. At minimum the writer must remove the false 'accompanying earnings release exhibit' wording and name the release as a separate Form 8-K filed before the 10-K.",
+      "evidence": [
+        "generator/note.md:74",
+        "numerical/recompute/note_rendered.md:74",
+        "snapshot/manifest.json#files['docs/release_ex99_1 earnings release.txt'].accession = 0000723125-26-000018",
+        "snapshot/filings.json#filings[1] (8-K, 0000723125-26-000018, acceptance 2026-09-30T20:02:22Z)"
+      ],
+      "required_evidence": "note_rendered.md Disclosures names the 10-K (0000723125-26-000023) and the separate Form 8-K earnings release (0000723125-26-000018, furnished 2026-09-30) as data sources, and no longer calls the release an exhibit to the 10-K",
+      "source_role": "crit-compliance"
+    },
+    {
+      "id": "cmp-002",
+      "severity": "minor",
+      "title": "Guidance table breaks in rendering because quoted cells contain pipe characters",
+      "detail": "Each verbatim guidance quote (Q-1 to Q-4) contains '| |' from the release's GAAP/non-GAAP table, e.g. '| Revenue | “$61.5 billion ± $1.5 billion | | $61.5 billion ± $1.5 billion” | $61.5bn midpoint |'. In GitHub-flavoured Markdown each row splits into five cells under a three-column header, and the extra cells are dropped. The published table would show only the GAAP half of each quote, with an unclosed quotation mark, and an empty 'Code value used' column. The non-GAAP gross margin, opex and EPS values appear only in this table, so the reader loses them. The figures are correct; this is a presentation defect.",
+      "evidence": [
+        "generator/note.md:31-36",
+        "numerical/recompute/note_rendered.md:33-36"
+      ],
+      "required_evidence": "Guidance shown so that it renders correctly, e.g. as a list or with the pipes escaped, while the quotes stay verifiable",
+      "source_role": "crit-compliance"
+    },
+    {
+      "id": "cmp-003",
+      "severity": "minor",
+      "title": "Rating-robustness claim attributed to 'the valuation specialist' rather than to evidence",
+      "detail": "note.md line 60: 'Including them would raise the equity value somewhat; according to the valuation specialist, the rating would stay Neutral (not recomputed in code here).' The claim itself holds. RUN_NOTES records long-term marketable investments of $30.019B (AvailableForSaleSecuritiesDebtSecuritiesNoncurrent, F-5368223b24), which is about +$26 per share on 1,145M diluted shares. That gives roughly $1,110 and about 7% upside, still Neutral. But a published note should not cite an internal workflow role as authority. Label the statement as our calculation or judgment, or have code supply the figure.",
+      "evidence": [
+        "generator/note.md:60",
+        "RUN_NOTES.md (open question on long-term marketable investments)",
+        "numerical/recompute/valuation.json#diluted_shares, target_price"
+      ],
+      "required_evidence": "Sentence labelled as analyst calculation or judgment (or backed by a code value), with no reference to an internal specialist",
+      "source_role": "crit-compliance"
+    }
+  ],
+  "conflicts": [
+    {
+      "ids": [
+        "prov-001",
+        "cmp-002"
+      ],
+      "type": "severity disagreement",
+      "note": "Same defect (pipe characters inside verbatim quotes Q-1..Q-4 break the guidance table in note_rendered.md). crit-provenance rates it major (truncated quotes, quote-to-code-value evidence trail broken); crit-compliance rates it minor (presentation defect, figures correct). Both findings kept at their own severity; the higher (major) blocks. Required evidence differs slightly: prov-001 asks for exactly three cells per row and whole quotes (e.g. split GAAP/non-GAAP quotes); cmp-002 accepts a list or escaped pipes."
+    },
+    {
+      "ids": [
+        "asm-001",
+        "prov-004",
+        "cmp-003"
+      ],
+      "type": "overlap with differing scope and remedy",
+      "note": "All three concern the $30,019M long-term marketable investments (periodic.txt line 2032) left out of net cash and the note's sentence that the rating 'would stay Neutral' per 'the valuation specialist'. asm-001 (major) treats the omission itself as a valuation error and requires remapping the investments line, recomputing net_cash (68,274M) and dropping the uncomputed rating claim. prov-004 (minor) and cmp-003 (minor) address only how the sentence is evidenced and accept keeping it if labelled as analyst calculation or backed by a code value or quote; prov-004 explicitly leaves the net-cash definition to crit-assumption. Their own arithmetic agrees the rating stays Neutral (upside about 7.1% asm-001, about 7.2% prov-004, about 7% cmp-003). Remedies are compatible only if asm-001's fix is made; satisfying prov-004/cmp-003 alone would not close asm-001. All kept unchanged."
+    }
+  ],
+  "blocking_findings": [
+    "prov-001",
+    "asm-001",
+    "cmp-001"
+  ],
+  "overall": "fail",
+  "coverage": {
+    "checks_by_critic": {
+      "crit-provenance": [
+        "gates.json: request_id gen-20261115T073305-99d304, no gate findings; sha256 of all five recompute files matches gates.json hashes; computed/values.json and note_rendered.md identical to numerical/recompute copies",
+        "all 37 {{keys}} in note.md exist in values.json and every values.json key is used",
+        "F-/D- source resolution: revenue_q, revenue_qoq, revenue_yoy, revenue_ttm, gross_margin_q, operating_margin_q, net_income_q, fcf_q all resolve to snapshot facts; Q4 = FY (10-K, accn 0000723125-26-000023) minus 9M YTD (10-Q, accn 0000723125-26-000015); all component facts accepted at or before cutoff 2026-10-09T12:21:00Z",
+        "arithmetic: revenue Q4 133,188-78,959=54,229M; q/q vs FY2026Q3 41,456M = +30.8%; y/y vs FY2025Q4 11,315M = +379.3%; TTM 13,643+23,860+41,456+54,229 = 133,188M = FY2026; GM 47,047/54,229 = 86.8%; OM 43,751/54,229 = 80.7%; NI 84,969-47,268 = 37,701M; FCF 43,973-11,110 = 32,863M",
+        "spot-check against periodic.txt: revenue 133,188 (line 1585), net income 84,969 (line 1611), total assets 195,888 (line 2040), gross margin 107,504, operating income 99,340, CFO 89,675, short-term investments 5,070, current debt 491, long-term debt 4,688, effective tax rate 14.8% (line 1735)",
+        "spot-check against earnings release: Q4 revenue 54,229 / prior quarter 41,456 / prior year 11,315 (line 64); Q4 net income 37,701 (line 269)",
+        "labels: FY2026 Q4 = CY2026Q3 (2026-05-29 to 2026-09-03); q/q and y/y wording correct; TTM labelled as FY2026; 14-week Q4 (98 days vs 91 for Q3) confirmed from history.quarters, consistent with Q-10",
+        "quotes Q-1..Q-14: contexts checked; Q-9 and Q-12 (strategic customer agreements, periodic.txt lines 1571-1573), Q-13 (Pillar Two), Q-11 (risk factor), Q-6 (CEO), Q-14 (dividend declared 2026-09-30, before cutoff) used faithfully; Q-1..Q-4 rendering problem in prov-001",
+        "guidance values vs quotes: revenue 61.5e9 (range 60.0-63.0e9), GM 0.8595 / 0.8625, opex 2.31e9 / 2.06e9, EPS 37.84 (36.84-38.84) / 38.15 (37.15-39.15) all match release lines 169-178",
+        "mapping.json currency: every mapped concept has a 10-K fact at 2026-09-03 (shares_outstanding dei at 2026-10-02); catalog-preferred Revenues, CostOfRevenue, MarketableSecuritiesCurrent, ShortTermInvestments, DebtSecuritiesCurrent are absent from snapshot; LongTermDebt is stale (14 obs, 2,792M at 2026-09-03 not matching balance sheet), so the DebtCurrent + LongTermDebtAndCapitalLeaseObligations = 5,179M choice is justified",
+        "net_cash 38,364+5,070-5,179 = 38,255M; valuation diluted shares 1,145M = latest tagged quarterly (FY2026Q3); 10-K tags only FY diluted shares/EPS at 2026-09-03, so the note's data-gap statement is accurate",
+        "peer median EV/Sales: INTC 10.06x, AMAT 13.06x, LRCX 17.19x, KLAC 19.24x -> median 15.12x; peer prices dated 2026-10-08; no peer snapshot acceptance or price after cutoff",
+        "price: last MU close 1,035.84 on 2026-10-08, the session before cutoff",
+        "forecast statements: FY2027Q1 revenue 61.50bn anchored on guidance; GM 85.95% flat; opex 3.76% = 2.31/61.5; tax 14.8%; FY2027Q1 EPS 37.50 below guided 37.84 consistent with excluded interest income (judgment, labelled)"
+      ],
+      "crit-assumption": [
+        "Next-quarter revenue vs guidance: FY2027Q1 revenue_qoq 0.1341 on the 14-week FY2026Q4 base of 54,229M gives 61,501M (forecast.json), which equals the guided midpoint $61.5B +/- $1.5B (Q-1). The 53-week effect is explained (Q-10).",
+        "Next-quarter gross margin 85.95% equals GAAP guidance (Q-2). Opex 3.76% of revenue gives $2.312B, matching guided GAAP opex of about $2.31B (Q-3).",
+        "EPS cross-check: forecast FY2027Q1 EPS $37.50 is inside the guided GAAP range of $36.84-$38.84 (Q-4). The gap to the $37.84 midpoint is explained by excluded interest income.",
+        "Tax rate 14.8% is the FY2026 ETR with the Pillar Two driver (Q-13). It is consistent with the tax rate implied by the guided EPS (about 14.9%).",
+        "Later quarters: +8%/+5%/+3% q/q with flat GM and opex%. Plausible against a 13-week-adjusted run rate of about +21%, supply constraints (Q-7, Q-8), price-band agreements (Q-9, Q-12) and RPO of about $134B with about one-fourth due in the next 12 months (periodic.txt line 2961). The rationale labels this as judgment.",
+        "Share change +0.3% per quarter is supported by FY2026Q1-Q3 diluted shares. Valuation uses FY2026Q3 diluted shares of 1,145M because XBRL has no Q4 tag; disclosed.",
+        "WACC 10.5% and terminal growth 3.0% are reasonable for a cyclical large-cap memory semiconductor. Terminal growth is below WACC.",
+        "Terminal value share of EV is 55.2% (valuation.json), below the 80% watch level.",
+        "DCF revenue path: years 2-5 at +5%/-10%/-15%/-5%, a cycle normalization labelled as judgment. Year-5 revenue of $205.7B stays above FY2026, citing price floors (Q-9).",
+        "FCF margins against historical CFO minus capex: FY2025 4.5%, FY2026 44.3%, quarterly path recomputed from history and matches the rationale. Terminal margin of 30% is below the pooled 35.5%. Year 1 is raised as asm-003.",
+        "Net cash completeness against balance sheet text: cash 38,364M and short-term investments 5,070M match. Debt of 5,179M = current debt 491M + long-term debt 4,688M, which matches. Long-term marketable investments of 30,019M are omitted (asm-001). Customer deposits are discussed in asm-002.",
+        "Peer set INTC/AMAT/LRCX/KLAC: relevant given that no memory maker is in the universe, and exclusions are reasoned. Peer TTM ends 2026-06-27 to 2026-07-26 (CY2026Q2) against MU's FY2026Q4 ending 2026-09-03; the alignment gap is noted in the rationale and note.",
+        "Rationales exist for every forecast and valuation input and cite quotes or fact IDs. dcf_weight of 0.75 is reasoned.",
+        "open_findings in request: none."
+      ],
+      "crit-compliance": [
+        "Cutoff 2026-10-09T12:21:00Z (case.json): no later quarters, prices or events. The dividend payable 2026-10-29 is a scheduled item declared 2026-09-30 in a pre-cutoff filing, not a post-cutoff event",
+        "Price: 2026-10-08 close $1,035.84 is the last entry in snapshot/prices.json. The cutoff (08:21 ET on 2026-10-09) is before that day's session, so this is the right close",
+        "All 19 quoted passages in note_rendered.md appear verbatim (after whitespace normalisation) in snapshot/docs/*.txt",
+        "Both snapshot docs come from filings accepted at or before the cutoff (8-K 2026-09-30, 10-K 2026-10-09T12:21Z)",
+        "Disclosures in policy section 6: coursework / not investment advice present; data sources and cutoff present but inaccurate for the release (cmp-001); price date present; rating definitions match bands (+15% / -10%); code-generated / unaudited statement present",
+        "Rating: upside 0.0465 (valuation.json) is between -10% and +15%, so Neutral; the note's rating and target price $1,084 match valuation.json",
+        "No action recommendation beyond the rating; no promissory or guaranteed language",
+        "Facts, forecasts and judgments carry 'Reported', 'Our forecast' and 'Our view' labels; the 14-week Q4 inference is labelled as our calculation and matches the period ends (Q3 2026-05-28, Q4 2026-09-03 = 98 days)",
+        "tp_change_needs_rationale is false and prior_target_price is null (first note), so no target-price change rationale is needed",
+        "Scanned the snapshot docs for embedded instructions (ignore/disregard/upload/instruction): none found and none followed",
+        "gates.json has no findings"
+      ]
+    },
+    "acceptance_areas": {
+      "A_numerical_gates": "gates.json reviewed by crit-provenance (no findings; recompute hashes and computed/ copies match) and crit-compliance (no findings); information cutoff checked independently by provenance and compliance; quote verbatim re-checked by compliance; guidance values vs quotes by provenance; assumption bounds/rationales by assumption",
+      "B_critic_review": "three critics reported for this request_id and candidate_id; open_findings empty, nothing to resolve",
+      "C_research_acceptance": "not met this review: all three critics return fail; blocking findings prov-001, asm-001, cmp-001",
+      "D_publication_rating_policy": "rating band (upside 4.65% -> Neutral), target price match and TP-change-rationale flag checked by crit-compliance; policy section 6 disclosures checked by crit-compliance (cmp-001); approval itself is outside critic scope",
+      "E_limits": "controller-owned; not a critic check"
+    },
+    "uncovered_areas": [],
+    "verification_notes": [
+      "All three reports carry request_id crit-20261115T080121-5bb2e2, candidate_id cand-b70a3fbcac71, the correct role, verdict in {pass, fail}, the contract fields (findings, resolved, checked) and correct ID prefixes; each fail verdict is consistent with at least one major finding.",
+      "These reports were produced by critics dispatched in an earlier crit-lead run for this same request; this run did not re-dispatch (resumed dispatch).",
+      "cmp-003 cites cases/MU-0000723125-26-000023/RUN_NOTES.md (a case-level run log, outside snapshot/ and the round files) as evidence. The fact it relies on (AvailableForSaleSecuritiesDebtSecuritiesNoncurrent 30,019M, F-5368223b24) resolves in snapshot/facts.json and is independently cited by asm-001 and prov-004 from periodic.txt line 2032, so the finding stands on snapshot evidence; RUN_NOTES contains no earlier critic opinions for this case. Recorded for transparency only; the finding is unchanged."
+    ]
+  }
+}

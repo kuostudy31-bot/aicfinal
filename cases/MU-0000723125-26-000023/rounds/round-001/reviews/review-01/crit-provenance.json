@@ -1,0 +1,73 @@
+{
+  "request_id": "crit-20261115T080121-5bb2e2",
+  "role": "crit-provenance",
+  "candidate_id": "cand-b70a3fbcac71",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "major",
+      "title": "Guidance table breaks on rendering: pipe characters inside quotes Q-1..Q-4 truncate the quotes and drop the code-value column",
+      "detail": "The texts of quotes Q-1 to Q-4 in narrative.json are copied from the release's flattened table and contain the separator ' | | ' (e.g. Q-2 'Approximately 85.95% | | Approximately 86.25%'). note.md puts these quotes inside a three-column Markdown table, so each rendered row (computed/note_rendered.md lines 32-35) contains five cells instead of three. A GFM renderer ignores the extra cells, so the published table shows only the GAAP half of each quote with an unclosed quotation mark ('“Approximately 85.95%'), an empty cell, and no 'Code value used' column at all. As a result the non-GAAP guidance wording and all of the code-generated guidance figures ($61.5bn midpoint, 86.0% / 86.2%, $2.3bn / $2.1bn, $37.84 / $38.15) disappear from the table. The quotes are then shown truncated in a way the source does not support, and the evidence trail from quote to code value is broken. A related issue appears in Key points: Q-1 and Q-4 render as '$61.5 billion ± $1.5 billion | | $61.5 billion ± $1.5 billion' with no GAAP/non-GAAP labels. The underlying values themselves are correct; I checked them against release lines 161-178.",
+      "evidence": [
+        "generator/narrative.json#quotes[Q-1..Q-4].text",
+        "generator/note.md#Guidance and outlook table",
+        "computed/note_rendered.md lines 32-35",
+        "snapshot/docs/release_ex99_1 earnings release.txt lines 161-178"
+      ],
+      "required_evidence": "Every rendered guidance-table row in note_rendered.md has exactly three cells, and each quote appears whole. One fix: give gen-narrative separate verbatim quotes without pipes for GAAP and non-GAAP (e.g. '$61.5 billion ± $1.5 billion', 'Approximately 85.95%', 'Approximately 86.25%', 'Approximately $2.31 billion', 'Approximately $2.06 billion', '$37.84 ± $1.00', '$38.15 ± $1.00') and bind guidance quote_ids to them. Another: move the quotes out of the table."
+    },
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Guidance code values display with less precision than the adjacent quotes (86.25% shown as 86.2%)",
+      "detail": "values.json shows guide_gross_margin_next_q_nongaap 0.8625 as '86.2%' (the float rounds down; the conventional result is 86.3%), guide_gross_margin_next_q_gaap 0.8595 as '86.0%', guide_opex_next_q_gaap 2.31e9 as '$2.3bn' and guide_opex_next_q_nongaap 2.06e9 as '$2.1bn'. Next to the verbatim quotes (85.95%, 86.25%, $2.31bn, $2.06bn), the code column looks inconsistent with its source. The stored values themselves are exact.",
+      "evidence": [
+        "numerical/recompute/values.json#guide_gross_margin_next_q_nongaap",
+        "numerical/recompute/values.json#guide_opex_next_q_gaap",
+        "computed/note_rendered.md lines 34-35"
+      ],
+      "required_evidence": "The note relies on the verbatim quotes for guidance precision (for example, the code column says 'rounded'), or the figures shown match the quoted precision."
+    },
+    {
+      "id": "prov-003",
+      "severity": "minor",
+      "title": "EPS guidance entries use unit 'USD' instead of the contract unit 'USD/share'",
+      "detail": "In narrative.json the guidance metrics eps_next_q_gaap (37.84) and eps_next_q_nongaap (38.15) carry unit 'USD'. references/contracts.md requires 'USD/share' for per-share amounts. The displayed values ($37.84 / $38.15) are correct and match Q-4. Only the unit label is off.",
+      "evidence": [
+        "generator/narrative.json#guidance[eps_next_q_gaap].unit",
+        "generator/narrative.json#guidance[eps_next_q_nongaap].unit"
+      ],
+      "required_evidence": "Both EPS guidance entries in narrative.json have unit 'USD/share'."
+    },
+    {
+      "id": "prov-004",
+      "severity": "minor",
+      "title": "Claim that including long-term marketable investments leaves the rating unchanged is unquantified and attributed to a specialist rather than to evidence",
+      "detail": "The Model and valuation section says that including long-term marketable investments 'would raise the equity value somewhat; according to the valuation specialist, the rating would stay Neutral (not recomputed in code here)'. The snapshot shows long-term marketable investments of $30,019M at 2026-09-03 (periodic.txt line 2032; AvailableForSaleSecuritiesDebtSecuritiesNoncurrent 30,019,000,000 in the 10-K, accn 0000723125-26-000023). That is about 78% of the $38.3bn net cash the note reports, so 'somewhat' understates it. My own arithmetic agrees with the conclusion: both the DCF and the relative method add net cash per share, so adding $30.019bn / 1.145bn shares = +$26.2 per share to both gives a blended value of about $1,110 and upside of about 7.2%. That is still inside the Neutral band. The claim therefore holds, but the note gives no supporting figure. Overlap: the net-cash definition itself belongs to crit-assumption; this finding covers only how the sentence is evidenced.",
+      "evidence": [
+        "generator/note.md#Model and valuation (Net cash bullet)",
+        "numerical/recompute/valuation.json#net_cash",
+        "snapshot/docs/periodic.txt line 2032"
+      ],
+      "required_evidence": "The sentence either cites the excluded amount through a code value or quote and states the effect as analyst arithmetic, or it is reworded so it makes no unsupported attribution to a specialist."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "gates.json: request_id gen-20261115T073305-99d304, no gate findings; sha256 of all five recompute files matches gates.json hashes; computed/values.json and note_rendered.md identical to numerical/recompute copies",
+    "all 37 {{keys}} in note.md exist in values.json and every values.json key is used",
+    "F-/D- source resolution: revenue_q, revenue_qoq, revenue_yoy, revenue_ttm, gross_margin_q, operating_margin_q, net_income_q, fcf_q all resolve to snapshot facts; Q4 = FY (10-K, accn 0000723125-26-000023) minus 9M YTD (10-Q, accn 0000723125-26-000015); all component facts accepted at or before cutoff 2026-10-09T12:21:00Z",
+    "arithmetic: revenue Q4 133,188-78,959=54,229M; q/q vs FY2026Q3 41,456M = +30.8%; y/y vs FY2025Q4 11,315M = +379.3%; TTM 13,643+23,860+41,456+54,229 = 133,188M = FY2026; GM 47,047/54,229 = 86.8%; OM 43,751/54,229 = 80.7%; NI 84,969-47,268 = 37,701M; FCF 43,973-11,110 = 32,863M",
+    "spot-check against periodic.txt: revenue 133,188 (line 1585), net income 84,969 (line 1611), total assets 195,888 (line 2040), gross margin 107,504, operating income 99,340, CFO 89,675, short-term investments 5,070, current debt 491, long-term debt 4,688, effective tax rate 14.8% (line 1735)",
+    "spot-check against earnings release: Q4 revenue 54,229 / prior quarter 41,456 / prior year 11,315 (line 64); Q4 net income 37,701 (line 269)",
+    "labels: FY2026 Q4 = CY2026Q3 (2026-05-29 to 2026-09-03); q/q and y/y wording correct; TTM labelled as FY2026; 14-week Q4 (98 days vs 91 for Q3) confirmed from history.quarters, consistent with Q-10",
+    "quotes Q-1..Q-14: contexts checked; Q-9 and Q-12 (strategic customer agreements, periodic.txt lines 1571-1573), Q-13 (Pillar Two), Q-11 (risk factor), Q-6 (CEO), Q-14 (dividend declared 2026-09-30, before cutoff) used faithfully; Q-1..Q-4 rendering problem in prov-001",
+    "guidance values vs quotes: revenue 61.5e9 (range 60.0-63.0e9), GM 0.8595 / 0.8625, opex 2.31e9 / 2.06e9, EPS 37.84 (36.84-38.84) / 38.15 (37.15-39.15) all match release lines 169-178",
+    "mapping.json currency: every mapped concept has a 10-K fact at 2026-09-03 (shares_outstanding dei at 2026-10-02); catalog-preferred Revenues, CostOfRevenue, MarketableSecuritiesCurrent, ShortTermInvestments, DebtSecuritiesCurrent are absent from snapshot; LongTermDebt is stale (14 obs, 2,792M at 2026-09-03 not matching balance sheet), so the DebtCurrent + LongTermDebtAndCapitalLeaseObligations = 5,179M choice is justified",
+    "net_cash 38,364+5,070-5,179 = 38,255M; valuation diluted shares 1,145M = latest tagged quarterly (FY2026Q3); 10-K tags only FY diluted shares/EPS at 2026-09-03, so the note's data-gap statement is accurate",
+    "peer median EV/Sales: INTC 10.06x, AMAT 13.06x, LRCX 17.19x, KLAC 19.24x -> median 15.12x; peer prices dated 2026-10-08; no peer snapshot acceptance or price after cutoff",
+    "price: last MU close 1,035.84 on 2026-10-08, the session before cutoff",
+    "forecast statements: FY2027Q1 revenue 61.50bn anchored on guidance; GM 85.95% flat; opex 3.76% = 2.31/61.5; tax 14.8%; FY2027Q1 EPS 37.50 below guided 37.84 consistent with excluded interest income (judgment, labelled)"
+  ]
+}

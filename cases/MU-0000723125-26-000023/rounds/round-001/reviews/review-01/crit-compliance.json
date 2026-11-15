@@ -1,0 +1,58 @@
+{
+  "request_id": "crit-20261115T080121-5bb2e2",
+  "role": "crit-compliance",
+  "candidate_id": "cand-b70a3fbcac71",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "cmp-001",
+      "severity": "major",
+      "title": "Data-source disclosure misattributes the earnings release to the 10-K accession and omits the 8-K accession",
+      "detail": "The Disclosures section (note.md line 74) says: 'SEC EDGAR filing accession 0000723125-26-000023 (Form 10-K and the accompanying earnings release exhibit)'. The earnings release is not an exhibit to the 10-K. snapshot/manifest.json lists docs/release_ex99_1 earnings release.txt as accession 0000723125-26-000018 (document a2026q4ex991-pressrelease.htm), and snapshot/filings.json shows that accession is a Form 8-K (items 2.02, 9.01) accepted 2026-09-30T20:02:22Z. The 10-K (accession ...-000023) was accepted 2026-10-09T12:21:00Z. The guidance table, the CEO quote, the dividend quote and the Q4 EPS guidance all come from the 8-K release, and the note never discloses that source's accession. Policy section 6 requires the data sources with SEC EDGAR filing accession and as-of time. The disclosure is there but inaccurate for a main data source. Timing is fine: the 8-K is before the cutoff, so there is no leakage. Note for repair: values.json has no key for the release accession (only trigger_accession), and the writer may not type digits. A full fix may need a code-provided key such as release_accession. At minimum the writer must remove the false 'accompanying earnings release exhibit' wording and name the release as a separate Form 8-K filed before the 10-K.",
+      "evidence": [
+        "generator/note.md:74",
+        "numerical/recompute/note_rendered.md:74",
+        "snapshot/manifest.json#files['docs/release_ex99_1 earnings release.txt'].accession = 0000723125-26-000018",
+        "snapshot/filings.json#filings[1] (8-K, 0000723125-26-000018, acceptance 2026-09-30T20:02:22Z)"
+      ],
+      "required_evidence": "note_rendered.md Disclosures names the 10-K (0000723125-26-000023) and the separate Form 8-K earnings release (0000723125-26-000018, furnished 2026-09-30) as data sources, and no longer calls the release an exhibit to the 10-K"
+    },
+    {
+      "id": "cmp-002",
+      "severity": "minor",
+      "title": "Guidance table breaks in rendering because quoted cells contain pipe characters",
+      "detail": "Each verbatim guidance quote (Q-1 to Q-4) contains '| |' from the release's GAAP/non-GAAP table, e.g. '| Revenue | “$61.5 billion ± $1.5 billion | | $61.5 billion ± $1.5 billion” | $61.5bn midpoint |'. In GitHub-flavoured Markdown each row splits into five cells under a three-column header, and the extra cells are dropped. The published table would show only the GAAP half of each quote, with an unclosed quotation mark, and an empty 'Code value used' column. The non-GAAP gross margin, opex and EPS values appear only in this table, so the reader loses them. The figures are correct; this is a presentation defect.",
+      "evidence": [
+        "generator/note.md:31-36",
+        "numerical/recompute/note_rendered.md:33-36"
+      ],
+      "required_evidence": "Guidance shown so that it renders correctly, e.g. as a list or with the pipes escaped, while the quotes stay verifiable"
+    },
+    {
+      "id": "cmp-003",
+      "severity": "minor",
+      "title": "Rating-robustness claim attributed to 'the valuation specialist' rather than to evidence",
+      "detail": "note.md line 60: 'Including them would raise the equity value somewhat; according to the valuation specialist, the rating would stay Neutral (not recomputed in code here).' The claim itself holds. RUN_NOTES records long-term marketable investments of $30.019B (AvailableForSaleSecuritiesDebtSecuritiesNoncurrent, F-5368223b24), which is about +$26 per share on 1,145M diluted shares. That gives roughly $1,110 and about 7% upside, still Neutral. But a published note should not cite an internal workflow role as authority. Label the statement as our calculation or judgment, or have code supply the figure.",
+      "evidence": [
+        "generator/note.md:60",
+        "RUN_NOTES.md (open question on long-term marketable investments)",
+        "numerical/recompute/valuation.json#diluted_shares, target_price"
+      ],
+      "required_evidence": "Sentence labelled as analyst calculation or judgment (or backed by a code value), with no reference to an internal specialist"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Cutoff 2026-10-09T12:21:00Z (case.json): no later quarters, prices or events. The dividend payable 2026-10-29 is a scheduled item declared 2026-09-30 in a pre-cutoff filing, not a post-cutoff event",
+    "Price: 2026-10-08 close $1,035.84 is the last entry in snapshot/prices.json. The cutoff (08:21 ET on 2026-10-09) is before that day's session, so this is the right close",
+    "All 19 quoted passages in note_rendered.md appear verbatim (after whitespace normalisation) in snapshot/docs/*.txt",
+    "Both snapshot docs come from filings accepted at or before the cutoff (8-K 2026-09-30, 10-K 2026-10-09T12:21Z)",
+    "Disclosures in policy section 6: coursework / not investment advice present; data sources and cutoff present but inaccurate for the release (cmp-001); price date present; rating definitions match bands (+15% / -10%); code-generated / unaudited statement present",
+    "Rating: upside 0.0465 (valuation.json) is between -10% and +15%, so Neutral; the note's rating and target price $1,084 match valuation.json",
+    "No action recommendation beyond the rating; no promissory or guaranteed language",
+    "Facts, forecasts and judgments carry 'Reported', 'Our forecast' and 'Our view' labels; the 14-week Q4 inference is labelled as our calculation and matches the period ends (Q3 2026-05-28, Q4 2026-09-03 = 98 days)",
+    "tp_change_needs_rationale is false and prior_target_price is null (first note), so no target-price change rationale is needed",
+    "Scanned the snapshot docs for embedded instructions (ignore/disregard/upload/instruction): none found and none followed",
+    "gates.json has no findings"
+  ]
+}

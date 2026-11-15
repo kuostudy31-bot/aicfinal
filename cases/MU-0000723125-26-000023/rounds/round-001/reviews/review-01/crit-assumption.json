@@ -1,0 +1,66 @@
+{
+  "request_id": "crit-20261115T080121-5bb2e2",
+  "role": "crit-assumption",
+  "candidate_id": "cand-b70a3fbcac71",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "major",
+      "title": "Net cash omits $30.0B of long-term marketable investments",
+      "detail": "valuation.json gives net_cash = cash 38,364M + short_term_investments 5,070M - debt 5,179M = 38,255M. The 10-K balance sheet (snapshot/docs/periodic.txt, line 2032) also reports 'Long-term marketable investments | 30,019' at 2026-09-03. The release balance sheet (release_ex99_1, line 312) shows the same figure. These are available-for-sale, investment-grade fixed-income securities, mostly maturing in one to five years (periodic.txt lines 2296, 2378, 2416). Management describes them as part of 'Cash and marketable investments totaled $73.45 billion' (periodic.txt line 1761). The item is material: it is about 41% of cash plus investments, almost six times total debt, and about $26 per share on 1,145M diluted shares. My own arithmetic, not code output, adds it to both the DCF and EV/Sales legs: DCF per share goes from about $847 to about $874, relative value from $1,792 to about $1,819, blended target price from $1,084 to about $1,110, and upside from 4.6% to about 7.1%. The rating probably stays Neutral, but the target price and every per-share value are understated. The generator knew about the gap: gen-valuation's report flagged it, and note.md discloses it as 'not recomputed in code here' and cites 'the valuation specialist' for the rating claim. Disclosure does not substitute for the fix, and an uncomputed claim about the rating should not be in the note. A fix needs no code change. The snapshot has AvailableForSaleSecuritiesDebtSecuritiesNoncurrent with 16 observations, latest 30,019M at 2026-09-03 (eu.py concepts --line short_term_investments). contracts.md allows a list of concepts summed per period. Non-marketable equity investments of $1.30B in other noncurrent assets (periodic.txt line 2432) can reasonably stay excluded.",
+      "evidence": [
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/valuation.json#short_term_investments",
+        "snapshot/docs/periodic.txt:2032 'Long-term marketable investments | 30,019 | | 1,629'",
+        "snapshot/docs/periodic.txt:1761 'Cash and marketable investments totaled $73.45 billion as of September 3, 2026'",
+        "generator/mapping.json#short_term_investments (AvailableForSaleSecuritiesDebtSecuritiesCurrent only)",
+        "computed/note_rendered.md line 60 (omission disclosed, not corrected)"
+      ],
+      "required_evidence": "mapping.json maps the investments line to [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent], or equivalent, with a rationale. Recomputed valuation.json then shows investments of 35,089M and net_cash of 68,274M at 2026-09-03. note.md describes net cash as cash and marketable investments less debt and drops the uncomputed 'rating would stay Neutral' claim."
+    },
+    {
+      "id": "asm-002",
+      "severity": "minor",
+      "title": "Refundable customer deposits ($12.9B) not considered as a debt-like claim",
+      "detail": "The balance sheet shows 'Noncurrent customer contract liabilities | 12,895' (periodic.txt line 2056; $142M a year earlier). These are mainly customer deposits under the strategic customer agreements, received as a $12.75B financing inflow in FY2026 (line 1842; cash flow line 2228). The deposits are returned if customers meet their purchase commitments, and 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031' (line 2961). That falls inside DCF years 3-5. Reported cash includes this money, but neither net cash nor the FCF path reflects the repayment. The WACC rationale also calls debt 'small ($5.179B ...)' without mentioning these deposits. The balance sheet does not label them debt, so excluding them is a defensible judgment. The impact is about $11 per share, roughly 1% of the target price. The rationale should acknowledge the exclusion, and the note should mention it as a valuation caveat.",
+      "evidence": [
+        "snapshot/docs/periodic.txt:2056",
+        "snapshot/docs/periodic.txt:2344",
+        "snapshot/docs/periodic.txt:2961",
+        "generator/valuation_inputs.json#rationales.wacc"
+      ],
+      "required_evidence": "valuation_inputs.json rationale, ideally also the note, states how the $12.9B refundable customer deposits are treated (excluded as operating liabilities, or deducted as debt-like) and why."
+    },
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Year-1 FCF margin rationale ignores the guided capex and working capital",
+      "detail": "Year-1 FCF margin is 55%, which gives FCF of $148.2B on NTM revenue of $269.5B. The rationale anchors it on history (FY2026 44.3%, FY2026Q4 60.6% in a 14-week quarter) and says capex keeps rising. It does not cite the 10-K's explicit capex outlook: 'approximately $11.5 billion in the first quarter of 2027, approximately $25 billion in the first six months of 2027, and higher in the second half of 2027' (periodic.txt line 1771). My rough check, not code output: NTM net income $188.7B plus D&A of about $10B (FY2026 $9.5B, line 2187) minus capex of at least about $50B gives about $148B, or 55%, only if working capital is zero. Receivables rose from $9.3B to $36.2B in FY2026, so working-capital absorption is likely while revenue grows. FY2026Q4 CFO was also helped by noncurrent Pillar Two taxes payable (line 1832). 55% is at the top of the plausible range. It needs the guided capex in its support, or a small reduction.",
+      "evidence": [
+        "generator/valuation_inputs.json#dcf.fcf_margin",
+        "generator/valuation_inputs.json#rationales.fcf_margin",
+        "snapshot/docs/periodic.txt:1771",
+        "numerical/recompute/forecast.json#ntm.net_income"
+      ],
+      "required_evidence": "The fcf_margin rationale cites the FY2027 capex guidance (as a quote) and reconciles the year-1 margin with NTM net income + D&A - guided capex - working capital, or lowers the year-1 margin accordingly."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Next-quarter revenue vs guidance: FY2027Q1 revenue_qoq 0.1341 on the 14-week FY2026Q4 base of 54,229M gives 61,501M (forecast.json), which equals the guided midpoint $61.5B +/- $1.5B (Q-1). The 53-week effect is explained (Q-10).",
+    "Next-quarter gross margin 85.95% equals GAAP guidance (Q-2). Opex 3.76% of revenue gives $2.312B, matching guided GAAP opex of about $2.31B (Q-3).",
+    "EPS cross-check: forecast FY2027Q1 EPS $37.50 is inside the guided GAAP range of $36.84-$38.84 (Q-4). The gap to the $37.84 midpoint is explained by excluded interest income.",
+    "Tax rate 14.8% is the FY2026 ETR with the Pillar Two driver (Q-13). It is consistent with the tax rate implied by the guided EPS (about 14.9%).",
+    "Later quarters: +8%/+5%/+3% q/q with flat GM and opex%. Plausible against a 13-week-adjusted run rate of about +21%, supply constraints (Q-7, Q-8), price-band agreements (Q-9, Q-12) and RPO of about $134B with about one-fourth due in the next 12 months (periodic.txt line 2961). The rationale labels this as judgment.",
+    "Share change +0.3% per quarter is supported by FY2026Q1-Q3 diluted shares. Valuation uses FY2026Q3 diluted shares of 1,145M because XBRL has no Q4 tag; disclosed.",
+    "WACC 10.5% and terminal growth 3.0% are reasonable for a cyclical large-cap memory semiconductor. Terminal growth is below WACC.",
+    "Terminal value share of EV is 55.2% (valuation.json), below the 80% watch level.",
+    "DCF revenue path: years 2-5 at +5%/-10%/-15%/-5%, a cycle normalization labelled as judgment. Year-5 revenue of $205.7B stays above FY2026, citing price floors (Q-9).",
+    "FCF margins against historical CFO minus capex: FY2025 4.5%, FY2026 44.3%, quarterly path recomputed from history and matches the rationale. Terminal margin of 30% is below the pooled 35.5%. Year 1 is raised as asm-003.",
+    "Net cash completeness against balance sheet text: cash 38,364M and short-term investments 5,070M match. Debt of 5,179M = current debt 491M + long-term debt 4,688M, which matches. Long-term marketable investments of 30,019M are omitted (asm-001). Customer deposits are discussed in asm-002.",
+    "Peer set INTC/AMAT/LRCX/KLAC: relevant given that no memory maker is in the universe, and exclusions are reasoned. Peer TTM ends 2026-06-27 to 2026-07-26 (CY2026Q2) against MU's FY2026Q4 ending 2026-09-03; the alignment gap is noted in the rationale and note.",
+    "Rationales exist for every forecast and valuation input and cite quotes or fact IDs. dcf_weight of 0.75 is reasoned.",
+    "open_findings in request: none."
+  ]
+}

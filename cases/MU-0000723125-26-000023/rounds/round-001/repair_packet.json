@@ -1,0 +1,42 @@
+{
+  "instruction": "Repair every open finding and supply the required evidence; findings close only when a fresh critic or the recomputed gates verify the repaired output.",
+  "open_findings": [
+    {
+      "check": "Net cash omits $30.0B of long-term marketable investments",
+      "detail": "valuation.json gives net_cash = cash 38,364M + short_term_investments 5,070M - debt 5,179M = 38,255M. The 10-K balance sheet (snapshot/docs/periodic.txt, line 2032) also reports 'Long-term marketable investments | 30,019' at 2026-09-03. The release balance sheet (release_ex99_1, line 312) shows the same figure. These are available-for-sale, investment-grade fixed-income securities, mostly maturing in one to five years (periodic.txt lines 2296, 2378, 2416). Management describes them as part of 'Cash and marketable investments totaled $73.45 billion' (periodic.txt line 1761). The item is material: it is about 41% of cash plus investments, almost six times total debt, and about $26 per share on 1,145M diluted shares. My own arithmetic, not code output, adds it to both the DCF and EV/Sales legs: DCF per share goes from about $847 to about $874, relative value from $1,792 to about $1,819, blended target price from $1,084 to about $1,110, and upside from 4.6% to about 7.1%. The rating probably stays Neutral, but the target price and every per-share value are understated. The generator knew about the gap: gen-valuation's report flagged it, and note.md discloses it as 'not recomputed in code here' and cites 'the valuation specialist' for the rating claim. Disclosure does not substitute for the fix, and an uncomputed claim about the rating should not be in the note. A fix needs no code change. The snapshot has AvailableForSaleSecuritiesDebtSecuritiesNoncurrent with 16 observations, latest 30,019M at 2026-09-03 (eu.py concepts --line short_term_investments). contracts.md allows a list of concepts summed per period. Non-marketable equity investments of $1.30B in other noncurrent assets (periodic.txt line 2432) can reasonably stay excluded.",
+      "first_round": 1,
+      "id": "asm-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "mapping.json maps the investments line to [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent], or equivalent, with a rationale. Recomputed valuation.json then shows investments of 35,089M and net_cash of 68,274M at 2026-09-03. note.md describes net cash as cash and marketable investments less debt and drops the uncomputed 'rating would stay Neutral' claim.",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Data-source disclosure misattributes the earnings release to the 10-K accession and omits the 8-K accession",
+      "detail": "The Disclosures section (note.md line 74) says: 'SEC EDGAR filing accession 0000723125-26-000023 (Form 10-K and the accompanying earnings release exhibit)'. The earnings release is not an exhibit to the 10-K. snapshot/manifest.json lists docs/release_ex99_1 earnings release.txt as accession 0000723125-26-000018 (document a2026q4ex991-pressrelease.htm), and snapshot/filings.json shows that accession is a Form 8-K (items 2.02, 9.01) accepted 2026-09-30T20:02:22Z. The 10-K (accession ...-000023) was accepted 2026-10-09T12:21:00Z. The guidance table, the CEO quote, the dividend quote and the Q4 EPS guidance all come from the 8-K release, and the note never discloses that source's accession. Policy section 6 requires the data sources with SEC EDGAR filing accession and as-of time. The disclosure is there but inaccurate for a main data source. Timing is fine: the 8-K is before the cutoff, so there is no leakage. Note for repair: values.json has no key for the release accession (only trigger_accession), and the writer may not type digits. A full fix may need a code-provided key such as release_accession. At minimum the writer must remove the false 'accompanying earnings release exhibit' wording and name the release as a separate Form 8-K filed before the 10-K.",
+      "first_round": 1,
+      "id": "cmp-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "note_rendered.md Disclosures names the 10-K (0000723125-26-000023) and the separate Form 8-K earnings release (0000723125-26-000018, furnished 2026-09-30) as data sources, and no longer calls the release an exhibit to the 10-K",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Guidance table breaks on rendering: pipe characters inside quotes Q-1..Q-4 truncate the quotes and drop the code-value column",
+      "detail": "The texts of quotes Q-1 to Q-4 in narrative.json are copied from the release's flattened table and contain the separator ' | | ' (e.g. Q-2 'Approximately 85.95% | | Approximately 86.25%'). note.md puts these quotes inside a three-column Markdown table, so each rendered row (computed/note_rendered.md lines 32-35) contains five cells instead of three. A GFM renderer ignores the extra cells, so the published table shows only the GAAP half of each quote with an unclosed quotation mark ('“Approximately 85.95%'), an empty cell, and no 'Code value used' column at all. As a result the non-GAAP guidance wording and all of the code-generated guidance figures ($61.5bn midpoint, 86.0% / 86.2%, $2.3bn / $2.1bn, $37.84 / $38.15) disappear from the table. The quotes are then shown truncated in a way the source does not support, and the evidence trail from quote to code value is broken. A related issue appears in Key points: Q-1 and Q-4 render as '$61.5 billion ± $1.5 billion | | $61.5 billion ± $1.5 billion' with no GAAP/non-GAAP labels. The underlying values themselves are correct; I checked them against release lines 161-178.",
+      "first_round": 1,
+      "id": "prov-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "Every rendered guidance-table row in note_rendered.md has exactly three cells, and each quote appears whole. One fix: give gen-narrative separate verbatim quotes without pipes for GAAP and non-GAAP (e.g. '$61.5 billion ± $1.5 billion', 'Approximately 85.95%', 'Approximately 86.25%', 'Approximately $2.31 billion', 'Approximately $2.06 billion', '$37.84 ± $1.00', '$38.15 ± $1.00') and bind guidance quote_ids to them. Another: move the quotes out of the table.",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    }
+  ],
+  "reason": "critic findings open"
+}
