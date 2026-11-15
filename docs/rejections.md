@@ -28,6 +28,7 @@ outcome; "defect" means the refusal itself came from a bug that was then fixed.
 |---|---|---|---|
 | Stop hook, verification run | BLOCKED one stop (2026-11-15 02:13:37) | A run session tried to end its turn with its case pending and no hold. Correct. | `docs/verification/stop_hook.md` |
 | Guard hook (state guard), coordinating session | REFUSED three commands (2026-11-14) | (1) about 15:00, a read-only `grep`/`json.dumps` command: **defect**, fixed (commit f1edf03); (2) about 15:01, a test command that redirected into `cases/X/state.json`: correct; (3) about 15:57, `git rm --cached cases/ACTIVE.json`: correct but conservative (done instead with `git update-index --force-remove`). | `docs/incidents.md` #10. Before 2026-11-15 the guard kept no record; it now logs every refusal |
+| Guard hook, coordinating session | REFUSED one command (2026-11-15 about 03:16) | A Python file write combined with a control-file path in the same command. Correct; recorded in the local log only, because no run was in progress. | `docs/incidents.md` #11 |
 
 ## Platform
 
