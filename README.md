@@ -4,8 +4,10 @@
 
 | | |
 |---|---|
-| Student | **[Name]** — student ID **[Student ID]** |
+| Student | **郭向竹** — student ID **24210660139** |
 | Repository | https://github.com/kuostudy31-bot/aicfinal_test (branch `claude/trusting-thompson-r5m3id`) |
+| Branch link | https://github.com/kuostudy31-bot/aicfinal_test/tree/claude/trusting-thompson-r5m3id (also in [`GITHUB_LINK.md`](GITHUB_LINK.md)) |
+| Submitted folder | `aicfinal/` in `24210660139-final-project.zip`, with the full `.git/` history; the hosted repository is named `aicfinal_test` |
 | Design note | [`docs/design_note.md`](docs/design_note.md) · diagram [`docs/architecture.svg`](docs/architecture.svg) |
 
 ## What it does

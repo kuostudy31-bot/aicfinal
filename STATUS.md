@@ -1,6 +1,6 @@
 # Status board
 
-_Generated 2026-11-15T08:38:03Z by `scripts/eu.py status`._
+_Generated 2026-11-15T08:52:00Z by `scripts/eu.py status`._
 
 | Case | Status | Round | Review | Clean streak | Open blocking findings | Pending | TP / rating |
 |---|---|---|---|---|---|---|---|

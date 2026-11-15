@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Build <studentID>-final-project.zip from this folder, including the full hidden .git/.
-# Usage: scripts/make_submission.sh <studentID>
+# Usage: scripts/make_submission.sh <studentID> [folder-name] [output-dir]
+#   folder-name: top-level folder inside the ZIP (default: this folder's name). A different name is
+#                produced from a full copy of this folder, .git included.
 set -euo pipefail
 ID="${1:?usage: scripts/make_submission.sh <studentID>}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -13,11 +15,20 @@ if git grep -nIE 'sk-ant-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Z
 fi
 python3 scripts/check.py >/dev/null 2>&1 || { echo "tests fail: fix before submitting"; exit 1; }
 
-NAME="$(basename "$ROOT")"
-OUT="$(dirname "$ROOT")/${ID}-final-project.zip"
+NAME="${2:-$(basename "$ROOT")}"
+OUTDIR="${3:-$(dirname "$ROOT")}"
+mkdir -p "$OUTDIR"; OUTDIR="$(cd "$OUTDIR" && pwd)"
+OUT="$OUTDIR/${ID}-final-project.zip"
 rm -f "$OUT"
-cd "$(dirname "$ROOT")"
+if [ "$NAME" = "$(basename "$ROOT")" ]; then
+  cd "$(dirname "$ROOT")"
+else
+  STAGE="$(mktemp -d)"; trap 'rm -rf "$STAGE"' EXIT
+  cp -a "$ROOT" "$STAGE/$NAME"
+  cd "$STAGE"
+  git -C "$NAME" status --porcelain | grep -q . && { echo "copy is not clean"; exit 1; }
+fi
 # Includes hidden files and .git; leaves out re-creatable caches and local logs.
 zip -qr "$OUT" "$NAME" -x "$NAME/temp/*" "$NAME/data/cache/*" "$NAME/.logs/*" "$NAME/.state/*" "*/__pycache__/*"
-echo "wrote $OUT ($(du -h "$OUT" | cut -f1)); commits: $(git -C "$ROOT" rev-list --count HEAD)"
+echo "wrote $OUT ($(du -h "$OUT" | cut -f1)); folder $NAME/; commits: $(git -C "$ROOT" rev-list --count HEAD)"
 unzip -l "$OUT" | grep -c "$NAME/.git/" | xargs -I{} echo "{} entries under .git/"
