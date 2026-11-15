@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T031048-ced865",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": [
+    "assumptions.json"
+  ],
+  "repairs": [],
+  "notes": "No findings assigned to gen-model this round. Re-issued the review-round-1 assumptions under the new request_id with all numeric inputs unchanged (FY2026Q4 revenue +27.1% q/q on the $17.0B guidance midpoint (Q-1); GAAP gross margin 53.4% converted from the non-GAAP ~55% guidance (Q-2); opex 28.0%; tax 13%; shares +0.2% q/q). The only edit is to the tax_rate rationale: it now cites the new quotes Q-7/Q-8, says outright that the $772M discrete SBC tax benefit and the reported (29.6)% ETR are non-recurring and not used as a run-rate, and notes that the noncash warrant remeasurement charge (Q-9 to Q-11) is a below-the-line one-off that is not projected. Mapping is unchanged from round 1. Only snapshot data used; assumptions were not tuned to any target price or rating."
+}

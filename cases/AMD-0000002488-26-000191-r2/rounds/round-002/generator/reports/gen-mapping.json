@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261115T031048-ced865",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": ["mapping.json"],
+  "repairs": [],
+  "notes": "No mapping findings owned this round (cmp-002 belongs to gen-writer). Round-1 mapping reviewed and kept unchanged; re-issued under the new request_id. 19 of 20 lines mapped; liabilities deliberately null (no data)."
+}

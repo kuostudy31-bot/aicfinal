@@ -1,0 +1,15 @@
+{
+  "request_id": "gen-20261115T031048-ced865",
+  "role": "gen-valuation",
+  "status": "complete",
+  "outputs": [
+    "valuation_inputs.json"
+  ],
+  "repairs": [
+    {
+      "finding": "asm-001",
+      "action": "Added a TTM period-alignment paragraph to rationales.peers. It states each peer's TTM end date (NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01, INTC 2026-09-26) against AMD's 2026-09-26 TTM, with the dates verified in snapshot/peers.json. It says the roughly two-month lag for the fast-growing NVDA/AVGO/MRVL inflates their EV/Sales, so the median multiple and the relative leg are biased upward (rough estimate several percent up to about 10%, analyst judgment). The multiple is not adjusted. All numeric inputs are unchanged."
+    }
+  ],
+  "notes": "Round 2 repair. valuation_inputs.json re-issued under the new request_id. Only rationales.peers changed (asm-001); peers, WACC, terminal growth, revenue growth, FCF margins and dcf_weight are unchanged from round 1 because I found no real problem with them. Round 1 notes still apply: terminal value is about 75% of EV in my pre-check. Net cash uses mapped cash + short-term investments - debt. Long-term equity investments/warrants in other non-current assets and lease liabilities are excluded, and I do not consider that material, so it is not routed to gen-mapping. The risk-free rate, ERP and beta are analyst assumptions. prov-001 (warrant charge vs tax benefit in note.md) is not in my scope; it belongs to the writer/narrative."
+}

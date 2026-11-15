@@ -1,0 +1,16 @@
+{
+ "request_id": "gen-20261115T031048-ced865",
+ "role": "gen-narrative",
+ "status": "ok",
+ "summary": "11 verbatim quotes (Q-1..Q-6 unchanged; Q-7..Q-11 added from periodic.txt); guidance unchanged.",
+ "quotes": 11,
+ "guidance_items": 2,
+ "repairs": [
+  {
+   "finding": "prov-001",
+   "action": "supporting: added verbatim 10-Q quotes Q-7 (discrete SBC tax benefit $772M), Q-8 (income tax benefit $555M, ETR (29.6)%), Q-9 (other income (expense), net $(902)M), Q-10 (decrease driven by warrant liability FV change $1.1B), Q-11 (noncash charge $1.2B warrant remeasurement) so gen-writer can name both one-off items",
+   "request_id": "gen-20261115T031048-ced865"
+  }
+ ],
+ "notes": "New quote IDs: Q-7, Q-8, Q-9, Q-10, Q-11 (doc periodic.txt, accession 0000002488-26-000191, topic other, label one-off items). Q-1..Q-4 are from release_ex99_1.txt (accession 0000002488-26-000188)."
+}

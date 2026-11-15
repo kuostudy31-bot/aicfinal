@@ -8,15 +8,24 @@
       "narrative.json": "f73f20cb1f6a637d28c8e487c65b2afd369a41a9876602239c0c34626bf70947",
       "note.md": "66eade919897baec3d49e91e93786a7a4d9b94c28f41867df27710436620a081",
       "valuation_inputs.json": "3764f04113c0d8393cc7499841b0a28c5bcdfd979716faa4c110ae7791275e49"
+    },
+    "round-002": {
+      "assumptions.json": "0a89103ea8bb65588d77da24fb75d0b97f8e5035f244e51535cf8385b1784d69",
+      "gates.json": "80c1f15b051b60aebbb8ec81cc92716e0d535b7e9b4dcf560c984003dae505e4",
+      "mapping.json": "b9c92c21c4d847b9a5ba276e8394fb0cee61835391a6b7202e92584c978e8ffc",
+      "narrative.json": "b2b3412dd123cb4b464ceb1d65f53cabbacba9f7849fa71dcbd91257f3d50303",
+      "note.md": "eef450a48285db9686ffc1fda2cebd3b77fe4662c2e73ce1fea89a44a1688bba",
+      "valuation_inputs.json": "1808738f78eca1364ed21ed5727f212d29924c6d69adaa9a3c39c4f68db3a5e0"
     }
   },
-  "candidate_id": "cand-e7ff36819293",
+  "candidate_id": "cand-301a62855764",
   "case_id": "AMD-0000002488-26-000191-r2",
   "clean_streak": 0,
   "cutoff_utc": "2026-11-03T23:00:17Z",
   "dispatch_counts": {
     "crit-20261115T030030-1acfec": 4,
-    "gen-20261115T025408-b38ac7": 6
+    "gen-20261115T025408-b38ac7": 6,
+    "gen-20261115T031048-ced865": 6
   },
   "invalid_submissions": 0,
   "ledger": {
@@ -80,10 +89,10 @@
   ],
   "opened_at": "2026-11-15T02:54:08Z",
   "pending": {
-    "issued_at": "2026-11-15T03:10:48Z",
-    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-002/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261115T031048-ced865"
+    "issued_at": "2026-11-15T03:21:07Z",
+    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-002/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261115T032107-8539c4"
   },
   "period_of_report": "2026-09-26",
   "prompt_versions": {
@@ -101,10 +110,10 @@
     "gen-writer": "v2",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 2,
   "snapshot_manifest_sha256": "78ed765a2ad8beddc8831bd683d2913cd7407ee373c3fee22547cca377ac8bb1",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "AMD",
-  "updated_at": "2026-11-15T03:10:48Z"
+  "updated_at": "2026-11-15T03:21:07Z"
 }

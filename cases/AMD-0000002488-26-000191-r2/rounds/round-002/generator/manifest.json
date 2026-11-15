@@ -1,0 +1,28 @@
+{
+  "request_id": "gen-20261115T031048-ced865",
+  "files": {
+    "assumptions.json": "0a89103ea8bb65588d77da24fb75d0b97f8e5035f244e51535cf8385b1784d69",
+    "mapping.json": "b9c92c21c4d847b9a5ba276e8394fb0cee61835391a6b7202e92584c978e8ffc",
+    "narrative.json": "b2b3412dd123cb4b464ceb1d65f53cabbacba9f7849fa71dcbd91257f3d50303",
+    "note.md": "eef450a48285db9686ffc1fda2cebd3b77fe4662c2e73ce1fea89a44a1688bba",
+    "reports/gen-mapping.json": "392556040bbf3980b028cdd3766cb380a66afd6aae4b1f9364b874b926a8dbcd",
+    "reports/gen-model.json": "ca41be7d0227268ca5ef85dc1e2ffd2d6d3a4e11a22dc43a6a2788de80ed7154",
+    "reports/gen-narrative.json": "a0a89942c0c3c8b28bfaa25a1e5f334e915b64b4889fac9e8c50ef7935b8b8a4",
+    "reports/gen-valuation.json": "50d8620e8b0677776d7402a31f78376181c31a87c2ce105f09f51c418c1502d0",
+    "reports/gen-writer.json": "e4452df2d3d86d2d9c810063eeaf0b2d5f8f31114ecc2ebff8c34aa1ebf81a27",
+    "valuation_inputs.json": "1808738f78eca1364ed21ed5727f212d29924c6d69adaa9a3c39c4f68db3a5e0"
+  },
+  "reports": [
+    "reports/gen-mapping.json",
+    "reports/gen-model.json",
+    "reports/gen-narrative.json",
+    "reports/gen-valuation.json",
+    "reports/gen-writer.json"
+  ],
+  "integration": {
+    "compute": "ok",
+    "gate_findings": [],
+    "target_price": 297,
+    "rating": "Underperform"
+  }
+}
