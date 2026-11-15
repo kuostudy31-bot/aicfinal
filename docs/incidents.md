@@ -14,6 +14,8 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 | 6 | Catalog-only snapshot hid NVDA's marketable-securities concepts | resolved for new cases |
 | 7 | Five controller defects surfaced by the NVDA and AMD runs | resolved |
 | 8 | AMD run idle after a deliberate interruption (two stalls) | resolved; watchdog + Stop hook (verified live) added |
+| 9 | Live run 8 declined to start: its task conflicted with a stale HANDOVER line | resolved (HANDOVER corrected; run 10) |
+| 10 | Refusals by the guard hook and the privacy plugin were not recorded in the repository | resolved (guard now logs; register in `docs/rejections.md`) |
 
 ## 1. New subagents not visible in the creating session
 * **What happened.** `.claude/agents/` was created during the development session; the Agent
@@ -133,3 +135,28 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   with the resume/hold instruction, the session recorded a hold, and the watchdog then no longer
   listed the case. Limit: a hook runs only while a session is alive. Waking a session that
   no longer runs still needs a person, a new session, or a scheduled check.
+
+## 9. Live run 8 declined to start (2026-11-15 02:12–02:52)
+* **What happened.** The owner asked for AMD revision 2. Run 8 read `docs/HANDOVER.md`, which
+  still said "AMD revision 2: not now; the owner will ask for it". It stopped before opening the
+  case and asked for confirmation.
+* **Why it went unnoticed for 40 minutes.** The coordinator's monitor watched only existing
+  cases. A run that stops before creating its case leaves nothing to watch.
+* **Fix.** HANDOVER now records the owner's 2026-11-15 decisions. The case was run by Live run 10,
+  and run 8 is marked "(未啟動，由 run 10 取代)". The monitor now takes a list of cases that must
+  appear within 8 minutes, and the coordinator checks sessions directly at least every 20 minutes
+  (standing instruction).
+* **Lesson.** The coordinator must update standing documents **before** starting a run that
+  depends on a changed decision.
+
+## 10. Refusals that left no record
+* **What happened.** The owner asked whether every rejection was in the repository. Two kinds were
+  not. (a) The state guard refused three commands in the coordinating session on 2026-11-14
+  (about 15:00, 15:01 and 15:57; see `docs/rejections.md`), and the hook kept no log. (b) About
+  14:27 the privacy plugin refused a command that put the account e-mail into an SEC User-Agent
+  header. That refusal was handled (generic agent name, owner-set `SEC_USER_AGENT`) but never
+  written down.
+* **Fix.** `hooks/guard_state.py` now records every refusal in `.logs/guard_refusals.jsonl` and,
+  while a run is in progress, in that case's (or evolution change's) trace
+  (`tests/test_hooks.py::GuardRecordTests`). `docs/rejections.md` lists every rejection by the
+  workflow, the hooks and the platform, with links to its evidence.

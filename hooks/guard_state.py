@@ -33,7 +33,28 @@ def run_active() -> bool:
         return False
 
 
-def refuse(msg: str):
+def refuse(msg: str, data: dict | None = None):
+    """Refuse the tool call and keep a record: .logs/guard_refusals.jsonl always, and the active
+    case's trace when a case is active, so refusals are evidence rather than lost terminal text."""
+    from datetime import datetime, timezone
+    data = data or {}
+    rec = {"ts": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "actor": "hook",
+           "event": "guard_refused", "tool": data.get("tool_name"), "reason": msg,
+           "session_id": data.get("session_id")}
+    try:
+        (ROOT / ".logs").mkdir(exist_ok=True)
+        with open(ROOT / ".logs" / "guard_refusals.jsonl", "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(rec) + "\n")
+        active = json.loads((ROOT / "cases" / "ACTIVE.json").read_text())
+        if active.get("phase") not in ("generator", "critic", "evo-generator", "evo-critic"):
+            raise LookupError("no run in progress: record in the local log only")
+        target = (ROOT / active["trace_path"]) if active.get("trace_path") else (
+            ROOT / "cases" / active["case_id"] / "trace.jsonl" if active.get("case_id") else None)
+        if target is not None and target.parent.is_dir():
+            with open(target, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(rec, sort_keys=True) + "\n")
+    except Exception:  # noqa: BLE001 - recording must never turn a refusal into an allow
+        pass
     print(f"Refused by hooks/guard_state.py: {msg}", file=sys.stderr)
     sys.exit(2)
 
@@ -49,17 +70,17 @@ def main():
         path = str(ti.get("file_path") or ti.get("notebook_path") or "")
         rel = path.replace(str(ROOT) + "/", "")
         if CONTROL.search(rel):
-            refuse(f"{rel} is controller state; use scripts/eu.py")
+            refuse(f"{rel} is controller state; use scripts/eu.py", data)
         if run_active() and POLICY.search(rel):
-            refuse(f"{rel} is policy and is read-only while a case request is outstanding")
+            refuse(f"{rel} is policy and is read-only while a case request is outstanding", data)
     elif tool == "Bash":
         cmd = str(ti.get("command", ""))
         if "scripts/eu.py" in cmd or "scripts/check.py" in cmd:
             sys.exit(0)
         if CONTROL.search(cmd) and WRITE_OPS.search(cmd):
-            refuse("shell writes to controller state are not allowed; use scripts/eu.py")
+            refuse("shell writes to controller state are not allowed; use scripts/eu.py", data)
         if run_active() and POLICY.search(cmd) and WRITE_OPS.search(cmd):
-            refuse("policy files are read-only while a case request is outstanding")
+            refuse("policy files are read-only while a case request is outstanding", data)
     sys.exit(0)
 
 

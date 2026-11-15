@@ -137,6 +137,8 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
 * Each case: `trace.jsonl` (controller transitions and hook dispatch records), `rounds/`
   (requests, candidates, gate results, reviews, repair packets), `evidence/transcripts/`.
 * `cases/RUN_NOTES.md` and each case's `RUN_NOTES.md`: run logs written by the run sessions.
+* `docs/rejections.md`: every rejection or refusal (evolution, controller, hooks, platform) and
+  where its evidence is.
 * `docs/incidents.md`: every problem met during the build and the runs, with timeline, impact,
   root cause and fix (including the 50-minute AMD stall and the watchdog added for it).
 * `evolution/changes/change-001/`: a prompt change evaluated against the baseline on fixed

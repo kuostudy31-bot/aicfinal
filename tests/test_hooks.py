@@ -31,3 +31,19 @@ class GuardTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GuardRecordTests(unittest.TestCase):
+    def test_refusal_is_recorded_in_log_and_active_trace(self):
+        import os
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "cases" / "X").mkdir(parents=True)
+        (root / "cases" / "ACTIVE.json").write_text(json.dumps({"case_id": "X", "phase": "generator"}))
+        env = dict(os.environ, CLAUDE_PROJECT_DIR=str(root))
+        p = subprocess.run([sys.executable, str(HOOK)], env=env, capture_output=True, text=True,
+                           input=json.dumps({"tool_name": "Write", "session_id": "S1",
+                                             "tool_input": {"file_path": str(root / CTRL)}}))
+        self.assertEqual(p.returncode, 2)
+        self.assertIn("guard_refused", (root / ".logs" / "guard_refusals.jsonl").read_text())
+        self.assertIn("guard_refused", (root / "cases" / "X" / "trace.jsonl").read_text())
