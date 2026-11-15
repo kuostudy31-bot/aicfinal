@@ -2,9 +2,10 @@
   "change_id": "change-001",
   "evaluation_pass": true,
   "parent_version": "v2",
+  "reason": "reviewer rejected",
   "request_id": "evo-20261115T021219-5d5990",
   "review_request_id": "evoc-20261115T021514-3a62e1",
   "role": "gen-writer",
-  "state": "EVALUATED",
-  "updated_at": "2026-11-15T02:15:14Z"
+  "state": "REJECTED",
+  "updated_at": "2026-11-15T02:17:14Z"
 }
