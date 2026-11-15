@@ -1,0 +1,60 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+## Key points
+- Reported: {{fiscal_quarter}} / {{calendar_quarter}} (period ended {{period_end}}) revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially, with gross margin of {{gross_margin_q}} and operating margin of {{operating_margin_q}}.
+- Guidance: management guides next-quarter revenue to {{guide_revenue_next_q}} and gross margin to {{guide_gross_margin_next_q}}; China Data Center compute in the outlook: {{guide_china_data_center_compute_in_outlook}} [[Q-2]].
+- Our forecast: {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}, in line with the guidance midpoint; NTM (next-period) revenue of {{ntm_revenue}} and EPS of {{ntm_eps}}.
+- Valuation: our target price of {{target_price}} against a price of {{price}} implies {{upside}} upside, which places the stock in the {{rating}} band of the house rating policy.
+- Our judgment: operating momentum is very strong, but the current price already discounts more than our model supports.
+
+## Results
+All figures in this section are reported results for {{fiscal_quarter}} ({{calendar_quarter}}), taken from SEC XBRL data or derived from it by code.
+
+- Revenue: {{revenue_q}} ({{revenue_yoy}} year on year, {{revenue_qoq}} quarter on quarter); trailing (TTM) revenue {{revenue_ttm}}.
+- Profitability: gross margin {{gross_margin_q}}, operating margin {{operating_margin_q}}, net income {{net_income_q}}, diluted EPS {{eps_q}}.
+- Cash generation: free cash flow of {{fcf_q}} in the quarter.
+
+Management commentary from the release: [[Q-8]] [[Q-9]] On capital return: [[Q-7]]
+
+Balance sheet and commitments, as reported in the 10-Q: [[Q-13]] [[Q-17]] The release also notes: [[Q-10]] In our judgment, the step-up in purchase commitments signals that management is securing memory supply for continued growth, but it also raises the cost of any demand slowdown.
+
+## Guidance and outlook
+Company guidance (reported, not our forecast) for {{next_q_label}}:
+
+- Revenue: {{guide_revenue_next_q}} [[Q-1]]
+- Gross margin: {{guide_gross_margin_next_q}} [[Q-3]]
+- Operating expenses: GAAP {{guide_gaap_opex_next_q}}, non-GAAP {{guide_non_gaap_opex_next_q}} [[Q-4]]
+- Full-year tax rate: {{guide_tax_rate_fy}} midpoint [[Q-5]]
+- China: [[Q-2]]
+
+Management characterises demand as follows: [[Q-6]] Our judgment is that the guidance implies continued sequential growth with a slightly lower gross margin than the quarter just reported, and that excluding China Data Center compute leaves some upside optionality not in the outlook.
+
+## Model and valuation
+Our forecasts (model output, not reported figures):
+
+- {{next_q_label}}: revenue {{next_q_revenue}}, EPS {{next_q_eps}}.
+- NTM: revenue {{ntm_revenue}}, EPS {{ntm_eps}}.
+
+Valuation (model output):
+
+- DCF value per share: {{dcf_per_share}}; the terminal value accounts for {{terminal_share}} of enterprise value, so the result is sensitive to long-run assumptions.
+- Peer median EV/sales: {{peer_ev_sales}}.
+- Net cash used in the valuation: {{net_cash}}. This is the model's definition and it differs from the liquidity the company reports in the 10-Q ([[Q-13]]); readers should treat the net cash input as a known qualification of the valuation.
+- Blended target price: {{target_price}}, versus a price of {{price}}, implying {{upside}} upside.
+
+Rating: {{rating}}. The implied downside is beyond the Underperform threshold in the house rating policy. In our judgment, the rating reflects valuation rather than any deterioration in the reported business.
+
+## Risks
+Risks to our view (our judgments unless quoted):
+
+- Upside risk to the {{rating}} rating: demand continues to exceed guidance ([[Q-6]]), or China Data Center compute returns to the outlook ([[Q-2]]).
+- Margin risk: gross margin guidance of {{guide_gross_margin_next_q}} is below the reported {{gross_margin_q}}; a larger mix shift or higher memory costs could compress margins further.
+- Commitment risk: larger purchase commitments ([[Q-10]]) increase exposure if demand slows.
+- Valuation risk: with the terminal value at {{terminal_share}} of enterprise value, modest changes to discount rate or long-run growth move the DCF value materially.
+- Balance sheet: a material share of investments is subject to lock-up restrictions ([[Q-17]] [[Q-18]]).
+
+## Disclosures
+- For coursework demonstration only; not investment advice.
+- Data sources and as-of: SEC EDGAR filing accession {{trigger_accession}}, using only information available at the information cutoff (the SEC acceptance time of that filing); the price of {{price}} is the most recent closing price before the cutoff.
+- Rating definitions: Outperform means upside to target at or above the Outperform threshold in the house rating policy; Underperform means upside to target at or below the Underperform threshold in the house rating policy; otherwise Neutral.
+- Figures are generated by code from SEC XBRL data and are unaudited by the author. Forecasts and valuation are model outputs; statements labelled as judgments are the author's opinion.

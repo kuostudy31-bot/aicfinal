@@ -3,13 +3,13 @@
 ## Key points
 - Reported: {{fiscal_quarter}} / {{calendar_quarter}} (quarter ended {{period_end}}) revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter, with gross margin of {{gross_margin_q}} and diluted EPS of {{eps_q}}.
 - Company guidance: management guides next-quarter revenue to {{guide_revenue_next_q}} and non-GAAP gross margin to {{guide_gross_margin_next_q}}: [[Q-1]] [[Q-2]]
-- Our forecast: we model {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}, and next-twelve-months EPS of {{ntm_eps}}.
+- Our forecast: we model {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}, and NTM EPS of {{ntm_eps}}.
 - Our judgment: the operating momentum is strong, but at {{price}} the shares trade well above our target price of {{target_price}} (implied return {{upside}}), so we rate {{ticker}} {{rating}}.
 
 ## Results
 All figures in this section are reported results from the {{trigger_accession}} filing, computed from SEC XBRL data.
 
-- Revenue: {{revenue_q}} in {{fiscal_quarter}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially; trailing-twelve-month revenue reached {{revenue_ttm}}.
+- Revenue: {{revenue_q}} in {{fiscal_quarter}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially; TTM revenue reached {{revenue_ttm}}.
 - Profitability: gross margin was {{gross_margin_q}} and operating margin {{operating_margin_q}}. Net income was {{net_income_q}}, or {{eps_q}} per diluted share.
 - Cash: free cash flow for the quarter was {{fcf_q}}; net cash stands at {{net_cash}}.
 - Management attributes the margin improvement to mix: [[Q-7]]
@@ -31,7 +31,7 @@ Our judgment: the guide implies a further acceleration in sequential growth from
 Our forecasts (not company guidance):
 
 - {{next_q_label}}: revenue {{next_q_revenue}}, EPS {{next_q_eps}}.
-- Next twelve months: revenue {{ntm_revenue}}, EPS {{ntm_eps}}.
+- NTM: revenue {{ntm_revenue}}, EPS {{ntm_eps}}.
 
 Valuation (our calculation): our target price of {{target_price}} blends a discounted cash flow value of {{dcf_per_share}} per share with a peer-multiple cross-check at a peer median EV/Sales of {{peer_ev_sales}}, and includes net cash of {{net_cash}}. The terminal value accounts for {{terminal_share}} of DCF enterprise value, so the result is sensitive to long-run growth and discount-rate assumptions.
 

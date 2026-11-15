@@ -1,0 +1,59 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+## Key points
+- Reported: {{fiscal_quarter}} / {{calendar_quarter}} (period ended {{period_end}}) revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter, with diluted EPS of {{eps_q}}.
+- Reported: GAAP gross margin was {{gross_margin_q}} and operating margin {{operating_margin_q}}; management attributes the year-on-year margin gain to mix, including higher Data Center revenue [[Q-7]].
+- Company guidance: {{next_q_label}} revenue of about {{guide_revenue_next_q}} [[Q-1]] and non-GAAP gross margin of about {{guide_gross_margin_next_q}} [[Q-2]].
+- Our forecast: {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}; next-twelve-month EPS of {{ntm_eps}}.
+- Our judgment: at {{price}} the shares trade well above our blended target of {{target_price}} ({{upside}} implied return), so we rate {{ticker}} {{rating}}.
+
+## Results
+All figures in this section are reported results for {{fiscal_quarter}} / {{calendar_quarter}}, taken from the company's 10-Q and earnings release XBRL data.
+
+- Revenue: {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially. Trailing-twelve-month revenue reached {{revenue_ttm}}.
+- Profitability: GAAP gross margin {{gross_margin_q}}; operating margin {{operating_margin_q}}; net income {{net_income_q}}; diluted EPS {{eps_q}}.
+- Cash: free cash flow for the quarter was {{fcf_q}}, and the balance sheet carries net cash of {{net_cash}}.
+- Management's explanation of the margin trend: [[Q-7]]
+- Demand commentary: [[Q-6]]
+
+Our judgment: growth was strong on both a sequential and year-on-year basis, led by the data-center franchise, but quarterly free cash flow converted only a modest share of net income into cash.
+
+## Guidance and outlook
+Company guidance for {{next_q_label}} (quoted from the earnings release and its accompanying outlook slide):
+
+- Revenue: about {{guide_revenue_next_q}} [[Q-1]]
+- Non-GAAP gross margin: about {{guide_gross_margin_next_q}} [[Q-2]]
+- Operating expenses: about {{guide_opex_next_q}} [[Q-3]]
+- Effective tax rate: {{guide_tax_rate_next_q}} [[Q-4]]
+- Diluted share count: [[Q-5]]
+
+Note that the gross-margin guide is on a non-GAAP basis, whereas the reported {{gross_margin_q}} above is GAAP, so these measures are not directly comparable.
+
+Our judgment: the guide implies continued sequential acceleration, consistent with management's comment that growth should accelerate further as Helios and 'Venice' production scales [[Q-6]].
+
+## Model and valuation
+Our forecasts (from our model assumptions, not company figures):
+
+- {{next_q_label}}: revenue {{next_q_revenue}}, in line with the guidance midpoint; EPS {{next_q_eps}}.
+- Next twelve months: revenue {{ntm_revenue}}; EPS {{ntm_eps}}.
+
+Valuation (our calculations):
+
+- Discounted cash flow value: {{dcf_per_share}} per share, with the terminal value accounting for {{terminal_share}} of enterprise value.
+- Peer cross-check: peer median EV/sales of {{peer_ev_sales}}.
+- Net cash of {{net_cash}} is added to enterprise value.
+- Blended target price: {{target_price}}, versus the most recent closing price before the information cutoff of {{price}}, an implied return of {{upside}}.
+
+Our judgment: the market price already discounts growth well beyond our forecast path. Because the terminal value accounts for a large share of our DCF value, the target is sensitive to long-run margin and discount-rate assumptions; even so, the gap to the current price is wide enough that we rate the shares {{rating}}.
+
+## Risks
+- Upside risk to our rating: faster AI accelerator adoption, a quicker Helios and 'Venice' ramp than modelled [[Q-6]], or sustained multiple expansion across the peer group could keep the shares above our target.
+- Export restrictions: the company discloses that export-control restrictions affect part of its Instinct accelerator range [[Q-8]]; tighter or broader restrictions would hurt data-center revenue.
+- Margin: delivery of the non-GAAP gross-margin guide [[Q-2]] depends on continued favourable mix; a shift toward lower-margin products would pressure earnings.
+- Model risk: our valuation relies heavily on terminal-value assumptions ({{terminal_share}} of enterprise value).
+
+## Disclosures
+- For coursework demonstration only; not investment advice.
+- Data sources: SEC EDGAR filing accession {{trigger_accession}} (the filing that opened this case); information is limited to what was available at the information cutoff, defined as the SEC acceptance time of that filing. The share price {{price}} is the most recent closing price whose session ended before the cutoff.
+- Rating definitions: Outperform when the upside to the target price is at or above the Outperform threshold in the house rating policy; Underperform when the implied return is at or below the Underperform threshold in that policy; otherwise Neutral.
+- All figures are generated by code from SEC XBRL data and are unaudited by the author. Forecasts and valuation outputs are model results; statements labelled as our judgment are the author's opinion.

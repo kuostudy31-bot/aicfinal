@@ -1,0 +1,52 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+## Key points
+- **Reported:** revenue for {{fiscal_quarter}} / {{calendar_quarter}} (quarter ended {{period_end}}) was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially, with diluted EPS of {{eps_q}}. Data Center remained the driver: [[Q-6]]
+- **Company guidance:** next-quarter revenue guidance is {{guide_revenue_next_q}} with gross margin of {{guide_gross_margin_next_q}}, and management excludes China Data Center compute from the outlook: [[Q-2]]
+- **Our forecast:** we model {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}, and next-twelve-month EPS of {{ntm_eps}}.
+- **Our judgment:** at {{price}}, the shares trade above our target price of {{target_price}} ({{upside}} implied return), which places them in the {{rating}} band. Balance-sheet commitments, receivables and inventory all rose sharply this quarter, and we treat that as the main watch item.
+
+## Results
+*Reported figures (from SEC XBRL facts and code-derived values).*
+
+- Revenue: {{revenue_q}} in {{fiscal_quarter}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter; trailing-twelve-month revenue was {{revenue_ttm}}.
+- Profitability: gross margin was {{gross_margin_q}} and operating margin {{operating_margin_q}}. Net income was {{net_income_q}}, or {{eps_q}} per diluted share.
+- Cash generation: free cash flow for the quarter was {{fcf_q}}. Net cash at quarter end was {{net_cash}}.
+- Mix and margin commentary from management: [[Q-6]] [[Q-7]]
+- Capital return: [[Q-11]] By our reading, the amount returned in the quarter exceeded free cash flow of {{fcf_q}}, so it was partly funded from the balance sheet (our judgment).
+- Working capital: [[Q-12]] [[Q-9]]
+
+## Guidance and outlook
+*Company guidance (quoted from the release), followed by our forecasts.*
+
+- Revenue: [[Q-1]] We use the midpoint, {{guide_revenue_next_q}}.
+- Gross margin: [[Q-3]] The midpoint of {{guide_gross_margin_next_q}} is slightly below the reported {{gross_margin_q}}.
+- Operating expenses: [[Q-4]] That is {{guide_opex_gaap_next_q}} GAAP and {{guide_opex_nongaap_next_q}} non-GAAP.
+- Tax: [[Q-5]] The midpoint is {{guide_tax_rate_fy}}.
+- China: [[Q-2]] We read this as leaving some upside if China shipments resume, but we do not model any (our judgment).
+
+**Our forecasts.** For {{next_q_label}} we model revenue of {{next_q_revenue}}, in line with the guidance midpoint, and EPS of {{next_q_eps}}, slightly below the reported {{eps_q}}. The main reason is the lower guided gross margin. Next-twelve-month revenue is {{ntm_revenue}} and EPS {{ntm_eps}}.
+
+## Model and valuation
+*Our valuation outputs (from code, using our assumptions).*
+
+- Our discounted cash flow model gives {{dcf_per_share}} per share. The terminal value accounts for {{terminal_share}} of enterprise value, so the result depends heavily on long-run assumptions.
+- The peer median EV/sales multiple is {{peer_ev_sales}}.
+- Blending the two methods gives a target price of {{target_price}}. Against the last close of {{price}}, that implies {{upside}}, which is inside the {{rating}} band under the policy rating definitions below.
+- Our judgment: the guide shows growth is still strong, but the current price already assumes more than our cash-flow model supports. Our DCF value of {{dcf_per_share}} is well below both the price and the blended target.
+
+## Risks
+*Quoted disclosures, with our judgment on how they matter.*
+
+- **Upside risk to our rating:** demand is stronger than we model or China Data Center sales resume. Current guidance assumes none: [[Q-2]]
+- **Supply commitments:** [[Q-8]] If demand slows, commitments this large could hit margins and cash flow (our judgment).
+- **Receivables quality:** [[Q-9]] Longer payment terms bring revenue forward ahead of cash and concentrate credit exposure (our judgment).
+- **Contingent obligations:** [[Q-10]]
+- **Product transition:** [[Q-12]] Execution on the Vera Rubin ramp, along with the inventory and margin effects of the architecture change, is a near-term risk (our judgment).
+- **Valuation sensitivity:** the terminal value makes up {{terminal_share}} of DCF enterprise value, so small changes in the discount rate or terminal growth assumptions move the target materially.
+
+## Disclosures
+- For coursework demonstration only; not investment advice.
+- Data sources and as-of time: SEC EDGAR filing accession {{trigger_accession}}. The information cutoff is that filing's SEC acceptance time. Reported results cover the quarter ended {{period_end}}. The share price of {{price}} is the last close whose trading session ended before the cutoff. No information from after the cutoff is used.
+- Rating definitions: Outperform means upside to target of fifteen percent or more; Underperform means downside to target of ten percent or more; anything in between is Neutral.
+- All figures are generated by code from SEC XBRL data and the company's release text. The author has not audited them. Forecasts and valuation reflect our assumptions; statements marked as judgment are the author's opinion.
