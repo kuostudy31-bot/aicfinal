@@ -139,8 +139,11 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
 * `cases/RUN_NOTES.md` and each case's `RUN_NOTES.md`: run logs written by the run sessions.
 * `docs/incidents.md`: every problem met during the build and the runs, with timeline, impact,
   root cause and fix (including the 50-minute AMD stall and the watchdog added for it).
-* Evolution (`/evo`, `eu.py evo-*`): implemented and prepared for gen-writer (finding cmp-001);
-  the live run was paused by the owner before producing `evolution/changes/`.
+* `evolution/changes/change-001/`: a prompt change evaluated against the baseline on fixed
+  development and held-out cases and **rejected** by a fresh reviewer, because the code change had
+  already fixed the cause. The active version stays v2. Adoption, versioning and rollback are tested
+  in `tests/test_evolution.py`.
+* `docs/verification/stop_hook.md`: live Stop-hook test (PASS).
 
 ## My contribution
 

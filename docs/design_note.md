@@ -187,13 +187,21 @@ course's QT framework and are the core of this design.
 |---|---|---|
 | `cases/NVDA-0001045810-26-000075` (r1) | STALLED after 2 rounds | Independent critic caught net cash missing about $77bn of securities (asm-001). Specialists reported it as unresolvable in code rather than inventing a figure; the bounded loop stopped and escalated. Also: first run blocked by the nesting limit and resumed from its pending request. |
 | `cases/NVDA-0001045810-26-000075-r2` | **PUBLISHED**, TP $186, Underperform | Case revision for a changed input version; two consecutive clean reviews (6/6 critic passes); delegated, recorded approval; A4 PDF in `report/`. |
+| `docs/verification/stop_hook.md` | PASS | Live Stop-hook test: a run session that tried to end its turn with its case pending was blocked, recorded a hold, and was then no longer listed by the watchdog. |
 | `cases/AMD-0000002488-26-000191` | STALLED (false stop) | Deliberate interruption: `resume` kept 3 completed reports and re-dispatched only 2. Then a gate defect (fixed in 6fddfe2) produced a false stall, recorded in `docs/incidents.md` #7. |
 
 Every case keeps its snapshot hashes, request/round files, controller and hook trace, critic
 reports, and each subagent's transcript under `evidence/transcripts/`. `docs/incidents.md`
-lists the eight problems met during the build and runs, with timelines and fixes. The evolution
-demonstration (`/evo` on gen-writer for finding cmp-001) is prepared and was paused by the
-owner before it produced results.
+lists the eight problems met during the build and runs, with timelines and fixes. **Evolution (`evolution/changes/change-001`, REJECTED):**
+the run proposed a gen-writer prompt edit so that the Disclosures would cite the trigger
+accession, the cutoff and the price date. It then evaluated baseline (v2) against the candidate
+on two development cases and one held-out case. Both arms passed every check, so the evaluation
+could not tell them apart. A fresh evo-reviewer rejected the change for three reasons. The code
+change that supplies the three values (commit 220c535) had already removed the cause. The
+recorded failure had been mislabeled by the coordinator (it reused the ID cmp-001 for a different
+issue). The scope and regression checks passed. The active version stays v2. Adoption,
+versioning and rollback are covered by `tests/test_evolution.py`; a live adoption was not needed,
+because no change has yet earned one.
 
 ## 6. Limitations
 
