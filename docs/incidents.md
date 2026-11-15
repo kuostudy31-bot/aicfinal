@@ -233,3 +233,15 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   (`ReleaseAccessionTests`). The case continued; the writer can cite the key in the repair round.
   For 10-Q cases (NVDA, AMD) the release was also a separate 8-K; their published notes are not
   changed.
+
+## 16. Published PDFs printed a comment and raw table pipes (2026-11-15 08:31, repaired in place)
+* **What happened.** Checking the MU PDF page by page before reporting it, the coordinator found
+  the writer's `<!-- request_id: … -->` marker printed as text on page 1 and the guidance table
+  printed as raw `|` cells. The AMD r2 PDF had the same comment (NVDA r2's note had no marker).
+* **Root cause.** `publish.md_to_tex` handled headings, bullets and bold only.
+* **Fix.** HTML comments are dropped and Markdown pipe tables become booktabs tables
+  (`PublishMarkdownTests`). The PDF now also ends with an **Open review findings** section listing
+  the minor findings that stayed open at approval, so a reader sees them (MU: four, including a
+  share-price source mislabel, cmp-004). The three published notes were re-rendered on
+  2026-11-15. Their approved text, figures, target prices and ratings are unchanged; only the
+  rendering changed and the open-findings section was added (NVDA r2: six, AMD r2: three).

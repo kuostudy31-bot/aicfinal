@@ -114,3 +114,4 @@
 {"actor": "controller", "event": "critic_review_recorded", "open_blocking": [], "request_id": "crit-20261115T082622-d16bf3", "round": 2, "status": "CRITIC_PENDING", "ts": "2026-11-15T08:29:10Z", "verdicts": {"crit-assumption": "pass", "crit-compliance": "pass", "crit-provenance": "pass"}}
 {"actor": "controller", "clean_streak": 2, "event": "research_accepted", "round": 2, "status": "AWAITING_APPROVAL", "ts": "2026-11-15T08:29:10Z"}
 {"actor": "controller", "event": "resume_inspected", "next_action": "wait for a named approver: eu.py approve", "round": 2, "status": "AWAITING_APPROVAL", "ts": "2026-11-15T08:29:17Z"}
+{"actor": "controller", "approver": "Repository owner (kuostudy31-bot); executed by Claude under the owner's delegation of 2026-11-14", "decision": "approve", "event": "approval_recorded", "round": 2, "status": "PUBLISHED", "ts": "2026-11-15T08:30:33Z"}

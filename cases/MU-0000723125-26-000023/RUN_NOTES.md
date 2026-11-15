@@ -119,3 +119,23 @@ mapping.json, narrative.json, assumptions.json, valuation_inputs.json, computed/
 * Transcripts are present in evidence/transcripts/ (orchestrator x2, gen-lead x3, gen-mapping, gen-narrative, gen-model, gen-valuation). A grep for tokens, keys and credentials found no matches, so no lines were removed.
 
 Hold recorded 2026-11-15T07:50:02Z by run session (`eu.py hold` succeeded; status GENERATOR_PENDING with hold set).
+
+## Continued by the coordinating session (owner's repair-in-place rule, 2026-11-15)
+After Live run 14 held the case on gate defects, the owner asked that runs no longer stop and wait
+for a new session. The coordinating session fixed the defects (7f47844, incidents #14), released
+the hold, resumed (only gen-writer re-dispatched) and ran the orchestrator itself.
+
+* Round 1 (gen-20261115T073305-99d304): TP $1,084, Neutral. Review 1 failed on all three critics:
+  majors asm-001 (net cash omits $30.0bn long-term marketable investments), cmp-001 (release cited
+  as part of the 10-K; needs the 8-K accession), prov-001 (guidance quotes with `| |` break the
+  table); seven minors.
+* cmp-001 needed a value code did not supply. Repaired in place: `release_accession` (614c41a,
+  incidents #15); the orchestrator was told while round 2 ran.
+* Round 2 (gen-20261115T080625-5b263d): net cash $68.3bn, FCF year-1 margin 55% → 50%, deposits
+  caveat added, quotes split; TP $1,102, Neutral (+6.4%). Reviews 1 and 2 clean (6/6 critic passes).
+* Findings: 14 opened, 10 closed; open minors asm-004, asm-005, cmp-004, prov-005 (printed in the
+  PDF's "Open review findings" section).
+* Delegated approval 2026-11-15 08:30 UTC (`approvals.jsonl`), published to
+  `report/MU-0000723125-26-000023/`. The PDF check found a rendering defect, fixed (incidents #16).
+* Process notes: leads twice handed back before their specialists finished; the orchestrator
+  waited and re-dispatched without redoing completed work. No invalid submissions.

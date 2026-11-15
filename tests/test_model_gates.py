@@ -217,3 +217,17 @@ class ReleaseAccessionTests(unittest.TestCase):
             shutil.rmtree(tmp, ignore_errors=True)
         self.assertEqual(vals["release_accession"]["display"], "0000723125-26-000018")
         self.assertEqual(vals["trigger_accession"]["display"], "0000723125-26-000023")
+
+
+class PublishMarkdownTests(unittest.TestCase):
+    """The published PDF must not print the writer's HTML comment or raw table pipes (incidents #16)."""
+
+    def test_comment_dropped_and_table_rendered(self):
+        from aicfinal.publish import md_to_tex
+        md = "<!-- request_id: gen-1 -->\nIntro.\n\n| Item | Value |\n|---|---|\n| Revenue | $1bn |\n\nAfter."
+        tex = md_to_tex(md)
+        self.assertNotIn("request_id", tex)
+        self.assertIn(r"\begin{tabular}", tex)
+        self.assertNotIn("|---|", tex)
+        self.assertIn(r"\textbf{Item}", tex)
+        self.assertIn("After.", tex)

@@ -26,11 +26,35 @@ def tex_escape(s: str) -> str:
     return "".join(rep.get(c, c) for c in s)
 
 
+def _table_tex(rows: list[str]) -> list[str]:
+    """A Markdown pipe table as a booktabs tabular with wrapping columns."""
+    cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
+    cells = [c for c in cells if not all(re.fullmatch(r":?-{2,}:?", x) for x in c if x)]
+    n = max(len(c) for c in cells)
+    width = f"{1.0 / n:.3f}"
+    out = [r"\par\smallskip{\small\begin{tabular}{" + ("p{\\dimexpr " + width + r"\linewidth-2\tabcolsep}") * n + "}", r"\toprule"]
+    for i, c in enumerate(cells):
+        c = c + [""] * (n - len(c))
+        out.append(" & ".join(r"\textbf{" + _inline(x) + "}" if i == 0 else _inline(x) for x in c) + r" \\")
+        if i == 0:
+            out.append(r"\midrule")
+    out += [r"\bottomrule", r"\end{tabular}}\par\smallskip"]
+    return out
+
+
 def md_to_tex(md: str) -> str:
-    """Small Markdown subset: ##/### headings, '-' bullets, **bold**, paragraphs."""
-    out, in_list = [], False
-    for raw in md.splitlines():
+    """Small Markdown subset: ##/### headings, '-' bullets, **bold**, pipe tables, paragraphs.
+    HTML comments (the writer's request-id marker) are dropped."""
+    md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
+    out, in_list, table = [], False, []
+    for raw in md.splitlines() + [""]:
         line = raw.rstrip()
+        if line.lstrip().startswith("|"):
+            table.append(line)
+            continue
+        if table:
+            out += _table_tex(table)
+            table = []
         if line.startswith("# "):
             continue  # title is in the header block
         if re.match(r"^\s*[-*] ", line):
@@ -106,6 +130,21 @@ def _table(values: dict, val: dict, path: Path) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def open_findings_section(state: dict) -> str:
+    """Minor findings do not block acceptance, but a reader of the published note should see
+    them: they are appended (check text) with their ledger IDs."""
+    ledger = state.get("ledger") or {}
+    items = ledger.items() if isinstance(ledger, dict) else ((f.get("id"), f) for f in ledger)
+    rows = [(fid, f) for fid, f in items if f.get("status") == "open"]
+    if not rows:
+        return ""
+    out = ["", "## Open review findings", "",
+           "The independent critics recorded these findings. They are minor, so they did not block "
+           "acceptance, and the note above was not changed for them. Readers should take them into account.", ""]
+    out += [f"- {fid} ({f.get('severity', 'minor')}): {f.get('check', '').strip()}" for fid, f in sorted(rows)]
+    return "\n".join(out) + "\n"
+
+
 def render(case_id: str, author: str = "Coursework analyst (AI-assisted workflow)") -> str:
     cdir = ROOT / "cases" / case_id
     st = read_json(cdir / "state.json")
@@ -116,6 +155,7 @@ def render(case_id: str, author: str = "Coursework analyst (AI-assisted workflow
     hist, fc, val, values = (read_json(rec / n) for n in ("history.json", "forecast.json", "valuation.json",
                                                           "values.json"))
     note = (rec / "note_rendered.md").read_text(encoding="utf-8")
+    note += open_findings_section(st)
     approval = st["approval"]
 
     tab = ROOT / "output" / "tables" / case_id / "key_data.tex"

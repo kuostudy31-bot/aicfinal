@@ -11,6 +11,7 @@ and `python3 scripts/eu.py watchdog --minutes 15 --inspect`.
 | NVDA-0001045810-26-000075-r2 | PUBLISHED | TP $186, Underperform; delegated approval recorded; PDF in `report/` |
 | NVDA-0001045810-26-000075 (r1) | STALLED | bounded-loop evidence: asm-001 unfixable with the catalog-only snapshot |
 | AMD-0000002488-26-000191-r2 | PUBLISHED | TP $297, Underperform; 3 rounds; delegated approval 2026-11-15 |
+| MU-0000723125-26-000023 | PUBLISHED | TP $1,102, Neutral; first 10-K case; 2 rounds; three code repairs in place (incidents #12, #14, #15); delegated approval 2026-11-15 08:30 |
 | AMD-0000002488-26-000191 | STALLED (round 2) | interruption/resume evidence (3 reports kept, 2 re-dispatched); then a **false stall** from a gate defect fixed in 6fddfe2 (incidents #7). Revision 2 would continue it; its round-2 inputs can serve as the evolution held-out case |
 
 ## If a run session stopped (usage limit, interruption)
