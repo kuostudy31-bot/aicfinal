@@ -245,3 +245,10 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   share-price source mislabel, cmp-004). The three published notes were re-rendered on
   2026-11-15. Their approved text, figures, target prices and ratings are unchanged; only the
   rendering changed and the open-findings section was added (NVDA r2: six, AMD r2: three).
+
+## 17. Year label at the end of a sentence flagged as an untagged number (found 2026-11-15 08:00)
+* **What happened.** In MU round 1, gen-writer's first compute flagged two sentences ending in
+  "FY2027." The writer reworded them; no figure changed and the case was not blocked.
+* **Fix.** `ALLOWED_TOKEN` rejected any full stop after a year label, to keep out decimals such as
+  "2026.5". It now rejects only a full stop followed by a digit (`YearLabelTests` checks both
+  cases). This removes a false positive; it does not let any number through untagged.

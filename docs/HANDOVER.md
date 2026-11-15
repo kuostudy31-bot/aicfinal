@@ -95,5 +95,7 @@ Adoption is the owner's decision.
   and continues the same case. Never edit acceptance criteria, policies, prompts or limits to make
   a gate pass, and never weaken a gate or a test; a contract extension (such as a new unit) is
   recorded as such. After three repairs in one case, stop and ask the owner.
+* **2026-11-15 ~08:35 UTC, owner: if the usage quota runs out, continue on the owner's purchased
+  credits** (no need to wait for the reset).
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.

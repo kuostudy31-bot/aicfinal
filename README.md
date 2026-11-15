@@ -163,6 +163,14 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
   Rollback is tested in `tests/test_evolution.py`.
 * `docs/verification/stop_hook.md`: live Stop-hook test (PASS).
 
+## A note on the commit history
+
+The history follows the git skill's conventional commit types (`feat`, `fix`, `docs`, `test`,
+`chore`) except for two extra types, `run:` (case progress committed by run sessions) and `evo:`
+(evolution steps). They came from the coordinator's instructions to the run sessions, not from the
+skill. They were kept rather than rewritten, because rewriting would break the recorded commit
+references in the case notes and incident register.
+
 ## My contribution
 
 [To be completed by the student: e.g. choice of the task and coverage, design decisions

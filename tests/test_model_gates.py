@@ -231,3 +231,10 @@ class PublishMarkdownTests(unittest.TestCase):
         self.assertNotIn("|---|", tex)
         self.assertIn(r"\textbf{Item}", tex)
         self.assertIn("After.", tex)
+
+
+class YearLabelTests(unittest.TestCase):
+    def test_year_label_at_sentence_end_is_allowed_but_decimals_are_not(self):
+        vals, quotes = {}, {}
+        self.assertEqual(gates.gate_note("Margins recover in FY2027.", vals, quotes), [])
+        self.assertTrue(gates.gate_note("Growth was 2026.5 units.", vals, quotes))

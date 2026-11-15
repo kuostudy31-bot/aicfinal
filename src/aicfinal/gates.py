@@ -12,7 +12,7 @@ from . import values as V
 from .model import REQUIRED_LINES, latest, latest_aligned
 
 ALLOWED_TOKEN = re.compile(
-    r"(?<![\w$.])(?:FY|CY)?(?:19|20)\d{2}(?:Q[1-4])?(?![\w.%])"   # years, FY2027, CY2026Q2
+    r"(?<![\w$.])(?:FY|CY)?(?:19|20)\d{2}(?:Q[1-4])?(?![\w%]|\.\d)"   # years, FY2027, CY2026Q2 (a full stop may follow)
     r"|\bQ[1-4]\b|\b(?:10-Q|10-K|8-K|EX-99\.\d|S&P\s?500)\b"
     r"|\b(?:H[12])\b"
 )

@@ -88,6 +88,14 @@ refuses direct edits to control files, and during a run it also refuses edits to
 
 ### Long-running operation
 
+* **Defects during a run (process changed on 2026-11-15).** Until then a run session that met a
+  code defect recorded it, put the case on hold and stopped; a new session resumed after the fix.
+  The first 10-K case (MU) stopped twice this way. At the owner's request the coordinating
+  session now runs the case itself and repairs the defect in place: exact error in the case notes,
+  fix plus regression test, full test suite, an incidents entry and a separate commit, then
+  `release` and `resume` of the same case. Acceptance criteria, policies, prompts and limits are
+  never changed to let a case pass; after three repairs in one case the owner decides. MU then ran
+  to publication with one more repair (the release accession, incidents #15).
 * **State and checkpoints.** `cases/<ticker>-<accession>/` holds `case.json` (pinned prompt
   versions, limits, cutoff), `state.json` (status, round, review, pending request, clean
   streak, ledger, artifact hashes), `trace.jsonl` (controller transitions plus hook dispatch
