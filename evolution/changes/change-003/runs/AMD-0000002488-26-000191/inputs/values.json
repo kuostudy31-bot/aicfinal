@@ -1,0 +1,234 @@
+{
+  "calendar_quarter": {
+    "display": "CY2026Q3",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "CY2026Q3"
+  },
+  "dcf_per_share": {
+    "display": "$185.79",
+    "sources": [
+      "valuation.dcf.per_share"
+    ],
+    "value": 185.79098285748898
+  },
+  "eps_q": {
+    "display": "$1.46",
+    "sources": [
+      "F-1e4bc98cca"
+    ],
+    "value": 1.46
+  },
+  "fcf_q": {
+    "display": "$0.6bn",
+    "sources": [
+      "D-161017865b",
+      "D-91daa3cfaa"
+    ],
+    "value": 554000000
+  },
+  "fiscal_quarter": {
+    "display": "FY2026 Q3",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "FY2026Q3"
+  },
+  "gross_margin_q": {
+    "display": "53.9%",
+    "sources": [
+      "F-59fdd96a71",
+      "F-6fa20ae3f8"
+    ],
+    "value": 0.5389848246991105
+  },
+  "guide_diluted_shares_next_q": {
+    "display": "1670000000.0",
+    "sources": [
+      "Q-5"
+    ],
+    "value": 1670000000.0
+  },
+  "guide_gross_margin_next_q": {
+    "display": "55.0%",
+    "sources": [
+      "Q-2"
+    ],
+    "value": 0.55
+  },
+  "guide_opex_next_q": {
+    "display": "$3.8bn",
+    "sources": [
+      "Q-3"
+    ],
+    "value": 3750000000.0
+  },
+  "guide_revenue_next_q": {
+    "display": "$17.0bn",
+    "sources": [
+      "Q-1"
+    ],
+    "value": 17000000000.0
+  },
+  "guide_tax_rate_next_q": {
+    "display": "13.0%",
+    "sources": [
+      "Q-4"
+    ],
+    "value": 0.13
+  },
+  "net_cash": {
+    "display": "$8.7bn",
+    "sources": [
+      "valuation.net_cash"
+    ],
+    "value": 8697000000
+  },
+  "net_income_q": {
+    "display": "$2.4bn",
+    "sources": [
+      "F-313743ab5b"
+    ],
+    "value": 2428000000
+  },
+  "next_q_eps": {
+    "display": "$2.34",
+    "sources": [
+      "forecast.quarters[0].eps"
+    ],
+    "value": 2.3412930041951396
+  },
+  "next_q_label": {
+    "display": "FY2026Q4",
+    "sources": [
+      "assumptions.next_quarters[0].label"
+    ],
+    "value": "FY2026Q4"
+  },
+  "next_q_revenue": {
+    "display": "$17.0bn",
+    "sources": [
+      "forecast.quarters[0].revenue"
+    ],
+    "value": 16999491600.0
+  },
+  "ntm_eps": {
+    "display": "$10.11",
+    "sources": [
+      "forecast.ntm.eps"
+    ],
+    "value": 10.109050054573126
+  },
+  "ntm_revenue": {
+    "display": "$73.1bn",
+    "sources": [
+      "forecast.ntm.revenue"
+    ],
+    "value": 73115255358.3816
+  },
+  "operating_margin_q": {
+    "display": "21.2%",
+    "sources": [
+      "F-8bf147bca4",
+      "F-6fa20ae3f8"
+    ],
+    "value": 0.21170666068625252
+  },
+  "peer_ev_sales": {
+    "display": "16.3x",
+    "sources": [
+      "valuation.peer_median_ev_sales"
+    ],
+    "value": 16.271827182188225
+  },
+  "period_end": {
+    "display": "2026-09-26",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "2026-09-26"
+  },
+  "price": {
+    "display": "$483.90",
+    "sources": [
+      "snapshot/prices.json last close"
+    ],
+    "value": 483.9
+  },
+  "rating": {
+    "display": "Underperform",
+    "sources": [
+      "valuation.rating (policy bands)"
+    ],
+    "value": "Underperform"
+  },
+  "revenue_q": {
+    "display": "$13.4bn",
+    "sources": [
+      "F-6fa20ae3f8"
+    ],
+    "value": 13377000000
+  },
+  "revenue_qoq": {
+    "display": "16.0%",
+    "sources": [
+      "F-6fa20ae3f8",
+      "F-0c22036940"
+    ],
+    "value": 0.15958737864077666
+  },
+  "revenue_ttm": {
+    "display": "$45.4bn",
+    "sources": [
+      "D-da671c66c3",
+      "F-e8860f2d21",
+      "F-0c22036940",
+      "F-6fa20ae3f8"
+    ],
+    "value": 45436000000
+  },
+  "revenue_yoy": {
+    "display": "44.7%",
+    "sources": [
+      "F-6fa20ae3f8",
+      "F-315037b1f4"
+    ],
+    "value": 0.4467878001297858
+  },
+  "target_price": {
+    "display": "$265",
+    "sources": [
+      "valuation.target_price"
+    ],
+    "value": 265
+  },
+  "terminal_share": {
+    "display": "73%",
+    "sources": [
+      "valuation.dcf.terminal_share_of_ev"
+    ],
+    "value": 0.7340369100455572
+  },
+  "ticker": {
+    "display": "AMD",
+    "sources": [
+      "config"
+    ],
+    "value": "AMD"
+  },
+  "trigger_accession": {
+    "display": "0000002488-26-000191",
+    "sources": [
+      "snapshot/manifest.json"
+    ],
+    "value": "0000002488-26-000191"
+  },
+  "upside": {
+    "display": "-45.2%",
+    "sources": [
+      "valuation.upside"
+    ],
+    "value": -0.45236619136185163
+  }
+}

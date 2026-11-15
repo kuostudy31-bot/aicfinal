@@ -1,0 +1,115 @@
+{
+ "request_id": "gen-20261114T152101-24eabe",
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "Revenue is expected to be $108.0 billion, plus or minus 2%."
+  },
+  {
+   "id": "Q-2",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "We are not assuming any Data Center compute revenue from China in our outlook."
+  },
+  {
+   "id": "Q-3",
+   "doc": "release_ex99_2.txt",
+   "topic": "margin",
+   "text": "GAAP and non-GAAP gross margins are expected to be 74.0%, plus or minus 50 basis points."
+  },
+  {
+   "id": "Q-4",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "GAAP and non-GAAP operating expenses are expected to be approximately $9.2 billion and $9.0 billion, respectively."
+  },
+  {
+   "id": "Q-5",
+   "doc": "release_ex99_2.txt",
+   "topic": "guidance",
+   "text": "For the full year fiscal 2027, we expect GAAP and non-GAAP tax rates to be between 16.0% and 18.0%, excluding any discrete items and material changes to our tax environment."
+  },
+  {
+   "id": "Q-6",
+   "doc": "release_ex99_2.txt",
+   "topic": "demand",
+   "text": "Data Center revenue for the second quarter was a record $89.0 billion, up 117% from a year ago and up 18% sequentially, driven by the ramp of our Blackwell Ultra infrastructure."
+  },
+  {
+   "id": "Q-7",
+   "doc": "release_ex99_2.txt",
+   "topic": "margin",
+   "text": "GAAP and non-GAAP gross margins were approximately flat sequentially as our Blackwell architecture remains the vast majority of our revenue."
+  },
+  {
+   "id": "Q-8",
+   "doc": "release_ex99_2.txt",
+   "topic": "risk",
+   "text": "Our commitments increased from $119 billion last quarter to $279 billion, primarily related to the procurement of memory."
+  },
+  {
+   "id": "Q-9",
+   "doc": "release_ex99_2.txt",
+   "topic": "risk",
+   "text": "Accounts receivable was $63.1 billion with 60 days sales outstanding (DSO), up from 45 days sequentially, due to extended payment terms on large, multi-quarter agreements with certain investment-grade customers."
+  },
+  {
+   "id": "Q-10",
+   "doc": "release_ex99_2.txt",
+   "topic": "risk",
+   "text": "Our guarantee obligations are capped at a total of $105 billion and become effective in phases as certain conditions are met, including data centers becoming ready for service, with the first expected in fiscal 2029."
+  },
+  {
+   "id": "Q-11",
+   "doc": "release_ex99_1.txt",
+   "topic": "capital_return",
+   "text": "During the second quarter of fiscal 2027, NVIDIA returned approximately $26.0 billion to shareholders in the form of shares repurchased and cash dividends."
+  },
+  {
+   "id": "Q-12",
+   "doc": "release_ex99_2.txt",
+   "topic": "other",
+   "text": "Inventory was $31.6 billion, up from $25.8 billion sequentially, as we prepare for the introduction of Vera Rubin in the third quarter."
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 108000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1",
+   "low": 105840000000.0,
+   "high": 110160000000.0
+  },
+  {
+   "metric": "gross_margin_next_q",
+   "value": 0.74,
+   "unit": "ratio",
+   "quote_id": "Q-3",
+   "low": 0.735,
+   "high": 0.745
+  },
+  {
+   "metric": "opex_gaap_next_q",
+   "value": 9200000000.0,
+   "unit": "USD",
+   "quote_id": "Q-4"
+  },
+  {
+   "metric": "opex_nongaap_next_q",
+   "value": 9000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-4"
+  },
+  {
+   "metric": "tax_rate_fy",
+   "value": 0.17,
+   "unit": "ratio",
+   "quote_id": "Q-5",
+   "low": 0.16,
+   "high": 0.18
+  }
+ ]
+}

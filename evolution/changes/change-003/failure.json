@@ -1,0 +1,36 @@
+{
+  "acceptance_checks": {
+    "forbid_spelled_quantities": true,
+    "provenance_gate": "no blocker from gates.gate_note",
+    "required_phrases": [],
+    "required_placeholders": []
+  },
+  "change_id": "change-003",
+  "created_at": "2026-11-15T07:34:38Z",
+  "evaluation_cases": {
+    "development": [
+      "NVDA-0001045810-26-000075-r2",
+      "NVDA-0001045810-26-000075"
+    ],
+    "held_out": [
+      "AMD-0000002488-26-000191"
+    ]
+  },
+  "evaluation_design": {
+    "require_baseline_failure": true,
+    "samples_per_arm": 2,
+    "withheld_keys": [
+      "rating_outperform_min",
+      "rating_underperform_max",
+      "cutoff_utc",
+      "price_date"
+    ]
+  },
+  "failure": "Writer spells quantities in words when no code value covers them (NVDA r1 cmp-004; NVDA r2 and AMD r2 'fifteen percent', 'minus ten percent'; NVDA r2 'August twenty-sixth'), which the digit-based provenance gate cannot see",
+  "parent_path": "prompts/gen-writer/v2.md",
+  "parent_version": "v2",
+  "request_id": "evo-20261115T073438-42ad96",
+  "role": "gen-writer",
+  "scope": "prompt file of the target role only (references/policies.md section 5)",
+  "source_case": "NVDA-0001045810-26-000075-r2"
+}

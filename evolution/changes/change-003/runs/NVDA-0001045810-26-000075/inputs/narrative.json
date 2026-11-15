@@ -1,0 +1,157 @@
+{
+ "request_id": "gen-20261114T151853-c21825",
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_1.txt",
+   "topic": "guidance",
+   "text": "Revenue is expected to be $108.0 billion, plus or minus 2%."
+  },
+  {
+   "id": "Q-2",
+   "doc": "release_ex99_1.txt",
+   "topic": "risk",
+   "text": "NVIDIA is not assuming any Data Center compute revenue from China in its outlook."
+  },
+  {
+   "id": "Q-3",
+   "doc": "release_ex99_1.txt",
+   "topic": "margin",
+   "text": "GAAP and non-GAAP gross margins are expected to be 74.0%, plus or minus 50 basis points."
+  },
+  {
+   "id": "Q-4",
+   "doc": "release_ex99_1.txt",
+   "topic": "guidance",
+   "text": "GAAP and non-GAAP operating expenses are expected to be approximately $9.2 billion and $9.0 billion, respectively."
+  },
+  {
+   "id": "Q-5",
+   "doc": "release_ex99_1.txt",
+   "topic": "guidance",
+   "text": "For the full year fiscal 2027, NVIDIA expects GAAP and non-GAAP tax rates to be between 16.0% and 18.0%, excluding any discrete items and material changes to NVIDIA’s tax environment."
+  },
+  {
+   "id": "Q-6",
+   "doc": "release_ex99_1.txt",
+   "topic": "demand",
+   "text": "And demand is accelerating."
+  },
+  {
+   "id": "Q-7",
+   "doc": "release_ex99_1.txt",
+   "topic": "capital_return",
+   "text": "During the second quarter of fiscal 2027, NVIDIA returned approximately $26.0 billion to shareholders in the form of shares repurchased and cash dividends."
+  },
+  {
+   "id": "Q-8",
+   "doc": "release_ex99_2.txt",
+   "topic": "demand",
+   "text": "Data Center revenue for the second quarter was a record $89.0 billion, up 117% from a year ago and up 18% sequentially, driven by the ramp of our Blackwell Ultra infrastructure."
+  },
+  {
+   "id": "Q-9",
+   "doc": "release_ex99_2.txt",
+   "topic": "margin",
+   "text": "GAAP and non-GAAP gross margins were approximately flat sequentially as our Blackwell architecture remains the vast majority of our revenue."
+  },
+  {
+   "id": "Q-10",
+   "doc": "release_ex99_2.txt",
+   "topic": "other",
+   "text": "Our commitments increased from $119 billion last quarter to $279 billion, primarily related to the procurement of memory."
+  },
+  {
+   "id": "Q-11",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "Marketable debt securities | 34,143 | | | 39,065"
+  },
+  {
+   "id": "Q-12",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "Marketable equity securities | 42,783 | | | 12,886"
+  },
+  {
+   "id": "Q-13",
+   "doc": "periodic.txt",
+   "topic": "liquidity",
+   "text": "As of July 26, 2026, we had $56.6 billion in cash, cash equivalents, and marketable debt securities as well as $42.8 billion of marketable equity securities."
+  },
+  {
+   "id": "Q-14",
+   "doc": "periodic.txt",
+   "topic": "liquidity",
+   "text": "Cash, cash equivalents, and marketable debt securities | $ | 56,586 | | | $ | 49,670"
+  },
+  {
+   "id": "Q-15",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "Debt securities issued by the U.S. Treasury | Level 2 | | $ | 45,367 | | | $ | 8 | | | $ | (54) | | | $ | 45,321 | | | $ | 12,318 | | | $ | 33,003 | | | $ | — | | | $ | —"
+  },
+  {
+   "id": "Q-16",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "Debt securities issued by U.S. government agencies | Level 2 | | 1,541 | | | — | | | (2) | | | 1,539 | | | 399 | | | 1,140 | | | — | | | —"
+  },
+  {
+   "id": "Q-17",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "(1) Included $36.9 billion of investments that are subject to short-term lock-up restrictions on the ability to sell."
+  },
+  {
+   "id": "Q-18",
+   "doc": "periodic.txt",
+   "topic": "balance_sheet",
+   "text": "(2) The long-term portion of publicly-held equity securities, which are subject to lock-up restrictions through December 2027 of $5.0 billion as of July 26, 2026, was included in Other assets."
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 108000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1",
+   "low": 105840000000.0,
+   "high": 110160000000.0
+  },
+  {
+   "metric": "gross_margin_next_q",
+   "value": 0.74,
+   "unit": "ratio",
+   "quote_id": "Q-3",
+   "low": 0.735,
+   "high": 0.745
+  },
+  {
+   "metric": "gaap_opex_next_q",
+   "value": 9200000000.0,
+   "unit": "USD",
+   "quote_id": "Q-4"
+  },
+  {
+   "metric": "non_gaap_opex_next_q",
+   "value": 9000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-4"
+  },
+  {
+   "metric": "tax_rate_fy",
+   "value": 0.17,
+   "unit": "ratio",
+   "quote_id": "Q-5",
+   "low": 0.16,
+   "high": 0.18
+  },
+  {
+   "metric": "china_data_center_compute_in_outlook",
+   "value": "none assumed",
+   "unit": "text",
+   "quote_id": "Q-2"
+  }
+ ]
+}
