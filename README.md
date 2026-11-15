@@ -29,8 +29,8 @@ prompt cannot do it reliably. See the design note for the full rationale.
 
 **Scope of this submission.** The seven tickers above are the configured coverage: the watcher
 monitors all of them, and the code handles any of them. Within the project period, research cases
-were run for **three** companies only: **NVDA** and **AMD** (10-Qs; both notes published) and
-**MU** (FY2026 10-K, the first 10-K case). **INTC, AVGO, MRVL and AMAT have no case** in this
+were run for **three** companies only: **NVDA** and **AMD** (10-Qs) and **MU** (FY2026 10-K, the
+first 10-K case); all three notes are published. **INTC, AVGO, MRVL and AMAT have no case** in this
 repository. The fourteen comparables (LRCX, KLAC, SNPS, CDNS, ALAB, CRDO, MPWR and the covered
 names) enter only as peer data inside each case's snapshot.
 
@@ -50,9 +50,11 @@ names) enter only as peer data inside each case's snapshot.
 | `scripts/eu.py` | controller CLI (`watch`, `open`, `request`, `compute`, `submit`, `resume`, `status`, `approve`, `stop`, `publish`, `evo-*`) |
 | `scripts/check.py`, `tests/` | regression tests: controller transitions, gates, XBRL handling, leakage perturbation |
 | `cases/<TICKER>-<ACCESSION>/` | live case evidence: snapshot, rounds, trace, approvals, transcripts |
-| `cases/RUN_NOTES.md`, `STATUS.md` | run log (including the interruption and resume) and status board |
+| `cases/RUN_NOTES.md`, `cases/*/RUN_NOTES.md`, `STATUS.md` | run logs (interruptions, resumes, in-place repairs) and status board |
 | `evolution/changes/` | evolution change folders (failure, proposal, evaluation, review, status) |
-| `report/`, `output/` | rendered PDF notes and their generated tables and figures |
+| `report/`, `output/` | rendered PDF notes (NVDA, AMD, MU) and their generated tables and figures |
+| `docs/incidents.md`, `docs/interruptions.md`, `docs/rejections.md`, `docs/HANDOVER.md` | problem register, interruption register, rejection register, coordinator handover and owner decisions |
+| `events/events.jsonl` | filings detected by `eu.py watch` (the MU trigger) |
 | `AGENTS.md`, `CLAUDE.md` | instructor's finance profile and the Claude Code project instructions |
 | `docs/course/` | assignment and lecture PDFs |
 
@@ -173,11 +175,66 @@ references in the case notes and incident register.
 
 ## My contribution
 
-[To be completed by the student: e.g. choice of the task and coverage, design decisions
-made in discussion (topic A, AI-semiconductor scope, English notes, Claude Code subagents,
-mandatory orchestrator/generator-lead/critic-lead roles), review of the agent definitions and
-outputs, the approval decisions recorded in `approvals.jsonl`, and the adoption decision for
-the evolution change.] The code, prompts and documents were developed with Claude Code
-(AI-assisted). The commit history records the development steps.
+This project was built with Claude Code as an AI pair-programmer. I directed the work, made the
+design and approval decisions, and reviewed the results. Claude Code wrote most of the code, the
+prompts and the documents under that direction. The commit history and the registers in `docs/`
+show this process step by step.
+
+**Problem framing and scope**
+* Chose the task after comparing several finance directions within the US/HK-equity constraint and
+  benchmarking the scope against the instructor's long-running workflow framework
+  (`docs/course/3_long_run_workflows.pdf`).
+* Studied two commercial products (Harvey's legal-work orchestration, Rogo) to decide which ideas
+  to borrow, such as staged agents, human sign-off and auditability.
+* Chose a sell-side earnings-update workflow for AI-semiconductor stocks and English notes. I
+  widened the coverage beyond the first proposal and picked the seven names (NVDA, AMD, INTC,
+  AVGO, MRVL, MU, AMAT). Given the deadline, I limited the live research cases to three of them
+  (NVDA, AMD and MU) and kept the other four as configured but untested coverage.
+
+**Architecture decisions**
+* Decided to use Claude Code subagents. I required an orchestrator, a generator lead and a critic
+  lead in every design. That requirement produced the 13-agent team around a deterministic
+  Python controller.
+* Installed the instructor's practitioner skills and asked that they be used where they fit
+  (brainstorming, latex, plot, git and others).
+
+**Running and supervising the workflow**
+* Set the deadline-driven plan. I delegated publication approval and recorded that delegation, but
+  kept adoption of system changes (evolution) as my own decision.
+* Questioned the outputs as they arrived:
+  * why only NVDA and AMD had cases;
+  * what the SEC User-Agent setting was for;
+  * how runs differed between revisions;
+  * how an interruption would be resumed and whether it was recorded;
+  * whether every rejection and interruption was in the repository.
+* These questions led to the resume procedure, the watchdog and Stop hook, `docs/interruptions.md`
+  and `docs/rejections.md`.
+* Paused the first evolution run, then ordered the AMD revision 2, the evolution restart and the
+  live Stop-hook test.
+* Set a standing instruction that stuck run sessions must be checked regularly and either unblocked
+  or replaced. When the MU case stopped twice on code defects, I changed the process: defects are
+  now repaired in place and the same case continues, instead of stopping and waiting for a new
+  session.
+* Challenged the AMD rating: an Underperform target of $297 against a market price near $484.
+  I chose to document the published ratings as low-conviction (DCF-driven) rather than tune the
+  valuation after seeing the result.
+
+**Self-improvement loop**
+* Asked why no new evolution had started after the first rejection. This led to the diagnosis of
+  recurring findings and to change-002.
+* After two evidence-based rejections, asked for a third attempt (change-003) whose evaluation
+  kept the failure condition. Decided to adopt it (gen-writer v2 → v3) only together with a
+  post-adoption check, which passed.
+* Asked for an additional case on MU's 10-K. That case exposed three 10-K defects, which were
+  fixed. The note was published at a $1,102 target price with a Neutral rating.
+
+**What I checked**
+* The published notes, the approval rationales in each `approvals.jsonl`, and the evolution
+  evaluations and reviews.
+* Whether the documentation matched what was actually run. I noticed that the README and the
+  design note implied all seven companies had been researched; they now state the scope that was
+  actually exercised.
+* Whether the git skill had been followed. The `run:`/`evo:` commit types deviate from it (see
+  "A note on the commit history").
 
 *For coursework demonstration only; not investment advice.*

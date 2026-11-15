@@ -247,13 +247,14 @@ issue). The scope and regression checks passed. Rollback is covered by
 
 ## 6. Limitations
 
-* **Low-conviction ratings driven by a conservative DCF.** Both published ratings come mostly
-  from the DCF leg, and the two valuation methods disagree widely:
+* **Low-conviction ratings driven by a conservative DCF.** All three published ratings come
+  mostly from the DCF leg, and the two valuation methods disagree widely:
 
   | Case | DCF / share | Peer EV/Sales / share | Blended TP | Last close | Upside |
   |---|---|---|---|---|---|
   | NVDA r2 | $141.68 | $289.88 | $186 | $209.66 | -11.3% |
   | AMD r2 | $195.37 | $450.35 | $297 | $483.90 | -38.6% |
+  | MU | $862.83 | $1,818.58 | $1,102 | $1,035.84 | +6.4% |
 
   The DCF uses a five-year explicit horizon. Growth fades fast (AMD: 25% to 8% in years 2-5,
   against 45% year-on-year growth in the quarter), FCF margins are anchored on history, and there
