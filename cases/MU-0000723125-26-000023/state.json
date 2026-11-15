@@ -6,6 +6,11 @@
   "clean_streak": 0,
   "cutoff_utc": "2026-10-09T12:21:00Z",
   "dispatch_counts": {},
+  "hold": {
+    "at": "2026-11-15T07:50:02Z",
+    "by": "run session",
+    "reason": "Code defect in src/aicfinal/gates.py blocks generator round 1: gate_quotes divides every USD guidance value by 1e9 so per-share EPS guidance (37.84, 38.15) shows as 0.0 and cannot match Q-4; gate_mapping flags eps_diluted as stale on the 10-K derived Q4 that has no diluted EPS by design. Needs a code-owner fix (incidents #12 follow-up)."
+  },
   "invalid_submissions": 0,
   "ledger": {},
   "limits": {
@@ -45,5 +50,5 @@
   "snapshot_manifest_sha256": "0d1e5e4c919047a6c9598ba1a1d515855a5beabf9b4542e4e82dedbbfd8846b2",
   "status": "GENERATOR_PENDING",
   "ticker": "MU",
-  "updated_at": "2026-11-15T07:44:56Z"
+  "updated_at": "2026-11-15T07:50:02Z"
 }

@@ -89,3 +89,33 @@ Entry session synced to origin/claude/trusting-thompson-r5m3id at a89f54a (the l
   ]
 }
 ```
+
+### Outcome of Live run 14: HELD again in GENERATOR_PENDING, round 1
+Request gen-20261115T073305-99d304. The diluted-shares fix in a89f54a worked: gen-valuation finished, and `eu.py compute` exited 0 with **target price 1084, rating Neutral** (from computed/values.json; no note was written and nothing was submitted or accepted). gen-lead then stopped on three major gate findings caused by code defects in `src/aicfinal/gates.py`. The entry session checked those read-only and did not patch code.
+
+* Rounds: 1, still in progress. Controller submits: none. Critic findings: none opened or closed (no critic round ran).
+* eu.py: no REFUSED and no traceback. The blocker is the gate defects below, as reported by the orchestrator and gen-lead.
+
+#### Error (exact gate findings, all major)
+```
+gate-stale-eps_diluted (stale_mapping): 'eps_diluted' has no value in the latest quarter (last 2026-05-28); the company may have switched XBRL concepts, and treating it as zero would bias the model
+gate-guidance-eps_next_q_gaap (guidance_source): eps_next_q_gaap value 0.0 not visible in Q-4
+gate-guidance-eps_next_q_nongaap (guidance_source): eps_next_q_nongaap value 0.0 not visible in Q-4
+```
+* **gate_quotes (`gates.py` ~146-160):** `v = x / 1e9 if g["unit"] == "USD" else x * 100`. Per-share EPS guidance (37.84, range 36.84-38.84; 38.15, range 37.15-39.15) is scaled to 0.0 and cannot match Q-4 ("$37.84 ± $1.00 | | $38.15 ± $1.00"). The contract allows only the units USD, ratio and text, so no unit fits per-share guidance.
+* **gate_mapping (`gates.py` 32-37):** any optional line whose last value is None is flagged. A 10-K's derived Q4 (2026-09-03) has no diluted EPS by design. a89f54a fixed `model.latest()` and `gate_eps` but not this gate. The EarningsPerShareDiluted mapping is correct.
+* **Workarounds not applied** (they would hide the defects): tagging the EPS guidance `unit: "text"`, or unmapping eps_diluted. That decision belongs to the code owner.
+* **Open question for gen-mapping/critics:** net cash leaves out $30.019B of long-term marketable investments (AvailableForSaleSecuritiesDebtSecuritiesNoncurrent, F-5368223b24). Including them would add about $26 per share; gen-valuation says the rating would stay Neutral.
+
+#### Work kept
+mapping.json, narrative.json, assumptions.json, valuation_inputs.json, computed/values.json, and the reports from gen-mapping, gen-narrative, gen-model and gen-valuation. Still missing: gen-writer, note.md, manifest.json.
+
+#### To resume after the fix
+`eu.py release`, then `eu.py resume`. Dispatch gen-lead for gen-writer, compute and the manifest, then `eu.py submit` and crit-lead. Never run `eu.py approve` from a run session.
+
+#### Session notes
+* The local branch had the stale tip 47fec25 again; the entry session reset to origin at a89f54a and kept `backup/pre-forcepush-47fec25`.
+* The orchestrator handed back early once, before gen-lead returned. It was resumed with the same agent and told not to start a second gen-lead. gen-valuation's hand-back reached the entry session directly, and the entry session forwarded it to the orchestrator without acting on it.
+* Transcripts are present in evidence/transcripts/ (orchestrator x2, gen-lead x3, gen-mapping, gen-narrative, gen-model, gen-valuation). A grep for tokens, keys and credentials found no matches, so no lines were removed.
+
+Hold recorded 2026-11-15T07:50:02Z by run session (`eu.py hold` succeeded; status GENERATOR_PENDING with hold set).
