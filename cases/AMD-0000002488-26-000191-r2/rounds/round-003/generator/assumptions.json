@@ -1,0 +1,38 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "tax_rate": 0.13,
+  "share_change_qoq": 0.002,
+  "next_quarters": [
+    {
+      "label": "FY2026Q4",
+      "revenue_qoq": 0.271,
+      "gross_margin": 0.534,
+      "opex_pct_revenue": 0.28
+    },
+    {
+      "label": "FY2027Q1",
+      "revenue_qoq": 0.02,
+      "gross_margin": 0.535,
+      "opex_pct_revenue": 0.285
+    },
+    {
+      "label": "FY2027Q2",
+      "revenue_qoq": 0.06,
+      "gross_margin": 0.538,
+      "opex_pct_revenue": 0.28
+    },
+    {
+      "label": "FY2027Q3",
+      "revenue_qoq": 0.08,
+      "gross_margin": 0.54,
+      "opex_pct_revenue": 0.275
+    }
+  ],
+  "rationales": {
+    "revenue_qoq": "FY2026Q4: anchored on the guidance midpoint of $17.0B (Q-1, range $16.49B-$17.51B) versus FY2026Q3 revenue of $13.377B (F-6fa20ae3f8), i.e. 17.0/13.377 - 1 = +27.1% q/q, consistent with the release's stated ~27% sequential increase; supported by Q-3/Q-4 (accelerating Data Center demand, Helios and Venice production ramp). Later quarters (analyst judgment, no guidance): FY2027Q1 +2%, Q2 +6%, Q3 +8%. History shows a seasonally flat Q1 (FY2025Q1 -2.9%, F-d0545641b8 vs D-edca811136; FY2026Q1 -0.2%, F-e8860f2d21 vs D-da671c66c3) followed by strong growth (FY2026Q2 +12.5%, F-0c22036940; Q3 +16.0%, F-6fa20ae3f8). We deliberately grow more slowly than the FY2026Q2-Q4 trend because the Q4 step-up embeds a lumpy rack-scale (Helios) ramp off a much higher base, and export-control risk (Q-6) can interrupt shipments. Customer-warrant contra-revenue: the company had $4.5B of unrecognized grant-date fair value on unvested customer warrants 'that would be recorded as a reduction of revenue proportionally as qualifying customer revenue is recognized' (Q-15; accounting policy in periodic.txt Note on warrants: warrant fair value is consideration payable to a customer under ASC 606). The FY2026Q4 forecast is anchored on Q-1, which is reported GAAP revenue guidance. Our judgment, not a quoted statement: that guidance would already be net of any Q4 warrant contra-revenue. The release does not say so explicitly, and it does not quantify the Q4 amount. For FY2027Q1-Q3 the growth rates are applied to that reported (net) base, so they are reported-revenue growth rates. Contra-revenue from Q-15 will reduce later reported revenue as qualifying sales to the warrant-holding customers occur (the same Data Center/Helios ramp as Q-3/Q-4). We do not model a separate contra-revenue line, and the filing gives no timing schedule for the $4.5B. Still, our deliberately below-trend FY2027 growth leaves room for this drag. If qualifying sales accelerate, reported revenue would trail gross shipments by the proportional warrant charge.",
+    "gross_margin": "Model gross margin is GAAP (gross_profit / revenue). Guidance is NON-GAAP ~55% (Q-2), which is not the same measure: the release reconciliation adds back amortization of acquisition-related intangibles in cost of sales ($257M in Q3), SBC ($9M) and legal contingency ($7M); non-GAAP exceeded GAAP by ~2.0 ppts in FY2026Q3 (56% vs 54%; GAAP 7,210/13,377 = 53.9%, F-59fdd96a71 / F-6fa20ae3f8) and ~2.5 ppts in FY2026Q2. Applying the recurring items (~$266M amortization+SBC) to $17.0B revenue gives a ~1.6 ppt gap, so FY2026Q4 GAAP gross margin = 55% - 1.6 ppts = 53.4%. The guided non-GAAP step down from 56% to 55% despite higher revenue implies some mix dilution from rack-scale systems; we assume modest recovery thereafter (53.5%, 53.8%, 54.0%) as fixed intangible amortization becomes a smaller share of a larger revenue base and Data Center mix stays favorable (Q-5), without assuming a return to the 56% non-GAAP level.",
+    "opex_pct_revenue": "Opex here is total GAAP operating expenses (gross profit minus operating income), including R&D, MG&A and amortization of intangibles in opex. Recent ratios: FY2026Q3 32.7% (4,378/13,377; F-59fdd96a71 - F-8bf147bca4), FY2026Q2 36.5% (6,203-1,990 = 4,213 / 11,536), FY2026Q1 38.4%. Opex dollars grew ~4-7% q/q (R&D F-f4fd4832e3 up 10.9% in Q3; MG&A F-d6dae5c527 down 7.4%). No opex guidance was given (narrative). FY2026Q4: assume opex rises ~9% q/q to ~$4.76B, i.e. 28.0% of the guided $17.0B (Q-1) - operating leverage from the revenue step-up, consistent with Q-4's 'accelerating revenue and earnings growth'. FY2027Q1: 28.5% as revenue is roughly flat while R&D investment continues; Q2/Q3 28.0%/27.5% as revenue growth resumes and opex grows slower than revenue.",
+    "tax_rate": "13%. No GAAP tax guidance. GAAP effective rates are distorted by discrete items, which we treat as non-recurring: FY2026Q3 was (29.6)% (income tax benefit $555M on pretax $1,868M; Q-8, F-6d8df45918, F-ae63863312), which included a $772M discrete tax benefit related to stock-based compensation (Q-7); 9M FY2026 was (1.1)% (Q-8, F-807ae09a1d, F-4ed7c89314), which included $918M of discrete SBC benefits (Q-7). Excluding those discrete benefits, Q3 is ~11.6% ((-555+772)/1,868) and 9M ~14.2% ((-65+918)/6,023); FY2026Q2 was 9.9% (F-7a2127a1dd / F-6811ec3d1a) and FY2026Q1 14.8% (F-4e464faa38 / F-70a0755c67). 13% sits in that range and matches the company's stated projected FY2026 non-GAAP normalized tax rate of 13% (release_ex99_1.txt footnote). The quarter's reported (29.6)% is not used as a run-rate. We do not forecast future discrete tax benefits. The noncash warrant-liability remeasurement charge in other income (expense), net (Q-9 to Q-11) sits below operating income and is a pretax one-off. It does not enter the operating forecast drivers set here and is not projected to recur.",
+    "share_change_qoq": "+0.2% per quarter, from the historical diluted-share trend only. Diluted shares rose from 1,641M (FY2025Q3, F-241b09e612) to 1,661M (FY2026Q3, F-15b3d74691), ~+1.2% per year or ~+0.3% per quarter, with only +0.1% in the latest quarter (from 1,659M, F-56e3170785); +0.2% q/q blends the two. This drift deliberately excludes the contingently issuable customer warrant shares. AMD issued two customer warrants, each for up to 160 million shares at $0.01 (Q-12), a combined up to 320 million shares (Q-18). They are not settleable in cash (Q-13). No warrant shares had vested or become exercisable as of 2026-09-26 (Q-16), and they are excluded from basic and diluted EPS share counts until the vesting and exercisability conditions are met (Q-17). So the reported 1,661M diluted share count (F-15b3d74691) contains none of them. Full vesting would add up to 320M shares, about 19% of ~1,661M diluted shares (320/1,661 = 19.3%; our arithmetic). Vesting depends on purchase milestones and other conditions, and the filing gives no timing, so the dilution is a step contingency, not a smooth quarterly trend. We do not fold it into share_change_qoq. Instead, gen-valuation handles it as a disclosed per-share valuation sensitivity (see valuation_inputs.json rationales). Leaving it out here understates potential dilution of forecast EPS if tranches vest within the four-quarter horizon."
+  }
+}

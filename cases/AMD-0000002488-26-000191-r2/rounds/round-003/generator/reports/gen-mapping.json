@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "No mapping findings owned this round (open: asm-002 valuation/warrants, cmp-001 disclosure wording). Round-2 mapping re-verified against the snapshot (revenue, net income, cash concepts have data to 2026-09-26) and re-issued unchanged under the new request_id. 19 of 20 lines mapped; liabilities deliberately null (no data)."
+}

@@ -16,9 +16,17 @@
       "narrative.json": "b2b3412dd123cb4b464ceb1d65f53cabbacba9f7849fa71dcbd91257f3d50303",
       "note.md": "eef450a48285db9686ffc1fda2cebd3b77fe4662c2e73ce1fea89a44a1688bba",
       "valuation_inputs.json": "1808738f78eca1364ed21ed5727f212d29924c6d69adaa9a3c39c4f68db3a5e0"
+    },
+    "round-003": {
+      "assumptions.json": "4b4bbf7fa35009bdd56b6537e482fed02cdf7e1f8612c32c61f4bf8694d89a32",
+      "gates.json": "0970a167e6dccd5b9eac35771a716d6bcf7c4f667fa0d7c838e32ae84bcc9db9",
+      "mapping.json": "750f567b37c10eeaa71ad7197f9dce5eda4b5fe5ffa150d1ad0c838c53531efe",
+      "narrative.json": "3a057ae515a728328a832554cad55594932a6e0e762a3b541bde706bef35ecd0",
+      "note.md": "63cbcfd6d27f5ab564f03c0bb4173ef39c6f76c177efed2528f179de468dad93",
+      "valuation_inputs.json": "e7f18e8749a9560cd06f74ab41075b26e8393530cfcf8f33dc7eb65c6bb2bf91"
     }
   },
-  "candidate_id": "cand-301a62855764",
+  "candidate_id": "cand-9de0c1419071",
   "case_id": "AMD-0000002488-26-000191-r2",
   "clean_streak": 0,
   "cutoff_utc": "2026-11-03T23:00:17Z",
@@ -26,7 +34,8 @@
     "crit-20261115T030030-1acfec": 4,
     "crit-20261115T032107-8539c4": 4,
     "gen-20261115T025408-b38ac7": 6,
-    "gen-20261115T031048-ced865": 6
+    "gen-20261115T031048-ced865": 6,
+    "gen-20261115T033055-31f7b7": 6
   },
   "invalid_submissions": 0,
   "ledger": {
@@ -113,10 +122,10 @@
   ],
   "opened_at": "2026-11-15T02:54:08Z",
   "pending": {
-    "issued_at": "2026-11-15T03:30:55Z",
-    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-003/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261115T033055-31f7b7"
+    "issued_at": "2026-11-15T03:40:47Z",
+    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-003/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261115T034047-edf44a"
   },
   "period_of_report": "2026-09-26",
   "prompt_versions": {
@@ -134,10 +143,10 @@
     "gen-writer": "v2",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 3,
   "snapshot_manifest_sha256": "78ed765a2ad8beddc8831bd683d2913cd7407ee373c3fee22547cca377ac8bb1",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "AMD",
-  "updated_at": "2026-11-15T03:30:55Z"
+  "updated_at": "2026-11-15T03:40:47Z"
 }

@@ -1,0 +1,70 @@
+[
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "Revenues"
+    },
+    "ev": 4992152000000.0,
+    "ev_sales": 16.477434985097485,
+    "market_cap": 4981229000000.0,
+    "net_income_ttm": 192879000000,
+    "pe": 25.825667905785494,
+    "price": 206.69,
+    "price_date": "2026-11-03",
+    "revenue_ttm": 302969000000,
+    "ticker": "NVDA",
+    "ttm_end": "2026-07-26"
+  },
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLossAvailableToCommonStockholdersBasic",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 1620909687062.45,
+    "ev_sales": 18.19121124823184,
+    "market_cap": 1585465687062.45,
+    "net_income_ttm": 11633000000,
+    "pe": 136.2903539123571,
+    "price": 332.13,
+    "price_date": "2026-11-03",
+    "revenue_ttm": 89104000000,
+    "ticker": "AVGO",
+    "ttm_end": "2026-08-02"
+  },
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 151830593000.0,
+    "ev_sales": 16.066219379278966,
+    "market_cap": 150800493000.0,
+    "net_income_ttm": 2639900000,
+    "pe": 57.12356263494829,
+    "price": 171.97,
+    "price_date": "2026-11-03",
+    "revenue_ttm": 9450300000,
+    "ticker": "MRVL",
+    "ttm_end": "2026-08-01"
+  },
+  {
+    "calendar": "TTM to CY2026Q3",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 346562250000.0,
+    "ev_sales": 5.7864531156080945,
+    "market_cap": 321823250000.0,
+    "net_income_ttm": -12032000000,
+    "pe": null,
+    "price": 60.55,
+    "price_date": "2026-11-03",
+    "revenue_ttm": 59892000000,
+    "ticker": "INTC",
+    "ttm_end": "2026-09-26"
+  }
+]

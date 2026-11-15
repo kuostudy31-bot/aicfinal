@@ -1,0 +1,17 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [
+    {
+      "finding": "asm-002",
+      "action": "Model and valuation now has three changes. (1) The net-cash bullet carries a labelled judgment: the customer-warrant liability is excluded from {{net_cash}} because it is equity-settled ([[Q-13]], not settleable in cash), and its economic cost is captured by the dilution sensitivity instead. (2) A new 'Customer warrants' bullet quotes [[Q-12]] (two warrants, each up to 160M shares at $0.01) and [[Q-16]] (none vested). It paraphrases Q-17 (contingently issuable, excluded from diluted EPS) and says the warrant shares are therefore excluded from the share count behind {{target_price}}. A labelled judgment gives direction and size in words, with no digits: full vesting would lower the target by roughly one-sixth. This is an upper bound, not an expected value; the analyst arithmetic is in valuation_inputs.json rationales.customer_warrants and is not a code output. Because dilution pushes the implied return further below the {{rating_underperform_max}} band, the rating would remain {{rating}}. (3) A new 'Warrant contra-revenue' bullet quotes [[Q-15]] ($4.5bn to reduce revenue). It states that future reported revenue will be reduced as qualifying sales occur, and that we treat this as non-cash without cutting forecast cash flow, to avoid double counting (judgment). Risks gets a one-line dilution-risk bullet pointing to the valuation section. Q-14, Q-17 (as a quote) and Q-18 are not used, to keep the note short."
+    },
+    {
+      "finding": "cmp-001",
+      "action": "The Disclosures data-source line now says the Form 8-K exhibit EX-99.1 release is a separate EDGAR accession filed with the earnings release and recorded, with its URL, in the case snapshot manifest (snapshot/manifest.json). It sits alongside the 10-Q accession {{trigger_accession}}, cutoff {{cutoff_utc}} and price date {{price_date}}, and the price-provider wording is unchanged. LIMITATION, ESCALATE: the literal release accession 0000002488-26-000188 cannot appear in note.md under the current contracts without code changes. (a) gates.gate_note flags any digit outside {{key}}, [[Q-id]] or year/period tokens. (b) computed/values.json has no key for the release accession, only trigger_accession. (c) No snapshot document text contains the accession, so it cannot come in through a narrative quote. Hiding it in an HTML comment (stripped by the gate, never rendered) or spelling the digits out would be gate evasion, so neither was done. Closing the finding fully needs a compute-side values key, for example release_accession taken from snapshot/manifest.json, which the note could then reference as {{release_accession}}."
+    }
+  ],
+  "notes": "Prompt gen-writer v2. Started from the round-002 note and kept its prov-001 repair (Results net-income bullet with Q-7/Q-11) and cmp-002 wording (Results lead-in and final disclosure). Updated the request_id comment to this request. Re-ran eu.py compute after writing: gate_findings [], target 297, Underperform. The rendered note is about 1,500 words."
+}

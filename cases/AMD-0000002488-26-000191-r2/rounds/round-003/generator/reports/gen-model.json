@@ -1,0 +1,15 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": [
+    "assumptions.json"
+  ],
+  "repairs": [
+    {
+      "finding": "asm-002",
+      "action": "Model-side part of asm-002, rationale changes only; numeric assumptions unchanged. (a) The share_change_qoq rationale now says the +0.2% q/q drift comes from the historical diluted-share trend only. It explicitly excludes the contingently issuable customer warrant shares: two warrants of up to 160M shares each at $0.01 (Q-12), combined up to 320M (Q-18), not cash-settleable (Q-13), none vested as of 2026-09-26 (Q-16), and excluded from diluted EPS until vesting (Q-17). It states that full vesting would add up to 320M shares (~19.3% of the 1,661M diluted shares, F-15b3d74691) and that gen-valuation treats this as a disclosed valuation sensitivity rather than as part of the quarterly drift. (b) The revenue_qoq rationale now says FY2026Q4 is anchored on reported GAAP revenue guidance (Q-1). That this guidance is net of any warrant contra-revenue is labelled as our judgment, because the release does not say so. It also says the $4.5B unrecognized grant-date fair value (Q-15) will reduce later reported revenue proportionally as qualifying customer sales occur, and that this is not modelled as a separate line because the filing gives no timing schedule. The valuation-side parts (per-share effect, rating check, warrant liability excluded from net cash) belong to gen-valuation."
+    }
+  ],
+  "notes": "Inputs carried over unchanged from round 2: FY2026Q4 revenue +27.1% q/q on the $17.0B guidance midpoint (Q-1); GAAP gross margin 53.4%, 53.5%, 53.8%, 54.0%; opex 28.0%, 28.5%, 28.0%, 27.5%; tax 13%; shares +0.2% q/q. The round-003 mapping matches round 002 apart from request_id, and history fact IDs are unchanged. I found no real reason to change any number. The warrant dilution is a step contingency with no disclosed timing, so it is better handled as a valuation sensitivity than as share drift. The FY2027 growth rates are applied to a reported (net-of-contra) base. eu.py compute was not run because valuation_inputs.json for this round is gen-valuation's output and did not exist yet. Only snapshot data was used, nothing after the cutoff. Assumptions were not tuned to any target price or rating."
+}

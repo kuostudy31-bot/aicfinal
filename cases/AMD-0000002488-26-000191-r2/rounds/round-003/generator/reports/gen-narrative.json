@@ -1,0 +1,16 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "role": "gen-narrative",
+  "status": "ok",
+  "summary": "18 verbatim quotes (Q-1..Q-11 unchanged; Q-12..Q-18 added from periodic.txt); guidance unchanged.",
+  "quotes": 18,
+  "guidance_items": 2,
+  "repairs": [
+    {
+      "finding": "asm-002",
+      "action": "added warrant evidence quotes Q-12 (two customer warrants, 160M shares each at $0.01), Q-13 (5-year expiry, not cash-settleable; supports excluding warrant liability from net cash), Q-14 ($1.2B warrant liability), Q-15 ($4.5B unrecognized fair value as future revenue reduction), Q-16 (no warrant shares vested/exercisable), Q-17 (contingently issuable, excluded from EPS), Q-18 (risk factor: combined 320M shares, OpenAI and Meta)",
+      "request_id": "gen-20261115T033055-31f7b7"
+    }
+  ],
+  "notes": "New quote IDs Q-12..Q-18, doc periodic.txt (accession 0000002488-26-000191)."
+}

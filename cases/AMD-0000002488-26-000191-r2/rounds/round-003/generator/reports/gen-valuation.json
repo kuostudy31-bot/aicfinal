@@ -1,0 +1,15 @@
+{
+  "request_id": "gen-20261115T033055-31f7b7",
+  "role": "gen-valuation",
+  "status": "complete",
+  "outputs": [
+    "valuation_inputs.json"
+  ],
+  "repairs": [
+    {
+      "finding": "asm-002",
+      "action": "Added rationales.customer_warrants and a new rationales.net_cash, and added cross-references in rationales.dcf_weight and rationales.revenue_growth. The new text (1) acknowledges up to 320M warrant shares at $0.01 (Q-12, Q-18), none vested (Q-16) and excluded from diluted EPS (Q-17), so they are not in the code's 1,661M diluted shares. (2) It quantifies an upper-bound full-dilution sensitivity from round-003 computed/valuation.json (our arithmetic): DCF $163.8, relative $377.6, blended about $249.3 vs TP $297 (-16.2%), upside -48.5% vs -38.6%, rating unchanged Underperform. (3) It explains that the Q-15 $4.5B contra-revenue lowers reported revenue but is non-cash, so revenue_growth and fcf_margin are not cut and the cost is not double counted with dilution. (4) It explains why the Q-14 $1.2B liability is excluded from net cash: not cash-settleable (Q-13), reclassified to APIC on exercisability, cost captured by dilution. All numeric inputs are unchanged."
+    }
+  ],
+  "notes": "Round 3. Numeric inputs unchanged from round 2 (peers NVDA/AVGO/MRVL/INTC, WACC 10.5%, g 3.0%, growth 25/18/12/8%, FCF margin 18/20/21/22/22%, dcf_weight 0.6). eu.py compute on round 3 returned no gate findings, target_price 297, Underperform. Code base figures: DCF/share $195.37, relative/share $450.35, blended $297.36, TP $297, upside -38.6% vs $483.90 close on 2026-11-03, terminal share of EV 75.2%, net cash $8.70B, diluted shares 1,661M. For the writer (full-dilution sensitivity, our arithmetic, not a code output or values.json key; an upper bound assuming both warrants fully vest; $0.01 exercise proceeds of about $3.2M ignored; 1,981M shares): DCF/share about $163.8 ($164), relative/share about $377.6 ($378), blended TP about $249.3 ($249), implied upside about -48.5%, a cut of about 16.2% vs the $297 base TP. Rating stays Underperform. These figures are not in values.json, so if the untagged_number gate flags them the writer may need qualitative wording ('roughly a sixth lower') or a compute-side key. note.md still needs its own sentence for asm-002 (writer scope). cmp-001 is not in my scope."
+}
