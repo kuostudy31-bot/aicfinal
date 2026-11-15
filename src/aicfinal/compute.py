@@ -54,6 +54,8 @@ def run(case_dir: Path, round_dir: Path, out_subdir: str = "computed") -> dict:
     man = read_json(snap / "manifest.json")
     vals = values.build(facts["ticker"], hist, fc, val, narrative,
                         {"accession": man.get("trigger_accession"), "cutoff_utc": facts["cutoff_utc"],
+                         "release_accession": next((f.get("accession") for k, f in sorted(man.get("files", {}).items())
+                                                    if k.startswith("docs/release_") and f.get("accession")), None),
                          "price_date": prices["closes"][-1]["date"],
                          "rating_bands": cfg["publication"]["rating_bands"]})
 

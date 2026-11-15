@@ -194,3 +194,26 @@ class TenKStaleGateTests(unittest.TestCase):
     def test_mid_year_gap_is_still_stale(self):
         h = {"quarters": [{"fiscal": "FY2026Q2"}, {"fiscal": "FY2026Q3"}], "lines": {"eps_diluted": [v(12.07), None]}}
         self.assertIn("gate-stale-eps_diluted", [x["id"] for x in gates.gate_mapping(h)])
+
+
+class ReleaseAccessionTests(unittest.TestCase):
+    """The earnings release is a separate 8-K; its accession is a code value (MU cmp-001)."""
+
+    def test_release_accession_from_snapshot_manifest(self):
+        import shutil
+        import tempfile
+        from aicfinal import compute
+        from aicfinal.util import read_json
+        case = Path(__file__).resolve().parents[1] / "cases" / "MU-0000723125-26-000023"
+        if not (case / "rounds" / "round-001" / "generator" / "valuation_inputs.json").exists():
+            self.skipTest("MU case not present")
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            shutil.copytree(case / "snapshot", tmp / "snapshot")
+            shutil.copytree(case / "rounds" / "round-001" / "generator", tmp / "rounds" / "r" / "generator")
+            compute.run(tmp, tmp / "rounds" / "r")
+            vals = read_json(tmp / "rounds" / "r" / "computed" / "values.json")
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+        self.assertEqual(vals["release_accession"]["display"], "0000723125-26-000018")
+        self.assertEqual(vals["trigger_accession"]["display"], "0000723125-26-000023")

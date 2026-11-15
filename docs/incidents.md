@@ -222,3 +222,14 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 * **Process change (owner, 2026-11-15).** The owner asked that a run not stop and wait for a new
   session after each defect. From now on the coordinating session runs the case itself and repairs
   code defects in place (rules in `docs/HANDOVER.md`).
+
+## 15. Release accession not supplied by code (2026-11-15 08:06, repaired in place)
+* **What happened.** In MU round 1, crit-compliance raised cmp-001: the Disclosures said the
+  10-K accession covered "the accompanying earnings release exhibit", but the release is a separate
+  8-K (0000723125-26-000018). Policy §6 requires its accession, and the writer may not type digits;
+  values.json had only `trigger_accession`.
+* **Fix (first repair under the owner's repair-in-place rule).** `compute` now passes the release
+  accession recorded in the snapshot manifest, and `values.json` carries `release_accession`
+  (`ReleaseAccessionTests`). The case continued; the writer can cite the key in the repair round.
+  For 10-Q cases (NVDA, AMD) the release was also a separate 8-K; their published notes are not
+  changed.

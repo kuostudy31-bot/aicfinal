@@ -35,6 +35,8 @@ def build(ticker: str, hist: dict, fc: dict, val: dict, narrative: dict, meta: d
     meta = meta or {}
     if meta.get("accession"):  # data-source disclosure values (code-supplied, so no typed digits)
         put("trigger_accession", meta["accession"], meta["accession"], ["snapshot/manifest.json"])
+    if meta.get("release_accession"):  # the earnings release is a separate 8-K (MU cmp-001)
+        put("release_accession", meta["release_accession"], meta["release_accession"], ["snapshot/manifest.json"])
     if meta.get("cutoff_utc"):
         c = meta["cutoff_utc"]
         put("cutoff_utc", c, c[:10] + " " + c[11:16] + " UTC", ["snapshot/manifest.json cutoff_utc"])
