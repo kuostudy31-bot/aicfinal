@@ -156,3 +156,41 @@ class TenKFourthQuarterTests(unittest.TestCase):
     def test_eps_gate_compares_one_quarter(self):
         from aicfinal.gates import gate_eps
         self.assertEqual(gate_eps(self.hist()), [])  # Q3 vs Q3, not Q4 income over Q3 shares
+
+
+class PerShareGuidanceTests(unittest.TestCase):
+    """MU guides EPS in dollars per share; the gate must not scale it to billions (incidents #14)."""
+
+    def gate(self, g, text):
+        narrative = {"quotes": [{"id": "Q-4", "doc": "d.txt", "text": text}], "guidance": [g]}
+        return [x["id"] for x in gates.gate_quotes(narrative, {"d.txt": text})]
+
+    def test_eps_guidance_tagged_usd_is_visible(self):
+        g = {"metric": "eps_next_q", "value": 37.84, "unit": "USD", "quote_id": "Q-4", "low": 36.84, "high": 38.84}
+        self.assertEqual(self.gate(g, "Diluted EPS $37.84 ± $1.00"), [])
+
+    def test_explicit_units(self):
+        self.assertEqual(self.gate({"metric": "e", "value": 38.15, "unit": "USD/share", "quote_id": "Q-4"},
+                                   "EPS of $38.15"), [])
+        self.assertEqual(self.gate({"metric": "s", "value": 1.67e9, "unit": "shares", "quote_id": "Q-4"},
+                                   "approximately 1.67 billion shares"), [])
+        self.assertEqual(self.gate({"metric": "s", "value": 1.67e9, "unit": "shares", "quote_id": "Q-4"},
+                                   "approximately 1,670 million shares"), ["gate-guidance-s"])  # comma form not matched
+
+    def test_display_of_per_share_guidance(self):
+        from aicfinal.gates import guidance_unit
+        self.assertEqual(guidance_unit({"value": 37.84, "unit": "USD"}), "USD/share")
+        self.assertEqual(guidance_unit({"value": 108e9, "unit": "USD"}), "USD")
+
+
+class TenKStaleGateTests(unittest.TestCase):
+    def test_fiscal_q4_without_eps_is_not_stale(self):
+        h = {"quarters": [{"fiscal": "FY2026Q3"}, {"fiscal": "FY2026Q4"}],
+             "lines": {"eps_diluted": [v(24.67), None], "other_line": [v(1.0), None]}}
+        ids = [x["id"] for x in gates.gate_mapping(h)]
+        self.assertNotIn("gate-stale-eps_diluted", ids)
+        self.assertIn("gate-stale-other_line", ids)
+
+    def test_mid_year_gap_is_still_stale(self):
+        h = {"quarters": [{"fiscal": "FY2026Q2"}, {"fiscal": "FY2026Q3"}], "lines": {"eps_diluted": [v(12.07), None]}}
+        self.assertIn("gate-stale-eps_diluted", [x["id"] for x in gates.gate_mapping(h)])

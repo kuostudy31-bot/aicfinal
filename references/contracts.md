@@ -28,7 +28,8 @@ concepts outside the catalog.
                "low": 105.84e9, "high": 110.16e9}]}
 ```
 Quotes are copied verbatim from `snapshot/docs/*.txt` (the gate checks this).
-`unit` is `USD`, `ratio` (0.74 for 74%) or `text`.
+`unit` is `USD` (amounts such as revenue), `USD/share` (per-share amounts such as EPS:
+37.84), `shares` (share counts: 1.67e9), `ratio` (0.74 for 74%) or `text`.
 
 ### gen-model -> `assumptions.json`
 ```json

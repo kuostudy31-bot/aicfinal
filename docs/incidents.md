@@ -202,3 +202,23 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 * **Fix.** The audit hook writes into a case trace only while that case is GENERATOR_PENDING or
   CRITIC_PENDING (`tests/test_hooks.py::AuditPointerTests`). No record had been written.
 * **Lesson.** Apply a fix to every reader of the same pointer, not only the one that failed.
+
+## 14. First 10-K case, second stop: per-share guidance and the fiscal-Q4 EPS gap (2026-11-15 07:50)
+* **What happened.** After #12 was fixed, Live run 14 resumed MU. gen-valuation finished and
+  `eu.py compute` ran, but three major gate findings stopped gen-lead:
+  `gate-guidance-eps_next_q_gaap` / `_nongaap` ("value 0.0 not visible in Q-4") and
+  `gate-stale-eps_diluted`. The run session held the case and stopped without patching code.
+* **Root cause.** (a) `gate_quotes` scaled every `USD` guidance value to billions, so MU's EPS
+  guidance ($37.84 ± $1.00, $38.15 ± $1.00) became 0.0. The contract had no unit for per-share
+  amounts, and none for share counts (the same gap made AMD's `guide_diluted_shares_next_q` render
+  raw). (b) `gate_mapping` treated the missing EPS in a 10-K's derived Q4 as a stale concept; #12
+  had fixed `latest()` and `gate_eps` but not this gate.
+* **Fix.** New guidance units `USD/share` and `shares` (`references/contracts.md`); a `USD` value
+  below 1,000 is read as per-share, so MU's existing narrative needs no rework. Display: `$37.84`,
+  `1,670 million`. `gate_mapping` exempts diluted shares and EPS when the latest quarter is a
+  fiscal Q4 and the prior quarter has a value; any other gap is still flagged. Tests:
+  `PerShareGuidanceTests`, `TenKStaleGateTests`. A scratch recompute of MU round 1 gives no gate
+  findings.
+* **Process change (owner, 2026-11-15).** The owner asked that a run not stop and wait for a new
+  session after each defect. From now on the coordinating session runs the case itself and repairs
+  code defects in place (rules in `docs/HANDOVER.md`).

@@ -86,5 +86,13 @@ Adoption is the owner's decision.
   spelled-quantity prompt change on inputs that keep the failure condition), and (b) a new research case for
   MU on its FY2026 10-K (accession 0000723125-26-000023, accepted 2026-10-09).** Run MU as Live run 12 in a new
   session; publication approval is delegated as before. Adopting change-003 still needs the owner.
+* **2026-11-15 ~08:00 UTC, owner: "do not let a run stop on a defect or keep opening new sessions;
+  let it repair itself and continue."** Rule from now on: the coordinating session runs cases
+  itself (the agents are loaded in it). When a code defect blocks a case it (1) records the exact
+  error in the case RUN_NOTES, (2) fixes `src/` with a regression test, runs `scripts/check.py`,
+  (3) adds an incidents entry and commits the fix separately, (4) `eu.py release` + `eu.py resume`
+  and continues the same case. Never edit acceptance criteria, policies, prompts or limits to make
+  a gate pass, and never weaken a gate or a test; a contract extension (such as a new unit) is
+  recorded as such. After three repairs in one case, stop and ask the owner.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.

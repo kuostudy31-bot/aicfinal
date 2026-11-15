@@ -105,7 +105,12 @@ def build(ticker: str, hist: dict, fc: dict, val: dict, narrative: dict, meta: d
 
     for g in narrative.get("guidance", []):
         key = "guide_" + re.sub(r"[^a-z0-9_]", "_", g["metric"].lower())
-        disp = usd_b(g["value"]) if g.get("unit") == "USD" else (pct(g["value"]) if g.get("unit") == "ratio" else str(g["value"]))
+        from .gates import guidance_unit
+        unit = guidance_unit(g)
+        num = isinstance(g.get("value"), (int, float))
+        disp = (usd_b(g["value"]) if unit == "USD" else pct(g["value"]) if unit == "ratio"
+                else money(g["value"]) if unit == "USD/share" and num
+                else f"{g['value'] / 1e6:,.0f} million" if unit == "shares" and num else str(g["value"]))
         put(key, g["value"], disp, [g["quote_id"]])
     return v
 

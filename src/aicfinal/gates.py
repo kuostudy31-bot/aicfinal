@@ -23,6 +23,17 @@ def f(fid, sev, check, detail):
     return {"id": fid, "severity": sev, "check": check, "detail": detail}
 
 
+# Lines a 10-K reports for the fiscal year only: they are never differenced, so the derived
+# fourth quarter has no value for them by design (incidents #12, #14).
+NON_ADDITIVE_LINES = ("diluted_shares", "eps_diluted")
+
+
+def _fy_only_gap(hist: dict, line: str, vals: list) -> bool:
+    qs = hist.get("quarters") or []
+    return (line in NON_ADDITIVE_LINES and bool(qs) and str(qs[-1].get("fiscal", "")).endswith("Q4")
+            and len(vals) >= 2 and vals[-2] is not None)
+
+
 def gate_mapping(hist: dict) -> list[dict]:
     out = []
     for line in REQUIRED_LINES:
@@ -31,7 +42,7 @@ def gate_mapping(hist: dict) -> list[dict]:
             out.append(f(f"gate-mapping-{line}", "blocker", "mapping_coverage",
                          f"no value for required line '{line}' in the latest quarter"))
     for line, vals in hist["lines"].items():
-        if line not in REQUIRED_LINES and vals and vals[-1] is None:
+        if line not in REQUIRED_LINES and vals and vals[-1] is None and not _fy_only_gap(hist, line, vals):
             last = next((v.get("end", "?") for v in reversed(vals) if v), "never")
             out.append(f(f"gate-stale-{line}", "major", "stale_mapping",
                          f"'{line}' has no value in the latest quarter (last {last}); the company may "
@@ -127,6 +138,20 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+# How a guidance value may appear in the company's text: USD in billions, a ratio in percent,
+# per-share dollars as written, share counts in millions or billions.
+GUIDANCE_SCALES = {"USD": (1e-9,), "ratio": (100.0,), "USD/share": (1.0,), "shares": (1e-6, 1e-9)}
+
+
+def guidance_unit(g: dict) -> str | None:
+    """The contract unit; a 'USD' value below 1,000 can only be a per-share amount (MU's EPS
+    guidance was tagged 'USD' before 'USD/share' existed, incidents #14)."""
+    u = g.get("unit")
+    if u == "USD" and isinstance(g.get("value"), (int, float)) and abs(g["value"]) < 1000:
+        return "USD/share"
+    return u
+
+
 def gate_quotes(narrative: dict, docs: dict[str, str]) -> list[dict]:
     out = []
     normdocs = {k: _norm(v) for k, v in docs.items()}
@@ -141,18 +166,22 @@ def gate_quotes(narrative: dict, docs: dict[str, str]) -> list[dict]:
         if q is None:
             out.append(f(f"gate-guidance-{g['metric']}", "blocker", "guidance_source", f"{g['metric']} cites unknown quote"))
             continue
-        if g.get("unit") not in ("USD", "ratio") or not isinstance(g.get("value"), (int, float)):
+        unit = guidance_unit(g)
+        if unit not in GUIDANCE_SCALES or not isinstance(g.get("value"), (int, float)):
             continue  # text guidance (e.g. "none assumed") is checked by the verbatim quote alone
-        def visible(x):
-            v = x / 1e9 if g["unit"] == "USD" else x * 100
-            # the value as the company may have written it: 3.75, 3.8, 108.0, 108, 74
-            forms = {f"{v:.{d}f}" for d in (0, 1, 2, 3)}
-            forms |= {t.rstrip("0").rstrip(".") for t in forms if "." in t}
-            forms = {t for t in forms if t and abs(float(t) - v) <= 1e-9 * max(1.0, abs(v)) + 1e-12}
-            return any(re.search(r"(?<![\d.])" + re.escape(t) + r"(?![\d])", q["text"]) for t in forms)
 
-        val = g["value"] / 1e9 if g["unit"] == "USD" else g["value"] * 100
-        token = f"{val:.1f}"
+        def visible(x):
+            for scale in GUIDANCE_SCALES[unit]:
+                v = x * scale
+                # the value as the company may have written it: 3.75, 3.8, 108.0, 108, 74, 37.84
+                forms = {f"{v:.{d}f}" for d in (0, 1, 2, 3)}
+                forms |= {t.rstrip("0").rstrip(".") for t in forms if "." in t}
+                forms = {t for t in forms if t and abs(float(t) - v) <= 1e-9 * max(1.0, abs(v)) + 1e-12}
+                if any(re.search(r"(?<![\d.])" + re.escape(t) + r"(?![\d])", q["text"]) for t in forms):
+                    return True
+            return False
+
+        token = f"{g['value'] * GUIDANCE_SCALES[unit][0]:.2f}"
         # A midpoint of a stated range is visible through its stated low and high.
         rng = isinstance(g.get("low"), (int, float)) and isinstance(g.get("high"), (int, float))
         ok = visible(g["value"]) or (rng and visible(g["low"]) and visible(g["high"])
