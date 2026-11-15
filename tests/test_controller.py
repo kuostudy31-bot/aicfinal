@@ -244,3 +244,10 @@ class HoldTests(Harness):
         self.assertIn("on hold", controller.resume(self.cid)["next_action"])
         controller.release(self.cid, "fixed")
         self.assertNotIn("hold", self.state)
+
+
+class ActivePointerTests(Harness):
+    def test_terminal_case_releases_the_pointer(self):
+        self.assertEqual(read_json(controller.ACTIVE)["case_id"], self.cid)
+        controller.stop(self.cid, "pointer test")
+        self.assertIsNone(read_json(controller.ACTIVE)["case_id"])

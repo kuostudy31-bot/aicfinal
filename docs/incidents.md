@@ -16,6 +16,7 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 | 8 | AMD run idle after a deliberate interruption (two stalls) | resolved; watchdog + Stop hook (verified live) added |
 | 9 | Live run 8 declined to start: its task conflicted with a stale HANDOVER line | resolved (HANDOVER corrected; run 10) |
 | 10 | Refusals by the guard hook and the privacy plugin were not recorded in the repository | resolved (guard now logs; register in `docs/rejections.md`) |
+| 11 | The fix for #10 let hook tests write into a real case trace through a stale pointer | resolved before any commit |
 
 ## 1. New subagents not visible in the creating session
 * **What happened.** `.claude/agents/` was created during the development session; the Agent
@@ -160,3 +161,17 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   while a run is in progress, in that case's (or evolution change's) trace
   (`tests/test_hooks.py::GuardRecordTests`). `docs/rejections.md` lists every rejection by the
   workflow, the hooks and the platform, with links to its evidence.
+
+## 11. Hook tests wrote into a real case trace (2026-11-15 03:15, caught before commit)
+* **What happened.** Right after the #10 fix, eight `guard_refused` records appeared in the NVDA
+  revision-1 case trace. They came from `tests/test_hooks.py`, whose older tests ran the hook
+  against the real repository. The coordinator's local runtime pointer was stale: it still named
+  NVDA r1 in phase "critic", although that case had been STALLED since 2026-11-14.
+* **Fix.** The lines were discarded before any commit. The hook tests now run in a temporary
+  project. The guard trusts the pointer only if the named case's own state is still pending
+  (`run_active()`). The controller releases the pointer when a case becomes terminal or reaches
+  AWAITING_APPROVAL (`ActivePointerTests`). A minute later the guard refused one of the
+  coordinator's own commands (a Python write combined with a control-file path in the text).
+  That refusal was correct, and it was recorded in the local log only, as the new rule requires.
+* **Lesson.** A runtime pointer must be validated against the state it points to. Tests must never
+  run against the real evidence tree.

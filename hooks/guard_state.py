@@ -26,9 +26,16 @@ WRITE_OPS = re.compile(r"((?<![0-9&])>>?\s*[^\s&|;]*(cases/|config/|references/|
 
 
 def run_active() -> bool:
-    p = ROOT / "cases" / "ACTIVE.json"
+    """True only if the pointer names a case whose own state is still pending (a stale pointer
+    left by a finished case must not lock policy files or attract records)."""
     try:
-        return json.loads(p.read_text()).get("phase") in ("generator", "critic")
+        active = json.loads((ROOT / "cases" / "ACTIVE.json").read_text())
+        if active.get("phase") in ("evo-generator", "evo-critic"):
+            return True
+        if active.get("phase") not in ("generator", "critic") or not active.get("case_id"):
+            return False
+        st = json.loads((ROOT / "cases" / active["case_id"] / "state.json").read_text())
+        return st.get("status") in ("GENERATOR_PENDING", "CRITIC_PENDING")
     except Exception:  # noqa: BLE001
         return False
 
@@ -46,7 +53,7 @@ def refuse(msg: str, data: dict | None = None):
         with open(ROOT / ".logs" / "guard_refusals.jsonl", "a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec) + "\n")
         active = json.loads((ROOT / "cases" / "ACTIVE.json").read_text())
-        if active.get("phase") not in ("generator", "critic", "evo-generator", "evo-critic"):
+        if not run_active():
             raise LookupError("no run in progress: record in the local log only")
         target = (ROOT / active["trace_path"]) if active.get("trace_path") else (
             ROOT / "cases" / active["case_id"] / "trace.jsonl" if active.get("case_id") else None)

@@ -10,8 +10,12 @@ CTRL = "cases/X/" + "state.json"  # built at runtime so this file itself is not 
 
 
 def run(tool, **inp):
+    """Run the hook against an empty temporary project, never the real repository."""
+    import os
+    import tempfile
+    env = dict(os.environ, CLAUDE_PROJECT_DIR=tempfile.mkdtemp())
     p = subprocess.run([sys.executable, str(HOOK)], input=json.dumps({"tool_name": tool, "tool_input": inp}),
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, env=env)
     return p.returncode
 
 
@@ -40,6 +44,7 @@ class GuardRecordTests(unittest.TestCase):
         root = Path(tempfile.mkdtemp())
         (root / "cases" / "X").mkdir(parents=True)
         (root / "cases" / "ACTIVE.json").write_text(json.dumps({"case_id": "X", "phase": "generator"}))
+        (root / "cases" / "X" / "state.json").write_text(json.dumps({"status": "GENERATOR_PENDING"}))
         env = dict(os.environ, CLAUDE_PROJECT_DIR=str(root))
         p = subprocess.run([sys.executable, str(HOOK)], env=env, capture_output=True, text=True,
                            input=json.dumps({"tool_name": "Write", "session_id": "S1",

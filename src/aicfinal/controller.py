@@ -465,7 +465,19 @@ def approve(case_id: str, approver: str, decision: str, note: str) -> dict:
     return state
 
 
+def _clear_active(state: dict) -> None:
+    """A finished or approval-stage case releases the dispatch pointer."""
+    try:
+        cur = read_json(ACTIVE)
+    except Exception:  # noqa: BLE001
+        return
+    if cur.get("case_id") == state["case_id"] and state["status"] in TERMINAL | {"AWAITING_APPROVAL"}:
+        write_json(ACTIVE, {"case_id": None, "phase": None, "request_id": None, "set_at": iso(utcnow()),
+                            "released_by": state["case_id"]})
+
+
 def _write_result(state: dict) -> None:
+    _clear_active(state)
     cdir = case_dir(state["case_id"])
     res = {"case_id": state["case_id"], "ticker": state["ticker"], "status": state["status"],
            "cutoff_utc": state["cutoff_utc"], "round": state["round"], "candidate_id": state["candidate_id"],
