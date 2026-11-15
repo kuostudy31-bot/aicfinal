@@ -141,6 +141,9 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
   followed by a resume.
 * `cases/AMD-0000002488-26-000191-r2/`: the second published case (three repair rounds driven by
   critic findings, then two clean reviews; PDF in `report/AMD-0000002488-26-000191-r2/`).
+* `cases/MU-0000723125-26-000023/`: the third published case and the first on a 10-K (TP $1,102, Neutral;
+  PDF in `report/MU-0000723125-26-000023/`). Three code defects found by this case were repaired in place
+  and the same case continued (incidents #12, #14, #15), then two rounds of critic-driven repairs.
 * `cases/AMD-0000002488-26-000191/`: a deliberate interruption, then `resume` keeping completed
   reports; later a false stall from a gate defect (recorded, fixed).
 * Each case: `trace.jsonl` (controller transitions and hook dispatch records), `rounds/`
