@@ -69,5 +69,10 @@ the coordinating session to continue steps 2-4. (Fired 20:16 UTC; superseded by 
 * Delegated publication approval (2026-11-14). `SEC_USER_AGENT`: not needed.
 * AMD revision 2: requested by the owner on 2026-11-15 ("前三個都做": resume evolution, AMD r2, Stop-hook test).
   Run it (`--revision 2`); approval is delegated as for NVDA r2.
+* **Standing instruction (2026-11-15): never leave a run session stuck.** Check running sessions
+  at least every 20 minutes (get_session, not only git). If one is stuck, read what it said. If it
+  waits for a confirmation the owner already gave, tell the owner exactly which session and what to
+  type (the owner will enter it). If needed, start a new session whose initial task is the resume
+  and mark the old one "由 run N 取代". Record each stall in docs/incidents.md.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.
