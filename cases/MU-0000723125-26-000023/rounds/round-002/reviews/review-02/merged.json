@@ -1,0 +1,216 @@
+{
+  "request_id": "crit-20261115T082622-d16bf3",
+  "candidate_id": "cand-0aac844f50d1",
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "request_id": "crit-20261115T082622-d16bf3",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [
+        "prov-005"
+      ],
+      "resolved_ids": []
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "request_id": "crit-20261115T082622-d16bf3",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [
+        "asm-004",
+        "asm-005"
+      ],
+      "resolved_ids": []
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "request_id": "crit-20261115T082622-d16bf3",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [
+        "cmp-004"
+      ],
+      "resolved_ids": []
+    }
+  ],
+  "verdicts": {
+    "crit-provenance": "pass",
+    "crit-assumption": "pass",
+    "crit-compliance": "pass"
+  },
+  "findings": [
+    {
+      "id": "prov-005",
+      "severity": "minor",
+      "title": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed (not repaired)",
+      "detail": "The candidate is unchanged since review 1. The sha256 of generator/note.md (cdf16378...) and of narrative.json (b0a82e15...) still match manifest.json, which carries request_id gen-20261115T080625-5b263d. The 'Valuation caveat' paragraph in note.md (rendered at computed/note_rendered.md line 68) still says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt line 1763). Line 2344 adds 'If not, we may retain all, or a portion of the deposit which will be recognized as revenue'. 'May retain all or a portion' allows a partial return when the commitment is missed, so 'only if' overstates the condition. The paragraph also still attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K without a [[Q-id]]. No such quote exists among Q-1..Q-17 in narrative.json. The paraphrase is accurate: periodic.txt line 2961 reads verbatim 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.' A reader still cannot check it through the quote trail. The judgment (treat the deposits as operating liabilities) is labelled as our view and is not affected. No figure changes.",
+      "evidence": [
+        "generator/note.md (Model and valuation, 'Valuation caveat' paragraph)",
+        "computed/note_rendered.md#L68",
+        "snapshot/docs/periodic.txt#L1763",
+        "snapshot/docs/periodic.txt#L2344",
+        "snapshot/docs/periodic.txt#L2961",
+        "generator/manifest.json (note.md sha256 unchanged)"
+      ],
+      "required_evidence": "The caveat says 'returned if the customer meets ...' (or adds that the company may retain all or a portion otherwise) instead of 'only if'. Ideally the repayment-timing statement is cited through a verbatim narrative quote, e.g. 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.' (periodic.txt line 2961)."
+    },
+    {
+      "id": "asm-004",
+      "severity": "minor",
+      "title": "Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale",
+      "detail": "Not repaired: the candidate is unchanged since review 1 (valuation_inputs.json sha256 f228676b... and note.md cdf16378... match generator/manifest.json, and computed/ equals numerical/recompute/). I re-checked this in a fresh context. The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties the increase to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The $9.03B FY2026 Singapore top-up tax is at line 3099. History shows FY2026Q4 CFO of $43.973B, which carries most of the deferral. FY2026 FCF excluding the roughly $9.6B other-noncurrent-liabilities inflow would be about 37% of revenue rather than 44.3% (my arithmetic). The fcf_margin rationale says Q4 CFO was 'flattered' by this item and that 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. But neither fcf_margin nor net_cash says how the $9.82B balance already accrued is treated. That cash sits in reported cash, so it is inside net cash of $68.274B. It is not deducted, and its payment is not in the FCF path. Size, my own arithmetic and not code output: $9.82B / 1,145M diluted shares is about $8.6 per share on both legs. The blended value would be about $1,093, upside about +5.6%, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002), so it should be stated. Minor.",
+      "evidence": [
+        "snapshot/docs/periodic.txt:3101",
+        "snapshot/docs/periodic.txt:1832",
+        "snapshot/docs/periodic.txt:2202",
+        "snapshot/docs/periodic.txt:3099",
+        "generator/valuation_inputs.json#rationales.fcf_margin",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "numerical/recompute/valuation.json#net_cash",
+        "numerical/recompute/history.json#cfo"
+      ],
+      "required_evidence": "The valuation_inputs.json net_cash or fcf_margin rationale states how the $9.82B noncurrent income taxes payable is treated: deducted as debt-like, paid inside the FCF path, or a rolling operating liability with no adjustment. It gives the reason and an approximate per-share sensitivity labelled as analyst arithmetic."
+    },
+    {
+      "id": "asm-005",
+      "severity": "minor",
+      "title": "The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg",
+      "detail": "Not repaired: the candidate is unchanged since review 1. I re-verified the figures. Code output (numerical/recompute/valuation.json): DCF $862.83 per share and relative EV/Sales $1,818.58 per share (15.121x x $133.188B + $68.274B, over 1,145M shares). At dcf_weight 0.75 the blend is $1,101.77, TP $1,102, +6.39%, Neutral. My own arithmetic, not code output: Outperform needs TP >= $1,191.22, which holds at a DCF weight of about 0.656 or less. Underperform needs TP <= $932.26, which holds at a weight of about 0.927 or more. The note (note_rendered.md, Model and valuation section) still shows only the DCF per-share value and the peer multiple. It does not show the relative-value leg, the 75/25 weights, or that the rating rests on the weighting. Constraint on the repair: values.json (38 keys) has no key for relative_per_share or dcf_weight, so under the untagged-number gate the writer cannot show those numbers until the code owner adds the keys. A qualitative sentence, labelled our view, saying the two methods diverge widely and the rating is sensitive to the weighting needs no new key and can be added now. Minor; the inputs are inside policy and the dcf_weight rationale exists.",
+      "evidence": [
+        "numerical/recompute/valuation.json#relative_per_share",
+        "numerical/recompute/valuation.json#dcf.per_share",
+        "numerical/recompute/valuation.json#dcf_weight",
+        "generator/valuation_inputs.json#rationales.dcf_weight",
+        "numerical/recompute/note_rendered.md:63-66"
+      ],
+      "required_evidence": "note.md adds one sentence, labelled analyst judgment, saying the relative-value method gives a much higher per-share value than the DCF and that the Neutral rating depends on the 75/25 weighting. If code keys for relative_per_share and dcf_weight become available, the note shows them through {{key}}."
+    },
+    {
+      "id": "cmp-004",
+      "severity": "minor",
+      "title": "Disclosures list the share price under 'Data sources (SEC EDGAR)', but the price does not come from SEC EDGAR",
+      "detail": "In the Disclosures section of note.md, the share-price line ('Share price is the last close before the cutoff, {{price}} on {{price_date}}') is a sub-bullet of 'Data sources (SEC EDGAR):'. A reader would take that to mean the price came from EDGAR. snapshot/manifest.json#files.prices.json gives the source as the Yahoo chart endpoint (query1.finance.yahoo.com/v8/finance/chart/MU), and snapshot/prices.json#note says 'Unadjusted daily close from the Yahoo chart endpoint (split-adjusted by provider)'. The peer prices behind the EV/Sales cross-check (numerical/recompute/peers.json, price_date 2026-10-08) come from the same price host, and the note does not name that source anywhere. Policy section 6 requires the data-source disclosure to be accurate. The price value and date are correct, and the price is the last close before the cutoff. Only the attribution is wrong, so no figure, rating or cutoff conclusion changes.",
+      "evidence": [
+        "generator/note.md#Disclosures",
+        "numerical/recompute/note_rendered.md#Disclosures",
+        "snapshot/manifest.json#files.prices.json.sources",
+        "snapshot/prices.json#note",
+        "numerical/recompute/peers.json#price_date"
+      ],
+      "required_evidence": "The Disclosures section moves the share-price line (and a mention of the peer share prices used for the EV/Sales cross-check) out from under 'SEC EDGAR'. It attributes the prices to a third-party market price feed in the case snapshot, for example 'Market prices (third-party daily close data in the case snapshot, not SEC EDGAR): ...'. The price stays a {{price}}/{{price_date}} key, so no new digits are introduced."
+    }
+  ],
+  "finding_sources": {
+    "prov-005": "crit-provenance",
+    "asm-004": "crit-assumption",
+    "asm-005": "crit-assumption",
+    "cmp-004": "crit-compliance"
+  },
+  "resolved": [],
+  "finding_status": {
+    "prov-005": "still_open",
+    "asm-004": "still_open",
+    "asm-005": "still_open",
+    "cmp-004": "new"
+  },
+  "conflicts": [],
+  "observations": [
+    {
+      "ids": [
+        "prov-005"
+      ],
+      "roles": [
+        "crit-provenance",
+        "crit-assumption"
+      ],
+      "description": "Not a conflict. In its checked list, crit-assumption notes that the same 'returned only if' wording also appears in the valuation_inputs.json net_cash rationale. It leaves that to prov-005 because no figure changes. prov-005's text (crit-provenance) cites only note.md. Both are recorded unchanged."
+    },
+    {
+      "ids": [
+        "prov-005"
+      ],
+      "roles": [
+        "crit-provenance",
+        "crit-compliance"
+      ],
+      "description": "Not a conflict. crit-compliance treats the 2029-2031 years as the company's stated repayment schedule (periodic.txt lines 1763, 2961), not as post-cutoff information. crit-provenance agrees the paraphrase is accurate and objects only that it has no [[Q-id]]. The two positions are consistent."
+    },
+    {
+      "ids": [
+        "asm-005"
+      ],
+      "roles": [
+        "crit-assumption"
+      ],
+      "description": "Routing: crit-assumption reports that values.json has no key for relative_per_share or dcf_weight, so the writer cannot show those figures through {{key}} until the code owner adds them. Its required_evidence asks for a labelled qualitative sentence now and the figures once the keys exist."
+    }
+  ],
+  "blocking_open": [],
+  "coverage": {
+    "checked": {
+      "crit-provenance": [
+        "Candidate identity: sha256 of assumptions/mapping/narrative/valuation_inputs/note.md match generator/manifest.json (request_id gen-20261115T080625-5b263d); no repair since review 1, so open findings prov-005/asm-004/asm-005 were re-checked against the same files",
+        "gates.json: findings empty; sha256 of numerical/recompute forecast/history/peers/valuation/values equal the gate hashes and the computed/ copies; recompute note_rendered.md is byte-identical to computed/note_rendered.md",
+        "All 38 {{keys}} used in note.md exist in values.json; every F-/D-/S- source resolves to snapshot/facts.json fact_ids directly or through history.json derived records; snapshot/facts.json contains 0 facts accepted after the cutoff 2026-10-09T12:21:00Z",
+        "revenue_q 54,229M = D-e90aac72b9 = FY 133,188M (F-ea1467005d, 10-K) - 9M 78,959M (F-adf7207965, 10-Q) for 2026-05-29..2026-09-03; labelled fiscal FY2026 Q4 / calendar CY2026Q3, consistent with history.quarters",
+        "revenue_qoq 30.8% vs FY2026Q3 41,456M (F-03e050e3a0), described as sequential/quarter on quarter; revenue_yoy 379.3% vs FY2025Q4 11,315M (D-784c348bcc = 37,378M - 26,063M), described as year on year; revenue_ttm 133,188M = 13,643 + 23,860 + 41,456 + 54,229 = FY2026, described as TTM equal to FY2026",
+        "gross_margin_q 86.8% (47,047/54,229), operating_margin_q 80.7% (43,751/54,229), net_income_q 37,701M (84,969 - 47,268), fcf_q 32,863M (CFO 89,675 - 45,702 = 43,973; capex 30,712 - 19,602 = 11,110), all quarterly Q4 derivations as the note describes",
+        "Extra-week claim: FY2026Q3 2026-02-27..2026-05-28 is 13 weeks and FY2026Q4 2026-05-29..2026-09-03 is 14 weeks, consistent with Q-10 (53-week fiscal 2026) and the note's 'by our count' wording",
+        "Spot-check against periodic.txt: revenue 133,188 (lines 1585, 1954), net income 84,969 (lines 1611, 1981), total assets 195,888 (line 2040, F-381c925c83), short-term investments 5,070 (line 2022), long-term marketable investments 30,019 (line 2032), current debt 491 (line 2046), long-term debt 4,688 (line 2052)",
+        "Net cash 68,274M = cash 38,364M (F-455b2cbdf8) + investments 35,089M (S-0f9cbd5118) - debt 5,179M; the note describes the components correctly",
+        "Valuation arithmetic in valuation.json: blend 0.75 * 862.83 + 0.25 * 1,818.58 = 1,101.77, rounded to 1,102; upside 1,102 / 1,035.84 - 1 = 6.4%; Neutral under the +15% / -10% bands",
+        "Price 1,035.84 on 2026-10-08 is the last close in snapshot/prices.json before the cutoff",
+        "Quotes Q-1..Q-17 all appear verbatim in their stated docs; I re-read the following context of Q-6, Q-8, Q-9, Q-10, Q-11, Q-13 and Q-14, and none is truncated in a way that changes its meaning",
+        "Guidance values match quotes and bases: revenue 61.5bn (60.0-63.0bn, Q-1), GM 0.8595 GAAP (Q-2) / 0.8625 non-GAAP (Q-15), opex 2.31bn (Q-3) / 2.06bn (Q-16), EPS 37.84 (Q-4) / 38.15 (Q-17) with +/-1.00 ranges and unit USD/share",
+        "Rendered guidance table: every row has exactly three cells",
+        "mapping.json: every mapped concept has data through 2026-09-03 (EntityCommonStockSharesOutstanding through 2026-10-02, before cutoff); Revenues has no data and the stale LongTermDebt alternative is not used; no stale concepts",
+        "Data-gap statement (no Q4 diluted shares/EPS; model uses 1,145M from F-3d172a9372) matches history.json, where the Q4 diluted_shares and eps_diluted entries are null",
+        "No digits in note.md outside {{keys}}/[[Q-ids]] except year and form labels (2026, 2029, 2031, FY2026, FY2027, 10-K, 8-K); no post-cutoff information observed",
+        "Open findings asm-004 and asm-005 belong to crit-assumption; I noted that note.md is unchanged on both points (no Pillar Two payable treatment, no relative-value leg or weights shown) but did not report them under my prefix"
+      ],
+      "crit-assumption": [
+        "Candidate identity: generator file sha256 values match generator/manifest.json (assumptions 6fd8b7f5..., valuation_inputs f228676b..., note cdf16378..., mapping 53268da0..., narrative b0a82e15...). All five computed/*.json files are byte-identical to numerical/recompute/. gates.json has no findings. The candidate is unchanged since review 1.",
+        "Open findings in my area: asm-004 and asm-005 are not repaired, so both are reported again under the same IDs, minor. prov-005 belongs to provenance. The same 'returned only if' wording also appears in the valuation_inputs net_cash rationale, but it does not change any figure, so I left it to prov-005.",
+        "Next-quarter revenue vs guidance: FY2027Q1 forecast is $61.501B, at the guided midpoint of $61.5B +/- $1.5B (Q-1). That is +13.41% on the 14-week FY2026Q4 base of $54.229B, or about +22% on a 13-week base. The 53-week year (Q-10) is explained in the rationale.",
+        "Next-quarter margins vs guidance: GM 85.95% equals the GAAP guidance (Q-2). Opex is $2.312B against the GAAP guidance of $2.31B (Q-3). Tax is 14.8%, the FY2026 ETR (periodic.txt line 1737, Pillar Two). EPS of $37.50 is inside $37.84 +/- $1.00 (Q-4), and the shortfall is explained by excluded interest income.",
+        "Later-quarter path: revenue +8%/+5%/+3% q/q to $71.8B in FY2027Q4, decelerating from FY2026 (+20.6%, +74.9%, +73.7%, +30.8%). GM flat on supply limits and price-band floors (Q-8, Q-9). Opex held at 3.76% of revenue, against a pre-Q4 run rate of about $1.7B (FY2026Q3 R&D $1.316B + SG&A $0.407B) and $2.77B in the 14-week Q4. Plausible and explained.",
+        "Valuation inputs: WACC 10.5% (cyclical premium, analyst judgment, inside [6%, 16%]). Terminal growth 3.0% (inside [0%, 4%] and below WACC). Terminal value is 55.9% of EV, below the 80% flag. Recomputed TV = $61.695B x 1.03 / 0.075 = $847.28B, PV $514.30B.",
+        "FCF margins vs history: FY2025 4.5%. FY2026 44.3% (CFO $89.675B - capex $30.712B on $133.188B, from eu.py history quarterly sums), or about 37% excluding the Pillar Two noncurrent tax deferral (see asm-004). Years 1-5 are 50/50/42/35/30%. Year 1 is reconciled to the guided capex (periodic.txt line 1771) and to working capital. Terminal 30% is below the FY2025-26 pooled 35.5%.",
+        "Revenue growth years 2-5 (+5%, -10%, -15%, -5%): cycle-normalisation judgment with a rationale. Year-5 revenue is $205.7B, against FY2026's $133.2B, supported by price-band floors (Q-9).",
+        "Net cash completeness against the balance sheet (periodic.txt about lines 2017-2052): cash 38,364M, short-term investments 5,070M, long-term marketable investments 30,019M, current debt 491M, long-term debt 4,688M. Net cash is 68,274M, which matches valuation.json. Customer contract liabilities of 12,895M are excluded with a reason and a sensitivity (asm-002, resolved in review 1). Noncurrent income taxes payable of 9.82B within other noncurrent liabilities of 11,659M are not addressed (asm-004). Unearned government incentives of 786M are operating and need no adjustment. Non-marketable equity investments of about 1.30B are excluded with a reason.",
+        "Peer set: INTC, AMAT, LRCX, KLAC (IDM and WFE companies on the memory capex cycle). There is no memory peer, and the caveat is stated in the note and the rationale. Peer TTM ends 2026-06-27 to 2026-07-26 (CY2026Q2), against MU FY2026Q4 ending 2026-09-03 (CY2026Q3). The alignment is noted.",
+        "Arithmetic spot-checks: relative leg (15.1215 x 133.188B + 68.274B) / 1.145B = $1,818.58. Blend 0.75 x 862.83 + 0.25 x 1,818.58 = $1,101.77, TP $1,102, upside +6.39%, Neutral under the policy bands.",
+        "Share count: the valuation uses 1,145M (latest tagged diluted count, FY2026Q3), against 1,147M in the release for Q4 and a +0.3% per quarter forecast drift. The effect on value per share is about 0.2-1%, immaterial, and the data gap is disclosed in the note.",
+        "Rationales exist for every assumption and valuation input and support the numbers chosen. The gaps in the net cash and FCF judgment and in the visibility of the weighting are recorded as asm-004 and asm-005.",
+        "Information cutoff: only the snapshot (10-K accepted 2026-10-09T12:21Z, 8-K release 0000723125-26-000018) and the case round files were used. Price is the 2026-10-08 close. No later information was used."
+      ],
+      "crit-compliance": [
+        "Scope: none of the open findings in the request (prov-005, asm-004, asm-005) is in the compliance area. They are left to crit-provenance and crit-assumption, and I re-report none of them. No cmp- finding was open.",
+        "Candidate integrity: computed/note_rendered.md is byte-identical to numerical/recompute/note_rendered.md. gates.json has no findings and carries generator request_id gen-20261115T080625-5b263d, which matches note.md, narrative.json and valuation_inputs.json.",
+        "Information cutoff: cutoff_utc is 2026-10-09T12:21:00Z (case.json, snapshot/filings.json). The note names no later quarter, price or event. The only post-cutoff dates (dividend record date 2026-10-14, payable date 2026-10-29) sit inside verbatim quote Q-14, from a dividend declared on 2026-09-30 in the 8-K accepted 2026-09-30T20:02:22Z. The years 2029-2031 are the company's own stated deposit repayment schedule from the 10-K (periodic.txt lines 1763, 2961), not later events.",
+        "Snapshot dating: the latest 'filed' date in snapshot/facts.json is 2026-10-09, and the latest date anywhere in snapshot/peers.json is 2026-10-09. Every peer price used (INTC, AMAT, LRCX, KLAC) is dated 2026-10-08.",
+        "Price: $1,035.84 on 2026-10-08 is the last close in snapshot/prices.json. The cutoff falls at 08:21 ET on 2026-10-09, before that day's session, so this is the last close before the cutoff.",
+        "Quotes: all 17 narrative.json quotes are verbatim substrings of their snapshot docs (programmatic check), and all 17 are used in note.md. Every {{key}} in note.md exists in values.json. Outside keys and quote references, the only digits are year and form labels (FY2026, FY2027, 2026, 2029, 2031, 10-K, 8-K).",
+        "Disclosures (policies.md section 6): all four required items are present. (1) The not-investment-advice line. (2) Data sources: 10-K accession 0000723125-26-000023 with the cutoff, 8-K accession 0000723125-26-000018 (furnished September 2026, which matches filings.json), and the price date. (3) Rating definitions: +15% / -10%, otherwise Neutral, taken from config-sourced keys. (4) The statement that figures are generated by code from SEC XBRL data and unaudited by the author. All are accurate except the price-source attribution (cmp-004, minor).",
+        "Rating vs bands: valuation.json upside is 0.0639, so Neutral is correct. Target price 1102 = round(0.75 x 862.83 + 0.25 x 1818.58 = 1101.77). The note recommends no action beyond the rating and contains no promissory or guaranteed language.",
+        "Target-price change: tp_change_needs_rationale is false and prior_target_price is null, so no explanation of a change is required.",
+        "Labelling: the 'reported', 'our forecast' and 'our view' labels are defined in the header and applied consistently. The week-adjustment, deposit-treatment, cycle-normalisation and pricing-driver statements are marked as judgment, and where relevant as not computed in code. The interest-income explanation of EPS versus guidance is supported by the assumptions.json tax_rate rationale (interest income of $575M in FY2026 Q4 is excluded from the model). The peer description 'fab-owning and wafer-fab-equipment companies, none a memory maker' matches the peers used (INTC, AMAT, LRCX, KLAC).",
+        "No filing instruction was followed: a keyword scan of periodic.txt and the earnings release for embedded directives (ignore/disregard/instruction/upload/system prompt/rating or target-price directives) found none. Nothing in the note reflects filing text acting as a command."
+      ]
+    },
+    "acceptance_areas": {
+      "A_numerical_gates": "Run by the controller. gates.json has no findings, which crit-provenance, crit-assumption and crit-compliance each confirmed independently. crit-provenance also re-checked the recompute hashes, note_placeholder, untagged_number, quote_verbatim, guidance_source and mapping staleness. crit-assumption re-checked assumption_bounds and rationale presence. crit-compliance re-checked information_cutoff.",
+      "B_provenance": "crit-provenance",
+      "B_assumptions": "crit-assumption",
+      "B_compliance": "crit-compliance (cutoff, disclosures under policies section 6, rating bands, target-price change rationale, labelling, filing-text instructions)",
+      "C_research_acceptance": "Input to the controller: all three verdicts are pass and no blocker or major finding is open. Streak determination is left to the controller.",
+      "D_publication": "Out of critic scope (approval by a named approver). crit-compliance confirmed the rating follows the bands mechanically and tp_change_needs_rationale is false.",
+      "E_limits": "Out of critic scope (controller)."
+    },
+    "uncovered_areas": []
+  }
+}

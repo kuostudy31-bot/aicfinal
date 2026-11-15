@@ -20,11 +20,12 @@
   },
   "candidate_id": "cand-0aac844f50d1",
   "case_id": "MU-0000723125-26-000023",
-  "clean_streak": 1,
+  "clean_streak": 2,
   "cutoff_utc": "2026-10-09T12:21:00Z",
   "dispatch_counts": {
     "crit-20261115T080121-5bb2e2": 5,
     "crit-20261115T082227-82cb33": 4,
+    "crit-20261115T082622-d16bf3": 4,
     "gen-20261115T073305-99d304": 9,
     "gen-20261115T080625-5b263d": 7
   },
@@ -74,7 +75,7 @@
     },
     "asm-004": {
       "check": "Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale",
-      "detail": "The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties this to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The cash flow statement shows 'Other noncurrent liabilities | 9,633' for FY2026 (line 2202). The $9.03B of FY2026 Singapore top-up tax (line 3099) was accrued but has not been paid. The cash sits inside reported cash and therefore inside net cash of $68.274B. The year-1 FCF reconciliation in the fcf_margin rationale uses NTM net income at a 14.8% book tax rate, so it assumes cash taxes equal expense, and it says 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. Neither that rationale nor the net_cash rationale says when the accrued FY2026 liability will be paid. Paying it inside the forecast would be an extra cash outflow that is not in the FCF path. If it rolls over every year, it is a working-capital-type liability, and its balance would unwind in years 3-5 when modelled revenue falls. Size (my own arithmetic, not code output): $9.82B / 1,145M diluted shares = about $8.6 per share undiscounted on both legs. That moves the target price to about $1,093, about 5.6% upside, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002). It is small but should be stated.",
+      "detail": "Not repaired: the candidate is unchanged since review 1 (valuation_inputs.json sha256 f228676b... and note.md cdf16378... match generator/manifest.json, and computed/ equals numerical/recompute/). I re-checked this in a fresh context. The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties the increase to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The $9.03B FY2026 Singapore top-up tax is at line 3099. History shows FY2026Q4 CFO of $43.973B, which carries most of the deferral. FY2026 FCF excluding the roughly $9.6B other-noncurrent-liabilities inflow would be about 37% of revenue rather than 44.3% (my arithmetic). The fcf_margin rationale says Q4 CFO was 'flattered' by this item and that 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. But neither fcf_margin nor net_cash says how the $9.82B balance already accrued is treated. That cash sits in reported cash, so it is inside net cash of $68.274B. It is not deducted, and its payment is not in the FCF path. Size, my own arithmetic and not code output: $9.82B / 1,145M diluted shares is about $8.6 per share on both legs. The blended value would be about $1,093, upside about +5.6%, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002), so it should be stated. Minor.",
       "first_round": 2,
       "last_seen_round": 2,
       "reopened": false,
@@ -85,7 +86,7 @@
     },
     "asm-005": {
       "check": "The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg",
-      "detail": "Code output: DCF $862.83 per share (17% below the $1,035.84 close) and relative EV/Sales $1,818.58 per share (76% above). At dcf_weight 0.75 the blend is $1,101.77, +6.4%, Neutral. My own arithmetic, not code output: the rating would be Outperform at a DCF weight of about 0.656 or less, and Underperform at about 0.927 or more. So 0.75 is about 9 percentage points of weight from an Outperform call. The dcf_weight rationale gives qualitative reasons that partly offset each other (TTM base understates run-rate; non-memory peers overstate multiples) and says the weight was set before the target price was seen in round 1. That is acceptable as a judgment. However, the note reports only the DCF value and the peer multiple. It does not show the relative per-share value or the 75/25 weighting, so a reader cannot see that the two methods are about $956 per share apart and that the Neutral call rests on the weighting. Rating sensitivity should be visible to the reader. Not a blocker: the inputs are inside policy and the rationale exists.",
+      "detail": "Not repaired: the candidate is unchanged since review 1. I re-verified the figures. Code output (numerical/recompute/valuation.json): DCF $862.83 per share and relative EV/Sales $1,818.58 per share (15.121x x $133.188B + $68.274B, over 1,145M shares). At dcf_weight 0.75 the blend is $1,101.77, TP $1,102, +6.39%, Neutral. My own arithmetic, not code output: Outperform needs TP >= $1,191.22, which holds at a DCF weight of about 0.656 or less. Underperform needs TP <= $932.26, which holds at a weight of about 0.927 or more. The note (note_rendered.md, Model and valuation section) still shows only the DCF per-share value and the peer multiple. It does not show the relative-value leg, the 75/25 weights, or that the rating rests on the weighting. Constraint on the repair: values.json (38 keys) has no key for relative_per_share or dcf_weight, so under the untagged-number gate the writer cannot show those numbers until the code owner adds the keys. A qualitative sentence, labelled our view, saying the two methods diverge widely and the rating is sensitive to the weighting needs no new key and can be added now. Minor; the inputs are inside policy and the dcf_weight rationale exists.",
       "first_round": 2,
       "last_seen_round": 2,
       "reopened": false,
@@ -135,6 +136,17 @@
       "severity": "minor",
       "source": "critic",
       "status": "closed"
+    },
+    "cmp-004": {
+      "check": "Disclosures list the share price under 'Data sources (SEC EDGAR)', but the price does not come from SEC EDGAR",
+      "detail": "In the Disclosures section of note.md, the share-price line ('Share price is the last close before the cutoff, {{price}} on {{price_date}}') is a sub-bullet of 'Data sources (SEC EDGAR):'. A reader would take that to mean the price came from EDGAR. snapshot/manifest.json#files.prices.json gives the source as the Yahoo chart endpoint (query1.finance.yahoo.com/v8/finance/chart/MU), and snapshot/prices.json#note says 'Unadjusted daily close from the Yahoo chart endpoint (split-adjusted by provider)'. The peer prices behind the EV/Sales cross-check (numerical/recompute/peers.json, price_date 2026-10-08) come from the same price host, and the note does not name that source anywhere. Policy section 6 requires the data-source disclosure to be accurate. The price value and date are correct, and the price is the last close before the cutoff. Only the attribution is wrong, so no figure, rating or cutoff conclusion changes.",
+      "first_round": 2,
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "The Disclosures section moves the share-price line (and a mention of the peer share prices used for the EV/Sales cross-check) out from under 'SEC EDGAR'. It attributes the prices to a third-party market price feed in the case snapshot, for example 'Market prices (third-party daily close data in the case snapshot, not SEC EDGAR): ...'. The price stays a {{price}}/{{price_date}} key, so no new digits are introduced.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
     },
     "prov-001": {
       "check": "Guidance table breaks on rendering: pipe characters inside quotes Q-1..Q-4 truncate the quotes and drop the code-value column",
@@ -194,7 +206,7 @@
     },
     "prov-005": {
       "check": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed",
-      "detail": "The 'Valuation caveat' paragraph in note.md says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt lines 1763 and 2344). 'May retain all or a portion' means a partial return is possible even when the commitment is missed, so 'only if' overstates the condition. The paragraph also attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K as a paraphrase without a [[Q-id]]. The paraphrase is accurate (periodic.txt lines 1763 and 2961), but a reader cannot check it through the quote trail. The judgment itself (treat the deposits as operating liabilities) is labelled as our view and is not affected. Neither point changes any figure.",
+      "detail": "The candidate is unchanged since review 1. The sha256 of generator/note.md (cdf16378...) and of narrative.json (b0a82e15...) still match manifest.json, which carries request_id gen-20261115T080625-5b263d. The 'Valuation caveat' paragraph in note.md (rendered at computed/note_rendered.md line 68) still says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt line 1763). Line 2344 adds 'If not, we may retain all, or a portion of the deposit which will be recognized as revenue'. 'May retain all or a portion' allows a partial return when the commitment is missed, so 'only if' overstates the condition. The paragraph also still attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K without a [[Q-id]]. No such quote exists among Q-1..Q-17 in narrative.json. The paraphrase is accurate: periodic.txt line 2961 reads verbatim 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.' A reader still cannot check it through the quote trail. The judgment (treat the deposits as operating liabilities) is labelled as our view and is not affected. No figure changes.",
       "first_round": 2,
       "last_seen_round": 2,
       "reopened": false,
@@ -221,10 +233,9 @@
   ],
   "opened_at": "2026-11-15T07:33:05Z",
   "pending": {
-    "issued_at": "2026-11-15T08:26:22Z",
-    "path": "cases/MU-0000723125-26-000023/rounds/round-002/reviews/review-02/request.json",
-    "phase": "critic",
-    "request_id": "crit-20261115T082622-d16bf3"
+    "issued_at": "2026-11-15T08:29:10Z",
+    "phase": "approval",
+    "request_id": "appr-20261115T082910-a328ce"
   },
   "period_of_report": "2026-09-03",
   "prompt_versions": {
@@ -245,7 +256,7 @@
   "review": 2,
   "round": 2,
   "snapshot_manifest_sha256": "0d1e5e4c919047a6c9598ba1a1d515855a5beabf9b4542e4e82dedbbfd8846b2",
-  "status": "CRITIC_PENDING",
+  "status": "AWAITING_APPROVAL",
   "ticker": "MU",
-  "updated_at": "2026-11-15T08:26:22Z"
+  "updated_at": "2026-11-15T08:29:10Z"
 }

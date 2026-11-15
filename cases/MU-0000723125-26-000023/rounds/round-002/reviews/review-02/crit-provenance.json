@@ -1,0 +1,44 @@
+{
+  "request_id": "crit-20261115T082622-d16bf3",
+  "role": "crit-provenance",
+  "candidate_id": "cand-0aac844f50d1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-005",
+      "severity": "minor",
+      "title": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed (not repaired)",
+      "detail": "The candidate is unchanged since review 1. The sha256 of generator/note.md (cdf16378...) and of narrative.json (b0a82e15...) still match manifest.json, which carries request_id gen-20261115T080625-5b263d. The 'Valuation caveat' paragraph in note.md (rendered at computed/note_rendered.md line 68) still says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt line 1763). Line 2344 adds 'If not, we may retain all, or a portion of the deposit which will be recognized as revenue'. 'May retain all or a portion' allows a partial return when the commitment is missed, so 'only if' overstates the condition. The paragraph also still attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K without a [[Q-id]]. No such quote exists among Q-1..Q-17 in narrative.json. The paraphrase is accurate: periodic.txt line 2961 reads verbatim 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.' A reader still cannot check it through the quote trail. The judgment (treat the deposits as operating liabilities) is labelled as our view and is not affected. No figure changes.",
+      "evidence": [
+        "generator/note.md (Model and valuation, 'Valuation caveat' paragraph)",
+        "computed/note_rendered.md#L68",
+        "snapshot/docs/periodic.txt#L1763",
+        "snapshot/docs/periodic.txt#L2344",
+        "snapshot/docs/periodic.txt#L2961",
+        "generator/manifest.json (note.md sha256 unchanged)"
+      ],
+      "required_evidence": "The caveat says 'returned if the customer meets ...' (or adds that the company may retain all or a portion otherwise) instead of 'only if'. Ideally the repayment-timing statement is cited through a verbatim narrative quote, e.g. 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.' (periodic.txt line 2961)."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Candidate identity: sha256 of assumptions/mapping/narrative/valuation_inputs/note.md match generator/manifest.json (request_id gen-20261115T080625-5b263d); no repair since review 1, so open findings prov-005/asm-004/asm-005 were re-checked against the same files",
+    "gates.json: findings empty; sha256 of numerical/recompute forecast/history/peers/valuation/values equal the gate hashes and the computed/ copies; recompute note_rendered.md is byte-identical to computed/note_rendered.md",
+    "All 38 {{keys}} used in note.md exist in values.json; every F-/D-/S- source resolves to snapshot/facts.json fact_ids directly or through history.json derived records; snapshot/facts.json contains 0 facts accepted after the cutoff 2026-10-09T12:21:00Z",
+    "revenue_q 54,229M = D-e90aac72b9 = FY 133,188M (F-ea1467005d, 10-K) - 9M 78,959M (F-adf7207965, 10-Q) for 2026-05-29..2026-09-03; labelled fiscal FY2026 Q4 / calendar CY2026Q3, consistent with history.quarters",
+    "revenue_qoq 30.8% vs FY2026Q3 41,456M (F-03e050e3a0), described as sequential/quarter on quarter; revenue_yoy 379.3% vs FY2025Q4 11,315M (D-784c348bcc = 37,378M - 26,063M), described as year on year; revenue_ttm 133,188M = 13,643 + 23,860 + 41,456 + 54,229 = FY2026, described as TTM equal to FY2026",
+    "gross_margin_q 86.8% (47,047/54,229), operating_margin_q 80.7% (43,751/54,229), net_income_q 37,701M (84,969 - 47,268), fcf_q 32,863M (CFO 89,675 - 45,702 = 43,973; capex 30,712 - 19,602 = 11,110), all quarterly Q4 derivations as the note describes",
+    "Extra-week claim: FY2026Q3 2026-02-27..2026-05-28 is 13 weeks and FY2026Q4 2026-05-29..2026-09-03 is 14 weeks, consistent with Q-10 (53-week fiscal 2026) and the note's 'by our count' wording",
+    "Spot-check against periodic.txt: revenue 133,188 (lines 1585, 1954), net income 84,969 (lines 1611, 1981), total assets 195,888 (line 2040, F-381c925c83), short-term investments 5,070 (line 2022), long-term marketable investments 30,019 (line 2032), current debt 491 (line 2046), long-term debt 4,688 (line 2052)",
+    "Net cash 68,274M = cash 38,364M (F-455b2cbdf8) + investments 35,089M (S-0f9cbd5118) - debt 5,179M; the note describes the components correctly",
+    "Valuation arithmetic in valuation.json: blend 0.75 * 862.83 + 0.25 * 1,818.58 = 1,101.77, rounded to 1,102; upside 1,102 / 1,035.84 - 1 = 6.4%; Neutral under the +15% / -10% bands",
+    "Price 1,035.84 on 2026-10-08 is the last close in snapshot/prices.json before the cutoff",
+    "Quotes Q-1..Q-17 all appear verbatim in their stated docs; I re-read the following context of Q-6, Q-8, Q-9, Q-10, Q-11, Q-13 and Q-14, and none is truncated in a way that changes its meaning",
+    "Guidance values match quotes and bases: revenue 61.5bn (60.0-63.0bn, Q-1), GM 0.8595 GAAP (Q-2) / 0.8625 non-GAAP (Q-15), opex 2.31bn (Q-3) / 2.06bn (Q-16), EPS 37.84 (Q-4) / 38.15 (Q-17) with +/-1.00 ranges and unit USD/share",
+    "Rendered guidance table: every row has exactly three cells",
+    "mapping.json: every mapped concept has data through 2026-09-03 (EntityCommonStockSharesOutstanding through 2026-10-02, before cutoff); Revenues has no data and the stale LongTermDebt alternative is not used; no stale concepts",
+    "Data-gap statement (no Q4 diluted shares/EPS; model uses 1,145M from F-3d172a9372) matches history.json, where the Q4 diluted_shares and eps_diluted entries are null",
+    "No digits in note.md outside {{keys}}/[[Q-ids]] except year and form labels (2026, 2029, 2031, FY2026, FY2027, 10-K, 8-K); no post-cutoff information observed",
+    "Open findings asm-004 and asm-005 belong to crit-assumption; I noted that note.md is unchanged on both points (no Pillar Two payable treatment, no relative-value leg or weights shown) but did not report them under my prefix"
+  ]
+}
