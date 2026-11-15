@@ -222,6 +222,25 @@ because no change has yet earned one.
 
 ## 6. Limitations
 
+* **Low-conviction ratings driven by a conservative DCF.** Both published ratings come mostly
+  from the DCF leg, and the two valuation methods disagree widely:
+
+  | Case | DCF / share | Peer EV/Sales / share | Blended TP | Last close | Upside |
+  |---|---|---|---|---|---|
+  | NVDA r2 | $141.68 | $289.88 | $186 | $209.66 | -11.3% |
+  | AMD r2 | $195.37 | $450.35 | $297 | $483.90 | -38.6% |
+
+  The DCF uses a five-year explicit horizon. Growth fades fast (AMD: 25% to 8% in years 2-5,
+  against 45% year-on-year growth in the quarter), FCF margins are anchored on history, and there
+  is one scenario. At the cutoff the market priced AMD at about 50x next-twelve-month EPS, the
+  target at about 30x. The critics check that each assumption is justified and plausible, not that
+  the conclusion matches the market, so both notes passed. The workflow has no rule that forces
+  extra scrutiny when the target sits far from the price or the methods diverge (only a target
+  move of more than 10% against the last published note needs a written rationale). It also has
+  no reverse-DCF check of the growth the price implies. The ratings are therefore
+  policy-consistent but low-conviction. A production version would need scenario analysis, a
+  longer explicit horizon, and a rule requiring a stated conviction level and the market-implied
+  growth when |upside| > 30% or the methods differ by more than 2x.
 * Prices come from an unofficial endpoint and are split-adjusted by the provider. A
   production system needs a licensed, point-in-time price source.
 * Peer multiples are trailing (TTM). No consensus estimates are used, because they are paid
