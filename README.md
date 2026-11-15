@@ -27,6 +27,13 @@ files a new 10-Q or 10-K, the workflow:
 It is a sell-side "earnings update" process: recurring, multi-stage and stateful. A single
 prompt cannot do it reliably. See the design note for the full rationale.
 
+**Scope of this submission.** The seven tickers above are the configured coverage: the watcher
+monitors all of them, and the code handles any of them. Within the project period, research cases
+were run for **three** companies only: **NVDA** and **AMD** (10-Qs; both notes published) and
+**MU** (FY2026 10-K, the first 10-K case). **INTC, AVGO, MRVL and AMAT have no case** in this
+repository. The fourteen comparables (LRCX, KLAC, SNPS, CDNS, ALAB, CRDO, MPWR and the covered
+names) enter only as peer data inside each case's snapshot.
+
 ## Repository guide
 
 | Path | Contents |
@@ -145,10 +152,12 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
   where its evidence is.
 * `docs/incidents.md`: every problem met during the build and the runs, with timeline, impact,
   root cause and fix (including the 50-minute AMD stall and the watchdog added for it).
-* `evolution/changes/change-001/`: a prompt change evaluated against the baseline on fixed
-  development and held-out cases and **rejected** by a fresh reviewer, because the code change had
-  already fixed the cause. The active version stays v2. Adoption, versioning and rollback are tested
-  in `tests/test_evolution.py`.
+* `evolution/changes/`: three prompt changes to gen-writer. change-001 and change-002 were
+  **rejected** by a fresh reviewer because their evaluations could not separate baseline and
+  candidate (`evolution/diagnosis-2026-11-15.md`). change-003 kept the failure condition in the
+  evaluation (baseline failed 6/6, candidate passed 6/6), was recommended by the reviewer,
+  **adopted by the owner as v3** (`prompts/registry.json`), and passed a post-adoption check.
+  Rollback is tested in `tests/test_evolution.py`.
 * `docs/verification/stop_hook.md`: live Stop-hook test (PASS).
 
 ## My contribution

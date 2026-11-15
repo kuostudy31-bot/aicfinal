@@ -16,6 +16,11 @@ filings arrive in most months of the year. The usual errors are copying a wrong 
 mixing fiscal and calendar quarters, using a discontinued XBRL line, and leaving out
 something the market did not know on the report date.
 
+**What this project actually ran.** The workflow is built for the full coverage list, but
+because of time, research cases were run for three companies: NVDA (FY2027 Q2 10-Q), AMD
+(Q3 2026 10-Q) and MU (FY2026 10-K). INTC, AVGO, MRVL and AMAT are configured and watched,
+but have no case. The comparables appear only as peer data in each snapshot.
+
 **Stages and dependencies.** trigger → point-in-time snapshot → XBRL mapping and
 guidance extraction (independent of each other) → forecast assumptions (need both) →
 valuation inputs (need the forecast) → note (needs everything) → numerical gates →
@@ -24,7 +29,9 @@ independent review → repair loop → research acceptance → human publication
 **Triggers.** `eu.py watch` lists new 10-Q/10-K filings for the coverage list. The
 accession number is the event ID, so a repeated watch never opens a duplicate case. The
 watcher can run on a schedule (a cloud scheduled task or cron); it is pure Python and needs
-no model. `--as-of` replays history, which is how the evidence cases were produced.
+no model. `--as-of` replays history. In this project the NVDA and AMD cases were opened
+directly by accession (`/start <TICKER> <accession>`); the MU case followed a `watch` run,
+recorded in `events/events.jsonl`.
 
 **Inputs, permitted sources, cutoff.** SEC EDGAR (submissions, companyfacts XBRL, filing
 documents) and one daily-price endpoint. `config/project.yaml` lists the permitted hosts and
@@ -195,12 +202,22 @@ All interruptions (including a deliberate one, a quota stop and an owner pause) 
 
 Every case keeps its snapshot hashes, request/round files, controller and hook trace, critic
 reports, and each subagent's transcript under `evidence/transcripts/`. `docs/incidents.md`
-lists the eight problems met during the build and runs, with timelines and fixes. **Diagnosis before a change** ([`evolution/diagnosis-2026-11-15.md`](../evolution/diagnosis-2026-11-15.md)):
+lists the problems met during the build and runs, with timelines and fixes. **Diagnosis before a change** ([`evolution/diagnosis-2026-11-15.md`](../evolution/diagnosis-2026-11-15.md)):
 after change-001 was rejected, the finding ledgers of all cases were reviewed for recurring
 failures. The review found one code bug (the peer calendar label, fixed directly) and one
 prompt-level failure with a code-side gap (the writer spells quantities in words, which the
 digit-based provenance gate cannot see). The second became change-002. A third pattern was
 deferred because no deterministic check can capture it.
+
+**Evolution change-003 (`evolution/changes/change-003`, ADOPTED as gen-writer v3):** the same
+rule as change-002, re-evaluated so that the failure condition is kept. `evo-prepare` now withholds
+the code-supplied rating-band and date values from the frozen inputs (`--withhold-key`), runs two
+samples per arm (`--samples 2`) and passes only if the baseline reproduces the failure
+(`--require-baseline-failure`). Result: baseline v2 failed 6/6 samples (it wrote "fifteen percent",
+"minus ten percent"), the candidate passed 6/6, and a fresh reviewer recommended adoption with two
+minor findings. The owner adopted it. A post-adoption check (review finding evo-003) ran v3 with
+the keys present on NVDA r2 and the held-out AMD case: no spelled quantities, all five disclosure
+keys used, no provenance findings. Cases opened earlier keep their pinned version.
 
 **Evolution change-002 (`evolution/changes/change-002`, REJECTED):** a gen-writer rule against
 spelled-out quantities. Rejected for the same reason as change-001: the code prerequisites had
@@ -216,9 +233,8 @@ on two development cases and one held-out case. Both arms passed every check, so
 could not tell them apart. A fresh evo-reviewer rejected the change for three reasons. The code
 change that supplies the three values (commit 220c535) had already removed the cause. The
 recorded failure had been mislabeled by the coordinator (it reused the ID cmp-001 for a different
-issue). The scope and regression checks passed. The active version stays v2. Adoption,
-versioning and rollback are covered by `tests/test_evolution.py`; a live adoption was not needed,
-because no change has yet earned one.
+issue). The scope and regression checks passed. Rollback is covered by
+`tests/test_evolution.py`; it was not needed live.
 
 ## 6. Limitations
 
@@ -241,6 +257,10 @@ because no change has yet earned one.
   policy-consistent but low-conviction. A production version would need scenario analysis, a
   longer explicit horizon, and a rule requiring a stated conviction level and the market-implied
   growth when |upside| > 30% or the methods differ by more than 2x.
+* **Coverage actually exercised.** Cases were run for NVDA, AMD and MU only. INTC, AVGO, MRVL
+  and AMAT are configured but untested; their XBRL mappings and fiscal calendars have not been
+  through a live case. MU's 10-K exposed a defect that the 10-Q cases could not (incidents #12),
+  so each untested issuer may need similar fixes.
 * Prices come from an unofficial endpoint and are split-adjusted by the provider. A
   production system needs a licensed, point-in-time price source.
 * Peer multiples are trailing (TTM). No consensus estimates are used, because they are paid
