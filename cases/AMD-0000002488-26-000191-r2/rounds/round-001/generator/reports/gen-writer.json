@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261115T025408-b38ac7",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "Prompt gen-writer v2. note.md uses only {{key}} placeholders from computed/values.json and [[Q-1]]..[[Q-6]] quotes; rating thresholds spelled out in words to avoid untagged digits; request_id carried in an HTML comment. Reported results, forecasts and judgments are labelled separately. Disclosures cover policies.md section 6 (coursework disclaimer, accession and cutoff, price date, rating definitions, code-generated unaudited XBRL statement). Re-ran eu.py compute after writing: gate_findings empty, target 297, Underperform. WACC, terminal growth and the peer-implied value are not keys in values.json, so they are described qualitatively only."
+}

@@ -1,0 +1,21 @@
+{
+  "acceptance_rules": "references/acceptance.md",
+  "candidate_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-001/generator",
+  "candidate_id": "cand-e7ff36819293",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "computed_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-001/numerical/recompute",
+  "gates_file": "cases/AMD-0000002488-26-000191-r2/rounds/round-001/numerical/gates.json",
+  "issued_at": "2026-11-15T03:00:30Z",
+  "open_findings": [],
+  "output_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-001/reviews/review-01",
+  "phase": "critic",
+  "request_id": "crit-20261115T030030-1acfec",
+  "required_reports": [
+    "crit-provenance",
+    "crit-assumption",
+    "crit-compliance"
+  ],
+  "review": 1,
+  "round": 1,
+  "snapshot_dir": "cases/AMD-0000002488-26-000191-r2/snapshot"
+}

@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261115T025408-b38ac7",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": ["assumptions.json"],
+  "repairs": [],
+  "notes": "FY2026Q4 revenue anchored on the $17.0B guidance midpoint (Q-1, +27.1% q/q). Guidance gross margin is non-GAAP 55% (Q-2); model uses GAAP, so converted to 53.4% by removing ~1.6 ppts of recurring reconciling items (intangible amortization in cost of sales and SBC, per the release reconciliation). Opex 28.0% of revenue in Q4 (no guidance; judgment). Tax 13% (underlying GAAP rate excluding discrete SBC benefits; matches the company's FY2026 non-GAAP normalized rate). FY2027Q1-Q3 are analyst judgments; not tuned to any target price or rating. Only snapshot data used."
+}

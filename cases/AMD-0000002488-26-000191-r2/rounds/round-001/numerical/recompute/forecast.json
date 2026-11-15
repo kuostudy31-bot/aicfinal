@@ -1,0 +1,55 @@
+{
+  "ntm": {
+    "eps": 9.72234636462856,
+    "gross_profit": 38967971117.10048,
+    "net_income": 16232452798.183224,
+    "operating_income": 18657991722.049683,
+    "revenue": 72580482697.632
+  },
+  "quarters": [
+    {
+      "diluted_shares": 1664322000.0,
+      "eps": 2.2574591116743035,
+      "gross_profit": 9079157178.0,
+      "label": "FY2026Q4",
+      "net_income": 3757138863.66,
+      "operating_income": 4318550418.0,
+      "opex": 4760606760.0,
+      "revenue": 17002166999.999998,
+      "step": 1
+    },
+    {
+      "diluted_shares": 1667650644.0,
+      "eps": 2.261823099772688,
+      "gross_profit": 9278082531.9,
+      "label": "FY2027Q1",
+      "net_income": 3771930748.95,
+      "operating_income": 4335552585.0,
+      "opex": 4942529946.9,
+      "revenue": 17342210340.0,
+      "step": 2
+    },
+    {
+      "diluted_shares": 1670985945.288,
+      "eps": 2.469314895512315,
+      "gross_profit": 9889915712.695202,
+      "label": "FY2027Q2",
+      "net_income": 4126190484.891385,
+      "operating_income": 4742747683.783201,
+      "opex": 5147168028.912001,
+      "revenue": 18382742960.4,
+      "step": 3
+    },
+    {
+      "diluted_shares": 1674327917.178576,
+      "eps": 2.7337492576692526,
+      "gross_profit": 10720815694.505281,
+      "label": "FY2027Q3",
+      "net_income": 4577192700.681838,
+      "operating_income": 5261141035.26648,
+      "opex": 5459674659.238801,
+      "revenue": 19853362397.232002,
+      "step": 4
+    }
+  ]
+}
