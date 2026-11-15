@@ -4,10 +4,10 @@
 
 | | |
 |---|---|
-| Student | **郭向竹** — student ID **24210660139** |
+| Student | Individual project; the student's name and ID are given in the copy submitted to the instructor |
 | Repository | https://github.com/kuostudy31-bot/aicfinal (branch `claude/trusting-thompson-r5m3id`) |
 | Branch link | https://github.com/kuostudy31-bot/aicfinal/tree/claude/trusting-thompson-r5m3id (open [`GITHUB_LINK.html`](GITHUB_LINK.html)) |
-| Submitted folder | `aicfinal/` in `24210660139-final-project.zip`, with the full `.git/` history (the repository was called `aicfinal_test` until 2026-11-15, so older notes use that name) |
+| Submitted folder | `aicfinal/` in `<studentID>-final-project.zip`, with the full `.git/` history (the repository was called `aicfinal_test` until 2026-11-15, so older notes use that name) |
 | Design note | [`docs/design_note.md`](docs/design_note.md) · diagram [`docs/architecture.svg`](docs/architecture.svg) |
 | Dashboard | open [`dashboard.html`](dashboard.html) in a browser (offline): cases, valuation, reviews, evolution, interruptions, timeline |
 
