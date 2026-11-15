@@ -1,0 +1,85 @@
+{
+  "request_id": "gen-20261115T021251-f0fa02",
+  "mapping": {
+    "revenue": {
+      "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "rationale": "Net revenue; 16 observations through 2026-06-27 (latest 11,536M, matches periodic.txt net revenue). Revenues and SalesRevenueNet have no data."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfGoodsAndServicesSold",
+      "rationale": "16 observations through 2026-06-27; latest 5,333M. CostOfRevenue/CostOfGoodsSold not reported."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "16 observations through 2026-06-27; latest 6,203M (= 11,536 - 5,333)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "16 observations through 2026-06-27; latest 2,528M."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "16 observations through 2026-06-27; latest 1,401M."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "16 observations through 2026-06-27; latest 1,990M."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "16 observations through 2026-06-27; latest 2,297M, matches periodic.txt."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "16 observations through 2026-06-27; latest 1,659M."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "16 observations through 2026-06-27; latest 1.38."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "15 observations through 2026-06-27 (cash-flow items lack one period, likely the derived Q4); latest 2,366M."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "rationale": "15 observations through 2026-06-27; latest 808M. PaymentsToAcquireProductiveAssets has no data."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "15 observations through 2026-06-27; latest 503M (cash-flow add-back; AllocatedShareBasedCompensationExpense has same latest value, 16 obs)."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "16 observations through 2026-06-27; latest 5,086M, matches balance sheet. Restricted-cash variant is stale (13 obs, ends 2025-12-27)."
+    },
+    "short_term_investments": {
+      "concept": "ShortTermInvestments",
+      "rationale": "16 observations through 2026-06-27; latest 8,025M, matches balance sheet. Catalog marketable-securities/debt-securities candidates have no data."
+    },
+    "total_debt": {
+      "concept": "DebtLongtermAndShorttermCombinedAmount",
+      "rationale": "15 observations through 2026-06-27; latest 3,226M = current portion 875M + long-term 2,351M per periodic.txt. Judgment: chosen over LongTermDebtNoncurrent (2,351M, 16 obs) because it includes the current portion."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "16 observations through 2026-06-27; latest 84,464M, matches balance sheet."
+    },
+    "liabilities": {
+      "concept": null,
+      "rationale": "Liabilities has no data in the snapshot (0 observations); AMD does not report a total liabilities line. Deliberately unmapped; derivable as assets minus equity if needed."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "16 observations through 2026-06-27; latest 67,224M."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "16 observations through 2026-06-27; latest 84,464M, equals total assets."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "dei concept; 16 observations, latest 2026-07-29 (cover-page date) 1,632,475,042."
+    }
+  }
+}

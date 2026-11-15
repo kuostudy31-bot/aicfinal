@@ -1,0 +1,664 @@
+{
+  "cik": 2488,
+  "cutoff_utc": "2026-08-04T21:40:01Z",
+  "filings": [
+    {
+      "acceptance_utc": "2026-08-04T21:40:01Z",
+      "accessionNumber": "0000002488-26-000123",
+      "filingDate": "2026-08-05",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20260627.htm",
+      "reportDate": "2026-06-27"
+    },
+    {
+      "acceptance_utc": "2026-08-04T20:16:24Z",
+      "accessionNumber": "0000002488-26-000121",
+      "filingDate": "2026-08-04",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20260804.htm",
+      "reportDate": "2026-08-04"
+    },
+    {
+      "acceptance_utc": "2026-05-05T22:06:27Z",
+      "accessionNumber": "0000002488-26-000076",
+      "filingDate": "2026-05-06",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20260328.htm",
+      "reportDate": "2026-03-28"
+    },
+    {
+      "acceptance_utc": "2026-05-05T20:16:06Z",
+      "accessionNumber": "0000002488-26-000072",
+      "filingDate": "2026-05-05",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20260505.htm",
+      "reportDate": "2026-05-05"
+    },
+    {
+      "acceptance_utc": "2026-02-04T20:06:57Z",
+      "accessionNumber": "0000002488-26-000021",
+      "filingDate": "2026-02-04",
+      "form": "10-K/A",
+      "items": "",
+      "primaryDocument": "amd-20251227.htm",
+      "reportDate": "2025-12-27"
+    },
+    {
+      "acceptance_utc": "2026-02-03T23:14:52Z",
+      "accessionNumber": "0000002488-26-000018",
+      "filingDate": "2026-02-04",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20251227.htm",
+      "reportDate": "2025-12-27"
+    },
+    {
+      "acceptance_utc": "2026-02-03T21:16:18Z",
+      "accessionNumber": "0000002488-26-000014",
+      "filingDate": "2026-02-03",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20260203.htm",
+      "reportDate": "2026-02-03"
+    },
+    {
+      "acceptance_utc": "2025-11-04T23:07:50Z",
+      "accessionNumber": "0000002488-25-000166",
+      "filingDate": "2025-11-05",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20250927.htm",
+      "reportDate": "2025-09-27"
+    },
+    {
+      "acceptance_utc": "2025-11-04T21:16:10Z",
+      "accessionNumber": "0000002488-25-000163",
+      "filingDate": "2025-11-04",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20251104.htm",
+      "reportDate": "2025-11-04"
+    },
+    {
+      "acceptance_utc": "2025-08-05T22:08:21Z",
+      "accessionNumber": "0000002488-25-000108",
+      "filingDate": "2025-08-06",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20250628.htm",
+      "reportDate": "2025-06-28"
+    },
+    {
+      "acceptance_utc": "2025-08-05T20:16:31Z",
+      "accessionNumber": "0000002488-25-000106",
+      "filingDate": "2025-08-05",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20250805.htm",
+      "reportDate": "2025-08-05"
+    },
+    {
+      "acceptance_utc": "2025-05-06T22:04:48Z",
+      "accessionNumber": "0000002488-25-000047",
+      "filingDate": "2025-05-07",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20250329.htm",
+      "reportDate": "2025-03-29"
+    },
+    {
+      "acceptance_utc": "2025-05-06T20:16:45Z",
+      "accessionNumber": "0000002488-25-000045",
+      "filingDate": "2025-05-06",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20250506.htm",
+      "reportDate": "2025-05-06"
+    },
+    {
+      "acceptance_utc": "2025-02-05T21:42:57Z",
+      "accessionNumber": "0000002488-25-000012",
+      "filingDate": "2025-02-05",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20241228.htm",
+      "reportDate": "2024-12-28"
+    },
+    {
+      "acceptance_utc": "2025-02-04T21:17:17Z",
+      "accessionNumber": "0000002488-25-000009",
+      "filingDate": "2025-02-04",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20250204.htm",
+      "reportDate": "2025-02-04"
+    },
+    {
+      "acceptance_utc": "2024-10-30T20:26:03Z",
+      "accessionNumber": "0000002488-24-000163",
+      "filingDate": "2024-10-30",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20240928.htm",
+      "reportDate": "2024-09-28"
+    },
+    {
+      "acceptance_utc": "2024-10-29T20:16:49Z",
+      "accessionNumber": "0000002488-24-000161",
+      "filingDate": "2024-10-29",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20241029.htm",
+      "reportDate": "2024-10-29"
+    },
+    {
+      "acceptance_utc": "2024-07-31T20:20:22Z",
+      "accessionNumber": "0000002488-24-000123",
+      "filingDate": "2024-07-31",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20240629.htm",
+      "reportDate": "2024-06-29"
+    },
+    {
+      "acceptance_utc": "2024-07-30T20:17:15Z",
+      "accessionNumber": "0000002488-24-000121",
+      "filingDate": "2024-07-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20240730.htm",
+      "reportDate": "2024-07-30"
+    },
+    {
+      "acceptance_utc": "2024-05-01T20:10:44Z",
+      "accessionNumber": "0000002488-24-000056",
+      "filingDate": "2024-05-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20240330.htm",
+      "reportDate": "2024-03-30"
+    },
+    {
+      "acceptance_utc": "2024-04-30T20:16:31Z",
+      "accessionNumber": "0000002488-24-000054",
+      "filingDate": "2024-04-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20240430.htm",
+      "reportDate": "2024-04-30"
+    },
+    {
+      "acceptance_utc": "2024-01-31T22:16:39Z",
+      "accessionNumber": "0000002488-24-000012",
+      "filingDate": "2024-01-31",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20231230.htm",
+      "reportDate": "2023-12-30"
+    },
+    {
+      "acceptance_utc": "2024-01-30T21:16:19Z",
+      "accessionNumber": "0000002488-24-000009",
+      "filingDate": "2024-01-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20240130.htm",
+      "reportDate": "2024-01-30"
+    },
+    {
+      "acceptance_utc": "2023-11-01T20:20:28Z",
+      "accessionNumber": "0000002488-23-000195",
+      "filingDate": "2023-11-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20230930.htm",
+      "reportDate": "2023-09-30"
+    },
+    {
+      "acceptance_utc": "2023-10-31T20:16:56Z",
+      "accessionNumber": "0000002488-23-000192",
+      "filingDate": "2023-10-31",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20231031.htm",
+      "reportDate": "2023-10-31"
+    },
+    {
+      "acceptance_utc": "2023-08-02T21:12:01Z",
+      "accessionNumber": "0000002488-23-000139",
+      "filingDate": "2023-08-02",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20230701.htm",
+      "reportDate": "2023-07-01"
+    },
+    {
+      "acceptance_utc": "2023-08-01T20:16:57Z",
+      "accessionNumber": "0000002488-23-000135",
+      "filingDate": "2023-08-01",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20230801.htm",
+      "reportDate": "2023-08-01"
+    },
+    {
+      "acceptance_utc": "2023-05-03T20:28:42Z",
+      "accessionNumber": "0000002488-23-000076",
+      "filingDate": "2023-05-03",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20230401.htm",
+      "reportDate": "2023-04-01"
+    },
+    {
+      "acceptance_utc": "2023-05-02T20:17:31Z",
+      "accessionNumber": "0000002488-23-000074",
+      "filingDate": "2023-05-02",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20230502.htm",
+      "reportDate": "2023-05-02"
+    },
+    {
+      "acceptance_utc": "2023-02-27T21:20:39Z",
+      "accessionNumber": "0000002488-23-000047",
+      "filingDate": "2023-02-27",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20221231.htm",
+      "reportDate": "2022-12-31"
+    },
+    {
+      "acceptance_utc": "2023-01-31T21:55:24Z",
+      "accessionNumber": "0000002488-23-000007",
+      "filingDate": "2023-01-31",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20230131.htm",
+      "reportDate": "2023-01-31"
+    },
+    {
+      "acceptance_utc": "2022-11-02T20:35:10Z",
+      "accessionNumber": "0000002488-22-000170",
+      "filingDate": "2022-11-02",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20220924.htm",
+      "reportDate": "2022-09-24"
+    },
+    {
+      "acceptance_utc": "2022-11-01T20:17:39Z",
+      "accessionNumber": "0000002488-22-000168",
+      "filingDate": "2022-11-01",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20221101.htm",
+      "reportDate": "2022-11-01"
+    },
+    {
+      "acceptance_utc": "2022-10-06T20:20:03Z",
+      "accessionNumber": "0000002488-22-000163",
+      "filingDate": "2022-10-06",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20221006.htm",
+      "reportDate": "2022-10-06"
+    },
+    {
+      "acceptance_utc": "2022-08-03T21:15:57Z",
+      "accessionNumber": "0000002488-22-000123",
+      "filingDate": "2022-08-03",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20220625.htm",
+      "reportDate": "2022-06-25"
+    },
+    {
+      "acceptance_utc": "2022-08-02T20:08:05Z",
+      "accessionNumber": "0000002488-22-000120",
+      "filingDate": "2022-08-02",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20220802.htm",
+      "reportDate": "2022-08-02"
+    },
+    {
+      "acceptance_utc": "2022-05-04T20:50:40Z",
+      "accessionNumber": "0000002488-22-000078",
+      "filingDate": "2022-05-04",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20220326.htm",
+      "reportDate": "2022-03-26"
+    },
+    {
+      "acceptance_utc": "2022-05-03T20:11:17Z",
+      "accessionNumber": "0000002488-22-000074",
+      "filingDate": "2022-05-03",
+      "form": "8-K",
+      "items": "1.01,1.02,2.02,2.03,7.01,9.01",
+      "primaryDocument": "amd-20220429.htm",
+      "reportDate": "2022-04-29"
+    },
+    {
+      "acceptance_utc": "2022-02-03T22:22:50Z",
+      "accessionNumber": "0000002488-22-000016",
+      "filingDate": "2022-02-03",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20211225.htm",
+      "reportDate": "2021-12-25"
+    },
+    {
+      "acceptance_utc": "2022-02-01T21:17:06Z",
+      "accessionNumber": "0000002488-22-000014",
+      "filingDate": "2022-02-01",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20220201.htm",
+      "reportDate": "2022-02-01"
+    },
+    {
+      "acceptance_utc": "2021-10-27T20:37:56Z",
+      "accessionNumber": "0000002488-21-000178",
+      "filingDate": "2021-10-27",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20210925.htm",
+      "reportDate": "2021-09-25"
+    },
+    {
+      "acceptance_utc": "2021-10-26T20:17:33Z",
+      "accessionNumber": "0000002488-21-000176",
+      "filingDate": "2021-10-26",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20211026.htm",
+      "reportDate": "2021-10-26"
+    },
+    {
+      "acceptance_utc": "2021-07-28T20:46:31Z",
+      "accessionNumber": "0000002488-21-000116",
+      "filingDate": "2021-07-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20210626.htm",
+      "reportDate": "2021-06-26"
+    },
+    {
+      "acceptance_utc": "2021-07-27T20:39:42Z",
+      "accessionNumber": "0000002488-21-000114",
+      "filingDate": "2021-07-27",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20210727.htm",
+      "reportDate": "2021-07-27"
+    },
+    {
+      "acceptance_utc": "2021-04-28T20:39:55Z",
+      "accessionNumber": "0000002488-21-000056",
+      "filingDate": "2021-04-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20210327.htm",
+      "reportDate": "2021-03-27"
+    },
+    {
+      "acceptance_utc": "2021-04-27T20:12:09Z",
+      "accessionNumber": "0000002488-21-000054",
+      "filingDate": "2021-04-27",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20210427.htm",
+      "reportDate": "2021-04-27"
+    },
+    {
+      "acceptance_utc": "2021-01-29T22:24:00Z",
+      "accessionNumber": "0001628280-21-001185",
+      "filingDate": "2021-01-29",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-20201226.htm",
+      "reportDate": "2020-12-26"
+    },
+    {
+      "acceptance_utc": "2021-01-26T21:14:58Z",
+      "accessionNumber": "0000002488-21-000009",
+      "filingDate": "2021-01-26",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20210126.htm",
+      "reportDate": "2021-01-26"
+    },
+    {
+      "acceptance_utc": "2020-10-28T20:59:17Z",
+      "accessionNumber": "0000002488-20-000164",
+      "filingDate": "2020-10-28",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20200926.htm",
+      "reportDate": "2020-09-26"
+    },
+    {
+      "acceptance_utc": "2020-10-27T10:34:50Z",
+      "accessionNumber": "0000002488-20-000161",
+      "filingDate": "2020-10-27",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20201027.htm",
+      "reportDate": "2020-10-27"
+    },
+    {
+      "acceptance_utc": "2020-07-29T20:52:29Z",
+      "accessionNumber": "0000002488-20-000103",
+      "filingDate": "2020-07-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd-20200627.htm",
+      "reportDate": "2020-06-27"
+    },
+    {
+      "acceptance_utc": "2020-07-28T20:20:25Z",
+      "accessionNumber": "0000002488-20-000101",
+      "filingDate": "2020-07-28",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "amd-20200728.htm",
+      "reportDate": "2020-07-28"
+    },
+    {
+      "acceptance_utc": "2020-04-29T20:33:04Z",
+      "accessionNumber": "0000002488-20-000051",
+      "filingDate": "2020-04-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amdq1fy2010q.htm",
+      "reportDate": "2020-03-28"
+    },
+    {
+      "acceptance_utc": "2020-04-28T20:29:49Z",
+      "accessionNumber": "0000002488-20-000048",
+      "filingDate": "2020-04-28",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a2020q1earnings8-k.htm",
+      "reportDate": "2020-04-28"
+    },
+    {
+      "acceptance_utc": "2020-02-04T22:21:47Z",
+      "accessionNumber": "0000002488-20-000008",
+      "filingDate": "2020-02-04",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amdform10-kfy2019.htm",
+      "reportDate": "2019-12-28"
+    },
+    {
+      "acceptance_utc": "2020-01-28T21:17:02Z",
+      "accessionNumber": "0000002488-20-000006",
+      "filingDate": "2020-01-28",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20200128q419earnings8.htm",
+      "reportDate": "2020-01-28"
+    },
+    {
+      "acceptance_utc": "2019-10-30T20:17:03Z",
+      "accessionNumber": "0000002488-19-000159",
+      "filingDate": "2019-10-30",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0928201910q.htm",
+      "reportDate": "2019-09-28"
+    },
+    {
+      "acceptance_utc": "2019-10-29T21:11:27Z",
+      "accessionNumber": "0000002488-19-000157",
+      "filingDate": "2019-10-29",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20191029q319earnings8.htm",
+      "reportDate": "2019-10-29"
+    },
+    {
+      "acceptance_utc": "2019-07-31T20:27:08Z",
+      "accessionNumber": "0000002488-19-000104",
+      "filingDate": "2019-07-31",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0629201910q.htm",
+      "reportDate": "2019-06-29"
+    },
+    {
+      "acceptance_utc": "2019-07-30T20:21:33Z",
+      "accessionNumber": "0000002488-19-000102",
+      "filingDate": "2019-07-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20190730q219earnings8-k.htm",
+      "reportDate": "2019-07-30"
+    },
+    {
+      "acceptance_utc": "2019-05-01T20:36:40Z",
+      "accessionNumber": "0000002488-19-000045",
+      "filingDate": "2019-05-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0330201910q.htm",
+      "reportDate": "2019-03-30"
+    },
+    {
+      "acceptance_utc": "2019-04-30T20:21:37Z",
+      "accessionNumber": "0000002488-19-000043",
+      "filingDate": "2019-04-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20190430q119earnings8-k.htm",
+      "reportDate": "2019-04-30"
+    },
+    {
+      "acceptance_utc": "2019-02-08T21:44:26Z",
+      "accessionNumber": "0000002488-19-000011",
+      "filingDate": "2019-02-08",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-12292018x10k.htm",
+      "reportDate": "2018-12-29"
+    },
+    {
+      "acceptance_utc": "2019-01-29T21:19:00Z",
+      "accessionNumber": "0000002488-19-000004",
+      "filingDate": "2019-01-29",
+      "form": "8-K",
+      "items": "1.01,2.02,7.01,9.01",
+      "primaryDocument": "a20190129q418earnings8-k.htm",
+      "reportDate": "2019-01-28"
+    },
+    {
+      "acceptance_utc": "2018-10-31T20:15:18Z",
+      "accessionNumber": "0000002488-18-000189",
+      "filingDate": "2018-10-31",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0929201810q.htm",
+      "reportDate": "2018-09-29"
+    },
+    {
+      "acceptance_utc": "2018-10-24T20:32:31Z",
+      "accessionNumber": "0000002488-18-000186",
+      "filingDate": "2018-10-24",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20181024q318earnings8-k.htm",
+      "reportDate": "2018-10-24"
+    },
+    {
+      "acceptance_utc": "2018-08-02T20:28:52Z",
+      "accessionNumber": "0000002488-18-000128",
+      "filingDate": "2018-08-02",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0630201810q.htm",
+      "reportDate": "2018-06-30"
+    },
+    {
+      "acceptance_utc": "2018-07-25T20:41:54Z",
+      "accessionNumber": "0000002488-18-000124",
+      "filingDate": "2018-07-25",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20180725q218earnings8-k.htm",
+      "reportDate": "2018-07-25"
+    },
+    {
+      "acceptance_utc": "2018-05-03T20:45:08Z",
+      "accessionNumber": "0000002488-18-000068",
+      "filingDate": "2018-05-03",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "amd0331201810q.htm",
+      "reportDate": "2018-03-31"
+    },
+    {
+      "acceptance_utc": "2018-04-25T20:17:16Z",
+      "accessionNumber": "0000002488-18-000058",
+      "filingDate": "2018-04-25",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20180425q118earnings8-k.htm",
+      "reportDate": "2018-04-25"
+    },
+    {
+      "acceptance_utc": "2018-02-27T21:31:08Z",
+      "accessionNumber": "0000002488-18-000043",
+      "filingDate": "2018-02-27",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a6form8-kasc606disclosurev.htm",
+      "reportDate": "2018-02-27"
+    },
+    {
+      "acceptance_utc": "2018-02-27T21:18:58Z",
+      "accessionNumber": "0000002488-18-000042",
+      "filingDate": "2018-02-27",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "amd-12302017x10k.htm",
+      "reportDate": "2017-12-30"
+    },
+    {
+      "acceptance_utc": "2018-01-30T21:06:35Z",
+      "accessionNumber": "0000002488-18-000014",
+      "filingDate": "2018-01-30",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a20180130q417earnings8-k.htm",
+      "reportDate": "2018-01-30"
+    }
+  ],
+  "ticker": "AMD"
+}

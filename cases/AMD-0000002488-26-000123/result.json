@@ -1,0 +1,11 @@
+{
+  "approval": null,
+  "candidate_id": null,
+  "case_id": "AMD-0000002488-26-000123",
+  "cutoff_utc": "2026-08-04T21:40:01Z",
+  "round": 1,
+  "status": "USER_STOPPED",
+  "stop_reason": "Stop-hook verification complete",
+  "ticker": "AMD",
+  "written_at": "2026-11-15T02:14:02Z"
+}

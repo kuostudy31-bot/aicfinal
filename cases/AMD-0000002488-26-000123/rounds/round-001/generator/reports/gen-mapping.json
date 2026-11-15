@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T021251-f0fa02",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "20 lines mapped except liabilities (null, no data). total_debt uses combined current+long-term concept (judgment). Totals checked vs periodic.txt: revenue, net income, cash, total assets."
+}
