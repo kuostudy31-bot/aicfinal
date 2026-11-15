@@ -1,0 +1,26 @@
+{
+  "request_id": "evo-20261115T073438-42ad96",
+  "change_id": "change-003",
+  "role": "gen-writer",
+  "parent_version": "v2",
+  "parent_path": "prompts/gen-writer/v2.md",
+  "candidate_path": "prompts/gen-writer/candidate-change-003.md",
+  "candidate_sha256": "c17030f67371029182bec2d4f8ebbf05a722cccfca042f1e70fa07969d9e7200",
+  "failure": "As recorded in failure.json: when no code value covers an item, the writer spells quantities, dates and percentages in words, which the digit-based provenance gate cannot see (NVDA r1 round-002 cmp-004 'about two percentage points at most', 'roughly half a percentage point'; NVDA r2 round-001 note.md Disclosures 'August twenty-sixth, 2026', 'fifteen percent', 'minus ten percent'; AMD r2 same rating-band wording). v2 step 3 'Spell out ordinal words.' plausibly encourages this.",
+  "fix_behaviour": "The writer never writes a quantity, date, percentage, fraction or multiplier in words. It uses a {{key}} only if it appears in the values file, and does not assume rating_outperform_min, rating_underperform_max, cutoff_utc, price_date or trigger_accession exist. When a key is absent it describes the item qualitatively (e.g. 'the information cutoff', 'the most recent closing price before the cutoff', 'the Outperform and Underperform thresholds in the house rating policy') or omits it. This applies in Disclosures too.",
+  "diff_summary": "Procedure step 3 only. Removed 'Spell out ordinal words.' Added: ordinal words only inside period names; a ban on quantities, dates and percentages in words that names number words, dates, fractions ('half a percentage point', 'a third') and multipliers ('twice', 'double', 'threefold') (addresses change-002 review evo-003); use a {{key}} only if listed in the values file, never assume one exists; otherwise qualitative wording (with examples for the withheld cutoff/price-date/rating-threshold items) or omission, including in Disclosures. Unlike candidate-change-002, it does not name the withheld keys as if present. No other step, role, acceptance check, gate, limit or policy is changed.",
+  "expected_effect": "With rating_outperform_min, rating_underperform_max, cutoff_utc and price_date withheld (failure.json evaluation_design), baseline v2 is expected to reproduce the failure: spelled rating bands ('fifteen percent', 'minus ten percent') and/or a spelled cutoff/price date in Disclosures. Candidate notes should have an empty spelled_quantities list, no fractional or multiplicative wording on manual scan, qualitative references to the cutoff, price date and rating thresholds, all policies.md section 6 disclosure items still present (qualitatively), and no gate_note blocker (no unresolved placeholders for withheld keys).",
+  "evaluation_expectation": {
+    "design": "Per failure.json evaluation_design: withheld keys as listed, samples_per_arm 2, require_baseline_failure true. The change should be accepted only if baseline v2 fails in at least one sample on the development cases and the candidate passes in all samples on all cases.",
+    "development": {
+      "NVDA-0001045810-26-000075-r2": "baseline: expected spelled rating bands and/or 'August twenty-sixth'-type date; candidate: spelled_quantities empty, manual scan clean of fractions/multipliers, no placeholder for a withheld key, no gate_note blocker",
+      "NVDA-0001045810-26-000075": "baseline: expected spelled quantities where keys are withheld or for cmp-004-type sensitivity margins; candidate: same checks as above"
+    },
+    "held_out": {
+      "AMD-0000002488-26-000191": "candidate passes the same checks on a different issuer, showing the rule generalises beyond the NVDA examples; baseline may show the AMD r2 rating-band wording"
+    },
+    "manual_check": "Because the SPELLED_QUANTITY regex misses fractions and multipliers (change-002 review evo-003), the reviewer should scan candidate notes for half, third, quarter (as a fraction), double, twice, triple, -fold and number words such as 'twelve-month'."
+  },
+  "scope_check": "Edits only prompts/gen-writer/candidate-change-003.md and this proposal (references/policies.md section 5). failure.json acceptance checks, evaluation design, code, config, references and registry are untouched; the evaluation is not weakened.",
+  "unresolved": "Disclosures will state the cutoff, price date and rating thresholds qualitatively when those keys are withheld. That meets the 'no spelled numbers' rule but gives less precise disclosure than policies.md section 6 intends; in production the code-supplied keys close this gap. Sensitivity margins with no key (cmp-004) will be described qualitatively or dropped, losing precision. The ban on 'twelve-month' may push the writer to drop the target-price horizon unless a key provides it. The rule's example phrases come from NVDA evidence; the held-out AMD case tests generalisation."
+}
