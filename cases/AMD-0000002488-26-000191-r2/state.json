@@ -28,12 +28,13 @@
   },
   "candidate_id": "cand-9de0c1419071",
   "case_id": "AMD-0000002488-26-000191-r2",
-  "clean_streak": 1,
+  "clean_streak": 2,
   "cutoff_utc": "2026-11-03T23:00:17Z",
   "dispatch_counts": {
     "crit-20261115T030030-1acfec": 4,
     "crit-20261115T032107-8539c4": 4,
     "crit-20261115T034047-edf44a": 4,
+    "crit-20261115T035037-ab6bed": 4,
     "gen-20261115T025408-b38ac7": 6,
     "gen-20261115T031048-ced865": 6,
     "gen-20261115T033055-31f7b7": 6
@@ -70,7 +71,7 @@
     },
     "asm-003": {
       "check": "Warrant-dilution sensitivity describes vesting as purchase-milestone driven only; the stock-price-target conditions are omitted",
-      "detail": "periodic.txt line 1425 says the warrants vest in tranches 'as the customers reach specified purchase milestones and the Company's stock price meets specified targets, including, for certain tranches, stock price performance relative to a market index', and that each tranche becomes exercisable only after technical and commercial conditions are met. valuation_inputs.json rationales.customer_warrants says 'customer purchase milestones and other conditions', and note.md says vesting 'depends on customer purchase milestones'. Neither mentions the share-price hurdles. This matters for how the 320M ceiling should be read. The note's own thesis puts the target ($297) well below the $483.90 close, and in that case tranches with high price hurdles are less likely to vest, so full dilution and the Underperform outcome are partly inconsistent states. The disclosed figure is still a valid upper bound, the direction is correct and the rating is unaffected. This is a precision improvement, not a misstatement.",
+      "detail": "Still open. The candidate is unchanged since review-01: the sha256 values of assumptions.json, valuation_inputs.json, note.md and narrative.json match generator/manifest.json. snapshot/docs/periodic.txt line 1425 says the warrants vest in tranches 'as the customers reach specified purchase milestones and the Company's stock price meets specified targets, including, for certain tranches, stock price performance relative to a market index'. It also says each tranche becomes exercisable only after technical and commercial conditions are met. valuation_inputs.json rationales.customer_warrants still says only 'customer purchase milestones and other conditions'. The note.md Customer warrants bullet still says vesting 'depends on customer purchase milestones'. Neither mentions the share-price hurdles. Those hurdles matter when reading the 320M full-dilution ceiling, because the note's own thesis has the price falling towards a $297 target from the $483.90 close. Full dilution is still a valid upper bound, its direction is right and the rating is unaffected, so this stays minor.",
       "first_round": 3,
       "last_seen_round": 3,
       "reopened": false,
@@ -81,7 +82,7 @@
     },
     "cmp-001": {
       "check": "Data-source disclosure omits the earnings-release accession and the price source",
-      "detail": "Further improved but not closed. The Disclosures line names the 10-Q accession 0000002488-26-000191 (= case.json accession), the cutoff 2026-11-03 23:00 UTC, the price date 2026-11-03 ($483.90, which is the last close in snapshot/prices.json before cutoff 2026-11-03T23:00:17Z) and the price provider ('Yahoo Finance chart endpoint (split-adjusted by the provider)', which matches the prices.json note). It now also points the reader to snapshot/manifest.json, where the EX-99.1 release is recorded under accession 0000002488-26-000188 with its EDGAR URL. The literal accession is still absent from the note, because values.json has only trigger_accession (line 227) and gate_note rejects untagged digits. gen-writer escalated this as a contract limitation. Policy section 6 is satisfied (trigger accession, cutoff and price date are all present), so this stays minor. Closing it needs a compute-side values key (for example release_accession) that the writer can reference.",
+      "detail": "Unchanged since review-01 (same candidate cand-9de0c1419071). The Disclosures line names the 10-Q accession 0000002488-26-000191 (matches case.json), the cutoff 2026-11-03 23:00 UTC, the price date 2026-11-03 ($483.90 = last close in snapshot/prices.json; the 2026-11-03 session ended about 21:00 UTC, before the cutoff 2026-11-03T23:00:17Z) and the price provider (Yahoo Finance chart endpoint, wording consistent with the prices.json note). The 8-K EX-99.1 release is identified by form and exhibit and the reader is pointed to snapshot/manifest.json, where it is recorded under accession 0000002488-26-000188 (filings.json acceptance 2026-11-03T21:16:27Z, before the cutoff). The literal release accession is still absent from the note because values.json exposes only trigger_accession and the writer cannot type untagged digits. Policy section 6 is satisfied, so this stays minor and non-blocking; closing it needs a compute-side values key such as release_accession.",
       "first_round": 1,
       "last_seen_round": 3,
       "reopened": false,
@@ -120,7 +121,7 @@
     },
     "prov-002": {
       "check": "Contingently-issuable treatment of warrant shares is paraphrased without citing its quote",
-      "detail": "In the Model and valuation section, note.md says 'The 10-Q treats the warrant shares as contingently issuable and excludes them from diluted EPS until they vest'. This is a sourced statement, and it is accurate: periodic.txt line ~1425 Note 14 / the EPS policy, captured verbatim as Q-17 in narrative.json. But the note gives no [[Q-17]] marker, so a reader cannot trace it the way the neighbouring claims (Q-12, Q-13, Q-15, Q-16) can be traced. The paraphrase also shortens 'until all the conditions for the warrants to become vested and exercisable have been satisfied' to 'until they vest'. That does not change the meaning in a material way.",
+      "detail": "Not repaired (the candidate is unchanged since review-01: note.md sha256 63cbcfd6... matches manifest.json). In Model and valuation, the customer-warrants bullet still reads 'The 10-Q treats the warrant shares as contingently issuable and excludes them from diluted EPS until they vest' with no [[Q-17]] marker. The [[Q-*]] markers used in note.md are Q-1 to Q-7, Q-11, Q-12, Q-13, Q-15 and Q-16; Q-17 is not among them. The statement is accurate: Q-17 in narrative.json matches periodic.txt word for word ('...excluded from the computation of basic and diluted earnings per share until all the conditions for the warrants to become vested and exercisable have been satisfied'). Shortening this to 'until they vest' does not materially change the meaning, but the claim cannot be traced the way the neighbouring Q-12, Q-13, Q-15 and Q-16 claims can.",
       "first_round": 3,
       "last_seen_round": 3,
       "reopened": false,
@@ -148,10 +149,9 @@
   ],
   "opened_at": "2026-11-15T02:54:08Z",
   "pending": {
-    "issued_at": "2026-11-15T03:50:37Z",
-    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-003/reviews/review-02/request.json",
-    "phase": "critic",
-    "request_id": "crit-20261115T035037-ab6bed"
+    "issued_at": "2026-11-15T03:53:05Z",
+    "phase": "approval",
+    "request_id": "appr-20261115T035305-4b0b93"
   },
   "period_of_report": "2026-09-26",
   "prompt_versions": {
@@ -172,7 +172,7 @@
   "review": 2,
   "round": 3,
   "snapshot_manifest_sha256": "78ed765a2ad8beddc8831bd683d2913cd7407ee373c3fee22547cca377ac8bb1",
-  "status": "CRITIC_PENDING",
+  "status": "AWAITING_APPROVAL",
   "ticker": "AMD",
-  "updated_at": "2026-11-15T03:50:37Z"
+  "updated_at": "2026-11-15T03:53:05Z"
 }

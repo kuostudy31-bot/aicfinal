@@ -9,3 +9,8 @@
 - Submitted: merged.json for crit-20261115T034047-edf44a (candidate cand-9de0c1419071); all three critics pass.
 - Resolved: asm-002. Open minor (non-blocking): prov-002 (new), asm-003 (new), cmp-001.
 - Controller decision: clean_streak 1; second review issued, CRITIC_PENDING round 3 review 2, request crit-20261115T035037-ab6bed.
+
+## Submit 7 (critic, review-02)
+- Submitted: merged.json for crit-20261115T035037-ab6bed (candidate cand-9de0c1419071); all three critics pass, nothing opened or resolved.
+- Open minor (non-blocking): prov-002, asm-003, cmp-001.
+- Controller decision: clean_streak 2, AWAITING_APPROVAL, approval request appr-20261115T035305-4b0b93. Not approved by the orchestrator; human approval required.

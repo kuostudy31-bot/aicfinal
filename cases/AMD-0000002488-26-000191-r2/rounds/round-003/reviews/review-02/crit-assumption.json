@@ -1,0 +1,34 @@
+{
+  "request_id": "crit-20261115T035037-ab6bed",
+  "role": "crit-assumption",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Warrant-dilution sensitivity describes vesting as purchase-milestone driven only; the stock-price-target conditions are omitted",
+      "detail": "Still open. The candidate is unchanged since review-01: the sha256 values of assumptions.json, valuation_inputs.json, note.md and narrative.json match generator/manifest.json. snapshot/docs/periodic.txt line 1425 says the warrants vest in tranches 'as the customers reach specified purchase milestones and the Company's stock price meets specified targets, including, for certain tranches, stock price performance relative to a market index'. It also says each tranche becomes exercisable only after technical and commercial conditions are met. valuation_inputs.json rationales.customer_warrants still says only 'customer purchase milestones and other conditions'. The note.md Customer warrants bullet still says vesting 'depends on customer purchase milestones'. Neither mentions the share-price hurdles. Those hurdles matter when reading the 320M full-dilution ceiling, because the note's own thesis has the price falling towards a $297 target from the $483.90 close. Full dilution is still a valid upper bound, its direction is right and the rating is unaffected, so this stays minor.",
+      "evidence": [
+        "snapshot/docs/periodic.txt line 1425 (vesting conditions incl. stock price targets)",
+        "generator/valuation_inputs.json#rationales.customer_warrants",
+        "generator/note.md (Model and valuation, Customer warrants bullet)"
+      ],
+      "required_evidence": "customer_warrants rationale (and optionally the note bullet) mentions that vesting also requires AMD share-price targets, and comments briefly on how this interacts with the full-dilution upper bound"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Open findings in scope: asm-003 kept, because the candidate is unchanged (the file hashes match the manifest) and the wording still omits the stock-price vesting conditions. cmp-001 and prov-002 are outside the assumption scope. For context only: the note still has no [[Q-17]] marker and no literal release accession.",
+    "Gates: numerical/gates.json has no findings. forecast.json and valuation.json were read from numerical/recompute.",
+    "Next-quarter revenue vs guidance: FY2026Q4 revenue_qoq of 0.271 on FY2026Q3 revenue of $13.377bn gives $17.002bn (forecast.json), which equals the Q-1 midpoint of $17bn +/- 3% (range $16.49bn-$17.51bn).",
+    "Next-quarter margin: the model's GAAP gross margin of 53.4% compares with non-GAAP guidance of about 55% (Q-2). The departure is explained by an amortization/SBC bridge (about 1.6 ppt) consistent with the 2.0 ppt gap in Q3. Opex at 28.0% of revenue (about $4.76bn, +9% q/q) is reasoned.",
+    "Later quarters: +2%/+6%/+8% q/q with gross margin of 53.5-54.0% and opex of 28.5/28.0/27.5% is plausible against history (a seasonally flat Q1, then +12.5%/+16.0% in FY2026Q2/Q3) and is deliberately below trend, with stated reasons (lumpy Helios ramp, Q-6 export risk, Q-15 contra-revenue).",
+    "Tax rate of 13% is supported by ex-discrete Q3 (~11.6%), 9M (~14.2%), Q1/Q2 and the company's stated 13% non-GAAP normalized rate. The share drift of +0.2% q/q matches the diluted-share trend and explicitly excludes the warrants.",
+    "Valuation: WACC 10.5% and terminal growth 3.0% are reasonable for a large-cap semiconductor. Terminal value is 75.2% of EV, below the 80% flag, and the note discloses it.",
+    "FCF margins of 18/20/21/22/22% compare with historical CFO minus capex of 13.2/4.9/9.3/19.4% (FY2022-FY2025) and 15.5% TTM. The rationale explains the path from operating margin of about 25%, working-capital drag and an SBC haircut.",
+    "Net cash completeness: periodic.txt balance sheet shows cash $7,404M (line 320), short-term investments $8,372M (line 322), current portion of LTD $0 and LT debt $7,079M (lines 352-359). Commercial paper and the revolver were nil at 2026-09-26 (Note 9). valuation.json net_cash of $8,697M is complete. Exclusion of the $1.2bn warrant liability (equity-settled, Q-13) and of leases is stated.",
+    "Peer set NVDA/AVGO/MRVL/INTC is relevant. TTM end dates (NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01, INTC 2026-09-26) match peers.json, and the lag and its upward bias on the median EV/Sales of 16.27x are disclosed.",
+    "Rationales exist for every input and support the numbers chosen. Warrant dilution full-vesting sensitivity re-checked: 324.517bn/1,981M = $163.8; 450.345 x 1,661/1,981 = $377.6; blended $249.3 vs $297.36 (-16.2%); the rating stays Underperform."
+  ]
+}

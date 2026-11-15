@@ -1,0 +1,33 @@
+{
+  "request_id": "crit-20261115T035037-ab6bed",
+  "role": "crit-compliance",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Data-source disclosure omits the literal earnings-release accession",
+      "detail": "Unchanged since review-01 (same candidate cand-9de0c1419071). The Disclosures line names the 10-Q accession 0000002488-26-000191 (matches case.json), the cutoff 2026-11-03 23:00 UTC, the price date 2026-11-03 ($483.90 = last close in snapshot/prices.json; the 2026-11-03 session ended about 21:00 UTC, before the cutoff 2026-11-03T23:00:17Z) and the price provider (Yahoo Finance chart endpoint, wording consistent with the prices.json note). The 8-K EX-99.1 release is identified by form and exhibit and the reader is pointed to snapshot/manifest.json, where it is recorded under accession 0000002488-26-000188 (filings.json acceptance 2026-11-03T21:16:27Z, before the cutoff). The literal release accession is still absent from the note because values.json exposes only trigger_accession and the writer cannot type untagged digits. Policy section 6 is satisfied, so this stays minor and non-blocking; closing it needs a compute-side values key such as release_accession.",
+      "evidence": [
+        "numerical/recompute/note_rendered.md#Disclosures",
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "snapshot/filings.json#0000002488-26-000188",
+        "snapshot/prices.json#closes[-1]"
+      ],
+      "required_evidence": "Disclosures line also names accession 0000002488-26-000188 for the release quotes (needs a values.json key the writer can reference)"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Information cutoff: rendered note mentions no event, quarter or price after 2026-11-03T23:00:17Z; forecast labels (FY2026Q4, FY2027) are labelled forecasts",
+    "Price: $483.90 is the 2026-11-03 close, the last entry in snapshot/prices.json, session ended before cutoff; peer prices dated 2026-11-03 and peer TTM periods end on or before CY2026Q3",
+    "Quote sources: the 10-Q (accession -191) and the 8-K EX-99.1 (accession -188, accepted 2026-11-03T21:16:27Z) are both snapshot documents filed before the cutoff",
+    "Policy section 6 disclosures: not-investment-advice line, data sources with accession, cutoff and price date, rating definitions (+15% / -10% / otherwise Neutral) and the code-generated/unaudited statement are all present and accurate",
+    "Rating vs bands: upside -0.386 (valuation.json) <= -10% gives Underperform, which matches valuation.rating and the note; no action recommended beyond the rating; no promissory or guaranteed language",
+    "Labelling: reported facts, company guidance, our forecasts and our judgments are labelled separately; guidance figures disclosed as quote-sourced and non-GAAP margin flagged",
+    "TP change rationale: valuation.json tp_change_needs_rationale=false (prior_target_price null), so no explanation is required",
+    "Filing-embedded instructions: scanned the snapshot docs for injected directives; none found and none followed",
+    "Open findings outside my prefix (prov-002, asm-003) not assessed here"
+  ]
+}

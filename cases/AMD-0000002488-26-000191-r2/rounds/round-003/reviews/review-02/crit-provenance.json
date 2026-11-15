@@ -1,0 +1,34 @@
+{
+  "request_id": "crit-20261115T035037-ab6bed",
+  "role": "crit-provenance",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Contingently-issuable treatment of warrant shares is paraphrased without citing its quote",
+      "detail": "Not repaired (the candidate is unchanged since review-01: note.md sha256 63cbcfd6... matches manifest.json). In Model and valuation, the customer-warrants bullet still reads 'The 10-Q treats the warrant shares as contingently issuable and excludes them from diluted EPS until they vest' with no [[Q-17]] marker. The [[Q-*]] markers used in note.md are Q-1 to Q-7, Q-11, Q-12, Q-13, Q-15 and Q-16; Q-17 is not among them. The statement is accurate: Q-17 in narrative.json matches periodic.txt word for word ('...excluded from the computation of basic and diluted earnings per share until all the conditions for the warrants to become vested and exercisable have been satisfied'). Shortening this to 'until they vest' does not materially change the meaning, but the claim cannot be traced the way the neighbouring Q-12, Q-13, Q-15 and Q-16 claims can.",
+      "evidence": [
+        "generator/note.md line 41 (customer warrants bullet)",
+        "generator/narrative.json#Q-17",
+        "snapshot/docs/periodic.txt (Q-17 text, EPS policy)"
+      ],
+      "required_evidence": "note.md cites [[Q-17]] where it states the contingently issuable / EPS-exclusion treatment"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Candidate identity: sha256 of note.md, mapping.json, narrative.json, assumptions.json and valuation_inputs.json equal generator/manifest.json; computed/* sha256 equal the hashes in numerical/gates.json; diff -r computed numerical/recompute is clean; gates.json findings are empty",
+    "All 31 {{key}} tokens in note.md exist in computed/values.json. Fact sources resolve in snapshot/facts.json, and every fact's acceptance_utc is <= cutoff 2026-11-03T23:00:17Z (the max equals the cutoff, the trigger 10-Q 0000002488-26-000191). Checked: revenue F-6fa20ae3f8 13,377M (2026-06-28 to 2026-09-26); q/q base F-0c22036940 11,536M (Q2 FY2026); y/y base F-315037b1f4 9,246M (2025-06-29 to 2025-09-27); GrossProfit F-59fdd96a71 7,210M; OperatingIncomeLoss F-8bf147bca4 2,832M; NetIncomeLoss F-313743ab5b 2,428M; EPS diluted F-1e4bc98cca 1.46; F-e8860f2d21 10,253M (Q1 FY2026)",
+    "Derived IDs: D-da671c66c3 = F-da2eaa33df 34,639M (FY2025) - F-ee412185be 24,369M (9M) = 10,270M; D-161017865b CFO = 6,523M - 5,321M = 1,202M; D-91daa3cfaa capex = 1,845M - 1,197M = 648M; FCF 554M = fcf_q",
+    "Labels: revenue_yoy 44.7% (13,377/9,246-1) and revenue_qoq 16.0% (13,377/11,536-1) are described correctly as y/y and q/q; TTM 45,436M is the sum of four quarters; FY2026 Q3 = CY2026Q3, period end 2026-09-26; gross margin 53.9% and operating margin 21.2% recompute",
+    "Statement spot-check against snapshot/docs/periodic.txt: Net revenue 13,377 (line 203), Net income 2,428 (line 237), Total assets 94,812 (line 342, matching history assets F-1e812f048a)",
+    "All 18 quotes in narrative.json match their snapshot docs verbatim (whitespace-normalised substring check). The context of Q-7, Q-11, Q-12, Q-13, Q-15, Q-16 and Q-17 is used faithfully in note.md",
+    "Guidance: Q-1 '$17 billion, plus or minus 3%' gives 17.0e9 (16.49e9 to 17.51e9); Q-2 '55%' non-GAAP gives 0.55. The note labels Q-2 as non-GAAP and keeps it separate from the GAAP forecast",
+    "Price: snapshot/prices.json last close 483.90 on 2026-11-03, before the cutoff; the provider note matches the Disclosures wording",
+    "mapping.json: the concepts are current us-gaap lines for the latest period (revenue uses RevenueFromContractWithCustomerExcludingAssessedTax, and its latest facts are in the trigger 10-Q); liabilities is deliberately null; no stale concepts found",
+    "Open finding cmp-001 (crit-compliance's area), provenance side only: values.json still has only trigger_accession and no release-accession key, so note.md does not name 0000002488-26-000188. Left to crit-compliance and not re-raised",
+    "Open finding asm-003 (crit-assumption's area), provenance side only: note.md line 41 says vesting 'depends on customer purchase milestones', which is incomplete against the periodic.txt vesting text that also requires stock-price targets. This is the same issue already tracked as asm-003; left to crit-assumption and not duplicated here"
+  ]
+}

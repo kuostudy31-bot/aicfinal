@@ -1,0 +1,14 @@
+{
+  "approval": null,
+  "candidate_id": "cand-9de0c1419071",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "price": 483.9,
+  "rating": "Underperform",
+  "round": 3,
+  "status": "AWAITING_APPROVAL",
+  "stop_reason": null,
+  "target_price": 297,
+  "ticker": "AMD",
+  "written_at": "2026-11-15T03:53:05Z"
+}
