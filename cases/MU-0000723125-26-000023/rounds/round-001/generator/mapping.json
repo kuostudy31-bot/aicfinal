@@ -1,0 +1,88 @@
+{
+  "request_id": "gen-20261115T073305-99d304",
+  "mapping": {
+    "revenue": {
+      "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "rationale": "Income statement \"Revenue\" line; 16 observations through period ending 2026-09-03 (FY2026 133,188M matches periodic.txt). Revenues/SalesRevenueNet not in snapshot. Q4 derived as FY minus 9M YTD covers 14 weeks (53-week FY2026)."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfGoodsAndServicesSold",
+      "rationale": "Cost of goods sold; 16 observations through 2026-09-03 (FY2026 25,684M matches). CostOfRevenue/CostOfGoodsSold absent."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "Gross margin line; 16 observations through 2026-09-03 (FY2026 107,504M matches)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "R&D; 16 observations through 2026-09-03 (FY2026 5,650M per income statement)."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "SG&A; 16 observations through 2026-09-03 (FY2026 1,947M)."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "Operating income; 16 observations through 2026-09-03 (FY2026 99,340M). Note it is after other operating (income) expense, so not equal to GP - R&D - SG&A."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "Net income; 16 observations through 2026-09-03 (FY2026 84,969M matches income statement)."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "Weighted-average diluted shares; 16 observations through 2026-09-03 (FY 1,143M). Non-additive: must not be differenced. Caveat: the concepts tool preview shows latest_val 1,000,000, which is an FY-minus-YTD difference (1,143M-1,142M) and not a valid Q4 share count; downstream should not use differenced value."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "Diluted EPS; 16 observations through 2026-09-03 (FY 74.33). Non-additive; the concepts preview latest_val 32.93 is an FY-minus-YTD difference (74.33-41.40), not reported Q4 EPS, and needs care given 14-week Q4."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "Operating cash flow; 16 observations through 2026-09-03 (FY2026 89,675M matches)."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "rationale": "Expenditures for PP&E; 16 observations through 2026-09-03 (FY2026 30,712M). PaymentsToAcquireProductiveAssets absent."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "Cash-flow add-back (FY2026 1,333M matches cash flow statement); 16 observations through 2026-09-03. Judgment: chose over AllocatedShareBasedCompensationExpense (1,282M, note disclosure) for consistency with CFO."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "Balance sheet cash and cash equivalents 38,364M at 2026-09-03 matches; 16 observations. Excludes restricted cash (alternative concept 38,391M)."
+    },
+    "short_term_investments": {
+      "concept": "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
+      "rationale": "Balance sheet short-term investments 5,070M at 2026-09-03 matches; 16 observations through latest period. Other catalog candidates absent from snapshot."
+    },
+    "total_debt": {
+      "concept": [
+        "DebtCurrent",
+        "LongTermDebtAndCapitalLeaseObligations"
+      ],
+      "rationale": "Judgment: sum of balance sheet current debt (DebtCurrent 491M) and long-term debt (LongTermDebtAndCapitalLeaseObligations 4,688M) = 5,179M at 2026-09-03; each has 16 observations through latest. Catalog first candidate LongTermDebt is STALE/incomplete (14 observations, missing 2026-02-26 and 2026-05-28, last value 2,792M not matching balance sheet), so not used."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "Total assets 195,888M at 2026-09-03 matches balance sheet; 16 observations."
+    },
+    "liabilities": {
+      "concept": "Liabilities",
+      "rationale": "Total liabilities 57,510M at 2026-09-03 matches; 16 observations."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "Total equity 138,378M at 2026-09-03 matches; 16 observations. StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest absent."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "Total liabilities and equity 195,888M matches; 16 observations."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "dei cover-page shares; 16 observations, latest 2026-10-02 value 1,131,423,212 (cover date after period end, before cutoff)."
+    }
+  }
+}

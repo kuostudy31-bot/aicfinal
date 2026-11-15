@@ -1,0 +1,10 @@
+{
+ "request_id": "gen-20261115T073305-99d304",
+ "role": "gen-narrative",
+ "status": "complete",
+ "outputs": [
+  "narrative.json"
+ ],
+ "repairs": [],
+ "notes": "14 verbatim quotes (all grep-verified against snapshot/docs). Guidance is FQ1-27 (quarter after the FY2026 10-K year-end): revenue $61.5B +/- $1.5B (low/high 60.0/63.0B derived arithmetically from stated range), gross margin, opex and EPS given for GAAP and non-GAAP. No tax-rate guidance is stated in the snapshot, so none is given; FY2026 effective tax rate 14.8% (periodic.txt) is context only (Q-13). Q-2/Q-3/Q-4 quote table rows containing both GAAP and non-GAAP columns. FY2026 was 53 weeks (Q-10), so derived Q4 is 14 weeks; Quote Q-11 is the export-control risk statement; the 10-K does not provide numeric guidance."
+}

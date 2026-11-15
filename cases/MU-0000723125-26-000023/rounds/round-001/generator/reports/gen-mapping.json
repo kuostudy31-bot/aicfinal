@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T073305-99d304",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "All 21 catalog lines mapped, none null. total_debt uses a summed list because catalog LongTermDebt is stale (14 obs). Verified revenue, net income, cash, total assets vs periodic.txt. Concepts tool latest_val for revenue/flows is a derived Q4 (FY minus 9M YTD; 14 weeks in 53-week FY2026); for non-additive diluted_shares (1,000,000) and eps_diluted (32.93) the preview shows differenced values that are invalid, flagged for downstream."
+}
