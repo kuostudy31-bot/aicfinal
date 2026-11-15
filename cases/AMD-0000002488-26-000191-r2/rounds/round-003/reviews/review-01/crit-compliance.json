@@ -1,0 +1,33 @@
+{
+  "request_id": "crit-20261115T034047-edf44a",
+  "role": "crit-compliance",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Data-source disclosure still does not name the earnings-release accession literally",
+      "detail": "Further improved but not closed. The Disclosures line names the 10-Q accession 0000002488-26-000191 (= case.json accession), the cutoff 2026-11-03 23:00 UTC, the price date 2026-11-03 ($483.90, which is the last close in snapshot/prices.json before cutoff 2026-11-03T23:00:17Z) and the price provider ('Yahoo Finance chart endpoint (split-adjusted by the provider)', which matches the prices.json note). It now also points the reader to snapshot/manifest.json, where the EX-99.1 release is recorded under accession 0000002488-26-000188 with its EDGAR URL. The literal accession is still absent from the note, because values.json has only trigger_accession (line 227) and gate_note rejects untagged digits. gen-writer escalated this as a contract limitation. Policy section 6 is satisfied (trigger accession, cutoff and price date are all present), so this stays minor. Closing it needs a compute-side values key (for example release_accession) that the writer can reference.",
+      "evidence": [
+        "numerical/recompute/note_rendered.md#Disclosures",
+        "numerical/recompute/values.json#trigger_accession",
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "generator/reports/gen-writer.json#repairs[cmp-001]"
+      ],
+      "required_evidence": "Disclosures line names accession 0000002488-26-000188 for the release quotes (requires a values.json key such as release_accession)"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Information cutoff: the rendered note cites only FY2026 Q3 results, Q4 guidance from the release and the 2026-11-03 close; FY2027 appears only as a forecast label; no post-cutoff prices or events",
+    "Price: $483.90 on 2026-11-03 is the last close in snapshot/prices.json before cutoff_utc 2026-11-03T23:00:17Z",
+    "Quotes: all 18 narrative.json quotes are verbatim in their snapshot docs, and so is every curly-quoted passage in note_rendered.md (normalised whitespace and apostrophes)",
+    "Policy section 6 disclosures: the not-investment-advice line, data sources with 10-Q accession, cutoff and price date, rating definitions matching the bands (+15% / -10%), and the code-generated/XBRL/unaudited statement are all present",
+    "Rating: upside -0.386 <= -0.10, so Underperform matches valuation.json rating; no action recommendations beyond the rating; no promissory or guaranteed language",
+    "tp_change_needs_rationale is false (prior_target_price null), so no TP-change explanation is required",
+    "Labelling: reported results, company guidance, forecasts and judgments are labelled distinctly; the warrant dilution size ('roughly one-sixth') is labelled as analyst judgment and as not a model-code output; the guidance is identified as non-GAAP and not XBRL",
+    "asm-002 (crit-assumption's area, status left to that critic): from a compliance view the note now discloses the customer warrants with verbatim 10-Q quotes, the excluded dilution, the contra-revenue and the net-cash treatment, all labelled as judgment, and states the rating would not change",
+    "No instructions embedded in the filings were followed; a search for injection-like text found only ordinary Form 10-Q wording"
+  ]
+}

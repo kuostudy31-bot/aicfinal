@@ -1,0 +1,39 @@
+{
+  "request_id": "crit-20261115T034047-edf44a",
+  "role": "crit-assumption",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-003",
+      "severity": "minor",
+      "title": "Warrant-dilution sensitivity describes vesting as purchase-milestone driven only; the stock-price-target conditions are omitted",
+      "detail": "periodic.txt line 1425 says the warrants vest in tranches 'as the customers reach specified purchase milestones and the Company's stock price meets specified targets, including, for certain tranches, stock price performance relative to a market index', and that each tranche becomes exercisable only after technical and commercial conditions are met. valuation_inputs.json rationales.customer_warrants says 'customer purchase milestones and other conditions', and note.md says vesting 'depends on customer purchase milestones'. Neither mentions the share-price hurdles. This matters for how the 320M ceiling should be read. The note's own thesis puts the target ($297) well below the $483.90 close, and in that case tranches with high price hurdles are less likely to vest, so full dilution and the Underperform outcome are partly inconsistent states. The disclosed figure is still a valid upper bound, the direction is correct and the rating is unaffected. This is a precision improvement, not a misstatement.",
+      "evidence": [
+        "snapshot/docs/periodic.txt line 1425 (vesting conditions incl. stock price targets)",
+        "generator/valuation_inputs.json#rationales.customer_warrants",
+        "generator/note.md (Customer warrants bullet)"
+      ],
+      "required_evidence": "customer_warrants rationale (and optionally the note bullet) mentions that vesting also requires AMD share-price targets, and comments briefly on how this interacts with the full-dilution upper bound"
+    }
+  ],
+  "resolved": [
+    {
+      "id": "asm-002",
+      "evidence": "Repaired as required. (1) valuation_inputs.json adds rationales.customer_warrants, which quotes Q-12 (160M each at $0.01), Q-18 (combined up to 320M), Q-16 (none vested as of 2026-09-26) and Q-17 (contingently issuable, excluded from diluted EPS). All 18 narrative quotes appear verbatim in snapshot docs (checked programmatically). The rationale states that the code's 1,661M diluted share count (valuation.json diluted_shares) contains no warrant shares. It gives direction (down) and size, which I recomputed from round-003 numerical/recompute/valuation.json (identical to round 2 and to computed/): DCF 324.517bn/1,981M = $163.8; relative 450.345 x 1,661/1,981 = $377.6; blend 0.6/0.4 = $249.3 vs $297.36 (-16.2%); upside -48.5% vs -38.6%. The rating stays Underperform. It labels the result an upper bound and analyst arithmetic. (2) Contra-revenue: Q-15 ($4.5bn reduction of future revenue) is acknowledged in assumptions.json revenue_qoq, valuation_inputs revenue_growth and customer_warrants. FY2026Q4 GAAP guidance is judged net, with a label saying the release does not say so. Not cutting cash flow is justified as non-cash consideration whose cost is taken as dilution (avoids double counting); this is consistent with the ASC 606 policy at periodic.txt line 666. (3) Net cash: rationales.net_cash and note.md state that the $1.2bn liability (Q-14) is excluded because it is 'not settleable in cash' (Q-13) and is reclassified to APIC on exercisability (periodic.txt line 666). (4) note.md (rendered lines 40-42 and 53) has the net-cash sentence, the dilution bullet ('roughly one-sixth', upper bound, rating remains Underperform), the contra-revenue bullet and a dilution risk line. share_change_qoq rationale explicitly excludes the warrants and points to the sensitivity."
+    }
+  ],
+  "checked": [
+    "Open findings in scope: asm-002 resolved (see resolved). cmp-001 is outside the assumption scope and left to crit-compliance/provenance. For context only: the Disclosures line now points to snapshot/manifest.json but still does not name accession 0000002488-26-000188.",
+    "Round-003 forecast.json, valuation.json, peers.json and history.json are byte-identical to round 2, and assumptions.json numeric values are unchanged. Only rationale text changed. computed/ equals numerical/recompute/. gates.json: no findings.",
+    "Next-quarter revenue vs guidance: FY2026Q4 +27.1% q/q gives $17.00bn, equal to the Q-1 midpoint (range $16.49-17.51bn)",
+    "Next-quarter gross margin: GAAP 53.4% vs non-GAAP 55% guidance (Q-2). The bridge for amortization and SBC is explained (unchanged)",
+    "Later quarters +2%/+6%/+8% and gross margin 53.5-54.0% are plausible against history. The rationale now also notes the warrant contra-revenue drag on reported revenue",
+    "Tax 13% and share change +0.2%/qtr: unchanged and supported. The share-change rationale now explicitly excludes contingent warrant shares",
+    "WACC 10.5% and terminal growth 3.0% are reasonable for a large-cap semiconductor. Terminal value is 75.2% of EV (below the 80% flag)",
+    "FCF margins of 18-22% vs TTM CFO-capex of 15.5% and FY2025 19.4%: explained (unchanged)",
+    "Net cash: $7,404M + $8,372M - $7,079M = $8,697M is complete. Exclusions of the warrant liability, leases and LT equity investments are stated with reasons",
+    "Peer set NVDA/AVGO/MRVL/INTC: relevant. TTM period alignment is disclosed (asm-001, resolved in round 2)",
+    "Rationales exist for all inputs and support the chosen numbers. Warrant dilution is now disclosed as a sensitivity; precision nit asm-003 (minor)"
+  ]
+}

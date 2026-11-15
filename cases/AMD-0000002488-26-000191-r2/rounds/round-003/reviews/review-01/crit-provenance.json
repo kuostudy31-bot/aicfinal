@@ -1,0 +1,33 @@
+{
+  "request_id": "crit-20261115T034047-edf44a",
+  "role": "crit-provenance",
+  "candidate_id": "cand-9de0c1419071",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-002",
+      "severity": "minor",
+      "title": "Contingently-issuable treatment of warrant shares is paraphrased without citing its quote",
+      "detail": "In the Model and valuation section, note.md says 'The 10-Q treats the warrant shares as contingently issuable and excludes them from diluted EPS until they vest'. This is a sourced statement, and it is accurate: periodic.txt line ~1425 Note 14 / the EPS policy, captured verbatim as Q-17 in narrative.json. But the note gives no [[Q-17]] marker, so a reader cannot trace it the way the neighbouring claims (Q-12, Q-13, Q-15, Q-16) can be traced. The paraphrase also shortens 'until all the conditions for the warrants to become vested and exercisable have been satisfied' to 'until they vest'. That does not change the meaning in a material way.",
+      "evidence": ["generator/note.md (Model and valuation, customer warrants bullet)", "generator/narrative.json#Q-17", "snapshot/docs/periodic.txt (Q-17 text)"],
+      "required_evidence": "note.md cites [[Q-17]] where it states the contingently issuable / EPS-exclusion treatment"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "numerical/gates.json: findings empty; numerical/recompute/* identical to computed/* (diff -r clean)",
+    "Every {{key}} in note.md exists in values.json; note_rendered.md has no unresolved {{ }} or [[ ]] tokens",
+    "Fact IDs resolve in snapshot/facts.json and all were accepted at or before the cutoff 2026-11-03T23:00:17Z (max acceptance_utc equals the cutoff): revenue F-6fa20ae3f8 13,377M; prior quarter F-0c22036940 11,536M; prior year F-315037b1f4 9,246M; gross profit F-59fdd96a71 7,210M; operating income F-8bf147bca4 2,832M; net income F-313743ab5b 2,428M; diluted EPS F-1e4bc98cca 1.46; diluted shares F-15b3d74691 1,661M",
+    "Derived IDs: D-da671c66c3 FY2025Q4 revenue 10,270M = F-da2eaa33df 34,639M - F-ee412185be 24,369M; D-161017865b Q3 CFO 1,202M = 6,523M - 5,321M; D-91daa3cfaa Q3 capex 648M = 1,845M - 1,197M; FCF 554M matches fcf_q",
+    "Recomputed ratios: gross margin 7,210/13,377 = 53.9%; operating margin 2,832/13,377 = 21.2%; y/y 13,377/9,246-1 = 44.7%; q/q 13,377/11,536-1 = 16.0%; TTM 10,270+10,253+11,536+13,377 = 45,436M; net cash 7,404+8,372-7,079 = 8,697M. The note labels q/q, y/y, TTM and fiscal vs calendar quarter correctly (FY2026 Q3 = CY2026Q3, period end 2026-09-26)",
+    "Spot-check against periodic.txt statements: Net revenue 13,377 (line 203), Net income 2,428 (line 237), Total assets 94,812 (line 342), Short-term investments 8,372 (line 322), debt 7,079 (line 360), Diluted shares 1,661 (line 257)",
+    "All 18 quotes in narrative.json match their snapshot docs verbatim. I read the context of Q-3, Q-4 (CEO/CFO paragraphs in release_ex99_1.txt), Q-11, Q-12, Q-13, Q-15 and Q-16 (periodic.txt lines 1425 and 1441): none is truncated in a way that changes its meaning",
+    "Guidance: Q-1 '$17 billion, plus or minus 3%' gives value 17.0e9 and low/high 16.49e9/17.51e9, which is consistent; Q-2 '55%' gives 0.55 non-GAAP, and the note labels it non-GAAP and separates it from the GAAP forecast",
+    "Price: snapshot/prices.json last close 483.90 on 2026-11-03; that session ended before the 23:00:17Z cutoff",
+    "mapping.json: every mapped concept has a latest observation at 2026-09-26 (shares_outstanding 2026-10-28, before the cutoff); stale restricted-cash concept avoided; liabilities deliberately null with a reason. No stale concepts",
+    "Unquoted claim 'FCF held back by a build in inventories and receivables' is supported by XBRL: InventoryNet 8,468M to 11,463M and AccountsReceivableNetCurrent 7,281M to 9,209M (2026-06-27 to 2026-09-26)",
+    "Open finding asm-002 (crit-assumption's area), provenance side only: the warrant quotes used in note.md and the valuation rationales (Q-12 to Q-18) are verbatim; the 'reclassified to Additional paid-in capital' policy phrase appears in periodic.txt; the analyst dilution arithmetic reproduces (324.5bn/1,981M = 163.8; 450.35 x 1,661/1,981 = 377.6; 0.6/0.4 blend = 249.3, -16.2%; upside -48.5%), and note.md labels it as analyst arithmetic, not code output. I leave the decision to resolve the finding to crit-assumption",
+    "Open finding cmp-001 (crit-compliance's area), provenance side only: values.json still has no key for release accession 0000002488-26-000188, and note.md still does not name it (it points to snapshot/manifest.json instead). The price provider is named and matches the prices.json note. Not re-raised here; left to crit-compliance",
+    "Rationale fact IDs in valuation_inputs.json and assumptions.json spot-checked (F-24d3538948, F-80df404447, F-ba5e841822, F-9407f71787, F-c00e259756) and they resolve with the stated values"
+  ]
+}
