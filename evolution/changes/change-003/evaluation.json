@@ -1,0 +1,178 @@
+{
+  "at": "2026-11-15T07:38:21Z",
+  "baseline_reproduces_failure": true,
+  "candidate_fixes_failure_on_all_cases": true,
+  "candidate_sha256": "c17030f67371029182bec2d4f8ebbf05a722cccfca042f1e70fa07969d9e7200",
+  "change_id": "change-003",
+  "controller_tests_pass": true,
+  "controller_tests_tail": [
+    "Ran 67 tests in 2.056s",
+    "",
+    "OK"
+  ],
+  "evaluation_design": {
+    "require_baseline_failure": true,
+    "samples_per_arm": 2,
+    "withheld_keys": [
+      "rating_outperform_min",
+      "rating_underperform_max",
+      "cutoff_utc",
+      "price_date"
+    ]
+  },
+  "evaluation_pass": true,
+  "regressions": [],
+  "rows": [
+    {
+      "baseline": {
+        "pass": false,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "fifteen percent",
+              "ten percent",
+              "minus ten percent"
+            ]
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "fifteen percent",
+              "ten percent"
+            ]
+          }
+        ],
+        "samples_passed": 0
+      },
+      "candidate": {
+        "pass": true,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          }
+        ],
+        "samples_passed": 2
+      },
+      "case": "NVDA-0001045810-26-000075-r2",
+      "split": "development"
+    },
+    {
+      "baseline": {
+        "pass": false,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "plus fifteen percent",
+              "minus ten percent"
+            ]
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "fifteen percent",
+              "ten percent"
+            ]
+          }
+        ],
+        "samples_passed": 0
+      },
+      "candidate": {
+        "pass": true,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          }
+        ],
+        "samples_passed": 2
+      },
+      "case": "NVDA-0001045810-26-000075",
+      "split": "development"
+    },
+    {
+      "baseline": {
+        "pass": false,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "fifteen percent",
+              "minus ten percent"
+            ]
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": false,
+            "provenance_findings": [],
+            "spelled_quantities": [
+              "fifteen percent",
+              "ten percent"
+            ]
+          }
+        ],
+        "samples_passed": 0
+      },
+      "candidate": {
+        "pass": true,
+        "samples": [
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          },
+          {
+            "missing_phrases": [],
+            "missing_placeholders": [],
+            "pass": true,
+            "provenance_findings": [],
+            "spelled_quantities": []
+          }
+        ],
+        "samples_passed": 2
+      },
+      "case": "AMD-0000002488-26-000191",
+      "split": "held_out"
+    }
+  ]
+}
