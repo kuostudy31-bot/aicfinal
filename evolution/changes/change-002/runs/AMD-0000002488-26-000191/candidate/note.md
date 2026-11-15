@@ -1,0 +1,69 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+Fiscal quarter {{fiscal_quarter}} / calendar quarter {{calendar_quarter}} (period ended {{period_end}}).
+
+## Key points
+
+- **Reported:** revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter; diluted EPS was {{eps_q}} and net income {{net_income_q}}.
+- **Reported:** GAAP gross margin was {{gross_margin_q}} and operating margin {{operating_margin_q}}; management attributes the margin improvement to mix: [[Q-7]]
+- **Company guidance:** for {{next_q_label}} management guides revenue of about {{guide_revenue_next_q}} [[Q-1]] and a non-GAAP gross margin of about {{guide_gross_margin_next_q}} [[Q-2]].
+- **Our forecast:** {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}; next-twelve-month revenue of {{ntm_revenue}} and EPS of {{ntm_eps}}.
+- **Our judgment:** at {{price}} (close on {{price_date}}) the shares trade well above our target price of {{target_price}}, implying {{upside}} upside, which places the stock in the {{rating}} band.
+
+## Results
+
+All figures in this section are reported results for {{fiscal_quarter}} / {{calendar_quarter}}, taken from SEC XBRL facts or derived from them by code.
+
+- Revenue: {{revenue_q}} ({{revenue_yoy}} year on year, {{revenue_qoq}} quarter on quarter); trailing-twelve-month revenue {{revenue_ttm}}.
+- Gross margin: {{gross_margin_q}} (GAAP). The 10-Q states: [[Q-7]]
+- Operating margin: {{operating_margin_q}}.
+- Net income: {{net_income_q}}; diluted EPS: {{eps_q}}.
+- Free cash flow: {{fcf_q}}.
+- Net cash at quarter end: {{net_cash}}.
+
+Management's commentary on demand: [[Q-6]]
+
+## Guidance and outlook
+
+Company guidance for {{next_q_label}} (sourced from the earnings release exhibits):
+
+- Revenue: about {{guide_revenue_next_q}}. [[Q-1]]
+- Non-GAAP gross margin: about {{guide_gross_margin_next_q}}. [[Q-2]]
+- Operating expenses: about {{guide_opex_next_q}}. [[Q-3]]
+- Effective tax rate: {{guide_tax_rate_next_q}}. [[Q-4]]
+- Diluted share count: [[Q-5]]
+
+Our judgment: the guided gross margin is a non-GAAP measure and is not directly comparable with the GAAP gross margin of {{gross_margin_q}} reported above; the step-up should be read with that difference in mind. The revenue guide implies continued sequential growth, consistent with management's demand commentary [[Q-6]], but the quarter-on-quarter rate is not itself guided.
+
+## Model and valuation
+
+Our forecasts (from the model assumptions, not company guidance):
+
+- {{next_q_label}}: revenue {{next_q_revenue}}, EPS {{next_q_eps}}. Our revenue forecast sits essentially at the midpoint of the company guide of {{guide_revenue_next_q}}.
+- Next twelve months: revenue {{ntm_revenue}}, EPS {{ntm_eps}}.
+
+Valuation (calculated by code):
+
+- DCF value per share: {{dcf_per_share}}; the terminal value accounts for {{terminal_share}} of enterprise value, so the result is sensitive to long-run growth and discount-rate assumptions.
+- Peer median EV/sales: {{peer_ev_sales}}.
+- Net cash: {{net_cash}}.
+- Target price: {{target_price}} versus a share price of {{price}} on {{price_date}}, an implied upside of {{upside}}.
+
+Our judgment: the reported growth and margin trajectory is strong, but the current share price already discounts a materially more optimistic path than our model. With implied upside of {{upside}}, below the Underperform threshold of {{rating_underperform_max}}, the policy rating is {{rating}}.
+
+## Risks
+
+Risks to our {{rating}} view (upside risks to the share price) and to the forecasts:
+
+- **Demand upside:** faster-than-modelled scaling of Instinct and EPYC products would push revenue and EPS above our forecasts. [[Q-6]]
+- **Valuation method:** the DCF depends heavily on terminal assumptions ({{terminal_share}} of enterprise value), and a peer EV/sales multiple of {{peer_ev_sales}} indicates the market applies much richer multiples than our DCF.
+- **Export restrictions:** the 10-Q notes that export restrictions affect part of the product line: [[Q-8]] Changes in these restrictions could move revenue in either direction.
+- **Margin and mix:** the margin improvement depends on product mix [[Q-7]]; a shift in mix could move margins away from the guided level [[Q-2]].
+- **Guidance range:** the revenue guide carries a stated range around the midpoint [[Q-1]]; outcomes at either end would change our {{next_q_label}} figures.
+
+## Disclosures
+
+- For coursework demonstration only; not investment advice.
+- Data sources and as-of time: SEC EDGAR filing accession {{trigger_accession}} (10-Q and earnings release exhibits), information cutoff {{cutoff_utc}}; share price is the last close on {{price_date}}.
+- Rating definitions: Outperform if upside to target is at or above {{rating_outperform_min}}; Underperform if upside to target is at or below {{rating_underperform_max}}; otherwise Neutral.
+- Figures are generated by code from SEC XBRL data and are unaudited by the author. Forecasts and valuation are model outputs; statements labelled as judgment are the author's opinion.

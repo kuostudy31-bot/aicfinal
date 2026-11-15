@@ -1,0 +1,63 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+Fiscal quarter {{fiscal_quarter}} / calendar quarter {{calendar_quarter}}, period ended {{period_end}}. Share price {{price}} at the close on {{price_date}}.
+
+## Key points
+
+- **Reported:** revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter, with gross margin of {{gross_margin_q}} and operating margin of {{operating_margin_q}}.
+- **Company guidance:** next-quarter revenue of {{guide_revenue_next_q}} and gross margin of {{guide_gross_margin_next_q}}. The outlook excludes China Data Center compute revenue ([[Q-2]]).
+- **Our forecast:** {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}, in line with the guidance midpoint; next-twelve-month EPS of {{ntm_eps}}.
+- **Our judgment:** results are strong, but at {{price}} the shares sit above our {{target_price}} target ({{upside}} upside), which puts them in the Underperform band.
+- **Balance-sheet watch items:** supply commitments, receivable days and guarantee obligations all rose this quarter ([[Q-8]], [[Q-9]], [[Q-10]]).
+
+## Results
+
+*Reported figures, {{fiscal_quarter}} ({{calendar_quarter}}).*
+
+Revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially. Trailing-twelve-month revenue reached {{revenue_ttm}}. Data Center drove the quarter: [[Q-6]]
+
+Gross margin was {{gross_margin_q}}. Management described margins as stable: [[Q-7]] Operating margin was {{operating_margin_q}}, net income was {{net_income_q}} and diluted EPS was {{eps_q}}. Free cash flow was {{fcf_q}}.
+
+On capital return, [[Q-11]] On working capital, [[Q-12]]
+
+## Guidance and outlook
+
+*Company guidance for {{next_q_label}}, quoted from the release.*
+
+- Revenue: [[Q-1]] (midpoint {{guide_revenue_next_q}}).
+- Gross margin: [[Q-3]] (midpoint {{guide_gross_margin_next_q}}).
+- Operating expenses: [[Q-4]] (GAAP {{guide_opex_gaap_next_q}}, non-GAAP {{guide_opex_nongaap_next_q}}).
+- Tax rate: [[Q-5]] (midpoint {{guide_tax_rate_fy}}).
+- China: [[Q-2]]
+
+*Our judgment:* the guidance implies continued sequential growth. Because China compute revenue is excluded, a resumption of China shipments would be upside to the outlook rather than a source of downside to it. The inventory build ahead of Vera Rubin ([[Q-12]]) supports the expected product transition, but it also adds execution risk.
+
+## Model and valuation
+
+*Our forecasts and valuation (model outputs, not reported results).*
+
+- {{next_q_label}} forecast: revenue {{next_q_revenue}}, EPS {{next_q_eps}}. The revenue forecast is anchored on the guidance midpoint of {{guide_revenue_next_q}}.
+- Next twelve months: revenue {{ntm_revenue}}, EPS {{ntm_eps}}.
+- Discounted cash flow value: {{dcf_per_share}} per share. Terminal value is {{terminal_share}} of enterprise value, so the result is highly sensitive to long-run assumptions.
+- Peer median EV/sales: {{peer_ev_sales}}. Net cash: {{net_cash}}.
+- Target price: {{target_price}}, which blends the DCF value with the peer-multiple value. Against the {{price}} close, that is {{upside}} upside, and under our rating bands the rating is {{rating}}.
+
+*Our judgment:* the rating reflects valuation, not operating weakness. The DCF value sits well below the current price, and terminal value carries a large share of it. As a result, the shares already price in sustained growth well beyond our explicit forecast period.
+
+## Risks
+
+*Our judgment of the main risks, with supporting company statements.*
+
+- **Upside risk to our rating:** demand could keep outrunning guidance, for example through faster Blackwell Ultra or Vera Rubin ramps or a return of China revenue (excluded per [[Q-2]]). Any of these would lift estimates and could invalidate the Underperform call.
+- **Purchase commitments:** [[Q-8]] Large memory commitments could pressure margins or inventory if demand slows.
+- **Receivables and customer terms:** [[Q-9]] Longer payment terms raise credit and cash-conversion risk.
+- **Guarantees:** [[Q-10]] These are contingent obligations that could become liabilities.
+- **Margins:** guidance of {{guide_gross_margin_next_q}} is below the reported {{gross_margin_q}}. Product-transition costs could compress margins further.
+- **Valuation sensitivity:** terminal value is {{terminal_share}} of DCF enterprise value, so small changes in discount rate or terminal growth move the target materially.
+
+## Disclosures
+
+- For coursework demonstration only; not investment advice.
+- Data sources: SEC EDGAR filing accession {{trigger_accession}}, information cutoff {{cutoff_utc}}. The share price is the last close on {{price_date}} ({{price}}). No information after the cutoff is used.
+- Rating definitions: Outperform means upside to target of at least {{rating_outperform_min}}. Underperform means upside to target of {{rating_underperform_max}} or worse. Otherwise the rating is Neutral.
+- Figures are generated by code from SEC XBRL data and are unaudited by the author. Quotations are taken verbatim from the company's press release exhibits. Forecasts, valuation and judgments are the author's and are labelled as such.

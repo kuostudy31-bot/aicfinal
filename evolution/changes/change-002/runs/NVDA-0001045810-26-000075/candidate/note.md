@@ -1,0 +1,61 @@
+# {{ticker}} {{fiscal_quarter}} earnings update: {{rating}}, target price {{target_price}}
+
+## Key points
+- Reported: {{fiscal_quarter}} ({{calendar_quarter}}, quarter ended {{period_end}}) revenue was {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} sequentially, with gross margin of {{gross_margin_q}} and operating margin of {{operating_margin_q}}.
+- Company guidance: next-quarter revenue of {{guide_revenue_next_q}} ([[Q-1]]) and gross margin of {{guide_gross_margin_next_q}} ([[Q-3]]), with China data center compute at {{guide_china_data_center_compute_in_outlook}} ([[Q-2]]).
+- Our forecast: {{next_q_label}} revenue of {{next_q_revenue}} and EPS of {{next_q_eps}}; next-twelve-month revenue of {{ntm_revenue}} and EPS of {{ntm_eps}}.
+- Our judgment: at {{price}} (close of {{price_date}}) the shares trade above our target price of {{target_price}}, implying {{upside}} upside, which places the stock in the {{rating}} band.
+
+## Results
+Reported figures for {{fiscal_quarter}} / {{calendar_quarter}} (period ended {{period_end}}), from the company's SEC XBRL data:
+
+- Revenue: {{revenue_q}}, up {{revenue_yoy}} year on year and {{revenue_qoq}} quarter on quarter; trailing-twelve-month revenue reached {{revenue_ttm}}.
+- Gross margin: {{gross_margin_q}}. Management attributes the stable margin to product mix: [[Q-9]]
+- Operating margin: {{operating_margin_q}}.
+- Net income: {{net_income_q}}; diluted EPS: {{eps_q}}.
+- Free cash flow (derived by code): {{fcf_q}}.
+
+Data Center remained the driver of growth: [[Q-8]] Management's characterisation of demand: [[Q-6]]
+
+Capital return in the quarter: [[Q-7]]
+
+Balance sheet and liquidity, as reported in the 10-Q: [[Q-13]] A large part of the equity portfolio is restricted: [[Q-17]] [[Q-18]] Purchase commitments also rose sharply: [[Q-10]]
+
+## Guidance and outlook
+Company guidance for {{next_q_label}} (reported by the company, not our forecast):
+
+- Revenue: {{guide_revenue_next_q}}. [[Q-1]]
+- Gross margin: {{guide_gross_margin_next_q}}, slightly lower than the reported {{gross_margin_q}}. [[Q-3]]
+- Operating expenses: GAAP {{guide_gaap_opex_next_q}} and non-GAAP {{guide_non_gaap_opex_next_q}}. [[Q-4]]
+- Full-year tax rate: {{guide_tax_rate_fy}} at the midpoint. [[Q-5]]
+- China: {{guide_china_data_center_compute_in_outlook}} for Data Center compute. [[Q-2]]
+
+Our judgment: the guidance implies continued sequential growth, and the exclusion of China Data Center compute leaves any resumption of those sales as upside not included in the outlook.
+
+## Model and valuation
+Our forecasts (model assumptions, not reported data):
+
+- {{next_q_label}}: revenue of {{next_q_revenue}}, in line with the guidance midpoint, and EPS of {{next_q_eps}}.
+- Next twelve months: revenue of {{ntm_revenue}} and EPS of {{ntm_eps}}.
+
+Valuation (calculated by code from our valuation inputs):
+
+- DCF value per share: {{dcf_per_share}}; the terminal value accounts for {{terminal_share}} of enterprise value, so the result is sensitive to long-run growth and discount-rate assumptions.
+- Peer median EV/sales: {{peer_ev_sales}}.
+- Net cash used in the valuation: {{net_cash}}. Our judgment: this figure appears narrower than the cash, marketable debt and marketable equity securities reported in the 10-Q ([[Q-13]], [[Q-14]]); a portion of the equity securities is subject to lock-up ([[Q-17]], [[Q-18]]). The treatment of these balances is a point for review and could move the target price.
+- Target price: {{target_price}} against a price of {{price}} on {{price_date}}, implying {{upside}} upside. Under our rating bands this is {{rating}}.
+
+## Risks
+Our judgment of the main risks to the view, in both directions:
+
+- Upside: demand continues to accelerate ([[Q-6]]) and revenue exceeds the guided range, or China Data Center compute sales resume, which the company does not assume ([[Q-2]]).
+- Downside: a slowdown in Data Center spending, given that segment's dominant share of revenue ([[Q-8]]).
+- Margin: gross margin guidance is lower than the reported quarter ([[Q-3]]), and rising memory procurement commitments ([[Q-10]]) could pressure costs or inventory if demand softens.
+- Valuation: a large terminal-value share ({{terminal_share}}) makes the DCF sensitive to assumptions; the net cash treatment noted above could also change the target price.
+- Investment portfolio: marketable equity securities, partly under lock-up ([[Q-17]], [[Q-18]]), expose reported results to market-value swings.
+
+## Disclosures
+- For coursework demonstration only; not investment advice.
+- Data sources and as-of time: SEC EDGAR filing accession {{trigger_accession}}, information cutoff {{cutoff_utc}}; share price is the last close on {{price_date}}.
+- Rating definitions: Outperform means upside to target of at least {{rating_outperform_min}}; Underperform means upside to target of {{rating_underperform_max}} or lower; otherwise Neutral.
+- Figures are generated by code from SEC XBRL data and are unaudited by the author. Forecasts and valuation are model outputs; statements labelled as judgment are the author's opinion.

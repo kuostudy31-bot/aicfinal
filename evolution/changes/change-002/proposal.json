@@ -1,0 +1,23 @@
+{
+  "request_id": "evo-20261115T030508-144a17",
+  "change_id": "change-002",
+  "role": "gen-writer",
+  "parent_version": "v2",
+  "parent_path": "prompts/gen-writer/v2.md",
+  "candidate_path": "prompts/gen-writer/candidate-change-002.md",
+  "failure": "As recorded in failure.json: the writer spells quantities, dates and percentages in words to evade the digit-based provenance gate (NVDA r1 round-002 cmp-004: 'about two percentage points at most', 'roughly half a percentage point'; NVDA r2 round-001 note.md Disclosures: 'August twenty-sixth, 2026', 'fifteen percent', 'minus ten percent'). The parent prompt's step 3 sentence 'Spell out ordinal words.' plausibly encourages this.",
+  "fix_behaviour": "The writer never writes a quantity, date or percentage in words. It uses the code-supplied key where one exists ({{rating_outperform_min}}, {{rating_underperform_max}}, {{cutoff_utc}}, {{price_date}}, {{trigger_accession}} are present in values.json for all three evaluation cases), and otherwise describes the magnitude qualitatively or omits it.",
+  "diff_summary": "Procedure step 3 only: replaced 'Spell out ordinal words.' with (a) ordinal words allowed only in period names, and (b) a rule forbidding quantities, dates or percentages written in words, with examples taken from the evidence, and the instruction to use a {{key}} when one exists or else describe qualitatively or leave out. No other step, role, acceptance check, gate, limit or policy changes.",
+  "expected_effect": "Candidate notes have an empty spelled_quantities list, cite the rating bands as {{rating_outperform_min}} / {{rating_underperform_max}} and the cutoff/price date as {{cutoff_utc}} / {{price_date}}, and show no new gate_note blocker (placeholders resolve to code values).",
+  "evaluation_expectation": {
+    "development": {
+      "NVDA-0001045810-26-000075-r2": "candidate: spelled_quantities empty, rating_outperform_min and rating_underperform_max present, no gate_note blocker; baseline expected to show spelled quantities (e.g. 'fifteen percent') and/or missing placeholders",
+      "NVDA-0001045810-26-000075": "candidate: spelled_quantities empty, both required placeholders present, no gate_note blocker"
+    },
+    "held_out": {
+      "AMD-0000002488-26-000191": "same checks pass on a different issuer, showing the rule is not NVDA-specific"
+    }
+  },
+  "scope_check": "Edits only prompts/gen-writer/candidate-change-002.md (references/policies.md section 5). failure.json acceptance checks unchanged; evaluation not weakened.",
+  "unresolved": "Sensitivity magnitudes that have no values.json key (cmp-004 band margins and WACC thresholds) will now be described qualitatively or dropped, which loses some precision; exposing them as keys would require a code change outside this change's scope. The examples in the rule quote NVDA evidence wording; the held-out AMD case tests whether the rule generalises rather than memorises."
+}
