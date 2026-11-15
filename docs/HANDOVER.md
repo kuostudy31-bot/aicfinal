@@ -33,6 +33,8 @@ directory, `git pull --rebase --autostash`, push. (Template: the Live run 5 prom
 * Evolution: change-001 and change-002 rejected; change-003 adopted by the owner (gen-writer v3)
   and verified with the disclosure keys present.
 * Published PDFs re-rendered after the publish fix (incidents #16).
+* Evidence dashboard `dashboard.html` (`eu.py dashboard`; regenerate after any run). Repository
+  renamed to `aicfinal` by the owner; `GITHUB_LINK.html` opens the branch.
 
 ## Remaining (needs the owner)
 1. Name and student ID for the README, then `scripts/make_submission.sh <studentID>`.

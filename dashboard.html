@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earnings-update workflow dashboard</title>
+<style>
+:root{--paper:#f7f5f0;--panel:#fffdf8;--ink:#1c2230;--muted:#5d6472;--rule:#d9d4c7;--accent:#1f4e79;
+--pub:#1d6b57;--stall:#9a5b13;--stop:#6b6f78;--rej:#9b2c2c;--band-u:#f3e3dc;--band-o:#dfece5;
+--dcf:#1f4e79;--rel:#b0752b;--tp:#1c2230;--focus:#c26d00}
+@media (prefers-color-scheme: dark){:root{--paper:#14171d;--panel:#1b1f27;--ink:#e8e6e1;--muted:#a3a8b3;
+--rule:#323844;--accent:#8db7e0;--pub:#5fc0a2;--stall:#e0a85c;--stop:#a3a8b3;--rej:#ef8a8a;--band-u:#3a2a26;
+--band-o:#22362e;--dcf:#8db7e0;--rel:#e0a85c;--tp:#e8e6e1}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px}
+h1,h2,h3,.kv,.chip,table,.sub,.kl,.ks,.badge,.tick,.band-label,.rowlabel,.tplabel,nav,time,code,.fnum,.fname{font-family:"Avenir Next","Segoe UI",Helvetica,Arial,sans-serif}
+h1{font-size:28px;line-height:1.15;margin:4px 0 6px;letter-spacing:-.01em}
+h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:44px 0 12px;border-top:2px solid var(--ink);padding-top:10px}
+h3{font-size:16px;margin:0}
+.eyebrow{font:600 12px/1 "Avenir Next","Segoe UI",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lede{max-width:760px;color:var(--muted);margin:6px 0 0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font:13px "Avenir Next","Segoe UI",sans-serif;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+nav{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:16px;font-size:13px}
+a{color:var(--accent)}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:1.4fr repeat(5,1fr);gap:0;margin-top:22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.kpi{padding:14px 14px 14px 0;border-right:1px solid var(--rule);margin-right:14px}.kpi:last-child{border-right:0;margin-right:0}
+.kv{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}.lead .kv{font-size:44px;color:var(--pub)}
+.kl{font-size:13px;font-weight:600;margin-top:4px}.ks{font-size:12px;color:var(--muted);margin-top:2px}
+.scope{background:var(--panel);border-left:4px solid var(--accent);padding:10px 14px;margin-top:18px;font-size:14px}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-weight:600;font-size:12px;color:var(--muted);white-space:nowrap;background:var(--panel)}
+th button{all:unset;cursor:pointer}th button::after{content:" ↕";opacity:.4}th[aria-sort=ascending] button::after{content:" ↑";opacity:1}th[aria-sort=descending] button::after{content:" ↓";opacity:1}
+#cases td:first-child{min-width:190px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sub{font-size:12px;color:var(--muted);margin-top:2px}.muted{color:var(--muted);font-weight:400}
+.badge{font-size:11px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.s-published,.s-adopted{color:var(--pub)}.s-stalled{color:var(--stall)}.s-user_stopped{color:var(--stop)}.s-rejected{color:var(--rej)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chip{font-size:12px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);padding:5px 10px;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.count{font:12px "Avenir Next","Segoe UI",sans-serif;color:var(--muted);margin:6px 0 0}
+.split{display:grid;grid-template-columns:2fr 1fr;gap:28px;align-items:start}
+.chart{width:100%;height:auto;background:var(--panel);border:1px solid var(--rule)}
+.band-u{fill:var(--band-u)}.band-o{fill:var(--band-o)}.grid{stroke:var(--rule)}.zero{stroke:var(--ink);stroke-width:1.5}
+.tick,.band-label{font-size:11px;fill:var(--muted);text-anchor:middle}.rowlabel{font-size:13px;font-weight:700;fill:var(--ink);text-anchor:end}
+.tplabel{font-size:11px;fill:var(--ink);text-anchor:middle;font-weight:600}.span{stroke:var(--muted);stroke-width:2;opacity:.5}
+.m-dcf{fill:var(--dcf)}.m-rel{fill:var(--rel)}.m-tp{fill:var(--tp);stroke:var(--panel);stroke-width:1.5}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font:12px "Avenir Next","Segoe UI",sans-serif;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:5px;vertical-align:-1px}
+.note{font-size:13px;color:var(--muted)}
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{background:var(--panel);border:1px solid var(--rule);padding:14px}
+.fbar{display:grid;grid-template-columns:92px 1fr;gap:2px 8px;align-items:center;margin-top:10px;font-size:12px}
+.fname{font-weight:600}.ftrack{display:flex;height:10px;background:var(--paper);border:1px solid var(--rule)}
+.fc{background:var(--pub)}.fo{background:repeating-linear-gradient(45deg,var(--stall) 0 3px,transparent 3px 6px);border-left:1px solid var(--stall)}
+.fnum{grid-column:2;color:var(--muted);font-variant-numeric:tabular-nums}
+details{margin-top:12px;font-size:13px}summary{cursor:pointer;font-weight:600}
+ul.open{padding-left:18px;margin:6px 0 0}ul.open li{margin:4px 0}code{font-size:12px}
+ol.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule)}
+ol.tl li{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:4px 0 4px 14px;position:relative;font-size:13px}
+ol.tl li::before{content:"";position:absolute;left:-6px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--muted)}
+ol.tl li.day{display:block;font:700 12px "Avenir Next","Segoe UI",sans-serif;letter-spacing:.08em;color:var(--accent);padding-top:14px}
+ol.tl li.day::before{display:none}
+ol.tl li.t-publish::before{background:var(--pub)}ol.tl li.t-hold::before,ol.tl li.t-stop::before{background:var(--stall);border-radius:0}
+ol.tl li.t-evo::before{background:var(--accent);transform:rotate(45deg);border-radius:0}
+time{color:var(--muted);font-variant-numeric:tabular-nums}
+.cols{columns:2;font-size:13px;padding-left:18px}
+footer{margin-top:48px;border-top:1px solid var(--rule);padding-top:12px;font:12px "Avenir Next","Segoe UI",sans-serif;color:var(--muted)}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-right:0;margin-right:0;border-bottom:1px solid var(--rule)}
+.split,.pcards{grid-template-columns:1fr}.cols{columns:1}h1{font-size:23px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="eyebrow">AI Coding in Finance · Final project · evidence dashboard</div>
+<h1>Semiconductor earnings-update workflow: what ran, what was caught, what was published</h1>
+<p class="lede">Generated from the repository's evidence files by <code>python3 scripts/eu.py dashboard</code>.
+Figures are read from case state, finding ledgers, controller recomputes and registers; nothing is typed by hand.
+For coursework demonstration only; not investment advice.</p>
+<div class="meta"><span>Generated <b>2026-11-15 09:07 UTC</b></span><span>Data as of commit <b>9299af6</b> (140 commits)</span>
+<span>Prices: last close before each case's SEC cutoff, US$</span></div>
+<nav aria-label="Sections"><a href="#cases">Cases</a><a href="#valuation">Valuation</a><a href="#review">Review</a>
+<a href="#evolution">Evolution</a><a href="#interruptions">Interruptions</a><a href="#timeline">Timeline</a>
+<a href="README.md">README</a><a href="docs/design_note.md">Design note</a></nav>
+</header>
+
+<section class="kpis" aria-label="Key measures"><div class="kpi lead"><div class="kv">3</div><div class="kl">notes published</div><div class="ks">AMD, MU, NVDA</div></div><div class="kpi"><div class="kv">38</div><div class="kl">review findings raised</div><div class="ks">21 closed by repair · 13 minor open on published notes</div></div><div class="kpi"><div class="kv">1 / 3</div><div class="kl">prompt changes adopted</div><div class="ks">2 rejected by the reviewer · active gen-writer v3</div></div><div class="kpi"><div class="kv">10</div><div class="kl">interruptions recorded</div><div class="ks">every one resumed, replaced or closed</div></div><div class="kpi"><div class="kv">17</div><div class="kl">incidents fixed</div><div class="ks">with root cause in docs/incidents.md</div></div><div class="kpi"><div class="kv">81</div><div class="kl">regression tests</div><div class="ks">python3 scripts/check.py</div></div></section>
+<p class="scope"><b>Scope.</b> Configured coverage: NVDA, AMD, INTC, AVGO, MRVL, MU, AMAT. Research cases were run for <b>AMD, MU, NVDA</b>;
+INTC, AVGO, MRVL, AMAT are configured but have no case.</p>
+
+<h2 id="cases">Cases</h2>
+<div class="chips" role="group" aria-label="Filter cases by status"><button type="button" class="chip on" data-f="ALL" aria-pressed="true">All</button><button type="button" class="chip" data-f="PUBLISHED" aria-pressed="false">Published</button><button type="button" class="chip" data-f="STALLED" aria-pressed="false">Stalled</button><button type="button" class="chip" data-f="USER_STOPPED" aria-pressed="false">User Stopped</button></div>
+<div class="tablewrap"><table id="cases">
+<thead><tr><th data-col="0"><button>Case</button></th><th data-col="1"><button>Status</button></th>
+<th class="num" data-col="2"><button>Rounds</button></th><th class="num" data-col="3"><button>Reviews</button></th>
+<th class="num" data-col="4"><button>Findings opened / closed / open</button></th>
+<th class="num" data-col="5"><button>Last close</button></th><th class="num" data-col="6"><button>Target</button></th>
+<th class="num" data-col="7"><button>Upside</button></th><th data-col="8"><button>Rating</button></th><th>Note</th></tr></thead>
+<tbody><tr data-status="PUBLISHED"><td><a href="cases/AMD-0000002488-26-000191-r2/">AMD-0000002488-26-000191-r2</a><div class="sub">10-Q · cutoff 2026-11-03 23:00 UTC</div></td><td><span class="badge s-published"><span aria-hidden="true">●</span> PUBLISHED</span></td><td class="num" data-v="3">3</td><td class="num" data-v="4">4</td><td class="num" data-v="7">7 / 4 / 3</td><td class="num" data-v="483.9">$484</td><td class="num" data-v="297">$297</td><td class="num" data-v="-0.3862368257904526">-38.6%</td><td>Underperform</td><td><a href="report/AMD-0000002488-26-000191-r2/AMD-0000002488-26-000191-r2.pdf">PDF</a></td></tr><tr data-status="PUBLISHED"><td><a href="cases/MU-0000723125-26-000023/">MU-0000723125-26-000023</a><div class="sub">10-K · cutoff 2026-10-09 12:21 UTC</div></td><td><span class="badge s-published"><span aria-hidden="true">●</span> PUBLISHED</span></td><td class="num" data-v="2">2</td><td class="num" data-v="3">3</td><td class="num" data-v="14">14 / 10 / 4</td><td class="num" data-v="1035.84">$1,036</td><td class="num" data-v="1102">$1,102</td><td class="num" data-v="0.06387086808773557">+6.4%</td><td>Neutral</td><td><a href="report/MU-0000723125-26-000023/MU-0000723125-26-000023.pdf">PDF</a></td></tr><tr data-status="PUBLISHED"><td><a href="cases/NVDA-0001045810-26-000075-r2/">NVDA-0001045810-26-000075-r2</a><div class="sub">10-Q · cutoff 2026-08-26 20:36 UTC</div></td><td><span class="badge s-published"><span aria-hidden="true">●</span> PUBLISHED</span></td><td class="num" data-v="1">1</td><td class="num" data-v="2">2</td><td class="num" data-v="6">6 / 0 / 6</td><td class="num" data-v="209.66">$210</td><td class="num" data-v="186">$186</td><td class="num" data-v="-0.11284937517886096">-11.3%</td><td>Underperform</td><td><a href="report/NVDA-0001045810-26-000075-r2/NVDA-0001045810-26-000075-r2.pdf">PDF</a></td></tr><tr data-status="STALLED"><td><a href="cases/AMD-0000002488-26-000191/">AMD-0000002488-26-000191</a><div class="sub">10-Q · cutoff 2026-11-03 23:00 UTC</div></td><td><span class="badge s-stalled"><span aria-hidden="true">▲</span> STALLED</span><div class="sub">same open findings across 2 repairs: [&#x27;gate-guidance-opex_next_q&#x27;]</div></td><td class="num" data-v="2">2</td><td class="num" data-v="0">0</td><td class="num" data-v="1">1 / 0 / 1</td><td class="num" data-v="483.9">$484</td><td class="num" data-v="265">$265</td><td class="num" data-v="-0.45236619136185163">-45.2%</td><td>Underperform</td><td><span class="muted">—</span></td></tr><tr data-status="STALLED"><td><a href="cases/NVDA-0001045810-26-000075/">NVDA-0001045810-26-000075</a><div class="sub">10-Q · cutoff 2026-08-26 20:36 UTC</div></td><td><span class="badge s-stalled"><span aria-hidden="true">▲</span> STALLED</span><div class="sub">same open findings across 2 repairs: [&#x27;asm-001&#x27;]</div></td><td class="num" data-v="2">2</td><td class="num" data-v="2">2</td><td class="num" data-v="10">10 / 7 / 3</td><td class="num" data-v="209.66">$210</td><td class="num" data-v="182">$182</td><td class="num" data-v="-0.13192788323953064">-13.2%</td><td>Underperform</td><td><span class="muted">—</span></td></tr><tr data-status="USER_STOPPED"><td><a href="cases/AMD-0000002488-26-000123/">AMD-0000002488-26-000123</a><div class="sub">10-Q · cutoff 2026-08-04 21:40 UTC</div></td><td><span class="badge s-user_stopped"><span aria-hidden="true">■</span> USER_STOPPED</span><div class="sub">Stop-hook verification complete</div></td><td class="num" data-v="1">1</td><td class="num" data-v="0">0</td><td class="num" data-v="0">0 / 0 / 0</td><td class="num" data-v="-1">—</td><td class="num" data-v="-1">—</td><td class="num" data-v="-9">—</td><td>—</td><td><span class="muted">—</span></td></tr></tbody></table></div>
+<p class="count" id="casecount" aria-live="polite"></p>
+<p class="note">Stalled and stopped cases are kept as evidence: NVDA r1 shows the bounded loop stopping on a finding the
+specialists could not fix; AMD r1 a deliberate interruption and a false stall from a gate defect; AMD 0000002488-26-000123
+the live Stop-hook test. Revisions (<code>-r2</code>) re-ran the same filing after a fix. Target and upside of a
+non-published case are the last controller recompute, not a published view.</p>
+
+<h2 id="valuation">Valuation: how far apart the two methods are</h2>
+<div class="split"><div><svg viewBox="0 0 720 206" role="img" aria-labelledby="valtitle valdesc" class="chart"><title id="valtitle">Valuation legs relative to the last close</title><desc id="valdesc">For each published case, the DCF value, the peer EV/Sales value and the blended target price as a percentage above or below the last close before the cutoff, with the rating bands.</desc><rect x="110.0" y="26" width="219.8" height="154" class="band-u"/><rect x="421.3" y="26" width="274.7" height="154" class="band-o"/><text x="219.9" y="20" class="band-label">Underperform ≤ -10%</text><text x="375.5" y="20" class="band-label">Neutral</text><text x="558.7" y="20" class="band-label">Outperform ≥ +15%</text><line x1="146.6" x2="146.6" y1="26" y2="180" class="grid"/><text x="146.6" y="196" class="tick">-60%</text><line x1="219.9" x2="219.9" y1="26" y2="180" class="grid"/><text x="219.9" y="196" class="tick">-40%</text><line x1="293.1" x2="293.1" y1="26" y2="180" class="grid"/><text x="293.1" y="196" class="tick">-20%</text><line x1="366.4" x2="366.4" y1="26" y2="180" class="zero"/><text x="366.4" y="196" class="tick">+0%</text><line x1="439.6" x2="439.6" y1="26" y2="180" class="grid"/><text x="439.6" y="196" class="tick">+20%</text><line x1="512.9" x2="512.9" y1="26" y2="180" class="grid"/><text x="512.9" y="196" class="tick">+40%</text><line x1="586.1" x2="586.1" y1="26" y2="180" class="grid"/><text x="586.1" y="196" class="tick">+60%</text><line x1="659.4" x2="659.4" y1="26" y2="180" class="grid"/><text x="659.4" y="196" class="tick">+80%</text><text x="98" y="61.0" class="rowlabel">AMD</text><line x1="148.0" x2="341.0" y1="57.0" y2="57.0" class="span"/><circle cx="148.0" cy="57.0" r="6" class="m-dcf"><title>DCF: -59.6% vs close $484</title></circle><rect x="335.0" y="51.0" width="12" height="12" class="m-rel"><title>Peer EV/Sales: -6.9% vs close $484</title></rect><path d="M224.9,48.0 L233.9,57.0 L224.9,66.0 L215.9,57.0 Z" class="m-tp"><title>Target: -38.6% vs close $484</title></path><text x="224.9" y="44.0" class="tplabel">$297 (-38.6%)</text><text x="98" y="107.0" class="rowlabel">MU</text><line x1="305.2" x2="643.1" y1="103.0" y2="103.0" class="span"/><circle cx="305.2" cy="103.0" r="6" class="m-dcf"><title>DCF: -16.7% vs close $1,036</title></circle><rect x="637.1" y="97.0" width="12" height="12" class="m-rel"><title>Peer EV/Sales: +75.6% vs close $1,036</title></rect><path d="M389.8,94.0 L398.8,103.0 L389.8,112.0 L380.8,103.0 Z" class="m-tp"><title>Target: +6.4% vs close $1,036</title></path><text x="389.8" y="90.0" class="tplabel">$1,102 (+6.4%)</text><text x="98" y="153.0" class="rowlabel">NVDA</text><line x1="247.6" x2="506.5" y1="149.0" y2="149.0" class="span"/><circle cx="247.6" cy="149.0" r="6" class="m-dcf"><title>DCF: -32.4% vs close $210</title></circle><rect x="500.5" y="143.0" width="12" height="12" class="m-rel"><title>Peer EV/Sales: +38.3% vs close $210</title></rect><path d="M325.0,140.0 L334.0,149.0 L325.0,158.0 L316.0,149.0 Z" class="m-tp"><title>Target: -11.3% vs close $210</title></path><text x="325.0" y="136.0" class="tplabel">$186 (-11.3%)</text></svg>
+<div class="legend"><span><i style="background:var(--dcf);border-radius:50%"></i>DCF per share</span>
+<span><i style="background:var(--rel)"></i>Peer EV/Sales per share</span>
+<span><i style="background:var(--tp);transform:rotate(45deg)"></i>Blended target price</span>
+<span>Vertical line: last close (0%)</span></div></div>
+<div class="note"><p>Each leg is shown as a percentage of the last close before the cutoff. The target blends the two legs
+(DCF weight AMD 60%, MU 75%, NVDA 70%), so the rating follows the DCF. In every published case the peer leg sits far above
+the DCF leg: the ratings are policy-consistent but low-conviction (design note §6).</p>
+<p>Shaded areas are the house rating bands from <code>config/project.yaml</code>.</p></div></div>
+
+<h2 id="review">Independent review of the published notes</h2>
+<div class="pcards"><article class="pcard"><header><h3>AMD <span class="muted">AMD-0000002488-26-000191-r2</span></h3><p class="sub">10-Q · 3 round(s) · 4 reviews · approved 2026-11-15 03:55 UTC · DCF weight 60.0%</p></header><div class="fbar"><span class="fname">Assumption</span><span class="ftrack"><span class="fc" style="width:66.7%"></span><span class="fo" style="width:33.3%"></span></span><span class="fnum">2 closed · 1 open</span></div><div class="fbar"><span class="fname">Compliance</span><span class="ftrack"><span class="fc" style="width:33.3%"></span><span class="fo" style="width:33.3%"></span></span><span class="fnum">1 closed · 1 open</span></div><div class="fbar"><span class="fname">Provenance</span><span class="ftrack"><span class="fc" style="width:33.3%"></span><span class="fo" style="width:33.3%"></span></span><span class="fnum">1 closed · 1 open</span></div><details><summary>3 minor finding(s) left open (printed in the PDF)</summary><ul class="open"><li><code>asm-003</code> Warrant-dilution sensitivity describes vesting as purchase-milestone driven only; the stock-price-target conditions are omitted</li><li><code>cmp-001</code> Data-source disclosure omits the earnings-release accession and the price source</li><li><code>prov-002</code> Contingently-issuable treatment of warrant shares is paraphrased without citing its quote</li></ul></details></article><article class="pcard"><header><h3>MU <span class="muted">MU-0000723125-26-000023</span></h3><p class="sub">10-K · 2 round(s) · 3 reviews · approved 2026-11-15 08:30 UTC · DCF weight 75.0%</p></header><div class="fbar"><span class="fname">Assumption</span><span class="ftrack"><span class="fc" style="width:60.0%"></span><span class="fo" style="width:40.0%"></span></span><span class="fnum">3 closed · 2 open</span></div><div class="fbar"><span class="fname">Compliance</span><span class="ftrack"><span class="fc" style="width:60.0%"></span><span class="fo" style="width:20.0%"></span></span><span class="fnum">3 closed · 1 open</span></div><div class="fbar"><span class="fname">Provenance</span><span class="ftrack"><span class="fc" style="width:80.0%"></span><span class="fo" style="width:20.0%"></span></span><span class="fnum">4 closed · 1 open</span></div><details><summary>4 minor finding(s) left open (printed in the PDF)</summary><ul class="open"><li><code>asm-004</code> Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale</li><li><code>asm-005</code> The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg</li><li><code>cmp-004</code> Disclosures list the share price under &#x27;Data sources (SEC EDGAR)&#x27;, but the price does not come from SEC EDGAR</li><li><code>prov-005</code> Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed</li></ul></details></article><article class="pcard"><header><h3>NVDA <span class="muted">NVDA-0001045810-26-000075-r2</span></h3><p class="sub">10-Q · 1 round(s) · 2 reviews · approved 2026-11-14 15:38 UTC · DCF weight 70.0%</p></header><div class="fbar"><span class="fname">Assumption</span><span class="ftrack"><span class="fc" style="width:0.0%"></span><span class="fo" style="width:66.7%"></span></span><span class="fnum">0 closed · 2 open</span></div><div class="fbar"><span class="fname">Compliance</span><span class="ftrack"><span class="fc" style="width:0.0%"></span><span class="fo" style="width:33.3%"></span></span><span class="fnum">0 closed · 1 open</span></div><div class="fbar"><span class="fname">Provenance</span><span class="ftrack"><span class="fc" style="width:0.0%"></span><span class="fo" style="width:100.0%"></span></span><span class="fnum">0 closed · 3 open</span></div><details><summary>6 minor finding(s) left open (printed in the PDF)</summary><ul class="open"><li><code>asm-001</code> Lock-up restrictions on marketable equity securities not reflected in net cash judgment</li><li><code>asm-002</code> Peer calendar label inconsistent with peer TTM end dates</li><li><code>cmp-001</code> Code-generated disclosure attributes all figures to SEC XBRL, but the share price and peer prices come from the Yahoo price snapshot</li><li><code>prov-001</code> Forecast prose says opex grows more slowly than revenue; assumptions do not show that across the horizon</li><li><code>prov-002</code> Lead-in &#x27;The outlook excludes China&#x27; is broader than the quote</li><li><code>prov-003</code> peers.json &#x27;calendar&#x27; label inconsistent with ttm_end (code output, not used in note)</li></ul></details></article></div>
+<p class="note">Bars count findings by the critic that raised them across all rounds: solid = closed after a repair,
+hatched = still open (minor only; minor findings do not block acceptance and are printed in each PDF).</p>
+
+<h2 id="evolution">Evolution: evaluated, approved, reversible prompt changes</h2>
+<div class="split"><div class="tablewrap"><table>
+<thead><tr><th>Change</th><th class="num">Baseline passes</th><th class="num">Candidate passes</th><th>Arms separated</th>
+<th>Reviewer</th><th>Outcome</th></tr></thead><tbody><tr><td><a href="evolution/changes/change-001/">change-001</a><div class="sub">gen-writer from v2</div></td><td class="num">3 / 3</td><td class="num">3 / 3</td><td>no</td><td>reject</td><td><span class="badge s-rejected"><span aria-hidden="true">✕</span> REJECTED</span></td></tr><tr><td><a href="evolution/changes/change-002/">change-002</a><div class="sub">gen-writer from v2</div></td><td class="num">3 / 3</td><td class="num">3 / 3</td><td>no</td><td>reject</td><td><span class="badge s-rejected"><span aria-hidden="true">✕</span> REJECTED</span></td></tr><tr><td><a href="evolution/changes/change-003/">change-003</a><div class="sub">gen-writer from v2</div></td><td class="num">0 / 6</td><td class="num">6 / 6</td><td>yes<div class="sub">withheld: rating_outperform_min, rating_underperform_max, cutoff_utc, price_date</div></td><td>approve-recommended</td><td><span class="badge s-adopted"><span aria-hidden="true">◆</span> ADOPTED</span><div class="sub">→ v3; post-adoption check passed</div></td></tr></tbody></table></div>
+<div class="note"><p>A change is adopted only if the evaluation separates the arms (the baseline reproduces the failure),
+the candidate passes every case, a fresh reviewer recommends it and the owner approves. change-001 and change-002
+failed the first condition; change-003 kept the failure condition by withholding the code-supplied values.</p>
+<p><b>Active prompt versions</b></p><ul class="cols"><li><code>crit-assumption</code> v1</li><li><code>crit-compliance</code> v1</li><li><code>crit-lead</code> v2</li><li><code>crit-provenance</code> v1</li><li><code>evo-proposer</code> v1</li><li><code>evo-reviewer</code> v1</li><li><code>gen-lead</code> v2</li><li><code>gen-mapping</code> v1</li><li><code>gen-model</code> v1</li><li><code>gen-narrative</code> v1</li><li><code>gen-valuation</code> v1</li><li><code>gen-writer</code> v3</li><li><code>orchestrator</code> v1</li></ul></div></div>
+
+<h2 id="interruptions">Interruptions and how each resumed</h2>
+<div class="tablewrap"><table><thead><tr><th class="num">#</th><th>When (UTC)</th><th>What stopped</th><th>Type</th>
+<th>Kept / redone</th></tr></thead><tbody><tr><td class="num">1</td><td>2026-11-14 14:48</td><td>Live run 1 (NVDA r1): orchestrator had no Agent tool</td><td>unplanned (platform nesting limit)</td><td>Nothing to keep; same request ID reused</td></tr><tr><td class="num">2</td><td>2026-11-14 15:08</td><td>Live run 2 (NVDA r1): eu.py compute traceback</td><td>unplanned (controller defect)</td><td>Kept 4 reports; re-dispatched gen-writer only</td></tr><tr><td class="num">3</td><td>2026-11-14 about 14:57</td><td>Live run 3 (AMD r1), interrupted by the coordinator during gen-model</td><td>planned (recovery test)</td><td>Kept 3 reports (gen-model had finished writing); re-dispatched gen-valuation and gen-writer</td></tr><tr><td class="num">4</td><td>2026-11-14 14:58–15:59</td><td>AMD r1 sat idle after #3 (two stalls)</td><td>unplanned (peer messages are not instructions; tracked runtime pointer)</td><td>none lost</td></tr><tr><td class="num">5</td><td>2026-11-14 16:20</td><td>Live run 6 (evolution change-001), interrupted at the owner&#x27;s request</td><td>owner</td><td>nothing to keep</td></tr><tr><td class="num">6</td><td>2026-11-14 about 16:20 → 20:10</td><td>The whole workflow: the five-hour usage quota was exhausted (a run session reported rejected, overage)</td><td>unplanned (quota)</td><td>none lost</td></tr><tr><td class="num">7</td><td>2026-11-15 02:12–02:52</td><td>Live run 8 (AMD r2) stopped before opening the case</td><td>unplanned (task conflicted with a stale HANDOVER line)</td><td>nothing to keep</td></tr><tr><td class="num">8</td><td>2026-11-15 02:13</td><td>Live run 9 tried to end its turn with the verification case pending</td><td>planned (Stop-hook test)</td><td>n/a</td></tr><tr><td class="num">9</td><td>2026-11-15 07:38</td><td>Live run 12 (MU, first 10-K case): model.forecast TypeError on the derived Q4&#x27;s missing diluted shares</td><td>unplanned (controller defect)</td><td>Kept 3 reports; re-dispatch gen-valuation and gen-writer</td></tr><tr><td class="num">10</td><td>2026-11-15 07:50</td><td>Live run 14 (MU): three major gate findings from gate defects (per-share EPS guidance scaled to 0.0; fiscal-Q4 EPS gap flagged as stale)</td><td>unplanned (controller defect)</td><td>Kept 4 reports; gen-writer still to run</td></tr></tbody></table></div>
+<p class="note">Full register with state at the stop and evidence: <a href="docs/interruptions.md">docs/interruptions.md</a>.
+Problems and fixes: <a href="docs/incidents.md">docs/incidents.md</a>; refusals: <a href="docs/rejections.md">docs/rejections.md</a>.</p>
+
+<h2 id="timeline">Timeline</h2>
+<ol class="tl"><li class="day">2026-11-14</li><li class="t-open"><time>14:48</time><span>NVDA-0001045810-26-000075 opened</span></li><li class="t-open"><time>14:55</time><span>AMD-0000002488-26-000191 opened</span></li><li class="t-open"><time>15:21</time><span>NVDA-0001045810-26-000075-r2 opened</span></li><li class="t-stop"><time>15:30</time><span>NVDA-0001045810-26-000075 stopped: STALLED</span></li><li class="t-publish"><time>15:38</time><span>NVDA-0001045810-26-000075-r2 approved and published</span></li><li class="t-stop"><time>16:11</time><span>AMD-0000002488-26-000191 stopped: STALLED</span></li><li class="day">2026-11-15</li><li class="t-open"><time>02:12</time><span>AMD-0000002488-26-000123 opened</span></li><li class="t-hold"><time>02:13</time><span>AMD-0000002488-26-000123 put on hold: Stop-hook verification test: deliberate pause</span></li><li class="t-stop"><time>02:14</time><span>AMD-0000002488-26-000123 stopped: USER_STOPPED</span></li><li class="t-evo"><time>02:17</time><span>Evolution change-001 rejected</span></li><li class="t-open"><time>02:54</time><span>AMD-0000002488-26-000191-r2 opened</span></li><li class="t-evo"><time>03:10</time><span>Evolution change-002 rejected</span></li><li class="t-publish"><time>03:55</time><span>AMD-0000002488-26-000191-r2 approved and published</span></li><li class="t-open"><time>07:33</time><span>MU-0000723125-26-000023 opened</span></li><li class="t-hold"><time>07:37</time><span>MU-0000723125-26-000023 put on hold: Code defect blocks 10-K quarterization: src/aicfinal/model.py line 86 in forecast: shares = latest(hist, …</span></li><li class="t-evo"><time>07:46</time><span>Evolution change-003 adopted</span></li><li class="t-hold"><time>07:50</time><span>MU-0000723125-26-000023 put on hold: Code defect in src/aicfinal/gates.py blocks generator round 1: gate_quotes divides every USD guidance value …</span></li><li class="t-publish"><time>08:30</time><span>MU-0000723125-26-000023 approved and published</span></li></ol>
+
+<footer>Sources: <code>cases/*/state.json</code>, <code>trace.jsonl</code>, <code>rounds/*/numerical/recompute/valuation.json</code>,
+<code>approvals.jsonl</code>, <code>evolution/changes/*</code>, <code>prompts/registry.json</code>, <code>docs/interruptions.md</code>,
+<code>docs/incidents.md</code>, <code>tests/</code>. Links are relative to the project folder. Not investment advice.</footer>
+</div>
+<script>
+(function(){
+  var tbody=document.querySelector('#cases tbody'), count=document.getElementById('casecount');
+  function refresh(){var n=0;tbody.querySelectorAll('tr').forEach(function(r){if(!r.hidden)n++;});
+    count.textContent=n+' of '+tbody.rows.length+' cases shown';}
+  document.querySelectorAll('.chip').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false');});
+    b.classList.add('on');b.setAttribute('aria-pressed','true');var f=b.dataset.f;
+    tbody.querySelectorAll('tr').forEach(function(r){r.hidden=!(f==='ALL'||r.dataset.status===f);});refresh();});});
+  document.querySelectorAll('#cases th[data-col] button').forEach(function(btn){btn.addEventListener('click',function(){
+    var th=btn.parentNode, col=+th.dataset.col, num=th.classList.contains('num');
+    var dir=th.getAttribute('aria-sort')==='ascending'?'descending':'ascending';
+    document.querySelectorAll('#cases th').forEach(function(x){x.removeAttribute('aria-sort');});th.setAttribute('aria-sort',dir);
+    var rows=Array.prototype.slice.call(tbody.rows);
+    rows.sort(function(a,b){var x=a.cells[col],y=b.cells[col];
+      var u=num?parseFloat(x.dataset.v):x.textContent.trim(), v=num?parseFloat(y.dataset.v):y.textContent.trim();
+      var c=num?u-v:String(u).localeCompare(String(v));return dir==='ascending'?c:-c;});
+    rows.forEach(function(r){tbody.appendChild(r);});});});
+  refresh();
+})();
+</script>
+</body>
+</html>

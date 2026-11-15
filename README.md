@@ -9,6 +9,7 @@
 | Branch link | https://github.com/kuostudy31-bot/aicfinal/tree/claude/trusting-thompson-r5m3id (open [`GITHUB_LINK.html`](GITHUB_LINK.html)) |
 | Submitted folder | `aicfinal/` in `24210660139-final-project.zip`, with the full `.git/` history (the repository was called `aicfinal_test` until 2026-11-15, so older notes use that name) |
 | Design note | [`docs/design_note.md`](docs/design_note.md) · diagram [`docs/architecture.svg`](docs/architecture.svg) |
+| Dashboard | open [`dashboard.html`](dashboard.html) in a browser (offline): cases, valuation, reviews, evolution, interruptions, timeline |
 
 ## What it does
 
@@ -40,6 +41,8 @@ names) enter only as peer data inside each case's snapshot.
 
 | Path | Contents |
 |---|---|
+| `dashboard.html` | evidence dashboard generated from the repository by `eu.py dashboard` (single offline file, no external libraries) |
+| `GITHUB_LINK.html` | opens the project branch on GitHub |
 | `docs/design_note.md`, `docs/architecture.{svg,png}` | design note and annotated workflow diagram |
 | `.claude/agents/` | 13 subagents: `orchestrator`, `gen-lead`, `crit-lead`, `gen-{mapping,narrative,model,valuation,writer}`, `crit-{provenance,assumption,compliance}`, `evo-{proposer,reviewer}` |
 | `.claude/commands/{start,evo}.md` | the two entry points: `/start <TICKER> [accession]`, `/evo <role> <case> <failure>` |
@@ -48,8 +51,8 @@ names) enter only as peer data inside each case's snapshot.
 | `prompts/<role>/vN.md`, `prompts/registry.json` | versioned role prompts and the active-version registry |
 | `references/` | fixed acceptance criteria, policies, artifact contracts, dispatch allowlist (`roles.yaml`), XBRL catalog |
 | `config/project.yaml` | coverage, permitted sources, limits, publication policy |
-| `src/aicfinal/` | deterministic core: `http` (permitted hosts), `edgar`, `prices`, `snapshot`, `xbrl`, `model`, `valuation`, `values`, `gates`, `compute`, `controller`, `evolution`, `publish` |
-| `scripts/eu.py` | controller CLI (`watch`, `open`, `request`, `compute`, `submit`, `resume`, `status`, `approve`, `stop`, `publish`, `evo-*`) |
+| `src/aicfinal/` | deterministic core: `http` (permitted hosts), `edgar`, `prices`, `snapshot`, `xbrl`, `model`, `valuation`, `values`, `gates`, `compute`, `controller`, `evolution`, `publish`, `dashboard` |
+| `scripts/eu.py` | controller CLI (`watch`, `open`, `request`, `compute`, `submit`, `resume`, `status`, `dashboard`, `approve`, `stop`, `publish`, `evo-*`) |
 | `scripts/check.py`, `tests/` | regression tests: controller transitions, gates, XBRL handling, leakage perturbation |
 | `cases/<TICKER>-<ACCESSION>/` | live case evidence: snapshot, rounds, trace, approvals, transcripts |
 | `cases/RUN_NOTES.md`, `cases/*/RUN_NOTES.md`, `STATUS.md` | run logs (interruptions, resumes, in-place repairs) and status board |
@@ -118,6 +121,12 @@ python3 scripts/eu.py resume --case NVDA-0001045810-26-000075
 python3 scripts/eu.py status
 ```
 
+Regenerate the evidence dashboard (`dashboard.html`) after any run:
+
+```bash
+python3 scripts/eu.py dashboard
+```
+
 Publication (human only):
 
 ```bash
@@ -133,6 +142,10 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
 
 ## Evidence of verification and recovery
 
+* `dashboard.html`: one page that summarises the evidence below (case outcomes and target prices,
+  how far the DCF and peer legs sit from the price, findings by critic and what stayed open, the
+  evolution evaluations, every interruption, and a timeline). Every figure is read from the files
+  listed here, so the page can be checked against them.
 * `python3 scripts/check.py`: controller and core regression tests. They cover invalid,
   stale and missing submissions, BLOCKED, EXHAUSTED and STALLED stops, disallowed dispatch,
   the gate-to-repair loop, two clean reviews, approval rules, resume after an interruption

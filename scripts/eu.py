@@ -107,6 +107,11 @@ def board() -> str:
     return "\n".join(lines) + "\n"
 
 
+def cmd_dashboard(a):
+    from aicfinal import dashboard
+    print(dashboard.write())
+
+
 def cmd_status(a):
     text = board()
     (ROOT / "STATUS.md").write_text(text, encoding="utf-8")
@@ -203,6 +208,8 @@ def main(argv=None):
                      ("resume", cmd_resume), ("publish", cmd_publish)):
         s = sub.add_parser(name); s.add_argument("--case", required=True); s.set_defaults(fn=fn)
     s = sub.add_parser("status"); s.set_defaults(fn=cmd_status)
+    s = sub.add_parser("dashboard", help="write dashboard.html (offline evidence dashboard)")
+    s.set_defaults(fn=cmd_dashboard)
     s = sub.add_parser("hold"); s.add_argument("--case", required=True); s.add_argument("--reason", required=True)
     s.add_argument("--by", default="run session"); s.set_defaults(fn=cmd_hold)
     s = sub.add_parser("release"); s.add_argument("--case", required=True); s.add_argument("--note")
