@@ -190,6 +190,8 @@ course's QT framework and are the core of this design.
 | `docs/verification/stop_hook.md` | PASS | Live Stop-hook test: a run session that tried to end its turn with its case pending was blocked, recorded a hold, and was then no longer listed by the watchdog. |
 | `cases/AMD-0000002488-26-000191` | STALLED (false stop) | Deliberate interruption: `resume` kept 3 completed reports and re-dispatched only 2. Then a gate defect (fixed in 6fddfe2) produced a false stall, recorded in `docs/incidents.md` #7. |
 
+All interruptions (including a deliberate one, a quota stop and an owner pause) are listed with their resume outcome in [`interruptions.md`](interruptions.md), and all rejections in [`rejections.md`](rejections.md).
+
 Every case keeps its snapshot hashes, request/round files, controller and hook trace, critic
 reports, and each subagent's transcript under `evidence/transcripts/`. `docs/incidents.md`
 lists the eight problems met during the build and runs, with timelines and fixes. **Diagnosis before a change** ([`evolution/diagnosis-2026-11-15.md`](../evolution/diagnosis-2026-11-15.md)):
