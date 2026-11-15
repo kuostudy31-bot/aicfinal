@@ -1,0 +1,11 @@
+{
+  "case_id": "NVDA-0001045810-26-000075-r2",
+  "instructions": "Evaluation mode: follow prompt_file, but do not run eu.py compute and do not write inside cases/; read keys from `values` and quotes from `narrative`; write only `output`.",
+  "mode": "evaluation",
+  "narrative": "evolution/changes/change-002/runs/NVDA-0001045810-26-000075-r2/inputs/narrative.json",
+  "output": "evolution/changes/change-003/verification/NVDA-0001045810-26-000075-r2/note.md",
+  "prompt_file": "prompts/gen-writer/v3.md",
+  "purpose": "post-adoption check (change-003 review finding evo-003): v3 with the rating-band, cutoff, price-date and accession keys present",
+  "role": "gen-writer",
+  "values": "evolution/changes/change-002/runs/NVDA-0001045810-26-000075-r2/inputs/values.json"
+}
