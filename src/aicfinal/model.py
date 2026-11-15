@@ -69,8 +69,21 @@ def sum_series(parts: list[list[dict]]) -> list[dict]:
 
 
 def latest(hist: dict, line: str):
-    vals = hist["lines"].get(line) or []
+    """Most recent non-empty value of a line. A 10-K reports non-additive lines (diluted
+    shares, EPS) for the fiscal year only, so the derived fourth quarter has no value for them;
+    the last reported quarter is used instead (incidents #12)."""
+    vals = [v for v in (hist["lines"].get(line) or []) if v is not None]
     return vals[-1] if vals else None
+
+
+def latest_aligned(hist: dict, *lines: str) -> list[dict] | None:
+    """Values of several lines for the most recent quarter in which all of them are present."""
+    cols = [hist["lines"].get(line) or [] for line in lines]
+    n = min((len(c) for c in cols), default=0)
+    for i in range(n - 1, -1, -1):
+        if all(c[i] is not None for c in cols):
+            return [c[i] for c in cols]
+    return None
 
 
 def ttm(hist: dict, line: str) -> float | None:

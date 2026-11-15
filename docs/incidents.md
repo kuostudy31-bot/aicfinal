@@ -175,3 +175,21 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   That refusal was correct, and it was recorded in the local log only, as the new rule requires.
 * **Lesson.** A runtime pointer must be validated against the state it points to. Tests must never
   run against the real evidence tree.
+
+## 12. First 10-K case: no diluted shares for the derived fourth quarter (2026-11-15 07:38)
+* **What happened.** Live run 12 opened MU's FY2026 10-K (the first case on a 10-K). gen-model's
+  `model.forecast` call failed with `TypeError: 'NoneType' object is not subscriptable` at
+  `shares = latest(hist, "diluted_shares")["val"]`. The run session recorded the error, put the
+  case on hold (GENERATOR_PENDING, round 1) and stopped without patching code, as instructed.
+* **Root cause.** A 10-K tags diluted shares and EPS for the fiscal year (and the 9-month YTD)
+  only. These lines are non-additive, so they are never differenced, and the derived Q4 has no
+  value. `model.latest()` returned the last column even when it was empty. `gate_eps` silently
+  skipped the check for the same reason; with a fixed `latest()` alone it would have compared Q4
+  net income with Q3 shares.
+* **Fix.** `latest()` returns the most recent non-empty value (for MU: FY2026Q3 diluted shares,
+  1,145M, a reported quarterly figure). `gate_eps` compares net income, diluted shares and EPS
+  of the same quarter (`latest_aligned`). Tests: `TenKFourthQuarterTests`. The MU case continues
+  in the same revision: no round had been computed or gated, and the three completed specialist
+  reports (mapping, narrative, model) are kept.
+* **Known limitation.** Per-share values for a 10-K case use the last reported quarterly diluted
+  share count, one quarter older than the balance sheet.

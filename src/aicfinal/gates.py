@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 
 from . import values as V
-from .model import REQUIRED_LINES, latest
+from .model import REQUIRED_LINES, latest, latest_aligned
 
 ALLOWED_TOKEN = re.compile(
     r"(?<![\w$.])(?:FY|CY)?(?:19|20)\d{2}(?:Q[1-4])?(?![\w.%])"   # years, FY2027, CY2026Q2
@@ -50,9 +50,10 @@ def gate_balance(hist: dict) -> list[dict]:
 
 
 def gate_eps(hist: dict) -> list[dict]:
-    ni, sh, eps = latest(hist, "net_income"), latest(hist, "diluted_shares"), latest(hist, "eps_diluted")
-    if not (ni and sh and eps):
+    aligned = latest_aligned(hist, "net_income", "diluted_shares", "eps_diluted")
+    if not aligned:
         return []
+    ni, sh, eps = aligned  # same quarter for all three (a 10-K's Q4 has no diluted shares or EPS)
     implied = ni["val"] / sh["val"]
     if eps["val"] and abs(implied / eps["val"] - 1) > 0.03:
         return [f("gate-eps-latest", "major", "eps_consistency",

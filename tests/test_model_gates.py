@@ -137,3 +137,22 @@ class RatingBandValueTests(unittest.TestCase):
         out = values.build("X", h, fc, val, {}, meta)
         self.assertEqual(out["rating_outperform_min"]["display"], "+15%")
         self.assertEqual(out["rating_underperform_max"]["display"], "-10%")
+
+
+class TenKFourthQuarterTests(unittest.TestCase):
+    """A 10-K tags diluted shares and EPS for the fiscal year only: the derived Q4 has none."""
+
+    def hist(self):
+        v = lambda x, i: {"val": x, "id": i, "derived": False}  # noqa: E731
+        return {"quarters": [{}, {}], "lines": {
+            "net_income": [v(1000.0, "n3"), v(2000.0, "n4")],
+            "diluted_shares": [v(100.0, "s3"), None],
+            "eps_diluted": [v(10.0, "e3"), None]}}
+
+    def test_latest_skips_missing_fourth_quarter(self):
+        from aicfinal.model import latest
+        self.assertEqual(latest(self.hist(), "diluted_shares")["id"], "s3")
+
+    def test_eps_gate_compares_one_quarter(self):
+        from aicfinal.gates import gate_eps
+        self.assertEqual(gate_eps(self.hist()), [])  # Q3 vs Q3, not Q4 income over Q3 shares
