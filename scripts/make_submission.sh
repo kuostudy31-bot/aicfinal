@@ -29,6 +29,6 @@ else
   git -C "$NAME" status --porcelain | grep -q . && { echo "copy is not clean"; exit 1; }
 fi
 # Includes hidden files and .git; leaves out re-creatable caches and local logs.
-zip -qr "$OUT" "$NAME" -x "$NAME/temp/*" "$NAME/data/cache/*" "$NAME/.logs/*" "$NAME/.state/*" "*/__pycache__/*"
+zip -qr "$OUT" "$NAME" -x "$NAME/temp/*" "$NAME/data/cache/*" "$NAME/.logs/*" "$NAME/.state/*" "$NAME/cases/ACTIVE.json" "*/__pycache__/*"
 echo "wrote $OUT ($(du -h "$OUT" | cut -f1)); folder $NAME/; commits: $(git -C "$ROOT" rev-list --count HEAD)"
 unzip -l "$OUT" | grep -c "$NAME/.git/" | xargs -I{} echo "{} entries under .git/"
