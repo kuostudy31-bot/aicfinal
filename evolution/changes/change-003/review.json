@@ -1,0 +1,83 @@
+{
+  "request_id": "evoc-20261115T073821-c7b033",
+  "change_id": "change-003",
+  "role": "evo-reviewer",
+  "verdict": "approve-recommended",
+  "findings": [
+    {
+      "id": "evo-001",
+      "severity": "info",
+      "title": "Evaluation now separates the arms: baseline v2 fails 6/6 and the candidate passes 6/6 on the automated checks",
+      "detail": "This answers change-002 evo-001 and evo-002. The four keys rating_outperform_min, rating_underperform_max, cutoff_utc and price_date are absent from all three frozen runs/*/inputs/values.json files; only trigger_accession remains. That recreates the recorded failure condition. I re-ran evolution.check_note on all 12 notes myself and the result matches evaluation.json exactly. Every baseline sample spells the rating bands ('fifteen percent', 'minus ten percent', 'plus fifteen percent'). Every candidate sample has an empty spelled_quantities list, no provenance findings and no gate blocker. The held-out AMD case behaves like the development cases. Controller tests pass (67 OK). There are no regressions. Note that the baseline failures are all the rating-band wording. Neither arm exercised a cmp-004-type sensitivity margin or a spelled date, so the evaluation shows the fix for those two failure types only indirectly, through the general rule.",
+      "evidence": [
+        "evolution/changes/change-003/evaluation.json#rows",
+        "evolution/changes/change-003/runs/*/inputs/values.json (withheld keys absent)",
+        "independent evolution.check_note re-run over runs/*/*/note*.md"
+      ],
+      "required_evidence": "none"
+    },
+    {
+      "id": "evo-002",
+      "severity": "minor",
+      "title": "One held-out candidate sample writes 'twelve' in period labels, which the candidate's own rule names as forbidden; the regex does not catch it",
+      "detail": "runs/AMD-0000002488-26-000191/candidate/note.md uses 'next-twelve-month EPS' (line 7), 'Trailing-twelve-month revenue' (line 13) and 'Next twelve months' (line 38). SPELLED_QUANTITY does not flag these: 'twelve' is not a _TENS-_UNITS compound and 'month' is not in its unit list. The fix_behaviour in proposal.json, and the manual_check that asks reviewers to scan for 'twelve-month', make this non-compliance. Step 3 of the candidate prompt lists 'twelve-month' by name as a banned example, and it allows only ordinal words inside period names, while 'twelve' is a cardinal. So, measured against the candidate's own text, AMD sample 1 does not comply, and the claim 'candidate passes 6/6' holds only for the automated checks. Weighed on substance, I treat this as a period name and not as a recurrence of the targeted failure. 'Trailing/next twelve months' is the standard TTM/NTM horizon label. It labels code-supplied keys ({{revenue_ttm}}, {{ntm_eps}}, {{ntm_revenue}}). It states no magnitude that could be wrong or that bypasses the provenance gate, and it falls in the same class as the period labels the prompt already allows (FY2027, Q3). It is also not a regression: all 6 baseline notes contain 'twelve', against 1 of 6 candidate notes. The other five candidate samples write 'NTM'/'forward (NTM)', which shows the rule can be followed. The real defect is that the rule's example over-reaches, banning a period name, so the prompt is internally inconsistent and compliance is stochastic. This does not block the change, but the owner should know that a strict reading counts this sample as a candidate failure.",
+      "evidence": [
+        "evolution/changes/change-003/runs/AMD-0000002488-26-000191/candidate/note.md:7,13,38",
+        "prompts/gen-writer/candidate-change-003.md step 3 ('twelve-month' listed as a banned number word)",
+        "evolution/changes/change-003/proposal.json#evaluation_expectation.manual_check",
+        "grep -c twelve: baseline 2-3 per note in all 6 notes; candidate 3 in AMD note.md, 0 in the other 5"
+      ],
+      "required_evidence": "A follow-up prompt edit that either treats 'trailing/next twelve months' as an allowed period name or tells the writer to use 'TTM'/'NTM', together with a spelled-quantity check aligned with whichever choice is made"
+    },
+    {
+      "id": "evo-003",
+      "severity": "minor",
+      "title": "With keys withheld, the candidate disclosures meet policies.md section 6 in form but not in full substance; the path where keys are present was not tested for this candidate",
+      "detail": "All six candidate notes contain the four section 6 items: the coursework disclaimer, the source accession {{trigger_accession}}, rating definitions and the unaudited-by-author statement. But the cutoff appears only as 'the SEC acceptance time of that filing', the price date only as 'the most recent closing price before the cutoff', and the rating definitions refer to 'the Outperform and Underperform thresholds in the house rating policy' without the +15% and -10% levels. A reader of such a note cannot recover the rating definitions, the as-of time or the price date, which section 6 asks for explicitly. This is a direct result of the evaluation withholding those keys, and proposal.json discloses it under 'unresolved'. It is still preferable to the baseline, which states the same items as spelled numbers that the provenance gate cannot check. In production, src/aicfinal/values.py and compute.py supply rating_outperform_min, rating_underperform_max, price_date and cutoff_utc, so the fallback should rarely be needed. However, this evaluation never runs candidate-change-003 with those keys present. The evidence that the writer then uses {{rating_outperform_min}}, {{price_date}} and the others comes only from candidate-change-002 in change-002, which was a different prompt. The candidate's wording ('Use a {{key}} only if it is listed in the values file') should favour key use, but that is untested.",
+      "evidence": [
+        "evolution/changes/change-003/runs/*/candidate/note*.md ## Disclosures",
+        "references/policies.md section 6",
+        "src/aicfinal/values.py:43-48 (keys supplied in production)",
+        "evolution/changes/change-002/runs/*/candidate/note.md (candidate-002 used the keys when present)"
+      ],
+      "required_evidence": "One candidate-change-003 sample on inputs with all keys present, showing {{rating_outperform_min}}, {{rating_underperform_max}}, {{cutoff_utc}} and {{price_date}} used in Disclosures (for example, a check on the first live case after adoption)"
+    },
+    {
+      "id": "evo-004",
+      "severity": "info",
+      "title": "Fractions and multipliers: candidate notes are clean on manual scan; the regex extension is partial",
+      "detail": "I scanned all six candidate notes for half/halves, third, quarter-as-fraction, double/doubling, twice, triple/thrice, -fold, tenth, dozen and number words. Apart from the 'twelve' period labels in evo-002 there are no hits. Commit ca3c5a1 extends SPELLED_QUANTITY to '(a|one) half/quarter/third (of) (a) percentage point/percent/point', which covers the cmp-004 phrase 'half a percentage point'. It still misses free-standing fractions ('a third of revenue', 'a quarter of revenue'), multipliers ('twice', 'double', 'threefold') and cardinal-plus-period words ('twelve-month'). The candidate prompt now names these in step 3, but automated enforcement relies on the regex. This evaluation is not weakened by the gap, which change-002 evo-003 already recorded.",
+      "evidence": [
+        "src/aicfinal/evolution.py:154-160 SPELLED_QUANTITY",
+        "manual grep of evolution/changes/change-003/runs/*/candidate/note*.md"
+      ],
+      "required_evidence": "none for this change; a later controller change could extend the regex to standalone fractions, multipliers and cardinal-month words"
+    },
+    {
+      "id": "evo-005",
+      "severity": "info",
+      "title": "Scope complies with policies.md section 5",
+      "detail": "diff prompts/gen-writer/v2.md prompts/gen-writer/candidate-change-003.md changes procedure step 3 only. The candidate sha256 (c17030f6...) matches proposal.json and evaluation.json. The change commits (14d270d, ef1763d, 047310b, 5a87fdf) touch only evolution/changes/change-003/ and the candidate prompt; commit d76f0fe, interleaved with them, belongs to the MU case and was not examined further. The prerequisite controller commit ca3c5a1 adds --withhold-key, --samples and --require-baseline-failure and widens the spelled-quantity regex, all of which make the evaluation stricter. failure.json keeps forbid_spelled_quantities true and the gate_note criterion. No acceptance criterion, gate threshold, limit, rating policy, config, reference or registry entry is weakened. The candidate prompt does not state or alter the rating thresholds; it only refers to them.",
+      "evidence": [
+        "diff prompts/gen-writer/v2.md prompts/gen-writer/candidate-change-003.md",
+        "git show --stat 14d270d ef1763d 047310b 5a87fdf ca3c5a1",
+        "evolution/changes/change-003/failure.json#acceptance_checks"
+      ],
+      "required_evidence": "none"
+    }
+  ],
+  "checked": [
+    "diff candidate vs parent v2: only step 3 changed",
+    "candidate sha256 matches proposal.json and evaluation.json",
+    "git history of change-003 commits and the prerequisite ca3c5a1: no weakening of checks, gates, limits, policy, config, references or registry",
+    "withheld keys absent from all frozen evaluation values.json files; inputs.json files point to the correct prompt files and output paths",
+    "independent re-run of evolution.check_note on all 12 notes: matches evaluation.json (baseline 0/6, candidate 6/6)",
+    "regressions: none, held-out AMD case included; controller tests 67 OK",
+    "manual scan of candidate notes for number words, fractions and multipliers: only 'twelve' period labels in AMD candidate sample 1",
+    "'twelve' counts across baseline and candidate notes",
+    "policies.md section 6 disclosures in all six candidate notes (present qualitatively; thresholds, cutoff time and price date not stated while their keys are withheld)",
+    "production code supplies rating_outperform_min, rating_underperform_max, price_date and cutoff_utc (values.py, compute.py)",
+    "SPELLED_QUANTITY coverage of fractions and multipliers after ca3c5a1",
+    "did not access cases/MU-0000723125-26-000023; no web access"
+  ]
+}
