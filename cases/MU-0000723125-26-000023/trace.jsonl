@@ -1,0 +1,2 @@
+{"accession": "0000723125-26-000023", "actor": "controller", "cutoff_utc": "2026-10-09T12:21:00Z", "event": "case_opened", "round": 0, "status": "OPENED", "ts": "2026-11-15T07:33:05Z"}
+{"actor": "controller", "event": "request_issued", "phase": "generator", "repair": false, "request_id": "gen-20261115T073305-99d304", "round": 1, "status": "GENERATOR_PENDING", "ts": "2026-11-15T07:33:05Z"}

@@ -1,0 +1,664 @@
+{
+  "cik": 723125,
+  "cutoff_utc": "2026-10-09T12:21:00Z",
+  "filings": [
+    {
+      "acceptance_utc": "2026-10-09T12:21:00Z",
+      "accessionNumber": "0000723125-26-000023",
+      "filingDate": "2026-10-09",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20260903.htm",
+      "reportDate": "2026-09-03"
+    },
+    {
+      "acceptance_utc": "2026-09-30T20:02:22Z",
+      "accessionNumber": "0000723125-26-000018",
+      "filingDate": "2026-09-30",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20260930.htm",
+      "reportDate": "2026-09-30"
+    },
+    {
+      "acceptance_utc": "2026-06-24T22:59:46Z",
+      "accessionNumber": "0000723125-26-000015",
+      "filingDate": "2026-06-25",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20260528.htm",
+      "reportDate": "2026-05-28"
+    },
+    {
+      "acceptance_utc": "2026-06-24T20:02:01Z",
+      "accessionNumber": "0000723125-26-000013",
+      "filingDate": "2026-06-24",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20260624.htm",
+      "reportDate": "2026-06-24"
+    },
+    {
+      "acceptance_utc": "2026-03-18T23:00:06Z",
+      "accessionNumber": "0000723125-26-000006",
+      "filingDate": "2026-03-19",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20260226.htm",
+      "reportDate": "2026-02-26"
+    },
+    {
+      "acceptance_utc": "2026-03-18T20:02:14Z",
+      "accessionNumber": "0000723125-26-000004",
+      "filingDate": "2026-03-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20260318.htm",
+      "reportDate": "2026-03-18"
+    },
+    {
+      "acceptance_utc": "2025-12-17T23:47:44Z",
+      "accessionNumber": "0000723125-25-000046",
+      "filingDate": "2025-12-18",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20251127.htm",
+      "reportDate": "2025-11-27"
+    },
+    {
+      "acceptance_utc": "2025-12-17T21:03:26Z",
+      "accessionNumber": "0000723125-25-000044",
+      "filingDate": "2025-12-17",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20251217.htm",
+      "reportDate": "2025-12-17"
+    },
+    {
+      "acceptance_utc": "2025-10-03T18:42:25Z",
+      "accessionNumber": "0000723125-25-000028",
+      "filingDate": "2025-10-03",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20250828.htm",
+      "reportDate": "2025-08-28"
+    },
+    {
+      "acceptance_utc": "2025-09-23T20:02:28Z",
+      "accessionNumber": "0000723125-25-000024",
+      "filingDate": "2025-09-23",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20250923.htm",
+      "reportDate": "2025-09-23"
+    },
+    {
+      "acceptance_utc": "2025-06-25T22:50:42Z",
+      "accessionNumber": "0000723125-25-000021",
+      "filingDate": "2025-06-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20250529.htm",
+      "reportDate": "2025-05-29"
+    },
+    {
+      "acceptance_utc": "2025-06-25T20:03:10Z",
+      "accessionNumber": "0000723125-25-000019",
+      "filingDate": "2025-06-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20250625.htm",
+      "reportDate": "2025-06-25"
+    },
+    {
+      "acceptance_utc": "2025-03-20T23:20:23Z",
+      "accessionNumber": "0000723125-25-000009",
+      "filingDate": "2025-03-21",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20250227.htm",
+      "reportDate": "2025-02-27"
+    },
+    {
+      "acceptance_utc": "2025-03-20T20:00:55Z",
+      "accessionNumber": "0000723125-25-000006",
+      "filingDate": "2025-03-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20250320.htm",
+      "reportDate": "2025-03-20"
+    },
+    {
+      "acceptance_utc": "2024-12-18T23:52:13Z",
+      "accessionNumber": "0000723125-24-000047",
+      "filingDate": "2024-12-19",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20241128.htm",
+      "reportDate": "2024-11-28"
+    },
+    {
+      "acceptance_utc": "2024-12-18T21:00:20Z",
+      "accessionNumber": "0000723125-24-000046",
+      "filingDate": "2024-12-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20241218.htm",
+      "reportDate": "2024-12-18"
+    },
+    {
+      "acceptance_utc": "2024-10-04T20:12:50Z",
+      "accessionNumber": "0000723125-24-000027",
+      "filingDate": "2024-10-04",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20240829.htm",
+      "reportDate": "2024-08-29"
+    },
+    {
+      "acceptance_utc": "2024-09-25T20:00:27Z",
+      "accessionNumber": "0000723125-24-000023",
+      "filingDate": "2024-09-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20240925.htm",
+      "reportDate": "2024-09-25"
+    },
+    {
+      "acceptance_utc": "2024-06-27T17:19:29Z",
+      "accessionNumber": "0000723125-24-000019",
+      "filingDate": "2024-06-27",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20240530.htm",
+      "reportDate": "2024-05-30"
+    },
+    {
+      "acceptance_utc": "2024-06-26T20:00:36Z",
+      "accessionNumber": "0000723125-24-000016",
+      "filingDate": "2024-06-26",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20240626.htm",
+      "reportDate": "2024-06-26"
+    },
+    {
+      "acceptance_utc": "2024-03-21T17:17:48Z",
+      "accessionNumber": "0000723125-24-000007",
+      "filingDate": "2024-03-21",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20240229.htm",
+      "reportDate": "2024-02-29"
+    },
+    {
+      "acceptance_utc": "2024-03-20T20:00:45Z",
+      "accessionNumber": "0000723125-24-000004",
+      "filingDate": "2024-03-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20240320.htm",
+      "reportDate": "2024-03-20"
+    },
+    {
+      "acceptance_utc": "2023-12-21T18:05:34Z",
+      "accessionNumber": "0000723125-23-000077",
+      "filingDate": "2023-12-21",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20231130.htm",
+      "reportDate": "2023-11-30"
+    },
+    {
+      "acceptance_utc": "2023-12-20T21:00:33Z",
+      "accessionNumber": "0000723125-23-000071",
+      "filingDate": "2023-12-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20231220.htm",
+      "reportDate": "2023-12-20"
+    },
+    {
+      "acceptance_utc": "2023-10-06T20:01:37Z",
+      "accessionNumber": "0000723125-23-000054",
+      "filingDate": "2023-10-06",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20230831.htm",
+      "reportDate": "2023-08-31"
+    },
+    {
+      "acceptance_utc": "2023-09-27T20:00:28Z",
+      "accessionNumber": "0000723125-23-000051",
+      "filingDate": "2023-09-27",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20230927.htm",
+      "reportDate": "2023-09-27"
+    },
+    {
+      "acceptance_utc": "2023-06-29T19:34:20Z",
+      "accessionNumber": "0000723125-23-000041",
+      "filingDate": "2023-06-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20230601.htm",
+      "reportDate": "2023-06-01"
+    },
+    {
+      "acceptance_utc": "2023-06-28T20:00:29Z",
+      "accessionNumber": "0000723125-23-000038",
+      "filingDate": "2023-06-28",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20230628.htm",
+      "reportDate": "2023-06-28"
+    },
+    {
+      "acceptance_utc": "2023-03-29T20:48:21Z",
+      "accessionNumber": "0000723125-23-000022",
+      "filingDate": "2023-03-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20230302.htm",
+      "reportDate": "2023-03-02"
+    },
+    {
+      "acceptance_utc": "2023-03-28T20:01:45Z",
+      "accessionNumber": "0000723125-23-000018",
+      "filingDate": "2023-03-28",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20230328.htm",
+      "reportDate": "2023-03-28"
+    },
+    {
+      "acceptance_utc": "2022-12-22T17:38:24Z",
+      "accessionNumber": "0000723125-22-000072",
+      "filingDate": "2022-12-22",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20221201.htm",
+      "reportDate": "2022-12-01"
+    },
+    {
+      "acceptance_utc": "2022-12-21T21:00:43Z",
+      "accessionNumber": "0000723125-22-000070",
+      "filingDate": "2022-12-21",
+      "form": "8-K",
+      "items": "2.02,2.05,9.01",
+      "primaryDocument": "mu-20221221.htm",
+      "reportDate": "2022-12-21"
+    },
+    {
+      "acceptance_utc": "2022-10-07T18:57:09Z",
+      "accessionNumber": "0000723125-22-000048",
+      "filingDate": "2022-10-07",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20220901.htm",
+      "reportDate": "2022-09-01"
+    },
+    {
+      "acceptance_utc": "2022-09-29T20:00:31Z",
+      "accessionNumber": "0000723125-22-000044",
+      "filingDate": "2022-09-29",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20220929.htm",
+      "reportDate": "2022-09-29"
+    },
+    {
+      "acceptance_utc": "2022-06-30T21:47:52Z",
+      "accessionNumber": "0000723125-22-000036",
+      "filingDate": "2022-07-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20220602.htm",
+      "reportDate": "2022-06-02"
+    },
+    {
+      "acceptance_utc": "2022-06-30T20:00:27Z",
+      "accessionNumber": "0000723125-22-000034",
+      "filingDate": "2022-06-30",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20220630.htm",
+      "reportDate": "2022-06-30"
+    },
+    {
+      "acceptance_utc": "2022-03-30T19:47:32Z",
+      "accessionNumber": "0000723125-22-000016",
+      "filingDate": "2022-03-30",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20220303.htm",
+      "reportDate": "2022-03-03"
+    },
+    {
+      "acceptance_utc": "2022-03-29T20:00:37Z",
+      "accessionNumber": "0000723125-22-000012",
+      "filingDate": "2022-03-29",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20220329.htm",
+      "reportDate": "2022-03-29"
+    },
+    {
+      "acceptance_utc": "2022-01-06T20:27:43Z",
+      "accessionNumber": "0000723125-22-000004",
+      "filingDate": "2022-01-06",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20211202.htm",
+      "reportDate": "2021-12-02"
+    },
+    {
+      "acceptance_utc": "2021-12-20T21:00:41Z",
+      "accessionNumber": "0000723125-21-000086",
+      "filingDate": "2021-12-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20211220.htm",
+      "reportDate": "2021-12-20"
+    },
+    {
+      "acceptance_utc": "2021-10-08T17:23:24Z",
+      "accessionNumber": "0000723125-21-000065",
+      "filingDate": "2021-10-08",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20210902.htm",
+      "reportDate": "2021-09-02"
+    },
+    {
+      "acceptance_utc": "2021-09-28T20:01:35Z",
+      "accessionNumber": "0000723125-21-000060",
+      "filingDate": "2021-09-28",
+      "form": "8-K",
+      "items": "2.02",
+      "primaryDocument": "mu-20210928.htm",
+      "reportDate": "2021-09-28"
+    },
+    {
+      "acceptance_utc": "2021-07-01T18:04:20Z",
+      "accessionNumber": "0000723125-21-000052",
+      "filingDate": "2021-07-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20210603.htm",
+      "reportDate": "2021-06-03"
+    },
+    {
+      "acceptance_utc": "2021-06-30T20:00:41Z",
+      "accessionNumber": "0000723125-21-000049",
+      "filingDate": "2021-06-30",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20210630.htm",
+      "reportDate": "2021-06-30"
+    },
+    {
+      "acceptance_utc": "2021-04-01T17:49:08Z",
+      "accessionNumber": "0000723125-21-000032",
+      "filingDate": "2021-04-01",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20210304.htm",
+      "reportDate": "2021-03-04"
+    },
+    {
+      "acceptance_utc": "2021-03-31T20:00:40Z",
+      "accessionNumber": "0000723125-21-000028",
+      "filingDate": "2021-03-31",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20210331.htm",
+      "reportDate": "2021-03-31"
+    },
+    {
+      "acceptance_utc": "2021-01-08T17:49:12Z",
+      "accessionNumber": "0000723125-21-000012",
+      "filingDate": "2021-01-08",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20201203.htm",
+      "reportDate": "2020-12-03"
+    },
+    {
+      "acceptance_utc": "2021-01-07T21:00:45Z",
+      "accessionNumber": "0000723125-21-000009",
+      "filingDate": "2021-01-07",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20210107.htm",
+      "reportDate": "2021-01-07"
+    },
+    {
+      "acceptance_utc": "2020-10-19T18:36:42Z",
+      "accessionNumber": "0000723125-20-000082",
+      "filingDate": "2020-10-19",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "mu-20200903.htm",
+      "reportDate": "2020-09-03"
+    },
+    {
+      "acceptance_utc": "2020-09-29T20:00:38Z",
+      "accessionNumber": "0000723125-20-000079",
+      "filingDate": "2020-09-29",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20200929.htm",
+      "reportDate": "2020-09-29"
+    },
+    {
+      "acceptance_utc": "2020-06-30T16:12:44Z",
+      "accessionNumber": "0000723125-20-000067",
+      "filingDate": "2020-06-29",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20200528.htm",
+      "reportDate": "2020-05-28"
+    },
+    {
+      "acceptance_utc": "2020-06-29T20:02:05Z",
+      "accessionNumber": "0000723125-20-000063",
+      "filingDate": "2020-06-29",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20200629.htm",
+      "reportDate": "2020-06-29"
+    },
+    {
+      "acceptance_utc": "2020-03-26T17:52:52Z",
+      "accessionNumber": "0000723125-20-000034",
+      "filingDate": "2020-03-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20200227.htm",
+      "reportDate": "2020-02-27"
+    },
+    {
+      "acceptance_utc": "2020-03-25T20:00:49Z",
+      "accessionNumber": "0000723125-20-000030",
+      "filingDate": "2020-03-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "mu-20200325.htm",
+      "reportDate": "2020-03-25"
+    },
+    {
+      "acceptance_utc": "2019-12-20T17:21:53Z",
+      "accessionNumber": "0000723125-19-000174",
+      "filingDate": "2019-12-20",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "mu-20191128.htm",
+      "reportDate": "2019-11-28"
+    },
+    {
+      "acceptance_utc": "2019-12-18T21:00:40Z",
+      "accessionNumber": "0000723125-19-000172",
+      "filingDate": "2019-12-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2020q18-kearningsrele.htm",
+      "reportDate": "2019-12-18"
+    },
+    {
+      "acceptance_utc": "2019-10-17T18:44:04Z",
+      "accessionNumber": "0000723125-19-000094",
+      "filingDate": "2019-10-17",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "a2019q4.htm",
+      "reportDate": "2019-08-29"
+    },
+    {
+      "acceptance_utc": "2019-09-26T20:00:32Z",
+      "accessionNumber": "0000723125-19-000068",
+      "filingDate": "2019-09-26",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2019q48-kearningsrelease.htm",
+      "reportDate": "2019-09-26"
+    },
+    {
+      "acceptance_utc": "2019-06-26T20:00:55Z",
+      "accessionNumber": "0000723125-19-000035",
+      "filingDate": "2019-06-26",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2019q3.htm",
+      "reportDate": "2019-05-30"
+    },
+    {
+      "acceptance_utc": "2019-06-25T20:01:09Z",
+      "accessionNumber": "0000723125-19-000032",
+      "filingDate": "2019-06-25",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2019q38-kearningsrelease.htm",
+      "reportDate": "2019-06-25"
+    },
+    {
+      "acceptance_utc": "2019-03-21T19:11:06Z",
+      "accessionNumber": "0000723125-19-000014",
+      "filingDate": "2019-03-21",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2019q2.htm",
+      "reportDate": "2019-02-28"
+    },
+    {
+      "acceptance_utc": "2019-03-20T20:00:37Z",
+      "accessionNumber": "0000723125-19-000012",
+      "filingDate": "2019-03-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2019q2-kearningsrelease.htm",
+      "reportDate": "2019-03-20"
+    },
+    {
+      "acceptance_utc": "2018-12-19T15:49:25Z",
+      "accessionNumber": "0000723125-18-000156",
+      "filingDate": "2018-12-19",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2019q1.htm",
+      "reportDate": "2018-11-29"
+    },
+    {
+      "acceptance_utc": "2018-12-18T21:00:39Z",
+      "accessionNumber": "0000723125-18-000152",
+      "filingDate": "2018-12-18",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2019q18-kearningsrelease.htm",
+      "reportDate": "2018-12-18"
+    },
+    {
+      "acceptance_utc": "2018-10-15T18:40:51Z",
+      "accessionNumber": "0000723125-18-000092",
+      "filingDate": "2018-10-15",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "a2018q4.htm",
+      "reportDate": "2018-08-30"
+    },
+    {
+      "acceptance_utc": "2018-09-20T20:00:24Z",
+      "accessionNumber": "0000723125-18-000085",
+      "filingDate": "2018-09-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2018q48-kearningsrelease.htm",
+      "reportDate": "2018-09-20"
+    },
+    {
+      "acceptance_utc": "2018-06-22T15:39:04Z",
+      "accessionNumber": "0000723125-18-000065",
+      "filingDate": "2018-06-22",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2018q3.htm",
+      "reportDate": "2018-05-31"
+    },
+    {
+      "acceptance_utc": "2018-06-20T20:06:34Z",
+      "accessionNumber": "0000723125-18-000061",
+      "filingDate": "2018-06-20",
+      "form": "8-K",
+      "items": "2.02,9.01",
+      "primaryDocument": "a2018q38-kearningsrelease.htm",
+      "reportDate": "2018-06-20"
+    },
+    {
+      "acceptance_utc": "2018-03-23T18:52:31Z",
+      "accessionNumber": "0000723125-18-000036",
+      "filingDate": "2018-03-23",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2018q2.htm",
+      "reportDate": "2018-03-01"
+    },
+    {
+      "acceptance_utc": "2018-03-22T20:01:31Z",
+      "accessionNumber": "0000723125-18-000031",
+      "filingDate": "2018-03-22",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a2018q28-kearningsrelease.htm",
+      "reportDate": "2018-03-22"
+    },
+    {
+      "acceptance_utc": "2017-12-20T19:56:35Z",
+      "accessionNumber": "0000723125-17-000166",
+      "filingDate": "2017-12-20",
+      "form": "10-Q",
+      "items": "",
+      "primaryDocument": "a2018q1.htm",
+      "reportDate": "2017-11-30"
+    },
+    {
+      "acceptance_utc": "2017-12-19T21:01:11Z",
+      "accessionNumber": "0000723125-17-000162",
+      "filingDate": "2017-12-19",
+      "form": "8-K",
+      "items": "2.02,7.01,9.01",
+      "primaryDocument": "a2018q18-kearningsrelease.htm",
+      "reportDate": "2017-12-19"
+    },
+    {
+      "acceptance_utc": "2017-10-26T16:51:41Z",
+      "accessionNumber": "0000723125-17-000131",
+      "filingDate": "2017-10-26",
+      "form": "10-K",
+      "items": "",
+      "primaryDocument": "a2017q4.htm",
+      "reportDate": "2017-08-31"
+    }
+  ],
+  "ticker": "MU"
+}

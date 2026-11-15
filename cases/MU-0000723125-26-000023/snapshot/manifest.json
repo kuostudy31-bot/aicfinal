@@ -1,0 +1,72 @@
+{
+  "cik": 723125,
+  "created_at": "2026-11-15T07:33:05Z",
+  "cutoff_utc": "2026-10-09T12:21:00Z",
+  "files": {
+    "docs/periodic.txt": {
+      "accession": "0000723125-26-000023",
+      "document": "mu-20260903.htm",
+      "retrieved_at": "2026-11-15T07:33:05Z",
+      "sha256": "86e806d48f55ad59426fc0ea1c89189fb536829e950b20c20d06f0dbf3fd57ca",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/723125/000072312526000023/mu-20260903.htm"
+      ]
+    },
+    "docs/release_ex99_1 earnings release.txt": {
+      "accession": "0000723125-26-000018",
+      "document": "a2026q4ex991-pressrelease.htm",
+      "retrieved_at": "2026-11-15T07:33:05Z",
+      "sha256": "c379b4007207bde1f9a5bc20b9b9c41ed24faade176b15a860c14fbdfcc95bec",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm"
+      ]
+    },
+    "facts.json": {
+      "retrieved_at": "2026-11-15T07:32:45Z",
+      "sha256": "a88595cd9df39470313ed9fee7e075a689c44faf518b471a6eebd08ad150e962",
+      "sources": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723125.json"
+      ]
+    },
+    "filings.json": {
+      "retrieved_at": "2026-11-15T07:32:44Z",
+      "sha256": "ede2317684bccee796f93f57131e541fedc90f3bbacd2a8d59b3a41f70a8e67e",
+      "sources": [
+        "https://data.sec.gov/submissions/CIK0000723125.json"
+      ]
+    },
+    "peers.json": {
+      "retrieved_at": "2026-11-15T07:33:04Z",
+      "sha256": "e80ad53991081418dfad3682f1b38fdfa933ec991b03530daacddb98f04d607d",
+      "sources": [
+        "submissions/companyfacts/chart for each peer (see http cache metadata)"
+      ]
+    },
+    "prices.json": {
+      "retrieved_at": "2026-11-15T07:32:46Z",
+      "sha256": "1cd460d942ff00db19fa73b417f7d3a8591126e4cc0c96c6e120dad3d9d6526a",
+      "sources": [
+        "https://query1.finance.yahoo.com/v8/finance/chart/MU?range=5y&interval=1d&events=split"
+      ]
+    }
+  },
+  "peers": [
+    "NVDA",
+    "AMD",
+    "INTC",
+    "AVGO",
+    "MRVL",
+    "AMAT",
+    "LRCX",
+    "KLAC",
+    "SNPS",
+    "CDNS",
+    "ALAB",
+    "CRDO",
+    "MPWR"
+  ],
+  "period_of_report": "2026-09-03",
+  "ticker": "MU",
+  "trigger_accession": "0000723125-26-000023",
+  "trigger_form": "10-K"
+}
