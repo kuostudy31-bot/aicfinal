@@ -1,4 +1,6 @@
 {
+  "adopted_version": "v3",
+  "approver": "Repository owner (kuostudy31-bot); adoption decided by the owner on 2026-11-15 (option 2: adopt and verify), executed by Claude",
   "change_id": "change-003",
   "evaluation_pass": true,
   "parent_version": "v2",
@@ -6,6 +8,6 @@
   "request_id": "evo-20261115T073438-42ad96",
   "review_request_id": "evoc-20261115T073821-c7b033",
   "role": "gen-writer",
-  "state": "AWAITING_APPROVAL",
-  "updated_at": "2026-11-15T07:41:20Z"
+  "state": "ADOPTED",
+  "updated_at": "2026-11-15T07:46:04Z"
 }

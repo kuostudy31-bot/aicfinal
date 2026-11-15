@@ -15,6 +15,14 @@ from pathlib import Path
 ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[1])
 
 
+def _case_pending(case: str) -> bool:
+    try:
+        st = json.loads((ROOT / "cases" / case / "state.json").read_text())
+    except Exception:  # noqa: BLE001
+        return False
+    return st.get("status") in ("GENERATOR_PENDING", "CRITIC_PENDING")
+
+
 def main():
     try:
         payload = json.load(sys.stdin)
@@ -56,7 +64,8 @@ def main():
     target = None
     if active.get("trace_path"):
         target = ROOT / active["trace_path"]           # evolution changes
-    elif case and (ROOT / "cases" / case).is_dir():
+    elif case and (ROOT / "cases" / case).is_dir() and _case_pending(case):
+        # A stale pointer left by a finished case must not attract records (incidents #13).
         target = ROOT / "cases" / case / "trace.jsonl"
     if target is not None and target.parent.is_dir():
         # Evidence of separate contexts: keep each finished subagent's own transcript.

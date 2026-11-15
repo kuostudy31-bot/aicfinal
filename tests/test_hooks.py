@@ -52,3 +52,27 @@ class GuardRecordTests(unittest.TestCase):
         self.assertEqual(p.returncode, 2)
         self.assertIn("guard_refused", (root / ".logs" / "guard_refusals.jsonl").read_text())
         self.assertIn("guard_refused", (root / "cases" / "X" / "trace.jsonl").read_text())
+
+
+class AuditPointerTests(unittest.TestCase):
+    """The dispatch-audit hook records into a case trace only while that case is pending."""
+
+    def dispatch(self, status):
+        import os
+        import tempfile
+        root = Path(tempfile.mkdtemp())
+        (root / "cases" / "X").mkdir(parents=True)
+        (root / "references").mkdir()
+        (root / "references" / "roles.yaml").write_text("roles:\n  gen-writer:\n    phase: generator\n")
+        (root / "cases" / "ACTIVE.json").write_text(json.dumps({"case_id": "X", "phase": "critic"}))
+        (root / "cases" / "X" / "state.json").write_text(json.dumps({"status": status}))
+        env = dict(os.environ, CLAUDE_PROJECT_DIR=str(root))
+        subprocess.run([sys.executable, str(HOOK.parent / "audit_event.py")], env=env, capture_output=True,
+                       text=True, input=json.dumps({"hook_event_name": "SubagentStart", "agent_type": "gen-writer"}))
+        return (root / "cases" / "X" / "trace.jsonl").exists()
+
+    def test_pending_case_gets_the_record(self):
+        self.assertTrue(self.dispatch("CRITIC_PENDING"))
+
+    def test_stale_pointer_to_finished_case_is_ignored(self):
+        self.assertFalse(self.dispatch("STALLED"))

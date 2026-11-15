@@ -1,39 +1,50 @@
 {
   "active": {
-    "orchestrator": "v1",
-    "gen-lead": "v2",
-    "crit-lead": "v2",
-    "gen-mapping": "v1",
-    "gen-narrative": "v1",
-    "gen-model": "v1",
-    "gen-valuation": "v1",
-    "gen-writer": "v2",
-    "crit-provenance": "v1",
     "crit-assumption": "v1",
     "crit-compliance": "v1",
+    "crit-lead": "v2",
+    "crit-provenance": "v1",
     "evo-proposer": "v1",
-    "evo-reviewer": "v1"
+    "evo-reviewer": "v1",
+    "gen-lead": "v2",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v3",
+    "orchestrator": "v1"
   },
   "history": [
     {
-      "event": "initial",
-      "versions": "all v1",
+      "approver": "project owner",
       "at": "2026-11-14",
-      "approver": "project owner"
+      "event": "initial",
+      "versions": "all v1"
     },
     {
+      "approver": "project owner (development phase, before the first evolution cycle)",
+      "at": "2026-11-14",
+      "change": "add evaluation/evolution-mode sections only; case procedure unchanged",
       "event": "development",
+      "from": "v1",
+      "note": "cases opened earlier keep v1 pinned in case.json",
       "roles": [
         "gen-lead",
         "crit-lead",
         "gen-writer"
       ],
-      "from": "v1",
-      "to": "v2",
-      "change": "add evaluation/evolution-mode sections only; case procedure unchanged",
-      "at": "2026-11-14",
-      "approver": "project owner (development phase, before the first evolution cycle)",
-      "note": "cases opened earlier keep v1 pinned in case.json"
+      "to": "v2"
+    },
+    {
+      "approver": "Repository owner (kuostudy31-bot); adoption decided by the owner on 2026-11-15 (option 2: adopt and verify), executed by Claude",
+      "at": "2026-11-15T07:46:04Z",
+      "change_id": "change-003",
+      "evaluation_sha256": "44511faa2029a5ef471154e22247fa63b77f6a93d5d04ffdb3ae25aa59caf83f",
+      "event": "adopt",
+      "from": "v2",
+      "role": "gen-writer",
+      "suggested_tag": "prompt-gen-writer-v3",
+      "to": "v3"
     }
   ]
 }

@@ -193,3 +193,12 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   reports (mapping, narrative, model) are kept.
 * **Known limitation.** Per-share values for a 10-K case use the last reported quarterly diluted
   share count, one quarter older than the balance sheet.
+
+## 13. The dispatch-audit hook trusted a stale pointer (2026-11-15 07:46, caught before any record)
+* **What happened.** Before dispatching the change-003 verification writers, the coordinator saw
+  that its local runtime pointer still named NVDA r1 (STALLED since 2026-11-14). The #11 fix had
+  made the state guard validate the pointer, but `hooks/audit_event.py` still trusted it: a
+  workflow-role dispatch from this checkout would have been written into the finished case's trace.
+* **Fix.** The audit hook writes into a case trace only while that case is GENERATOR_PENDING or
+  CRITIC_PENDING (`tests/test_hooks.py::AuditPointerTests`). No record had been written.
+* **Lesson.** Apply a fix to every reader of the same pointer, not only the one that failed.
