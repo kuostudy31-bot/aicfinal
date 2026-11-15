@@ -36,3 +36,10 @@ here, values.json **without** the newly supplied keys, plus prose that needs a q
 covers. Otherwise decide explicitly that the code fix is the remedy and do not propose a prompt
 change. The evolution loop worked as designed both times: it refused changes that the evidence did
 not support.
+
+## Later evidence (2026-11-15 04:00 UTC)
+The published AMD r2 note (pinned to gen-writer v1, which still says "Spell out ordinal words.")
+again wrote the rating definitions in words ("fifteen percent", "minus ten percent"), although its
+later rounds had the rating-band values available. The failure therefore recurs **when the prompt
+instruction is present**. This supports re-evaluating the change-002 candidate on inputs where the
+failure condition is kept (proposed as change-003, pending the owner's decision).

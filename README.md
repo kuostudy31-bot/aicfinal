@@ -132,6 +132,8 @@ System change (see `.claude/commands/evo.md`): `/evo gen-writer <case> "<failure
 * `cases/NVDA-0001045810-26-000075/` (r1, STALLED): a critic finding the specialists could not
   fix with the old snapshot, the bounded repair loop, and the first run's stop on the nesting limit
   followed by a resume.
+* `cases/AMD-0000002488-26-000191-r2/`: the second published case (three repair rounds driven by
+  critic findings, then two clean reviews; PDF in `report/AMD-0000002488-26-000191-r2/`).
 * `cases/AMD-0000002488-26-000191/`: a deliberate interruption, then `resume` keeping completed
   reports; later a false stall from a gate defect (recorded, fixed).
 * Each case: `trace.jsonl` (controller transitions and hook dispatch records), `rounds/`
