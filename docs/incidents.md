@@ -13,7 +13,7 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
 | 5 | Development session's hook wrote a stray line into a case trace | resolved |
 | 6 | Catalog-only snapshot hid NVDA's marketable-securities concepts | resolved for new cases |
 | 7 | Five controller defects surfaced by the NVDA and AMD runs | resolved |
-| 8 | AMD run idle after a deliberate interruption (two stalls) | resolved by handover; watchdog added; Stop hook planned |
+| 8 | AMD run idle after a deliberate interruption (two stalls) | resolved; watchdog + Stop hook (verified live) added |
 
 ## 1. New subagents not visible in the creating session
 * **What happened.** `.claude/agents/` was created during the development session; the Agent
@@ -127,6 +127,9 @@ Times are UTC on 2026-11-14. Status: **resolved** (fixed and verified), **mitiga
   the session to resume, or to record why it must stop with `eu.py hold --case … --reason …`.
   It never blocks coordinating or development sessions, and it lets a second stop through
   (`stop_hook_active`) so it cannot loop. The watchdog skips held cases, and `eu.py release` ends
-  a hold. Covered by `tests/test_stop_guard.py` and `HoldTests`; live verification in a fresh
-  session is pending. Limit: a hook runs only while a session is alive. Waking a session that
+  a hold. Covered by `tests/test_stop_guard.py` and `HoldTests`. **Live verification: PASS**
+  (2026-11-15 02:13 UTC, [`docs/verification/stop_hook.md`](verification/stop_hook.md)). A fresh session
+  dispatched one specialist for a throwaway case and tried to end its turn. The hook blocked it
+  with the resume/hold instruction, the session recorded a hold, and the watchdog then no longer
+  listed the case. Limit: a hook runs only while a session is alive. Waking a session that
   no longer runs still needs a person, a new session, or a scheduled check.
