@@ -1,0 +1,57 @@
+{
+ "request_id": "gen-20261115T025408-b38ac7",
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_1.txt",
+   "topic": "guidance",
+   "text": "For the fourth quarter of 2026, AMD expects revenue to be approximately $17 billion, plus or minus 3%."
+  },
+  {
+   "id": "Q-2",
+   "doc": "release_ex99_1.txt",
+   "topic": "margin",
+   "text": "Non-GAAP gross margin is expected to be approximately 55%."
+  },
+  {
+   "id": "Q-3",
+   "doc": "release_ex99_1.txt",
+   "topic": "demand",
+   "text": "we expect growth to accelerate further in the fourth quarter as we scale Helios and ‘Venice’ production"
+  },
+  {
+   "id": "Q-4",
+   "doc": "release_ex99_1.txt",
+   "topic": "demand",
+   "text": "Our fourth-quarter outlook reflects accelerating revenue and earnings growth, driven by strong demand across our Data Center portfolio."
+  },
+  {
+   "id": "Q-5",
+   "doc": "periodic.txt",
+   "topic": "margin",
+   "text": "Gross margin was 54% and 52% for the three months ended September 26, 2026 and September 27, 2025, respectively, where the increase was driven by a favorable product mix, including higher Data Center segment revenue."
+  },
+  {
+   "id": "Q-6",
+   "doc": "periodic.txt",
+   "topic": "risk",
+   "text": "Government actions and regulations, including export controls, national-security-based regulations, import tariffs and trade protection measures, may limit our ability to export our products to certain customers, increase costs, harm our competitive position and materially affect our business."
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 17000000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1",
+   "low": 16490000000.0,
+   "high": 17510000000.0
+  },
+  {
+   "metric": "non_gaap_gross_margin_next_q",
+   "value": 0.55,
+   "unit": "ratio",
+   "quote_id": "Q-2"
+  }
+ ]
+}

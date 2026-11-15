@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T025408-b38ac7",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [],
+  "notes": "19 of 20 lines mapped; liabilities deliberately null (no data). Revenue, net income, cash, total assets checked against periodic.txt. total_debt uses combined concept to include current portion."
+}

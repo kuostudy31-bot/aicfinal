@@ -1,0 +1,85 @@
+{
+  "request_id": "gen-20261115T025408-b38ac7",
+  "mapping": {
+    "revenue": {
+      "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "rationale": "Net revenue; 15 observations, latest 2026-09-26 = $13,377M, matches periodic.txt income statement. Revenues and SalesRevenueNet have no data."
+    },
+    "cost_of_revenue": {
+      "concept": "CostOfGoodsAndServicesSold",
+      "rationale": "15 observations, latest 2026-09-26 ($6,167M). CostOfRevenue/CostOfGoodsSold not in snapshot."
+    },
+    "gross_profit": {
+      "concept": "GrossProfit",
+      "rationale": "15 observations, latest 2026-09-26 ($7,210M)."
+    },
+    "rnd": {
+      "concept": "ResearchAndDevelopmentExpense",
+      "rationale": "15 observations, latest 2026-09-26 ($2,803M)."
+    },
+    "sga": {
+      "concept": "SellingGeneralAndAdministrativeExpense",
+      "rationale": "15 observations, latest 2026-09-26 ($1,298M); company reports a combined marketing, G&A line under this concept."
+    },
+    "operating_income": {
+      "concept": "OperatingIncomeLoss",
+      "rationale": "15 observations, latest 2026-09-26 ($2,832M)."
+    },
+    "net_income": {
+      "concept": "NetIncomeLoss",
+      "rationale": "15 observations, latest 2026-09-26 ($2,428M); matches periodic.txt net income of 2,428."
+    },
+    "diluted_shares": {
+      "concept": "WeightedAverageNumberOfDilutedSharesOutstanding",
+      "rationale": "15 observations, latest 2026-09-26 (1,661M); weighted average, non-additive."
+    },
+    "eps_diluted": {
+      "concept": "EarningsPerShareDiluted",
+      "rationale": "15 observations, latest 2026-09-26 ($1.46)."
+    },
+    "cfo": {
+      "concept": "NetCashProvidedByUsedInOperatingActivities",
+      "rationale": "15 observations, latest 2026-09-26 ($1,202M)."
+    },
+    "capex": {
+      "concept": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "rationale": "15 observations, latest 2026-09-26 ($648M); PaymentsToAcquireProductiveAssets has no data."
+    },
+    "sbc": {
+      "concept": "ShareBasedCompensation",
+      "rationale": "Cash-flow add-back; 15 observations, latest 2026-09-26 ($523M), same value as AllocatedShareBasedCompensationExpense. Judgment: chose the cash-flow concept."
+    },
+    "cash": {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "rationale": "16 observations, latest 2026-09-26 ($7,404M), matches balance sheet. The restricted-cash concept stops at 2025-12-27 (stale) and is not used."
+    },
+    "short_term_investments": {
+      "concept": "ShortTermInvestments",
+      "rationale": "16 observations, latest 2026-09-26 ($8,372M), matches balance sheet 'Short-term investments'. Other catalog candidates have no data."
+    },
+    "total_debt": {
+      "concept": "DebtLongtermAndShorttermCombinedAmount",
+      "rationale": "15 observations, latest 2026-09-26 ($7,079M). Judgment: chose combined concept over LongTermDebtNoncurrent (16 obs) because it includes the current portion (balance sheet shows $874M current at 2025-12-27, nil at 2026-09-26; the combined series gives 3,222M at 2025-12-27 vs 2,348M noncurrent only). Both equal 7,079M latest."
+    },
+    "assets": {
+      "concept": "Assets",
+      "rationale": "16 observations, latest 2026-09-26 ($94,812M), matches balance sheet."
+    },
+    "liabilities": {
+      "concept": null,
+      "rationale": "Liabilities concept has no data in the snapshot; the balance sheet shows no total liabilities line. Deliberately unmapped; derivable as liabilities_and_equity minus equity if needed."
+    },
+    "equity": {
+      "concept": "StockholdersEquity",
+      "rationale": "16 observations, latest 2026-09-26 ($68,389M)."
+    },
+    "liabilities_and_equity": {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "rationale": "16 observations, latest 2026-09-26 ($94,812M), equals total assets and the balance sheet 'Total liabilities and stockholders equity'."
+    },
+    "shares_outstanding": {
+      "concept": "EntityCommonStockSharesOutstanding",
+      "rationale": "dei cover-page; 16 observations, latest 2026-10-28 (1,640,087,251), after period end but before cutoff."
+    }
+  }
+}
