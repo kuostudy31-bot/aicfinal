@@ -199,6 +199,13 @@ prompt-level failure with a code-side gap (the writer spells quantities in words
 digit-based provenance gate cannot see). The second became change-002. A third pattern was
 deferred because no deterministic check can capture it.
 
+**Evolution change-002 (`evolution/changes/change-002`, REJECTED):** a gen-writer rule against
+spelled-out quantities. Rejected for the same reason as change-001: the code prerequisites had
+already been applied to the evaluation inputs, so baseline v2 also passed. The coordinator's
+evaluation design removed the failure condition before testing the prompt; the lesson is recorded
+in the diagnosis file. The review also traced a prompt-level cause ("Spell out ordinal words." in
+v2) and a gap in the check (fractions).
+
 **Evolution (`evolution/changes/change-001`, REJECTED):**
 the run proposed a gen-writer prompt edit so that the Disclosures would cite the trigger
 accession, the cutoff and the price date. It then evaluated baseline (v2) against the candidate

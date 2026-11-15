@@ -17,3 +17,22 @@ Not a pattern: NVDA r1 `asm-001` (snapshot coverage, fixed in code, incidents #6
 Acceptance rules stay fixed while cases run. The new "no spelled-out quantities" check is
 therefore used only as an **evaluation check** for change-002. Whether to also add it to the
 note gate (which would apply to future cases) is a separate decision for the owner.
+
+## Outcome of change-002 (REJECTED, 2026-11-15 03:11 UTC)
+The reviewer rejected it, correctly, for the same reason as change-001: the evaluation could not
+separate the arms. The coordinator committed the code prerequisites first (rating-band values and
+the other disclosure keys). The evaluation inputs, recomputed with that code, therefore already
+held every value the writer needed, so baseline v2 no longer spelled anything out. **The
+evaluation removed the very condition the prompt change targets.** This repeats change-001's
+design error.
+
+Two useful findings came out of the review:
+* v2's step 3 contains "Spell out ordinal words.", a prompt-level cause of spelled-out quantities.
+  The candidate removes it.
+* The spelled-quantity check misses fractions ("half a percentage point").
+
+**Lesson (process).** Evaluate a prompt change on inputs where the failure condition still exists:
+here, values.json **without** the newly supplied keys, plus prose that needs a quantity no key
+covers. Otherwise decide explicitly that the code fix is the remedy and do not propose a prompt
+change. The evolution loop worked as designed both times: it refused changes that the evidence did
+not support.
