@@ -1,6 +1,6 @@
 # Handover: where the work stands and what comes next
 
-Updated 2026-11-14 16:08 UTC by the coordinating session. If you are a new session picking this
+Updated 2026-11-15 02:55 UTC by the coordinating session. If you are a new session picking this
 up, read this file, `docs/incidents.md` and `STATUS.md`, then run `python3 scripts/eu.py status`
 and `python3 scripts/eu.py watchdog --minutes 15 --inspect`.
 
@@ -20,10 +20,8 @@ case's RUN_NOTES.md, dispatch the `orchestrator` from that next_action, commit o
 directory, `git pull --rebase --autostash`, push. (Template: the Live run 5 prompt.)
 
 ## Paused by the owner
-* **Evolution demo (Live run 6, `session_01ERG3WY9725KJyr9Rhv5Gvf`)** was paused by the owner at
-  16:20 UTC, right after it started; nothing was pushed (no `evolution/` folder yet). Do not
-  resume or restart it until the owner asks. When resumed, use a new session whose initial task
-  is the Run 6 prompt (the stash it needed is already committed in 220c535).
+* Evolution was paused by the owner on 2026-11-14 16:20 UTC and resumed at the owner's request on
+  2026-11-15 as Live run 7: change-001 REJECTED by the reviewer (see evolution/changes/change-001).
 
 ## Proposed (not started): live Stop-hook verification
 Cheap by design (one lightweight subagent; estimated well under the cost of one case round).
@@ -63,12 +61,13 @@ afterwards does not list the case.
 
 ## Scheduled wake-up
 A one-shot message (trigger `trig_0193Ab9zLhWFXzHZLCGhXXXa`) fires at 2026-11-14 20:15 UTC into
-the coordinating session to continue steps 2-4. AMD revision 2 waits for the owner's request.
+the coordinating session to continue steps 2-4. (Fired 20:16 UTC; superseded by the owner's 2026-11-15 instructions.)
 
 ## Owner decisions on record
 * Topic A (sell-side earnings update), AI-semiconductor coverage, English notes, Claude Code
   subagents with mandatory orchestrator / generator lead / critic lead.
 * Delegated publication approval (2026-11-14). `SEC_USER_AGENT`: not needed.
-* AMD revision 2: not now; the owner will ask for it after the usage reset.
+* AMD revision 2: requested by the owner on 2026-11-15 ("前三個都做": resume evolution, AMD r2, Stop-hook test).
+  Run it (`--revision 2`); approval is delegated as for NVDA r2.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.
