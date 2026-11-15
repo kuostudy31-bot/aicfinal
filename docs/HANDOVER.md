@@ -63,6 +63,12 @@ afterwards does not list the case.
 A one-shot message (trigger `trig_0193Ab9zLhWFXzHZLCGhXXXa`) fires at 2026-11-14 20:15 UTC into
 the coordinating session to continue steps 2-4. (Fired 20:16 UTC; superseded by the owner's 2026-11-15 instructions.)
 
+## Evolution change-002 (owner approved, 2026-11-15)
+Diagnosis: `evolution/diagnosis-2026-11-15.md`. Code prerequisites committed: peer calendar label
+fix, rating-band values (`rating_outperform_min`, `rating_underperform_max`), and the evaluation
+check `--forbid-spelled-quantities`. Run as a new session (Live run 11); stop at AWAITING_APPROVAL.
+Adoption is the owner's decision.
+
 ## Owner decisions on record
 * Topic A (sell-side earnings update), AI-semiconductor coverage, English notes, Claude Code
   subagents with mandatory orchestrator / generator lead / critic lead.
@@ -74,5 +80,6 @@ the coordinating session to continue steps 2-4. (Fired 20:16 UTC; superseded by 
   waits for a confirmation the owner already gave, tell the owner exactly which session and what to
   type (the owner will enter it). If needed, start a new session whose initial task is the resume
   and mark the old one "由 run N 取代". Record each stall in docs/incidents.md.
+* Evolution change-002 (spelled-out quantities) and the peer-label code fix: approved 2026-11-15; record everything in the repo.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.

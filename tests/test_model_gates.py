@@ -121,3 +121,19 @@ class GuidancePrecisionTests(unittest.TestCase):
         q = {"id": "Q-1", "doc": "r.txt", "text": "Revenue is expected to be $13.75 billion"}
         bad = {"quotes": [q], "guidance": [{"metric": "rev", "value": 3.75e9, "unit": "USD", "quote_id": "Q-1"}]}
         self.assertEqual(gates.gate_quotes(bad, {"r.txt": q["text"]})[0]["check"], "guidance_source")
+
+
+class RatingBandValueTests(unittest.TestCase):
+    def test_rating_bands_are_code_supplied(self):
+        meta = {"rating_bands": {"outperform_min": 0.15, "underperform_max": -0.10}}
+        q = {"start": "2026-04-01", "end": "2026-06-30", "fiscal": "FY2026Q2", "calendar": "CY2026Q2"}
+        h = {"quarters": [q] * 5, "lines": {k: [{"val": 2.0, "id": f"F-{k}"}] * 5 for k in
+                                             ("revenue", "net_income", "eps_diluted", "cfo", "capex", "gross_profit",
+                                              "operating_income")}}
+        fc = {"quarters": [{"label": "FY2026Q3", "revenue": 1.0, "eps": 1.0}], "ntm": {"revenue": 4.0, "eps": 4.0}}
+        val = {"target_price": 10, "price": 8.0, "upside": 0.25, "rating": "Outperform", "net_cash": 0.0,
+               "dcf": {"per_share": 9.0, "terminal_share_of_ev": 0.6}, "peer_median_ev_sales": None,
+               "prior_target_price": None}
+        out = values.build("X", h, fc, val, {}, meta)
+        self.assertEqual(out["rating_outperform_min"]["display"], "+15%")
+        self.assertEqual(out["rating_underperform_max"]["display"], "-10%")

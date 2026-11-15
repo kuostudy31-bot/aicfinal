@@ -53,7 +53,8 @@ def _set_active(change_id: str, phase: str, request_id: str) -> None:
 
 
 def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout_cases: list[str],
-            required_phrases: list[str], required_placeholders: list[str]) -> dict:
+            required_phrases: list[str], required_placeholders: list[str],
+            forbid_spelled_quantities: bool = False) -> dict:
     reg = read_json(REGISTRY)
     if role not in reg["active"]:
         raise ValueError(f"unknown role {role}")
@@ -67,6 +68,7 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
         "parent_path": f"prompts/{role}/{parent}.md", "source_case": case_id, "failure": failure,
         "acceptance_checks": {"required_phrases": required_phrases,
                               "required_placeholders": required_placeholders,
+                              "forbid_spelled_quantities": forbid_spelled_quantities,
                               "provenance_gate": "no blocker from gates.gate_note"},
         "evaluation_cases": {"development": dev_cases, "held_out": heldout_cases},
         "scope": "prompt file of the target role only (references/policies.md section 5)",
@@ -123,13 +125,37 @@ def _case_inputs(change_id: str, case_id: str) -> tuple[dict, dict]:
     return vals, quotes
 
 
+_UNITS = r"(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen)"
+_TENS = r"(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)"
+_NUM = rf"(?:{_TENS}(?:[- ]{_UNITS})?|{_UNITS}|hundred)"
+_ORD = (r"(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth|thirteenth|"
+        r"fourteenth|fifteenth|sixteenth|seventeenth|eighteenth|nineteenth|twentieth|thirtieth|"
+        rf"{_TENS}[- ](?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth))")
+_MONTH = r"(?:january|february|march|april|may|june|july|august|september|october|november|december)"
+SPELLED_QUANTITY = re.compile(
+    rf"\b(?:minus\s+|plus\s+)?{_NUM}\s+(?:percent|per\s?cent|percentage\s+points?|basis\s+points?|"
+    rf"billion|million|thousand|dollars?|times)\b"
+    rf"|\b{_MONTH}\s+{_ORD}\b"
+    rf"|\b{_TENS}-{_UNITS}\b",
+    re.I)
+
+
+def spelled_quantities(note: str) -> list[str]:
+    """Quantities written in words (e.g. 'fifteen percent', 'August twenty-sixth'), which the
+    digit-based provenance gate cannot see. Quotes are removed first: filings may spell numbers."""
+    from .values import QUOTE
+    return [m.group(0) for m in SPELLED_QUANTITY.finditer(QUOTE.sub("", note))]
+
+
 def check_note(note: str, vals: dict, quotes: dict, checks: dict) -> dict:
     res = {"provenance_findings": [x["id"] for x in gates.gate_note(note, vals, quotes)
                                    if x["severity"] in ("blocker", "major")]}
     low = note.lower()
     res["missing_phrases"] = [p for p in checks["required_phrases"] if p.lower() not in low]
     res["missing_placeholders"] = [k for k in checks["required_placeholders"] if "{{" + k + "}}" not in note]
-    res["pass"] = not (res["provenance_findings"] or res["missing_phrases"] or res["missing_placeholders"])
+    res["spelled_quantities"] = spelled_quantities(note) if checks.get("forbid_spelled_quantities") else []
+    res["pass"] = not (res["provenance_findings"] or res["missing_phrases"] or res["missing_placeholders"]
+                       or res["spelled_quantities"])
     return res
 
 
@@ -256,8 +282,10 @@ def add_commands(sub) -> None:
     s.add_argument("--failure", required=True)
     s.add_argument("--dev", nargs="+", required=True); s.add_argument("--heldout", nargs="+", required=True)
     s.add_argument("--require-phrase", nargs="*", default=[]); s.add_argument("--require-key", nargs="*", default=[])
+    s.add_argument("--forbid-spelled-quantities", action="store_true",
+                   help="fail notes that write quantities in words (e.g. 'fifteen percent')")
     s.set_defaults(fn=lambda a: out(prepare(a.role, a.case, a.failure, a.dev, a.heldout,
-                                            a.require_phrase, a.require_key)))
+                                            a.require_phrase, a.require_key, a.forbid_spelled_quantities)))
     s = sub.add_parser("evo-evaluate"); s.add_argument("--change", required=True)
     s.set_defaults(fn=lambda a: out(evaluate(a.change)))
     s = sub.add_parser("evo-submit"); s.add_argument("--change", required=True)

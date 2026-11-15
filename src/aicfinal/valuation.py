@@ -62,7 +62,7 @@ def peer_multiples(peers_snapshot: dict, catalog: dict, peer_list: list[str]) ->
         ev = mcap - (cash[-1]["val"] if cash else 0) + (debt[-1]["val"] if debt else 0)
         out.append({
             "ticker": t, "price": price, "price_date": p["last_close"]["date"],
-            "ttm_end": rev_ttm["end"], "calendar": xbrl.calendar_label(rq[-4]["start"], rq[-1]["end"]) if len(rq) >= 4 else None,
+            "ttm_end": rev_ttm["end"], "calendar": ("TTM to " + xbrl.calendar_label(rq[-1]["start"], rq[-1]["end"])) if rq else None,
             "revenue_ttm": rev_ttm["val"], "net_income_ttm": ni_ttm["val"] if ni_ttm else None,
             "market_cap": mcap, "ev": ev, "ev_sales": ev / rev_ttm["val"],
             "pe": (mcap / ni_ttm["val"]) if ni_ttm and ni_ttm["val"] > 0 else None,

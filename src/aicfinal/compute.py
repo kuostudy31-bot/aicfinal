@@ -54,7 +54,8 @@ def run(case_dir: Path, round_dir: Path, out_subdir: str = "computed") -> dict:
     man = read_json(snap / "manifest.json")
     vals = values.build(facts["ticker"], hist, fc, val, narrative,
                         {"accession": man.get("trigger_accession"), "cutoff_utc": facts["cutoff_utc"],
-                         "price_date": prices["closes"][-1]["date"]})
+                         "price_date": prices["closes"][-1]["date"],
+                         "rating_bands": cfg["publication"]["rating_bands"]})
 
     note_path = gen / "note.md"
     note_md = note_path.read_text(encoding="utf-8") if note_path.exists() else None

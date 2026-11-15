@@ -192,7 +192,14 @@ course's QT framework and are the core of this design.
 
 Every case keeps its snapshot hashes, request/round files, controller and hook trace, critic
 reports, and each subagent's transcript under `evidence/transcripts/`. `docs/incidents.md`
-lists the eight problems met during the build and runs, with timelines and fixes. **Evolution (`evolution/changes/change-001`, REJECTED):**
+lists the eight problems met during the build and runs, with timelines and fixes. **Diagnosis before a change** ([`evolution/diagnosis-2026-11-15.md`](../evolution/diagnosis-2026-11-15.md)):
+after change-001 was rejected, the finding ledgers of all cases were reviewed for recurring
+failures. The review found one code bug (the peer calendar label, fixed directly) and one
+prompt-level failure with a code-side gap (the writer spells quantities in words, which the
+digit-based provenance gate cannot see). The second became change-002. A third pattern was
+deferred because no deterministic check can capture it.
+
+**Evolution (`evolution/changes/change-001`, REJECTED):**
 the run proposed a gen-writer prompt edit so that the Disclosures would cite the trigger
 accession, the cutoff and the price date. It then evaluated baseline (v2) against the candidate
 on two development cases and one held-out case. Both arms passed every check, so the evaluation

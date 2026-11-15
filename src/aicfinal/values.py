@@ -38,6 +38,12 @@ def build(ticker: str, hist: dict, fc: dict, val: dict, narrative: dict, meta: d
     if meta.get("cutoff_utc"):
         c = meta["cutoff_utc"]
         put("cutoff_utc", c, c[:10] + " " + c[11:16] + " UTC", ["snapshot/manifest.json cutoff_utc"])
+    bands = meta.get("rating_bands")
+    if bands:  # rating definitions, so the writer never has to spell them out
+        put("rating_outperform_min", bands["outperform_min"], f"+{bands['outperform_min'] * 100:.0f}%",
+            ["config/project.yaml publication.rating_bands"])
+        put("rating_underperform_max", bands["underperform_max"], f"{bands['underperform_max'] * 100:.0f}%",
+            ["config/project.yaml publication.rating_bands"])
     if meta.get("price_date"):
         put("price_date", meta["price_date"], meta["price_date"], ["snapshot/prices.json last close"])
 

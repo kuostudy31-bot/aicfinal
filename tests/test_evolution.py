@@ -105,3 +105,14 @@ class EvolutionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SpelledQuantityTests(unittest.TestCase):
+    def test_flags_spelled_quantities_but_not_ordinary_words(self):
+        bad = "Outperform means fifteen percent upside; data as of August twenty-sixth, 2026; minus ten percent."
+        self.assertEqual(len(evolution.spelled_quantities(bad)), 3)
+        ok = "One of the two segments grew, and the first quarter set a record. [[Q-1]] Upside is {{upside}}."
+        self.assertEqual(evolution.spelled_quantities(ok), [])
+
+    def test_quotes_are_exempt(self):
+        self.assertEqual(evolution.spelled_quantities("The company said [[Q-7]]."), [])
