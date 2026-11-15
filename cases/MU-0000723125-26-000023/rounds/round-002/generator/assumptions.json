@@ -1,0 +1,38 @@
+{
+  "request_id": "gen-20261115T080625-5b263d",
+  "tax_rate": 0.148,
+  "share_change_qoq": 0.003,
+  "next_quarters": [
+    {
+      "label": "FY2027Q1",
+      "revenue_qoq": 0.1341,
+      "gross_margin": 0.8595,
+      "opex_pct_revenue": 0.0376
+    },
+    {
+      "label": "FY2027Q2",
+      "revenue_qoq": 0.08,
+      "gross_margin": 0.8595,
+      "opex_pct_revenue": 0.0376
+    },
+    {
+      "label": "FY2027Q3",
+      "revenue_qoq": 0.05,
+      "gross_margin": 0.8595,
+      "opex_pct_revenue": 0.0376
+    },
+    {
+      "label": "FY2027Q4",
+      "revenue_qoq": 0.03,
+      "gross_margin": 0.8595,
+      "opex_pct_revenue": 0.0376
+    }
+  ],
+  "rationales": {
+    "revenue_qoq": "FY2027Q1 is anchored on the guidance midpoint of $61.5B (range $60.0B-$63.0B) [Q-1, Q-5]; the GAAP and non-GAAP revenue guidance are identical. The forecast compounds from the last history quarter, FY2026Q4 revenue $54.229B (D-e90aac72b9, FY minus 9M YTD). That quarter had 14 weeks because FY2026 was a 53-week year [Q-10]. FQ1-27 is a normal 13-week quarter, so the reported-base growth of 61.5/54.229-1 = +13.4% is the value that lands on the guided midpoint. Adjusted to a 13-week base ($54.229B x 13/14 = $50.355B), the underlying growth is about +22.1% q/q. That matches the recent run rate: FY2026Q1 +20.6%, Q2 +74.9%, Q3 +73.7% (F-b11cd8f3c2, F-6429def3c7, F-03e050e3a0) and Q4 +30.8% reported, about +21.5% on a 13-week basis. Later quarters slow to +8%, +5% and +3%. This is analyst judgment. Demand is still exceeding industry supply [Q-7, Q-8], management expects an even stronger FY2027 [Q-6], and strategic customer agreements with price bands are being signed [Q-9, Q-12]. Growth is held well below the FY2026 pace because supply limits volume growth [Q-8] and the price bands narrow upside on pricing. Export-restriction and tariff risk [Q-11] is a downside not modeled separately.",
+    "gross_margin": "FY2027Q1 uses the GAAP gross margin guidance of approximately 85.95% [Q-2]. The non-GAAP guidance of approximately 86.25% [Q-15] is not used, because the model is GAAP. This is slightly below FY2026Q4's 86.8% (D-eefea057cd / D-e90aac72b9) and above FY2026Q3's 84.6% (F-e021155183 / F-03e050e3a0). Later quarters stay flat at 85.95%. Management states that margins under the strategic customer agreements, even at floor pricing, are expected to be meaningfully above any past cycle peak [Q-9], which argues against modeling a decline within the next four quarters. With supply still constrained [Q-8], there is also no stated basis for further expansion. This is analyst judgment.",
+    "opex_pct_revenue": "FY2027Q1 GAAP operating expenses are guided at approximately $2.31B [Q-3]. Non-GAAP opex guidance of approximately $2.06B [Q-16] is not used, because the model is GAAP. On the $61.5B revenue midpoint [Q-1] that is 3.76% of revenue. The model has one opex line (gross profit less opex = operating income), so 3.76% stands for the guided GAAP opex. Later quarters keep 3.76%, which assumes opex dollars grow in line with revenue (roughly $2.5B by FY2027Q3). FY2026Q4 GAAP opex was R&D $1.913B (D-dc1b77fd75) plus SG&A $0.859B (D-6c738561d6) = $2.772B, or 5.1% of a 14-week quarter, plus $524M of other operating expense in the release. Guidance implies these elevated Q4 levels do not carry into FQ1-27 [Q-3]. The pre-Q4 history (FY2026Q3: R&D $1.316B F-aa03ffc666, SG&A $0.407B F-cd4e85786c) supports a run rate near $2.3B rather than $2.8B.",
+    "tax_rate": "The filings give no tax-rate guidance for FY2027. The rate used is the FY2026 effective tax rate of 14.8% from the 10-K tax table (periodic.txt: 'Effective tax rate | 14.8 %'). FY2026Q4 implies 14.9% (provision $6,583M on pre-tax income $44,238M in the release). The FY2026 increase from 11.6% in FY2025 was driven by Pillar Two, effective for Micron in Singapore from 2026 [Q-13]. That regime continues into FY2027, so the FY2026 rate is the best available run rate. Cross-check: FY2027Q1 operating income of $61.5B x (85.95% - 3.76%) = $50.5B, taxed at 14.8% and divided by about 1.15B diluted shares, gives EPS of about $37.5. That is inside the guided GAAP EPS range of $36.84-$38.84 ($37.84 ± $1.00 [Q-4]). Non-GAAP EPS guidance of $38.15 ± $1.00 [Q-17] is not the comparison basis, because the model is GAAP. The model excludes interest income, which was $575M in FY2026Q4, so this cross-check is slightly conservative.",
+    "share_change_qoq": "+0.3% per quarter, from the recent trend in weighted-average diluted shares: FY2026Q1 1,138M (F-eb182a66d0), Q2 1,142M (F-371855689a), Q3 1,145M (F-3d172a9372). The release shows 1,147M for Q4 and 1,131M for FY2025Q4. That is about +0.31% per quarter over Q1-Q3 and +0.35% per quarter over the last four quarters. The 10-K XBRL does not tag a Q4 diluted share count, so history correctly leaves FY2026Q4 null (non-additive, not differenced). See the gen-model report for the downstream consequence."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "request_id": "gen-20261115T080625-5b263d",
+  "role": "gen-model",
+  "status": "complete",
+  "outputs": [
+    "assumptions.json"
+  ],
+  "repairs": [],
+  "notes": "Re-issued the round-1 assumptions unchanged under the new request_id: tax_rate 0.148, share_change_qoq 0.003, revenue_qoq 0.1341/0.08/0.05/0.03, gross_margin 0.8595 and opex_pct_revenue 0.0376 flat across all four quarters. No open finding targets assumptions.json. Re-citation only: narrative.json round 2 splits the guidance quotes into separate GAAP and non-GAAP quotes. GAAP: Q-1 revenue (same for non-GAAP), Q-2 GM 85.95%, Q-3 opex $2.31B, Q-4 EPS $37.84 ± $1.00. Non-GAAP: Q-15 GM 86.25%, Q-16 opex $2.06B, Q-17 EPS $38.15 ± $1.00. The rationales now cite Q-15/Q-16/Q-17 where they mention non-GAAP figures (not used, because the model is GAAP). Q-5 to Q-14 have the same text as in round 1, so those citations are unchanged. All F-/D- fact IDs cited were re-verified in `eu.py history` with the round-2 mapping. The asm-001 mapping change (short_term_investments = current + noncurrent AFS debt securities) leaves revenue, margin, opex, tax and share inputs unchanged. Carried over from round 1, for gen-lead to confirm: FY2026Q4 diluted_shares is still null in history (the 10-K tags no Q4 diluted count). Round 1 noted that model.latest() and valuation.py could fail on a null last value. If round-1 compute succeeded, this has already been handled."
+}

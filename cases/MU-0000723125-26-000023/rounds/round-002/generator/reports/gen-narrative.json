@@ -1,0 +1,19 @@
+{
+ "request_id": "gen-20261115T080625-5b263d",
+ "role": "gen-narrative",
+ "status": "complete",
+ "outputs": [
+  "narrative.json"
+ ],
+ "repairs": [
+  {
+   "finding": "prov-001",
+   "action": "Replaced pipe-containing Q-1..Q-4 with pipe-free verbatim single-cell quotes (grep -F verified in release lines 161-178); added Q-15..Q-17 for non-GAAP values; rebound each guidance quote_id to its GAAP or non-GAAP quote. No quote text contains a pipe."
+  },
+  {
+   "finding": "prov-003",
+   "action": "Set unit to USD/share on eps_next_q_gaap and eps_next_q_nongaap."
+  }
+ ],
+ "notes": "Guidance quote ids: Q-1 revenue (identical text for GAAP and non-GAAP; use for both); GAAP: Q-2 gross margin 85.95%, Q-3 opex $2.31bn, Q-4 EPS $37.84 +/- $1.00; non-GAAP: Q-15 gross margin 86.25%, Q-16 opex $2.06bn, Q-17 EPS $38.15 +/- $1.00. Q-5..Q-14 unchanged from round 1. cmp-001: no snapshot doc text states the release is a Form 8-K furnished 2026-09-30 (release header only says EX-99.1 / Exhibit 99.1), so no source quote was added; accession/date come from snapshot/filings.json and manifest.json, not quotes."
+}

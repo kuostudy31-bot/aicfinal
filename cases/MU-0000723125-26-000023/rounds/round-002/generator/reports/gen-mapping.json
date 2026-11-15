@@ -1,0 +1,15 @@
+{
+  "request_id": "gen-20261115T080625-5b263d",
+  "role": "gen-mapping",
+  "status": "complete",
+  "outputs": [
+    "mapping.json"
+  ],
+  "repairs": [
+    {
+      "finding": "asm-001",
+      "action": "Remapped short_term_investments from AvailableForSaleSecuritiesDebtSecuritiesCurrent alone to the summed list [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent]; verified both concepts have 16 observations through 2026-09-03 and sum to 35,089M (5,070M + 30,019M) at that date. Non-marketable equity investments remain excluded. All other lines carried forward unchanged."
+    }
+  ],
+  "notes": "All 21 catalog lines mapped, none null. total_debt uses a summed list because catalog LongTermDebt is stale (14 obs). Verified revenue, net income, cash, total assets vs periodic.txt. Concepts tool latest_val for revenue/flows is a derived Q4 (FY minus 9M YTD; 14 weeks in 53-week FY2026); for non-additive diluted_shares (1,000,000) and eps_diluted (32.93) the preview shows differenced values that are invalid, flagged for downstream. Round 2: investments line now includes long-term marketable investments (asm-001)."
+}

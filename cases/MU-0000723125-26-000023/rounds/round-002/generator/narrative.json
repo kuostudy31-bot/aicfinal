@@ -1,0 +1,157 @@
+{
+ "request_id": "gen-20261115T080625-5b263d",
+ "quotes": [
+  {
+   "id": "Q-1",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "$61.5 billion ± $1.5 billion"
+  },
+  {
+   "id": "Q-2",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "Approximately 85.95%"
+  },
+  {
+   "id": "Q-3",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "Approximately $2.31 billion"
+  },
+  {
+   "id": "Q-4",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "$37.84 ± $1.00"
+  },
+  {
+   "id": "Q-5",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "other",
+   "text": "The following table presents Micron’s guidance for the first quarter of 2027:"
+  },
+  {
+   "id": "Q-6",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "demand",
+   "text": "“Micron delivered record fiscal 2026 results, and we expect an even stronger fiscal 2027,” said Sanjay Mehrotra, Chairman and CEO of Micron Technology."
+  },
+  {
+   "id": "Q-7",
+   "doc": "periodic.txt",
+   "topic": "demand",
+   "text": "AI-driven memory and storage demand growth is outpacing industry supply."
+  },
+  {
+   "id": "Q-8",
+   "doc": "periodic.txt",
+   "topic": "demand",
+   "text": "The AI-driven growth in the data center has accelerated demand for memory and storage at a rate greater than our ability and the industry’s ability to increase supply."
+  },
+  {
+   "id": "Q-9",
+   "doc": "periodic.txt",
+   "topic": "margin",
+   "text": "We expect gross margins from our strategic customer agreements with price bands, even at floor pricing levels, to yield gross margins meaningfully above our peak quarterly margins in any past cycle."
+  },
+  {
+   "id": "Q-10",
+   "doc": "periodic.txt",
+   "topic": "other",
+   "text": "Fiscal 2026 contained 53 weeks and fiscal 2025 and 2024 each contained 52 weeks."
+  },
+  {
+   "id": "Q-11",
+   "doc": "periodic.txt",
+   "topic": "risk",
+   "text": "International trade disputes, geopolitical tensions, and military conflicts have led, and continue to lead, to new and increasing export restrictions, trade barriers, tariffs, and other measures, as well as retaliatory actions, that can increase our manufacturing costs, make our products less competitive, reduce demand for our products, limit our ability to sell to certain customers or markets, limit our ability to procure or increase our costs for components or raw materials, impede or slow the movement of our goods across borders, impede our ability to perform R&D activities, or otherwise restrict our ability to conduct operations."
+  },
+  {
+   "id": "Q-12",
+   "doc": "periodic.txt",
+   "topic": "other",
+   "text": "In the third and fourth quarters of 2026, we entered into, and expect to continue to enter into, strategic customer agreements."
+  },
+  {
+   "id": "Q-13",
+   "doc": "periodic.txt",
+   "topic": "other",
+   "text": "The change in our effective tax rate for 2026 as compared to 2025 was primarily due to the 15% minimum tax Pillar Two Model Rules (“Pillar Two”)."
+  },
+  {
+   "id": "Q-14",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "capital_return",
+   "text": "On September 30, 2026, Micron’s Board of Directors declared a quarterly dividend of $0.15 per share, payable in cash on October 29, 2026, to shareholders of record as of the close of business on October 14, 2026."
+  },
+  {
+   "id": "Q-15",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "Approximately 86.25%"
+  },
+  {
+   "id": "Q-16",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "Approximately $2.06 billion"
+  },
+  {
+   "id": "Q-17",
+   "doc": "release_ex99_1 earnings release.txt",
+   "topic": "guidance",
+   "text": "$38.15 ± $1.00"
+  }
+ ],
+ "guidance": [
+  {
+   "metric": "revenue_next_q",
+   "value": 61500000000.0,
+   "unit": "USD",
+   "quote_id": "Q-1",
+   "low": 60000000000.0,
+   "high": 63000000000.0
+  },
+  {
+   "metric": "gross_margin_next_q_gaap",
+   "value": 0.8595,
+   "unit": "ratio",
+   "quote_id": "Q-2"
+  },
+  {
+   "metric": "gross_margin_next_q_nongaap",
+   "value": 0.8625,
+   "unit": "ratio",
+   "quote_id": "Q-15"
+  },
+  {
+   "metric": "opex_next_q_gaap",
+   "value": 2310000000.0,
+   "unit": "USD",
+   "quote_id": "Q-3"
+  },
+  {
+   "metric": "opex_next_q_nongaap",
+   "value": 2060000000.0,
+   "unit": "USD",
+   "quote_id": "Q-16"
+  },
+  {
+   "metric": "eps_next_q_gaap",
+   "value": 37.84,
+   "unit": "USD/share",
+   "quote_id": "Q-4",
+   "low": 36.84,
+   "high": 38.84
+  },
+  {
+   "metric": "eps_next_q_nongaap",
+   "value": 38.15,
+   "unit": "USD/share",
+   "quote_id": "Q-17",
+   "low": 37.15,
+   "high": 39.15
+  }
+ ]
+}

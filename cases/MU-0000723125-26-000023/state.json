@@ -8,15 +8,24 @@
       "narrative.json": "31ba1af0e921083af6738b9e21cf9192e8de45738a2912baab5b53e36707f294",
       "note.md": "48d49949107b6a8bb8a91131854e414fc8163a342bbc02b09e3178ad04ee3c1e",
       "valuation_inputs.json": "501241a012251b2abb46805710c02a139e0d5bfb4f8f8bcec4641ef55737d3c9"
+    },
+    "round-002": {
+      "assumptions.json": "6fd8b7f58db2bb41a7896075fc9242da5fdab67d7d6a7f1b76ec7be7458e41bc",
+      "gates.json": "e9d80510936285355113f929bd1b4a14cb32119c7bf9e46a87b8176d74aaad8b",
+      "mapping.json": "53268da0944ff3c53bce72177270ecb50ea87cab0e39eddb0e106d39e90c0363",
+      "narrative.json": "b0a82e15401214e05aaedf7ae80d127bbb15b3ae34dadfc766885c59764688bd",
+      "note.md": "cdf16378e254ecb16fe8de179530cde21090e87b800e62b2b9f6d915904db477",
+      "valuation_inputs.json": "f228676b5d16bcb4e8eab1751076eca9eae7945ca2cf0eceb3dd363ed17712fb"
     }
   },
-  "candidate_id": "cand-b70a3fbcac71",
+  "candidate_id": "cand-0aac844f50d1",
   "case_id": "MU-0000723125-26-000023",
   "clean_streak": 0,
   "cutoff_utc": "2026-10-09T12:21:00Z",
   "dispatch_counts": {
     "crit-20261115T080121-5bb2e2": 5,
-    "gen-20261115T073305-99d304": 9
+    "gen-20261115T073305-99d304": 9,
+    "gen-20261115T080625-5b263d": 7
   },
   "invalid_submissions": 0,
   "ledger": {
@@ -148,10 +157,10 @@
   ],
   "opened_at": "2026-11-15T07:33:05Z",
   "pending": {
-    "issued_at": "2026-11-15T08:06:25Z",
-    "path": "cases/MU-0000723125-26-000023/rounds/round-002/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261115T080625-5b263d"
+    "issued_at": "2026-11-15T08:22:27Z",
+    "path": "cases/MU-0000723125-26-000023/rounds/round-002/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261115T082227-82cb33"
   },
   "period_of_report": "2026-09-03",
   "prompt_versions": {
@@ -169,10 +178,10 @@
     "gen-writer": "v2",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 2,
   "snapshot_manifest_sha256": "0d1e5e4c919047a6c9598ba1a1d515855a5beabf9b4542e4e82dedbbfd8846b2",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "MU",
-  "updated_at": "2026-11-15T08:06:25Z"
+  "updated_at": "2026-11-15T08:22:27Z"
 }

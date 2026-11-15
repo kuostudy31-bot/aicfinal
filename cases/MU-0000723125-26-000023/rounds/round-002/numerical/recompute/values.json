@@ -1,0 +1,276 @@
+{
+  "calendar_quarter": {
+    "display": "CY2026Q3",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "CY2026Q3"
+  },
+  "cutoff_utc": {
+    "display": "2026-10-09 12:21 UTC",
+    "sources": [
+      "snapshot/manifest.json cutoff_utc"
+    ],
+    "value": "2026-10-09T12:21:00Z"
+  },
+  "dcf_per_share": {
+    "display": "$862.83",
+    "sources": [
+      "valuation.dcf.per_share"
+    ],
+    "value": 862.831463912622
+  },
+  "fcf_q": {
+    "display": "$32.9bn",
+    "sources": [
+      "D-21b02a031c",
+      "D-17b54bd7f0"
+    ],
+    "value": 32863000000
+  },
+  "fiscal_quarter": {
+    "display": "FY2026 Q4",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "FY2026Q4"
+  },
+  "gross_margin_q": {
+    "display": "86.8%",
+    "sources": [
+      "D-eefea057cd",
+      "D-e90aac72b9"
+    ],
+    "value": 0.8675616367626178
+  },
+  "guide_eps_next_q_gaap": {
+    "display": "$37.84",
+    "sources": [
+      "Q-4"
+    ],
+    "value": 37.84
+  },
+  "guide_eps_next_q_nongaap": {
+    "display": "$38.15",
+    "sources": [
+      "Q-17"
+    ],
+    "value": 38.15
+  },
+  "guide_gross_margin_next_q_gaap": {
+    "display": "86.0%",
+    "sources": [
+      "Q-2"
+    ],
+    "value": 0.8595
+  },
+  "guide_gross_margin_next_q_nongaap": {
+    "display": "86.2%",
+    "sources": [
+      "Q-15"
+    ],
+    "value": 0.8625
+  },
+  "guide_opex_next_q_gaap": {
+    "display": "$2.3bn",
+    "sources": [
+      "Q-3"
+    ],
+    "value": 2310000000.0
+  },
+  "guide_opex_next_q_nongaap": {
+    "display": "$2.1bn",
+    "sources": [
+      "Q-16"
+    ],
+    "value": 2060000000.0
+  },
+  "guide_revenue_next_q": {
+    "display": "$61.5bn",
+    "sources": [
+      "Q-1"
+    ],
+    "value": 61500000000.0
+  },
+  "net_cash": {
+    "display": "$68.3bn",
+    "sources": [
+      "valuation.net_cash"
+    ],
+    "value": 68274000000
+  },
+  "net_income_q": {
+    "display": "$37.7bn",
+    "sources": [
+      "D-fbc98b1765"
+    ],
+    "value": 37701000000
+  },
+  "next_q_eps": {
+    "display": "$37.50",
+    "sources": [
+      "forecast.quarters[0].eps"
+    ],
+    "value": 37.50033107401232
+  },
+  "next_q_label": {
+    "display": "FY2027Q1",
+    "sources": [
+      "assumptions.next_quarters[0].label"
+    ],
+    "value": "FY2027Q1"
+  },
+  "next_q_revenue": {
+    "display": "$61.5bn",
+    "sources": [
+      "forecast.quarters[0].revenue"
+    ],
+    "value": 61501108900.00001
+  },
+  "ntm_eps": {
+    "display": "$163.56",
+    "sources": [
+      "forecast.ntm.eps"
+    ],
+    "value": 163.5601977279336
+  },
+  "ntm_revenue": {
+    "display": "$269.5bn",
+    "sources": [
+      "forecast.ntm.revenue"
+    ],
+    "value": 269499089221.97806
+  },
+  "operating_margin_q": {
+    "display": "80.7%",
+    "sources": [
+      "D-4ccdfc17a4",
+      "D-e90aac72b9"
+    ],
+    "value": 0.8067823489276955
+  },
+  "peer_ev_sales": {
+    "display": "15.1x",
+    "sources": [
+      "valuation.peer_median_ev_sales"
+    ],
+    "value": 15.12147433087628
+  },
+  "period_end": {
+    "display": "2026-09-03",
+    "sources": [
+      "history.quarters"
+    ],
+    "value": "2026-09-03"
+  },
+  "price": {
+    "display": "$1,035.84",
+    "sources": [
+      "snapshot/prices.json last close"
+    ],
+    "value": 1035.84
+  },
+  "price_date": {
+    "display": "2026-10-08",
+    "sources": [
+      "snapshot/prices.json last close"
+    ],
+    "value": "2026-10-08"
+  },
+  "rating": {
+    "display": "Neutral",
+    "sources": [
+      "valuation.rating (policy bands)"
+    ],
+    "value": "Neutral"
+  },
+  "rating_outperform_min": {
+    "display": "+15%",
+    "sources": [
+      "config/project.yaml publication.rating_bands"
+    ],
+    "value": 0.15
+  },
+  "rating_underperform_max": {
+    "display": "-10%",
+    "sources": [
+      "config/project.yaml publication.rating_bands"
+    ],
+    "value": -0.1
+  },
+  "release_accession": {
+    "display": "0000723125-26-000018",
+    "sources": [
+      "snapshot/manifest.json"
+    ],
+    "value": "0000723125-26-000018"
+  },
+  "revenue_q": {
+    "display": "$54.2bn",
+    "sources": [
+      "D-e90aac72b9"
+    ],
+    "value": 54229000000
+  },
+  "revenue_qoq": {
+    "display": "30.8%",
+    "sources": [
+      "D-e90aac72b9",
+      "F-03e050e3a0"
+    ],
+    "value": 0.3081098031648013
+  },
+  "revenue_ttm": {
+    "display": "$133.2bn",
+    "sources": [
+      "F-b11cd8f3c2",
+      "F-6429def3c7",
+      "F-03e050e3a0",
+      "D-e90aac72b9"
+    ],
+    "value": 133188000000
+  },
+  "revenue_yoy": {
+    "display": "379.3%",
+    "sources": [
+      "D-e90aac72b9",
+      "D-784c348bcc"
+    ],
+    "value": 3.7926646045072916
+  },
+  "target_price": {
+    "display": "$1,102",
+    "sources": [
+      "valuation.target_price"
+    ],
+    "value": 1102
+  },
+  "terminal_share": {
+    "display": "56%",
+    "sources": [
+      "valuation.dcf.terminal_share_of_ev"
+    ],
+    "value": 0.5592247441516189
+  },
+  "ticker": {
+    "display": "MU",
+    "sources": [
+      "config"
+    ],
+    "value": "MU"
+  },
+  "trigger_accession": {
+    "display": "0000723125-26-000023",
+    "sources": [
+      "snapshot/manifest.json"
+    ],
+    "value": "0000723125-26-000023"
+  },
+  "upside": {
+    "display": "6.4%",
+    "sources": [
+      "valuation.upside"
+    ],
+    "value": 0.06387086808773557
+  }
+}
