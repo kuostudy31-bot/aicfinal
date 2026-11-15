@@ -54,7 +54,16 @@ def _set_active(change_id: str, phase: str, request_id: str) -> None:
 
 def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout_cases: list[str],
             required_phrases: list[str], required_placeholders: list[str],
-            forbid_spelled_quantities: bool = False) -> dict:
+            forbid_spelled_quantities: bool = False, withhold_keys: list[str] | None = None,
+            samples: int = 1, require_baseline_failure: bool = False) -> dict:
+    """``withhold_keys`` removes code-supplied values from the frozen evaluation inputs, so that
+    the failure condition a prompt change targets still exists when a code change has since
+    supplied those values (lesson from change-001 and change-002). ``samples`` runs each arm
+    several times. ``require_baseline_failure`` makes the evaluation pass only if the baseline
+    reproduces the failure at least once: otherwise the arms are not separated."""
+    withhold_keys = list(withhold_keys or [])
+    if samples < 1:
+        raise ValueError("samples must be at least 1")
     reg = read_json(REGISTRY)
     if role not in reg["active"]:
         raise ValueError(f"unknown role {role}")
@@ -71,17 +80,20 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
                               "forbid_spelled_quantities": forbid_spelled_quantities,
                               "provenance_gate": "no blocker from gates.gate_note"},
         "evaluation_cases": {"development": dev_cases, "held_out": heldout_cases},
+        "evaluation_design": {"withheld_keys": withhold_keys, "samples_per_arm": samples,
+                              "require_baseline_failure": require_baseline_failure},
         "scope": "prompt file of the target role only (references/policies.md section 5)",
         "created_at": iso(utcnow()),
     }
     write_json(_cdir(change_id) / "failure.json", failure_rec)
     for cid in dev_cases + heldout_cases:  # frozen inputs for the evaluation runs
-        frozen = _freeze_case_inputs(change_id, cid)
+        frozen = _freeze_case_inputs(change_id, cid, withhold_keys)
         for arm, ver in (("baseline", parent), ("candidate", f"candidate-{change_id}")):
-            write_json(_cdir(change_id) / "runs" / cid / arm / "inputs.json", {
+          for k in range(1, samples + 1):
+            write_json(_cdir(change_id) / "runs" / cid / arm / _sample_name("inputs", k, "json"), {
                 "mode": "evaluation", "case_id": cid, "role": role, "prompt_file": f"prompts/{role}/{ver}.md",
-                "values": frozen["values"], "narrative": frozen["narrative"],
-                "output": f"evolution/changes/{change_id}/runs/{cid}/{arm}/note.md",
+                "values": frozen["values"], "narrative": frozen["narrative"], "sample": k,
+                "output": f"evolution/changes/{change_id}/runs/{cid}/{arm}/{_sample_name('note', k, 'md')}",
                 "instructions": "Evaluation mode: follow prompt_file, but do not run eu.py compute and do not "
                                 "write inside cases/; read keys from `values` and quotes from `narrative`; write "
                                 "only `output`."})
@@ -92,7 +104,11 @@ def prepare(role: str, case_id: str, failure: str, dev_cases: list[str], heldout
     return failure_rec
 
 
-def _freeze_case_inputs(change_id: str, case_id: str) -> dict:
+def _sample_name(stem: str, k: int, ext: str) -> str:
+    return f"{stem}.{ext}" if k == 1 else f"{stem}-{k}.{ext}"
+
+
+def _freeze_case_inputs(change_id: str, case_id: str, withhold_keys: list[str] | None = None) -> dict:
     """Recompute a case's latest-round generator inputs with the current code in a scratch
     directory and keep only values.json and narrative.json in the change folder. The case's
     own files are never written."""
@@ -108,7 +124,10 @@ def _freeze_case_inputs(change_id: str, case_id: str) -> dict:
         shutil.copytree(rdir / "generator", tmp / "rounds" / "r" / "generator")
         compute.run(tmp, tmp / "rounds" / "r")
         out.mkdir(parents=True, exist_ok=True)
-        shutil.copy(tmp / "rounds" / "r" / "computed" / "values.json", out / "values.json")
+        vals = read_json(tmp / "rounds" / "r" / "computed" / "values.json")
+        for k in withhold_keys or []:
+            vals.pop(k, None)
+        write_json(out / "values.json", vals)
         shutil.copy(rdir / "generator" / "narrative.json", out / "narrative.json")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -136,7 +155,8 @@ SPELLED_QUANTITY = re.compile(
     rf"\b(?:minus\s+|plus\s+)?{_NUM}\s+(?:percent|per\s?cent|percentage\s+points?|basis\s+points?|"
     rf"billion|million|thousand|dollars?|times)\b"
     rf"|\b{_MONTH}\s+{_ORD}\b"
-    rf"|\b{_TENS}-{_UNITS}\b",
+    rf"|\b{_TENS}-{_UNITS}\b"
+    r"|\b(?:a\s+|one\s+)?(?:half|quarter|third)\s+(?:of\s+)?(?:a\s+|one\s+)?(?:percentage\s+points?|percent|point)\b",
     re.I)
 
 
@@ -180,15 +200,25 @@ def evaluate(change_id: str) -> dict:
     cand = ROOT / proposal["candidate_path"]
     if not cand.exists() or not cand.is_relative_to(ROOT / "prompts" / fail["role"]):
         raise ValueError("candidate prompt must live under prompts/<role>/")
-    rows, regressions, fixes = [], [], True
+    design = fail.get("evaluation_design", {})
+    n_samples = int(design.get("samples_per_arm", 1))
+    rows, regressions, fixes, baseline_failed = [], [], True, False
     for split in ("development", "held_out"):
         for case_id in fail["evaluation_cases"][split]:
             vals, quotes = _case_inputs(change_id, case_id)
             row = {"case": case_id, "split": split}
             for arm in ("baseline", "candidate"):
-                p = cd / "runs" / case_id / arm / "note.md"
-                row[arm] = (check_note(p.read_text(encoding="utf-8"), vals, quotes, fail["acceptance_checks"])
-                            if p.exists() else {"pass": False, "error": f"missing {p.relative_to(ROOT)}"})
+                res = []
+                for k in range(1, n_samples + 1):
+                    p = cd / "runs" / case_id / arm / _sample_name("note", k, "md")
+                    r = (check_note(p.read_text(encoding="utf-8"), vals, quotes, fail["acceptance_checks"])
+                         if p.exists() else {"pass": False, "error": f"missing {p.relative_to(ROOT)}"})
+                    res.append(r)
+                row[arm] = res[0] if n_samples == 1 else {"pass": all(r.get("pass") for r in res),
+                                                          "samples_passed": sum(bool(r.get("pass")) for r in res),
+                                                          "samples": res}
+                if any(not r.get("pass") and "error" not in r for r in res) and arm == "baseline":
+                    baseline_failed = True
             if row["baseline"].get("pass") and not row["candidate"].get("pass"):
                 regressions.append(case_id)
             fixes = fixes and bool(row["candidate"].get("pass"))
@@ -196,9 +226,11 @@ def evaluate(change_id: str) -> dict:
     tests = subprocess.run([sys.executable, str(ROOT / "scripts" / "check.py")], capture_output=True, text=True)
     ev = {"change_id": change_id, "rows": rows, "candidate_fixes_failure_on_all_cases": fixes,
           "regressions": regressions, "controller_tests_pass": tests.returncode == 0,
+          "baseline_reproduces_failure": baseline_failed, "evaluation_design": design,
           "controller_tests_tail": tests.stderr.strip().splitlines()[-3:],
           "candidate_sha256": sha256_file(cand), "at": iso(utcnow())}
-    ev["evaluation_pass"] = fixes and not regressions and ev["controller_tests_pass"]
+    ev["evaluation_pass"] = (fixes and not regressions and ev["controller_tests_pass"]
+                             and (baseline_failed or not design.get("require_baseline_failure")))
     write_json(cd / "evaluation.json", ev)
     rid = f"evoc-{utcnow().strftime('%Y%m%dT%H%M%S')}-{secrets.token_hex(3)}"
     status.update(state="EVALUATED", review_request_id=rid, evaluation_pass=ev["evaluation_pass"])
@@ -284,8 +316,14 @@ def add_commands(sub) -> None:
     s.add_argument("--require-phrase", nargs="*", default=[]); s.add_argument("--require-key", nargs="*", default=[])
     s.add_argument("--forbid-spelled-quantities", action="store_true",
                    help="fail notes that write quantities in words (e.g. 'fifteen percent')")
+    s.add_argument("--withhold-key", nargs="*", default=[],
+                   help="drop these keys from the frozen evaluation inputs (keep the failure condition)")
+    s.add_argument("--samples", type=int, default=1, help="writer runs per arm and case")
+    s.add_argument("--require-baseline-failure", action="store_true",
+                   help="pass only if the baseline reproduces the failure at least once")
     s.set_defaults(fn=lambda a: out(prepare(a.role, a.case, a.failure, a.dev, a.heldout,
-                                            a.require_phrase, a.require_key, a.forbid_spelled_quantities)))
+                                            a.require_phrase, a.require_key, a.forbid_spelled_quantities,
+                                            a.withhold_key, a.samples, a.require_baseline_failure)))
     s = sub.add_parser("evo-evaluate"); s.add_argument("--change", required=True)
     s.set_defaults(fn=lambda a: out(evaluate(a.change)))
     s = sub.add_parser("evo-submit"); s.add_argument("--change", required=True)

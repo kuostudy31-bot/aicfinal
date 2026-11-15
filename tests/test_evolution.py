@@ -116,3 +116,68 @@ class SpelledQuantityTests(unittest.TestCase):
 
     def test_quotes_are_exempt(self):
         self.assertEqual(evolution.spelled_quantities("The company said [[Q-7]]."), [])
+
+
+class SpelledFractionTests(unittest.TestCase):
+    def test_fractions_flagged_period_names_not(self):
+        self.assertEqual(len(evolution.spelled_quantities("margin moves roughly half a percentage point")), 1)
+        self.assertEqual(evolution.spelled_quantities("in the first half of fiscal 2027 and the fourth quarter"), [])
+
+
+class DiscriminationTests(unittest.TestCase):
+    """evaluate() with several samples per arm and require_baseline_failure (change-003 design)."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp())
+        (self.root / "prompts" / "gen-writer").mkdir(parents=True)
+        (self.root / "prompts" / "gen-writer" / "candidate-change-001.md").write_text("candidate\n")
+        (self.root / "cases").mkdir()
+        self.patches = [mock.patch.object(evolution, "ROOT", self.root),
+                        mock.patch.object(evolution, "CHANGES", self.root / "evolution" / "changes"),
+                        mock.patch.object(evolution.subprocess, "run",
+                                          return_value=mock.Mock(returncode=0, stderr="OK"))]
+        for p in self.patches:
+            p.start()
+        self.cd = self.root / "evolution" / "changes" / "change-001"
+        write_json(self.cd / "failure.json", {
+            "change_id": "change-001", "role": "gen-writer", "parent_version": "v2",
+            "acceptance_checks": {"required_phrases": [], "required_placeholders": [],
+                                  "forbid_spelled_quantities": True},
+            "evaluation_cases": {"development": ["C1"], "held_out": []},
+            "evaluation_design": {"withheld_keys": ["rating_outperform_min"], "samples_per_arm": 2,
+                                  "require_baseline_failure": True}})
+        write_json(self.cd / "proposal.json", {"candidate_path": "prompts/gen-writer/candidate-change-001.md"})
+        write_json(self.cd / "status.json", {"change_id": "change-001", "state": "PREPARED", "request_id": "evo-1",
+                                             "role": "gen-writer", "parent_version": "v2"})
+        with open(self.cd / "trace.jsonl", "w") as fh:
+            for t in ("gen-lead", "evo-proposer", "gen-writer"):
+                fh.write(json.dumps({"event": "SubagentStart", "agent_type": t, "request_id": "evo-1"}) + "\n")
+        inp = self.cd / "runs" / "C1" / "inputs"
+        write_json(inp / "values.json", {"upside": {"value": 0.2, "display": "20%"}})
+        write_json(inp / "narrative.json", {"quotes": []})
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
+        shutil.rmtree(self.root)
+
+    def notes(self, baseline, candidate):
+        for arm, texts in (("baseline", baseline), ("candidate", candidate)):
+            for k, t in enumerate(texts, 1):
+                p = self.cd / "runs" / "C1" / arm / evolution._sample_name("note", k, "md")
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text(t)
+
+    def test_passes_only_when_baseline_reproduces_failure(self):
+        good, bad = "Upside is {{upside}}.", "Outperform means fifteen percent upside."
+        self.notes([good, good], [good, good])
+        self.assertFalse(evolution.evaluate("change-001")["evaluation_pass"])  # arms not separated
+        self.notes([good, bad], [good, good])
+        ev = evolution.evaluate("change-001")
+        self.assertTrue(ev["baseline_reproduces_failure"])
+        self.assertTrue(ev["evaluation_pass"])
+        self.assertEqual(ev["rows"][0]["baseline"]["samples_passed"], 1)
+
+    def test_one_failing_candidate_sample_fails(self):
+        self.notes(["Outperform means fifteen percent upside."] * 2, ["Upside is {{upside}}.", "fifteen percent"])
+        self.assertFalse(evolution.evaluate("change-001")["evaluation_pass"])
