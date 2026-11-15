@@ -1,0 +1,164 @@
+{
+  "request_id": "crit-20261115T030030-1acfec",
+  "candidate_id": "cand-e7ff36819293",
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "verdict": "fail",
+      "finding_ids": [
+        "prov-001"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "verdict": "pass",
+      "finding_ids": [
+        "asm-001"
+      ],
+      "resolved": []
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "verdict": "pass",
+      "finding_ids": [
+        "cmp-001",
+        "cmp-002"
+      ],
+      "resolved": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "major",
+      "title": "EPS run-rate judgment cites the discrete tax benefit but omits the offsetting $1.2bn noncash warrant charge",
+      "detail": "The Results section says: 'Net income benefited from a large discrete tax benefit in the quarter, so the reported EPS overstates the recurring earnings run rate (our judgment, based on the income-tax note in the 10-Q).' The 10-Q does report a Q3 discrete tax benefit related to stock-based compensation of $772 million (income tax benefit of $555 million, ETR (29.6)%). The same filing also reports Other income (expense), net of $(902) million for the quarter. The filing says this was 'primarily driven by the change in fair value of warrant liability of $1.1 billion' and that the company 'recorded a noncash charge of $1.2 billion, primarily related to a loss from remeasurement of the warrant liability'. That pre-tax noncash charge is larger than the $772 million discrete tax benefit and pushes reported EPS the other way. The note uses only one of the two items, so the directional conclusion ('overstates the recurring earnings run rate') is not supported by the evidence it cites, and it may be wrong. The judgment label does not fix a one-sided reading of the filing.",
+      "evidence": [
+        "snapshot/docs/periodic.txt line 225 (Other income (expense), net (902))",
+        "snapshot/docs/periodic.txt line 227 (Income tax provision (benefit) (555))",
+        "snapshot/docs/periodic.txt line 1441 (noncash charge of $1.2 billion, warrant liability remeasurement)",
+        "snapshot/docs/periodic.txt line 1481 (discrete tax benefit related to stock-based compensation of $772 million)",
+        "snapshot/docs/periodic.txt line 1726 (change in fair value of warrant liability of $1.1 billion)",
+        "generator/note.md Results section, net income bullet"
+      ],
+      "required_evidence": "The note.md net-income bullet either names both one-off items (the $772M discrete tax benefit and the roughly $1.1-1.2bn noncash warrant remeasurement charge in other income) and draws a conclusion consistent with both, or drops the claim that reported EPS overstates the run rate. Any amounts cited must be available as {{key}} values or as quotes.",
+      "source_role": "crit-provenance"
+    },
+    {
+      "id": "asm-001",
+      "severity": "minor",
+      "title": "Peer TTM period misalignment not noted in peer rationale",
+      "detail": "The peer EV/Sales leg compares AMD TTM revenue ending 2026-09-26 with peer TTM revenue ending 2026-07-26 (NVDA), 2026-08-02 (AVGO) and 2026-08-01 (MRVL); only INTC ends 2026-09-26. valuation_inputs.json rationales.peers does not mention that the fiscal periods differ (calendar vs fiscal). For fast-growing peers, a TTM that lags by about two months modestly inflates EV/Sales and so the relative leg ($450.35/share). Under the policy bands this does not change the rating: the relative leg would have to rise sharply to move the blended target above -10%. However, the period mismatch should be stated.",
+      "evidence": [
+        "numerical/recompute/peers.json#ttm_end",
+        "generator/valuation_inputs.json#rationales.peers",
+        "numerical/recompute/valuation.json#peer_median_ev_sales"
+      ],
+      "required_evidence": "rationales.peers (or the note) states each peer's TTM end date versus AMD's 2026-09-26 TTM and says whether the lag biases the median multiple",
+      "source_role": "crit-assumption"
+    },
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Data-source disclosure omits the earnings-release accession and the price source",
+      "detail": "The Disclosures section cites only the trigger 10-Q accession 0000002488-26-000191 and the price date. Quotes Q-1 to Q-4 (guidance and demand commentary) come from release_ex99_1.txt, which is from accession 0000002488-26-000188 (snapshot/manifest.json), and the share price comes from the Yahoo chart endpoint (snapshot/prices.json note). Policy section 6 is met because the trigger accession, cutoff and price date are all present. Naming the release accession and the price provider would make the as-of trail complete.",
+      "evidence": [
+        "generator/note.md#Disclosures",
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "snapshot/prices.json#note"
+      ],
+      "required_evidence": "Disclosures line also names accession 0000002488-26-000188 for the release quotes and the provider of the closing price",
+      "source_role": "crit-compliance"
+    },
+    {
+      "id": "cmp-002",
+      "severity": "minor",
+      "title": "'All figures ... from SEC XBRL data' overstates the provenance of guidance and price figures",
+      "detail": "The final disclosure says all figures are generated by code from SEC XBRL data. The Results section heading also tags the earnings release as '(SEC XBRL data)'. The guidance values (guide_revenue_next_q $17.0bn, guide_non_gaap_gross_margin_next_q 55.0%) come from release text quotes Q-1 and Q-2 (values.json sources), not XBRL. Price and peer market data come from the price host. The policy statement itself is present. The wording should limit the XBRL claim to reported financials, or note that guidance comes from quoted release text and prices from the price feed.",
+      "evidence": [
+        "numerical/recompute/values.json#guide_revenue_next_q.sources",
+        "numerical/recompute/values.json#price.sources",
+        "generator/note.md#Disclosures"
+      ],
+      "required_evidence": "Disclosure distinguishes XBRL-derived reported figures from release-quoted guidance and price-feed data",
+      "source_role": "crit-compliance"
+    }
+  ],
+  "conflicts": [
+    {
+      "ids": [
+        "prov-001"
+      ],
+      "note": "crit-compliance listed the $772M SBC discrete tax benefit as support it spot-checked; crit-provenance (prov-001) says the note's EPS-overstatement conclusion built on that benefit is one-sided because of a larger noncash warrant remeasurement charge. Both kept; prov-001 not softened."
+    }
+  ],
+  "blocking_findings": [
+    "prov-001"
+  ],
+  "overall": "fail",
+  "coverage": {
+    "checks_by_critic": {
+      "crit-provenance": [
+        "gates.json: findings empty; hashes match numerical/recompute/*.json, and computed/ is byte-identical to numerical/recompute/",
+        "Every {{key}} in note.md exists in values.json (no missing keys)",
+        "All F-/D- sources in values.json resolve to snapshot/facts.json; derived IDs D-161017865b (cfo Q3 = 6523-5321 = 1202M), D-91daa3cfaa (capex Q3 = 1845-1197 = 648M) and D-da671c66c3 (revenue FY2025Q4 = 34639-24369 = 10270M) have components that resolve; all source facts were accepted at or before the cutoff 2026-11-03T23:00:17Z",
+        "revenue_q 13,377M = periodic.txt income statement 'Net revenue 13,377' (line 203)",
+        "net_income_q 2,428M = periodic.txt 'Net income 2,428' (line 237); continuing ops also 2,428, no discontinued ops in Q3 2026",
+        "Total assets 94,812M (mapping and history) = periodic.txt 'Total assets 94,812' (line 342) and equal to total liabilities and equity (line 390)",
+        "eps_q 1.46 = diluted EPS (line 251); gross margin 7210/13377 = 53.9% (company rounds to 54%, consistent with Q-5); operating margin 2832/13377 = 21.2%",
+        "revenue_yoy 13377/9246-1 = 44.7% (y/y, same quarter, continuing-ops comparative); revenue_qoq 13377/11536-1 = 16.0% (q/q); both labelled correctly in note and match the release table",
+        "revenue_ttm = 10270+10253+11536+13377 = 45,436M, labelled trailing-twelve-month",
+        "net_cash = 7404 cash + 8372 short-term investments - 7079 debt = 8,697M; matches balance sheet lines 320, 322, 360",
+        "fcf_q = 1202-648 = 554M; 'build in inventories and receivables' is consistent with facts (inventory 8,468M -> 11,463M, AR 7,281M -> 9,209M from Q2 to Q3) and the 10-Q liquidity discussion",
+        "Fiscal and calendar labels: FY2026Q3 = CY2026Q3, quarter 2026-06-28 to 2026-09-26 (fiscal year ends late December)",
+        "Quotes Q-1 to Q-6 are verbatim in the snapshot docs; context checked, no truncation that changes meaning (Q-3 is from the CEO quote, Q-4 from the CFO quote, Q-6 from the risk-factor summary)",
+        "Guidance: revenue_next_q 17.0bn with range 16.49-17.51bn = $17bn +/-3% (Q-1); non-GAAP GM 0.55 (Q-2); the note correctly flags the measure as non-GAAP against the GAAP model",
+        "next_q_revenue 17.002bn is consistent with the guidance midpoint as stated",
+        "Price 483.90 is the last close (2026-11-03) in prices.json; the session ended before the 23:00 UTC cutoff",
+        "mapping.json: every mapped concept has data through 2026-09-26 (shares_outstanding through 2026-10-28, before cutoff); no stale concepts; Liabilities unmapped because no data exists in the snapshot (verified); debt concept matches balance sheet long-term debt 7,079M with nil current portion"
+      ],
+      "crit-assumption": [
+        "Next-quarter revenue vs guidance: FY2026Q4 revenue $17.002B vs the guided midpoint of $17.0B, plus or minus 3% (Q-1, release line 130 'sequential increase of approximately 27%'); 0.271 q/q is consistent with that.",
+        "Next-quarter gross margin vs guidance: the model uses 53.4% GAAP, while guidance is about 55% non-GAAP (Q-2). The rationale explains the gap using the reconciliation (amortization of $257M in cost of sales, SBC and legal items; GAAP 53.9% vs non-GAAP 56% in Q3). Recurring items of about $266M on $17.0B give about 1.6 ppts, which is consistent.",
+        "Opex: GAAP opex = gross profit minus operating income, checked against history (Q3 4,378/13,377 = 32.7%; Q2 4,213/11,536 = 36.5%; Q1 3,940/10,253 = 38.4%). Q4 opex of $4.76B is +8.7% q/q, in line with recent opex growth. GAAP operating margin moves from 21.2% to 25.4% on the guided revenue step-up; this is plausible and explained. No opex guidance was given.",
+        "Tax rate: 13% equals the company's projected FY2026 normalized non-GAAP rate (release footnote). GAAP Q3 excluding the discrete SBC benefit is about 11.6%; Q2 9.9%, Q1 14.8%. Future discrete benefits are not forecast, which is appropriate.",
+        "Share count drift: +0.2% q/q, supported by the year-over-year (1,641M to 1,661M) and q/q (1,659M to 1,661M) diluted share history.",
+        "Later quarters: FY2027Q1 +2%, Q2 +6%, Q3 +8%. A seasonally soft Q1 matches history (FY2025Q1 -2.9%, FY2026Q1 -0.2%). Growth after that is below the FY2026 trend (+12.5% and +16.0%), with a stated reason (lumpy Helios ramp, export controls Q-6). Margins rise only modestly (53.5% to 54.0% GM). Plausible.",
+        "WACC 10.5% (rf 4.25%, ERP 5%, beta 1.25, inputs labelled as assumptions) and terminal growth 3.0%: both reasonable for a large-cap semiconductor.",
+        "Terminal value share of EV is 75.2%, below the 80% flag, and the note discloses it.",
+        "Sensitivity (my own recalculation from valuation.json FCFs): WACC 9.5%/g 3% gives blended about $316 (-35%); WACC 9%/g 3.5% about $339 (-30%); WACC 10%/g 4% about $323 (-33%). The Underperform rating holds across plausible ranges.",
+        "FCF margins vs history: I recomputed the history-based figures from history.json. TTM CFO 9,123 minus capex 2,067 = 7,056, or 15.5% of $45.436B; Q1-Q3 FY2026 were 25.0%, 13.5% and 4.1%; FY2025 was 19.4%. The DCF path of 18% rising to 22% sits within or just above history, with working-capital and SBC reasoning. Consistent.",
+        "DCF year-1 revenue equals forecast NTM revenue ($72.58B). TTM revenue of $45.436B checked (10,270 + 10,253 + 11,536 + 13,377).",
+        "Net cash completeness vs the periodic.txt balance sheet at 2026-09-26: cash $7,404M + short-term investments $8,372M - debt $7,079M = $8,697M. Current portion of debt is nil, commercial paper is nil (Note 9), and total debt net is $7,079M (principal $7,125M). This is complete. About $1.3B of long-term marketable equity securities in other non-current assets is excluded. That is a conventional and immaterial choice (about $0.8/share).",
+        "Peer set: NVDA, AVGO, MRVL, INTC are relevant (data-center accelerators/custom silicon, x86 CPUs). The exclusions are reasoned. Peer median EV/Sales is 16.27x, and the relative leg ($450.35) checks against TTM revenue and net cash.",
+        "Blend: 0.6 x 195.37 + 0.4 x 450.35 = 297.36; the -38.6% upside maps to Underperform. The note acknowledges that the DCF and market valuations diverge.",
+        "Price date: last close 2026-11-03 ($483.90). That session ended before the cutoff of 2026-11-03T23:00:17Z.",
+        "computed/ and numerical/recompute/ are identical (diff clean); gates.json has no findings.",
+        "Rationales exist for every assumption and valuation input and cite fact IDs or quote IDs."
+      ],
+      "crit-compliance": [
+        "Cutoff: snapshot facts max acceptance_utc = 2026-11-03T23:00:17Z (equals cutoff); last price close 2026-11-03 (session ends 21:00 UTC, before the 23:00:17Z cutoff); peer prices dated 2026-11-03; no later quarters, prices or events in note.md, note_rendered.md, assumptions or valuation rationales (FY2027 labels are forecast labels only)",
+        "Quotes Q-1..Q-6 are verbatim substrings of snapshot/docs files",
+        "Policy section 6 disclosures present: not-investment-advice line, accession+cutoff+price date, rating definitions matching the bands (Outperform >= +15%, Underperform <= -10%, otherwise Neutral), code-generated/unaudited statement",
+        "Rating: upside -38.6% (valuation.json) <= -10% -> Underperform, consistent with the rating in the title and text; no recommended actions beyond the rating; no promissory or guaranteed language",
+        "Facts/forecasts/judgments labelled: Results marked reported; forecasts marked 'from code, using our assumptions'; judgments marked 'Our judgment'/'analyst judgment'; GAAP vs non-GAAP gross margin distinction stated",
+        "Unsupported-claim spot checks: discrete SBC tax benefit $772M (periodic.txt income-tax note) supports the EPS-overstatement judgment; Q3 inventory +$3.0bn and receivables +$1.9bn q/q (facts InventoryNet, AccountsReceivableNetCurrent) support the working-capital statement; release states a ~27% sequential increase at the guidance midpoint",
+        "tp_change_needs_rationale = false (prior_target_price null); no TP-change explanation required",
+        "Filing text scanned for embedded instructions (ignore/upload/disregard etc.): none found; nothing in the candidate follows filing instructions",
+        "gates.json: no gate findings"
+      ]
+    },
+    "acceptance_areas": {
+      "A_numerical_gates": "gates.json reviewed by provenance and compliance (no gate findings); recompute equality checked by provenance",
+      "B_critic_review": "three fresh critics; open_findings empty, none to resolve",
+      "C_research_acceptance": "not met this review: crit-provenance fail with major prov-001",
+      "D_publication_rating_policy": "rating band and TP-change rationale flag checked by crit-compliance; approval itself is outside critic scope",
+      "E_limits": "controller-owned; not a critic check"
+    },
+    "uncovered_areas": []
+  }
+}

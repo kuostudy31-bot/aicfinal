@@ -1,0 +1,18 @@
+{
+  "instruction": "Repair every open finding and supply the required evidence; findings close only when a fresh critic or the recomputed gates verify the repaired output.",
+  "open_findings": [
+    {
+      "check": "EPS run-rate judgment cites the discrete tax benefit but omits the offsetting $1.2bn noncash warrant charge",
+      "detail": "The Results section says: 'Net income benefited from a large discrete tax benefit in the quarter, so the reported EPS overstates the recurring earnings run rate (our judgment, based on the income-tax note in the 10-Q).' The 10-Q does report a Q3 discrete tax benefit related to stock-based compensation of $772 million (income tax benefit of $555 million, ETR (29.6)%). The same filing also reports Other income (expense), net of $(902) million for the quarter. The filing says this was 'primarily driven by the change in fair value of warrant liability of $1.1 billion' and that the company 'recorded a noncash charge of $1.2 billion, primarily related to a loss from remeasurement of the warrant liability'. That pre-tax noncash charge is larger than the $772 million discrete tax benefit and pushes reported EPS the other way. The note uses only one of the two items, so the directional conclusion ('overstates the recurring earnings run rate') is not supported by the evidence it cites, and it may be wrong. The judgment label does not fix a one-sided reading of the filing.",
+      "first_round": 1,
+      "id": "prov-001",
+      "last_seen_round": 1,
+      "reopened": false,
+      "required_evidence": "The note.md net-income bullet either names both one-off items (the $772M discrete tax benefit and the roughly $1.1-1.2bn noncash warrant remeasurement charge in other income) and draws a conclusion consistent with both, or drops the claim that reported EPS overstates the run rate. Any amounts cited must be available as {{key}} values or as quotes.",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    }
+  ],
+  "reason": "critic findings open"
+}

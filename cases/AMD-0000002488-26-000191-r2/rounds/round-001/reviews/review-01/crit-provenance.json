@@ -1,0 +1,43 @@
+{
+  "request_id": "crit-20261115T030030-1acfec",
+  "role": "crit-provenance",
+  "candidate_id": "cand-e7ff36819293",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "prov-001",
+      "severity": "major",
+      "title": "EPS run-rate judgment cites the discrete tax benefit but omits the offsetting $1.2bn noncash warrant charge",
+      "detail": "The Results section says: 'Net income benefited from a large discrete tax benefit in the quarter, so the reported EPS overstates the recurring earnings run rate (our judgment, based on the income-tax note in the 10-Q).' The 10-Q does report a Q3 discrete tax benefit related to stock-based compensation of $772 million (income tax benefit of $555 million, ETR (29.6)%). The same filing also reports Other income (expense), net of $(902) million for the quarter. The filing says this was 'primarily driven by the change in fair value of warrant liability of $1.1 billion' and that the company 'recorded a noncash charge of $1.2 billion, primarily related to a loss from remeasurement of the warrant liability'. That pre-tax noncash charge is larger than the $772 million discrete tax benefit and pushes reported EPS the other way. The note uses only one of the two items, so the directional conclusion ('overstates the recurring earnings run rate') is not supported by the evidence it cites, and it may be wrong. The judgment label does not fix a one-sided reading of the filing.",
+      "evidence": [
+        "snapshot/docs/periodic.txt line 225 (Other income (expense), net (902))",
+        "snapshot/docs/periodic.txt line 227 (Income tax provision (benefit) (555))",
+        "snapshot/docs/periodic.txt line 1441 (noncash charge of $1.2 billion, warrant liability remeasurement)",
+        "snapshot/docs/periodic.txt line 1481 (discrete tax benefit related to stock-based compensation of $772 million)",
+        "snapshot/docs/periodic.txt line 1726 (change in fair value of warrant liability of $1.1 billion)",
+        "generator/note.md Results section, net income bullet"
+      ],
+      "required_evidence": "The note.md net-income bullet either names both one-off items (the $772M discrete tax benefit and the roughly $1.1-1.2bn noncash warrant remeasurement charge in other income) and draws a conclusion consistent with both, or drops the claim that reported EPS overstates the run rate. Any amounts cited must be available as {{key}} values or as quotes."
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "gates.json: findings empty; hashes match numerical/recompute/*.json, and computed/ is byte-identical to numerical/recompute/",
+    "Every {{key}} in note.md exists in values.json (no missing keys)",
+    "All F-/D- sources in values.json resolve to snapshot/facts.json; derived IDs D-161017865b (cfo Q3 = 6523-5321 = 1202M), D-91daa3cfaa (capex Q3 = 1845-1197 = 648M) and D-da671c66c3 (revenue FY2025Q4 = 34639-24369 = 10270M) have components that resolve; all source facts were accepted at or before the cutoff 2026-11-03T23:00:17Z",
+    "revenue_q 13,377M = periodic.txt income statement 'Net revenue 13,377' (line 203)",
+    "net_income_q 2,428M = periodic.txt 'Net income 2,428' (line 237); continuing ops also 2,428, no discontinued ops in Q3 2026",
+    "Total assets 94,812M (mapping and history) = periodic.txt 'Total assets 94,812' (line 342) and equal to total liabilities and equity (line 390)",
+    "eps_q 1.46 = diluted EPS (line 251); gross margin 7210/13377 = 53.9% (company rounds to 54%, consistent with Q-5); operating margin 2832/13377 = 21.2%",
+    "revenue_yoy 13377/9246-1 = 44.7% (y/y, same quarter, continuing-ops comparative); revenue_qoq 13377/11536-1 = 16.0% (q/q); both labelled correctly in note and match the release table",
+    "revenue_ttm = 10270+10253+11536+13377 = 45,436M, labelled trailing-twelve-month",
+    "net_cash = 7404 cash + 8372 short-term investments - 7079 debt = 8,697M; matches balance sheet lines 320, 322, 360",
+    "fcf_q = 1202-648 = 554M; 'build in inventories and receivables' is consistent with facts (inventory 8,468M -> 11,463M, AR 7,281M -> 9,209M from Q2 to Q3) and the 10-Q liquidity discussion",
+    "Fiscal and calendar labels: FY2026Q3 = CY2026Q3, quarter 2026-06-28 to 2026-09-26 (fiscal year ends late December)",
+    "Quotes Q-1 to Q-6 are verbatim in the snapshot docs; context checked, no truncation that changes meaning (Q-3 is from the CEO quote, Q-4 from the CFO quote, Q-6 from the risk-factor summary)",
+    "Guidance: revenue_next_q 17.0bn with range 16.49-17.51bn = $17bn +/-3% (Q-1); non-GAAP GM 0.55 (Q-2); the note correctly flags the measure as non-GAAP against the GAAP model",
+    "next_q_revenue 17.002bn is consistent with the guidance midpoint as stated",
+    "Price 483.90 is the last close (2026-11-03) in prices.json; the session ended before the 23:00 UTC cutoff",
+    "mapping.json: every mapped concept has data through 2026-09-26 (shares_outstanding through 2026-10-28, before cutoff); no stale concepts; Liabilities unmapped because no data exists in the snapshot (verified); debt concept matches balance sheet long-term debt 7,079M with nil current portion"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "request_id": "crit-20261115T030030-1acfec",
+  "role": "crit-assumption",
+  "candidate_id": "cand-e7ff36819293",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-001",
+      "severity": "minor",
+      "title": "Peer TTM period misalignment not noted in peer rationale",
+      "detail": "The peer EV/Sales leg compares AMD TTM revenue ending 2026-09-26 with peer TTM revenue ending 2026-07-26 (NVDA), 2026-08-02 (AVGO) and 2026-08-01 (MRVL); only INTC ends 2026-09-26. valuation_inputs.json rationales.peers does not mention that the fiscal periods differ (calendar vs fiscal). For fast-growing peers, a TTM that lags by about two months modestly inflates EV/Sales and so the relative leg ($450.35/share). Under the policy bands this does not change the rating: the relative leg would have to rise sharply to move the blended target above -10%. However, the period mismatch should be stated.",
+      "evidence": [
+        "numerical/recompute/peers.json#ttm_end",
+        "generator/valuation_inputs.json#rationales.peers",
+        "numerical/recompute/valuation.json#peer_median_ev_sales"
+      ],
+      "required_evidence": "rationales.peers (or the note) states each peer's TTM end date versus AMD's 2026-09-26 TTM and says whether the lag biases the median multiple"
+    }
+  ],
+  "resolved": [],
+  "checked": [
+    "Next-quarter revenue vs guidance: FY2026Q4 revenue $17.002B vs the guided midpoint of $17.0B, plus or minus 3% (Q-1, release line 130 'sequential increase of approximately 27%'); 0.271 q/q is consistent with that.",
+    "Next-quarter gross margin vs guidance: the model uses 53.4% GAAP, while guidance is about 55% non-GAAP (Q-2). The rationale explains the gap using the reconciliation (amortization of $257M in cost of sales, SBC and legal items; GAAP 53.9% vs non-GAAP 56% in Q3). Recurring items of about $266M on $17.0B give about 1.6 ppts, which is consistent.",
+    "Opex: GAAP opex = gross profit minus operating income, checked against history (Q3 4,378/13,377 = 32.7%; Q2 4,213/11,536 = 36.5%; Q1 3,940/10,253 = 38.4%). Q4 opex of $4.76B is +8.7% q/q, in line with recent opex growth. GAAP operating margin moves from 21.2% to 25.4% on the guided revenue step-up; this is plausible and explained. No opex guidance was given.",
+    "Tax rate: 13% equals the company's projected FY2026 normalized non-GAAP rate (release footnote). GAAP Q3 excluding the discrete SBC benefit is about 11.6%; Q2 9.9%, Q1 14.8%. Future discrete benefits are not forecast, which is appropriate.",
+    "Share count drift: +0.2% q/q, supported by the year-over-year (1,641M to 1,661M) and q/q (1,659M to 1,661M) diluted share history.",
+    "Later quarters: FY2027Q1 +2%, Q2 +6%, Q3 +8%. A seasonally soft Q1 matches history (FY2025Q1 -2.9%, FY2026Q1 -0.2%). Growth after that is below the FY2026 trend (+12.5% and +16.0%), with a stated reason (lumpy Helios ramp, export controls Q-6). Margins rise only modestly (53.5% to 54.0% GM). Plausible.",
+    "WACC 10.5% (rf 4.25%, ERP 5%, beta 1.25, inputs labelled as assumptions) and terminal growth 3.0%: both reasonable for a large-cap semiconductor.",
+    "Terminal value share of EV is 75.2%, below the 80% flag, and the note discloses it.",
+    "Sensitivity (my own recalculation from valuation.json FCFs): WACC 9.5%/g 3% gives blended about $316 (-35%); WACC 9%/g 3.5% about $339 (-30%); WACC 10%/g 4% about $323 (-33%). The Underperform rating holds across plausible ranges.",
+    "FCF margins vs history: I recomputed the history-based figures from history.json. TTM CFO 9,123 minus capex 2,067 = 7,056, or 15.5% of $45.436B; Q1-Q3 FY2026 were 25.0%, 13.5% and 4.1%; FY2025 was 19.4%. The DCF path of 18% rising to 22% sits within or just above history, with working-capital and SBC reasoning. Consistent.",
+    "DCF year-1 revenue equals forecast NTM revenue ($72.58B). TTM revenue of $45.436B checked (10,270 + 10,253 + 11,536 + 13,377).",
+    "Net cash completeness vs the periodic.txt balance sheet at 2026-09-26: cash $7,404M + short-term investments $8,372M - debt $7,079M = $8,697M. Current portion of debt is nil, commercial paper is nil (Note 9), and total debt net is $7,079M (principal $7,125M). This is complete. About $1.3B of long-term marketable equity securities in other non-current assets is excluded. That is a conventional and immaterial choice (about $0.8/share).",
+    "Peer set: NVDA, AVGO, MRVL, INTC are relevant (data-center accelerators/custom silicon, x86 CPUs). The exclusions are reasoned. Peer median EV/Sales is 16.27x, and the relative leg ($450.35) checks against TTM revenue and net cash.",
+    "Blend: 0.6 x 195.37 + 0.4 x 450.35 = 297.36; the -38.6% upside maps to Underperform. The note acknowledges that the DCF and market valuations diverge.",
+    "Price date: last close 2026-11-03 ($483.90). That session ended before the cutoff of 2026-11-03T23:00:17Z.",
+    "computed/ and numerical/recompute/ are identical (diff clean); gates.json has no findings.",
+    "Rationales exist for every assumption and valuation input and cite fact IDs or quote IDs."
+  ]
+}
