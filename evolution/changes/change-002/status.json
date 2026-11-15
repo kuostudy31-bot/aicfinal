@@ -1,8 +1,10 @@
 {
   "change_id": "change-002",
+  "evaluation_pass": true,
   "parent_version": "v2",
   "request_id": "evo-20261115T030508-144a17",
+  "review_request_id": "evoc-20261115T030802-d7957d",
   "role": "gen-writer",
-  "state": "PREPARED",
-  "updated_at": "2026-11-15T03:05:09Z"
+  "state": "EVALUATED",
+  "updated_at": "2026-11-15T03:08:02Z"
 }
