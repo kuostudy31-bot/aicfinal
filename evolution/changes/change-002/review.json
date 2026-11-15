@@ -1,0 +1,66 @@
+{
+  "request_id": "evoc-20261115T030802-d7957d",
+  "change_id": "change-002",
+  "role": "evo-reviewer",
+  "verdict": "reject",
+  "findings": [
+    {
+      "id": "evo-001",
+      "severity": "major",
+      "title": "Evaluation does not discriminate: baseline v2 passes every case, so the fix is not attributable to the candidate prompt",
+      "detail": "evaluation.json shows baseline (prompts/gen-writer/v2.md) and candidate both pass on all three cases with empty spelled_quantities, no missing placeholders and no provenance findings. Re-running evolution.check_note on the six recorded notes reproduces this exactly. The recorded failure did not recur at baseline, so the evaluation cannot show that the prompt change fixes anything. 'candidate_fixes_failure_on_all_cases: true' is true only in the trivial sense that neither arm fails. Each arm is also a single sample, so a stochastic writer could pass or fail either way by chance.",
+      "evidence": [
+        "evolution/changes/change-002/evaluation.json#rows[*].baseline",
+        "evolution/changes/change-002/runs/NVDA-0001045810-26-000075-r2/baseline/note.md (Disclosures cite {{rating_outperform_min}}, {{rating_underperform_max}}, {{cutoff_utc}}, {{price_date}} under v2)"
+      ],
+      "required_evidence": "An evaluation where baseline v2 reproduces the recorded failure and the candidate does not, e.g. several samples per arm, and/or inputs that recreate the failure condition (see evo-002)"
+    },
+    {
+      "id": "evo-002",
+      "severity": "major",
+      "title": "Evaluation inputs remove the failure condition: the code prerequisite, not the prompt, is what changed",
+      "detail": "The recorded failing notes were written against values.json files that had no trigger_accession, cutoff_utc, price_date, rating_outperform_min or rating_underperform_max keys (checked in cases/NVDA-0001045810-26-000075-r2/rounds/round-001/computed/values.json, cases/NVDA-0001045810-26-000075/rounds/round-002/computed/values.json and cases/AMD-0000002488-26-000191/rounds/round-002/computed/values.json). The NVDA r2 note says outright that it spelled the date because no digit-free key was available. The evaluation inputs (runs/*/inputs/values.json) were rebuilt after commit dde8e89 and contain all five keys. With the keys supplied, v2 already uses them. The remaining risk the candidate targets is magnitudes that have no key (cmp-004 sensitivity margins, WACC thresholds), and the evaluation notes never exercise that.",
+      "evidence": [
+        "cases/NVDA-0001045810-26-000075-r2/rounds/round-001/generator/note.md:59-60",
+        "evolution/changes/change-002/runs/*/inputs/values.json (rating_outperform_min, cutoff_utc, price_date, trigger_accession present)",
+        "git show dde8e89 -- src/aicfinal/values.py"
+      ],
+      "required_evidence": "At least one evaluation input in which a quantity the writer is tempted to state has no values.json key (e.g. a sensitivity magnitude as in NVDA r1 cmp-004), where baseline spells it in words and the candidate omits it or describes it qualitatively"
+    },
+    {
+      "id": "evo-003",
+      "severity": "minor",
+      "title": "spelled_quantities check misses some recorded failure wording",
+      "detail": "SPELLED_QUANTITY flags 'August twenty-sixth', 'fifteen percent', 'minus ten percent' and 'two percentage points', but not 'roughly half a percentage point' (one of the cmp-004 phrases cited in proposal.json). Fractions and words such as half, quarter, double and twice are not covered. This is not a weakening by this change (the check was added in dde8e89 and only makes the evaluation stricter), but a discriminating re-evaluation should not rely on the regex alone for cmp-004-type wording.",
+      "evidence": [
+        "src/aicfinal/evolution.py SPELLED_QUANTITY",
+        "evolution.spelled_quantities('roughly half a percentage point') == []"
+      ],
+      "required_evidence": "Manual or extended check of fractional/multiplicative wording in the re-run notes"
+    },
+    {
+      "id": "evo-004",
+      "severity": "info",
+      "title": "Scope is clean and no regressions were observed",
+      "detail": "diff prompts/gen-writer/v2.md prompts/gen-writer/candidate-change-002.md changes procedure step 3 only. It removes 'Spell out ordinal words.' and adds the no-quantities-in-words rule with key-or-qualitative fallback. The candidate sha256 matches evaluation.json (ce72ddae...). The change commits (67cb0b4, c013703, 4293ccc) touch only evolution/changes/change-002/ and the candidate prompt. The earlier code commit dde8e89 adds an evaluation check and code-supplied keys, which tightens the checks rather than weakening them. No acceptance check, gate, threshold, limit or policy is weakened. No case regressed, the held-out AMD case included, and controller tests pass (62 OK). Candidate notes keep the four required disclosures. Both arms repeat the 'outlook excludes China Data Center compute' framing (prov-002 pattern), so this is not a regression. On its merits the edit is plausible, low-risk hygiene, since v2's 'Spell out ordinal words' conflicts with the digit-free rule. The reject is about evidence, not harm.",
+      "evidence": [
+        "prompts/gen-writer/candidate-change-002.md vs prompts/gen-writer/v2.md",
+        "evolution/changes/change-002/evaluation.json#regressions, controller_tests_tail"
+      ],
+      "required_evidence": "none"
+    }
+  ],
+  "checked": [
+    "diff candidate vs parent v2: only step 3 of the gen-writer prompt changed",
+    "candidate sha256 matches evaluation.json",
+    "git history of change-002 commits: no code/config/references/registry edits in the change; prerequisite commit dde8e89 only adds checks and keys",
+    "failure.json acceptance checks: forbid_spelled_quantities true, required placeholders present, not weakened",
+    "independent re-run of evolution.check_note on all six notes: matches evaluation.json",
+    "manual scan of all six notes for spelled numbers, fractions and multipliers: none beyond 'twelve-month' period labels",
+    "baseline vs candidate pass/fail on dev and held-out cases: no regressions, but baseline already passes",
+    "original case values.json lacked the keys that evaluation inputs now supply",
+    "regex coverage against recorded failure phrases",
+    "required disclosures present in candidate notes",
+    "inputs.json of each arm points to the correct prompt file and evaluation-only output path"
+  ]
+}
