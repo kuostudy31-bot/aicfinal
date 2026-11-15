@@ -1,0 +1,1736 @@
+{
+  "fiscal_year_end": "0902",
+  "lines": {
+    "assets": [
+      {
+        "components": [
+          "F-14e554d6b3"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-14e554d6b3",
+        "val": 71461000000
+      },
+      {
+        "components": [
+          "F-06bbf3a008"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-06bbf3a008",
+        "val": 73053000000
+      },
+      {
+        "components": [
+          "F-265d873d58"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-265d873d58",
+        "val": 78397000000
+      },
+      {
+        "components": [
+          "F-7d2c17c3db"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-7d2c17c3db",
+        "val": 82798000000
+      },
+      {
+        "components": [
+          "F-45129fea40"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-45129fea40",
+        "val": 85971000000
+      },
+      {
+        "components": [
+          "F-c81fd6326f"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-c81fd6326f",
+        "val": 101509000000
+      },
+      {
+        "components": [
+          "F-e82a5e130a"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-e82a5e130a",
+        "val": 134112000000
+      },
+      {
+        "components": [
+          "F-381c925c83"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-381c925c83",
+        "val": 195888000000
+      }
+    ],
+    "capex": [
+      {
+        "components": [
+          "F-1b02fbe928"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-1b02fbe928",
+        "start": "2024-08-30",
+        "val": 3206000000
+      },
+      {
+        "components": [
+          "F-178c8720ee",
+          "F-1b02fbe928"
+        ],
+        "derived": true,
+        "end": "2025-02-27",
+        "formula": "F-178c8720ee - F-1b02fbe928",
+        "id": "D-5f48107034",
+        "start": "2024-11-29",
+        "val": 4055000000
+      },
+      {
+        "components": [
+          "F-7e9c716997",
+          "F-178c8720ee"
+        ],
+        "derived": true,
+        "end": "2025-05-29",
+        "formula": "F-7e9c716997 - F-178c8720ee",
+        "id": "D-47f47e28cd",
+        "start": "2025-02-28",
+        "val": 2938000000
+      },
+      {
+        "components": [
+          "F-93eb904d0c",
+          "F-7e9c716997"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-93eb904d0c - F-7e9c716997",
+        "id": "D-ccfac1bb2b",
+        "start": "2025-05-30",
+        "val": 5658000000
+      },
+      {
+        "components": [
+          "F-f322f0ab0e"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-f322f0ab0e",
+        "start": "2025-08-29",
+        "val": 5389000000
+      },
+      {
+        "components": [
+          "F-5bdafc7b7a",
+          "F-f322f0ab0e"
+        ],
+        "derived": true,
+        "end": "2026-02-26",
+        "formula": "F-5bdafc7b7a - F-f322f0ab0e",
+        "id": "D-b06d4f3cd1",
+        "start": "2025-11-28",
+        "val": 6387000000
+      },
+      {
+        "components": [
+          "F-0f90aa524b",
+          "F-5bdafc7b7a"
+        ],
+        "derived": true,
+        "end": "2026-05-28",
+        "formula": "F-0f90aa524b - F-5bdafc7b7a",
+        "id": "D-dc2ab297af",
+        "start": "2026-02-27",
+        "val": 7826000000
+      },
+      {
+        "components": [
+          "F-d07415f45f",
+          "F-0f90aa524b"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-d07415f45f - F-0f90aa524b",
+        "id": "D-17b54bd7f0",
+        "start": "2026-05-29",
+        "val": 11110000000
+      }
+    ],
+    "cash": [
+      {
+        "components": [
+          "F-11f4b73846"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-11f4b73846",
+        "val": 6693000000
+      },
+      {
+        "components": [
+          "F-e73c99f116"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-e73c99f116",
+        "val": 7552000000
+      },
+      {
+        "components": [
+          "F-03a756ac42"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-03a756ac42",
+        "val": 10163000000
+      },
+      {
+        "components": [
+          "F-ad8c85ed02"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-ad8c85ed02",
+        "val": 9642000000
+      },
+      {
+        "components": [
+          "F-fa1c83e644"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-fa1c83e644",
+        "val": 9731000000
+      },
+      {
+        "components": [
+          "F-f5665b4a72"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-f5665b4a72",
+        "val": 13908000000
+      },
+      {
+        "components": [
+          "F-21ce3f2682"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-21ce3f2682",
+        "val": 24995000000
+      },
+      {
+        "components": [
+          "F-455b2cbdf8"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-455b2cbdf8",
+        "val": 38364000000
+      }
+    ],
+    "cfo": [
+      {
+        "components": [
+          "F-60cfa37572"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-60cfa37572",
+        "start": "2024-08-30",
+        "val": 3244000000
+      },
+      {
+        "components": [
+          "F-f41b048088",
+          "F-60cfa37572"
+        ],
+        "derived": true,
+        "end": "2025-02-27",
+        "formula": "F-f41b048088 - F-60cfa37572",
+        "id": "D-cb471fc930",
+        "start": "2024-11-29",
+        "val": 3942000000
+      },
+      {
+        "components": [
+          "F-0b26a2bf95",
+          "F-f41b048088"
+        ],
+        "derived": true,
+        "end": "2025-05-29",
+        "formula": "F-0b26a2bf95 - F-f41b048088",
+        "id": "D-ca29866ee3",
+        "start": "2025-02-28",
+        "val": 4609000000
+      },
+      {
+        "components": [
+          "F-8aed0cff05",
+          "F-0b26a2bf95"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-8aed0cff05 - F-0b26a2bf95",
+        "id": "D-fc9a9be45e",
+        "start": "2025-05-30",
+        "val": 5730000000
+      },
+      {
+        "components": [
+          "F-e8854ed703"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-e8854ed703",
+        "start": "2025-08-29",
+        "val": 8411000000
+      },
+      {
+        "components": [
+          "F-afc32995d4",
+          "F-e8854ed703"
+        ],
+        "derived": true,
+        "end": "2026-02-26",
+        "formula": "F-afc32995d4 - F-e8854ed703",
+        "id": "D-4810402bae",
+        "start": "2025-11-28",
+        "val": 11903000000
+      },
+      {
+        "components": [
+          "F-c293371edb",
+          "F-afc32995d4"
+        ],
+        "derived": true,
+        "end": "2026-05-28",
+        "formula": "F-c293371edb - F-afc32995d4",
+        "id": "D-0a072dc8dc",
+        "start": "2026-02-27",
+        "val": 25388000000
+      },
+      {
+        "components": [
+          "F-96f8c305ff",
+          "F-c293371edb"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-96f8c305ff - F-c293371edb",
+        "id": "D-21b02a031c",
+        "start": "2026-05-29",
+        "val": 43973000000
+      }
+    ],
+    "cost_of_revenue": [
+      {
+        "components": [
+          "F-81cb81a6c4"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-81cb81a6c4",
+        "start": "2024-08-30",
+        "val": 5361000000
+      },
+      {
+        "components": [
+          "F-95a26394a2"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-95a26394a2",
+        "start": "2024-11-29",
+        "val": 5090000000
+      },
+      {
+        "components": [
+          "F-14238c6cdb"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-14238c6cdb",
+        "start": "2025-02-28",
+        "val": 5793000000
+      },
+      {
+        "components": [
+          "F-70820f4032",
+          "F-8f0fef30c5"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-70820f4032 - F-8f0fef30c5",
+        "id": "D-da7cd8a66d",
+        "start": "2025-05-30",
+        "val": 6261000000
+      },
+      {
+        "components": [
+          "F-c48ee5a367"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-c48ee5a367",
+        "start": "2025-08-29",
+        "val": 5997000000
+      },
+      {
+        "components": [
+          "F-4093f8819b"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-4093f8819b",
+        "start": "2025-11-28",
+        "val": 6105000000
+      },
+      {
+        "components": [
+          "F-a27a3e6366"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-a27a3e6366",
+        "start": "2026-02-27",
+        "val": 6400000000
+      },
+      {
+        "components": [
+          "F-f2187e5f11",
+          "F-0766fafc2d"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-f2187e5f11 - F-0766fafc2d",
+        "id": "D-207b9105d7",
+        "start": "2026-05-29",
+        "val": 7182000000
+      }
+    ],
+    "diluted_shares": [
+      {
+        "components": [
+          "F-65e239c1a0"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-65e239c1a0",
+        "start": "2024-08-30",
+        "val": 1122000000
+      },
+      {
+        "components": [
+          "F-e2ef051e5b"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-e2ef051e5b",
+        "start": "2024-11-29",
+        "val": 1123000000
+      },
+      {
+        "components": [
+          "F-1206c65b27"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-1206c65b27",
+        "start": "2025-02-28",
+        "val": 1125000000
+      },
+      null,
+      {
+        "components": [
+          "F-eb182a66d0"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-eb182a66d0",
+        "start": "2025-08-29",
+        "val": 1138000000
+      },
+      {
+        "components": [
+          "F-371855689a"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-371855689a",
+        "start": "2025-11-28",
+        "val": 1142000000
+      },
+      {
+        "components": [
+          "F-3d172a9372"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-3d172a9372",
+        "start": "2026-02-27",
+        "val": 1145000000
+      },
+      null
+    ],
+    "eps_diluted": [
+      {
+        "components": [
+          "F-ff60fad391"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-ff60fad391",
+        "start": "2024-08-30",
+        "val": 1.67
+      },
+      {
+        "components": [
+          "F-17a389a5d7"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-17a389a5d7",
+        "start": "2024-11-29",
+        "val": 1.41
+      },
+      {
+        "components": [
+          "F-4253eb473c"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-4253eb473c",
+        "start": "2025-02-28",
+        "val": 1.68
+      },
+      null,
+      {
+        "components": [
+          "F-4cea7ba424"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-4cea7ba424",
+        "start": "2025-08-29",
+        "val": 4.6
+      },
+      {
+        "components": [
+          "F-dc3bed4d8e"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-dc3bed4d8e",
+        "start": "2025-11-28",
+        "val": 12.07
+      },
+      {
+        "components": [
+          "F-b39d2905d9"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-b39d2905d9",
+        "start": "2026-02-27",
+        "val": 24.67
+      },
+      null
+    ],
+    "equity": [
+      {
+        "components": [
+          "F-82730ee4e5"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-82730ee4e5",
+        "val": 46797000000
+      },
+      {
+        "components": [
+          "F-76d8956d00"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-76d8956d00",
+        "val": 48633000000
+      },
+      {
+        "components": [
+          "F-bba02d5e8b"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-bba02d5e8b",
+        "val": 50748000000
+      },
+      {
+        "components": [
+          "F-44292021c6"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-44292021c6",
+        "val": 54165000000
+      },
+      {
+        "components": [
+          "F-dd87ce1939"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-dd87ce1939",
+        "val": 58806000000
+      },
+      {
+        "components": [
+          "F-7f42af4b85"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-7f42af4b85",
+        "val": 72459000000
+      },
+      {
+        "components": [
+          "F-4a1509ed85"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-4a1509ed85",
+        "val": 100724000000
+      },
+      {
+        "components": [
+          "F-26e111bb60"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-26e111bb60",
+        "val": 138378000000
+      }
+    ],
+    "gross_profit": [
+      {
+        "components": [
+          "F-dec2ad3121"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-dec2ad3121",
+        "start": "2024-08-30",
+        "val": 3348000000
+      },
+      {
+        "components": [
+          "F-4f5e195ea4"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-4f5e195ea4",
+        "start": "2024-11-29",
+        "val": 2963000000
+      },
+      {
+        "components": [
+          "F-e360d43738"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-e360d43738",
+        "start": "2025-02-28",
+        "val": 3508000000
+      },
+      {
+        "components": [
+          "F-5a8a71d8cc",
+          "F-cfef5c3883"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-5a8a71d8cc - F-cfef5c3883",
+        "id": "D-143ffd86bf",
+        "start": "2025-05-30",
+        "val": 5054000000
+      },
+      {
+        "components": [
+          "F-2eeedcea83"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-2eeedcea83",
+        "start": "2025-08-29",
+        "val": 7646000000
+      },
+      {
+        "components": [
+          "F-fc9d48c5e4"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-fc9d48c5e4",
+        "start": "2025-11-28",
+        "val": 17755000000
+      },
+      {
+        "components": [
+          "F-e021155183"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-e021155183",
+        "start": "2026-02-27",
+        "val": 35056000000
+      },
+      {
+        "components": [
+          "F-29f58d6cee",
+          "F-3c09b75454"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-29f58d6cee - F-3c09b75454",
+        "id": "D-eefea057cd",
+        "start": "2026-05-29",
+        "val": 47047000000
+      }
+    ],
+    "liabilities": [
+      {
+        "components": [
+          "F-8316275806"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-8316275806",
+        "val": 24664000000
+      },
+      {
+        "components": [
+          "F-a9cd4e0a24"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-a9cd4e0a24",
+        "val": 24420000000
+      },
+      {
+        "components": [
+          "F-399f5c3196"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-399f5c3196",
+        "val": 27649000000
+      },
+      {
+        "components": [
+          "F-99084b3ca0"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-99084b3ca0",
+        "val": 28633000000
+      },
+      {
+        "components": [
+          "F-f8c1ada456"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-f8c1ada456",
+        "val": 27165000000
+      },
+      {
+        "components": [
+          "F-df18eae91d"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-df18eae91d",
+        "val": 29050000000
+      },
+      {
+        "components": [
+          "F-4f6bdc7649"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-4f6bdc7649",
+        "val": 33388000000
+      },
+      {
+        "components": [
+          "F-947cb9193b"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-947cb9193b",
+        "val": 57510000000
+      }
+    ],
+    "liabilities_and_equity": [
+      {
+        "components": [
+          "F-46f3cf42c9"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-46f3cf42c9",
+        "val": 71461000000
+      },
+      {
+        "components": [
+          "F-14dbb718bf"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-14dbb718bf",
+        "val": 73053000000
+      },
+      {
+        "components": [
+          "F-2029a3358a"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-2029a3358a",
+        "val": 78397000000
+      },
+      {
+        "components": [
+          "F-e81fcd04ac"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-e81fcd04ac",
+        "val": 82798000000
+      },
+      {
+        "components": [
+          "F-2fc2161963"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-2fc2161963",
+        "val": 85971000000
+      },
+      {
+        "components": [
+          "F-a1deb6769d"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-a1deb6769d",
+        "val": 101509000000
+      },
+      {
+        "components": [
+          "F-559d623e88"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-559d623e88",
+        "val": 134112000000
+      },
+      {
+        "components": [
+          "F-9229d0325c"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-9229d0325c",
+        "val": 195888000000
+      }
+    ],
+    "net_income": [
+      {
+        "components": [
+          "F-32ca47d4c2"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-32ca47d4c2",
+        "start": "2024-08-30",
+        "val": 1870000000
+      },
+      {
+        "components": [
+          "F-348ca8b86b"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-348ca8b86b",
+        "start": "2024-11-29",
+        "val": 1583000000
+      },
+      {
+        "components": [
+          "F-96768737e9"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-96768737e9",
+        "start": "2025-02-28",
+        "val": 1885000000
+      },
+      {
+        "components": [
+          "F-bf7a3609d9",
+          "F-465ed67e64"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-bf7a3609d9 - F-465ed67e64",
+        "id": "D-bd97073c03",
+        "start": "2025-05-30",
+        "val": 3201000000
+      },
+      {
+        "components": [
+          "F-ca7527b76c"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-ca7527b76c",
+        "start": "2025-08-29",
+        "val": 5240000000
+      },
+      {
+        "components": [
+          "F-48f75b12f8"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-48f75b12f8",
+        "start": "2025-11-28",
+        "val": 13785000000
+      },
+      {
+        "components": [
+          "F-c554806c3d"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-c554806c3d",
+        "start": "2026-02-27",
+        "val": 28243000000
+      },
+      {
+        "components": [
+          "F-b2cfc7e9ad",
+          "F-a7fce42ad3"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-b2cfc7e9ad - F-a7fce42ad3",
+        "id": "D-fbc98b1765",
+        "start": "2026-05-29",
+        "val": 37701000000
+      }
+    ],
+    "operating_income": [
+      {
+        "components": [
+          "F-e3f2885bd2"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-e3f2885bd2",
+        "start": "2024-08-30",
+        "val": 2174000000
+      },
+      {
+        "components": [
+          "F-5e2956897c"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-5e2956897c",
+        "start": "2024-11-29",
+        "val": 1773000000
+      },
+      {
+        "components": [
+          "F-258d2868fc"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-258d2868fc",
+        "start": "2025-02-28",
+        "val": 2169000000
+      },
+      {
+        "components": [
+          "F-147a60b04c",
+          "F-b2836a49d9"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-147a60b04c - F-b2836a49d9",
+        "id": "D-171a9b7016",
+        "start": "2025-05-30",
+        "val": 3654000000
+      },
+      {
+        "components": [
+          "F-ad4a8004e8"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-ad4a8004e8",
+        "start": "2025-08-29",
+        "val": 6136000000
+      },
+      {
+        "components": [
+          "F-73c2214a2a"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-73c2214a2a",
+        "start": "2025-11-28",
+        "val": 16135000000
+      },
+      {
+        "components": [
+          "F-ab94c0e0c5"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-ab94c0e0c5",
+        "start": "2026-02-27",
+        "val": 33318000000
+      },
+      {
+        "components": [
+          "F-32315e88c7",
+          "F-94a4cde299"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-32315e88c7 - F-94a4cde299",
+        "id": "D-4ccdfc17a4",
+        "start": "2026-05-29",
+        "val": 43751000000
+      }
+    ],
+    "revenue": [
+      {
+        "components": [
+          "F-f36f19b72d"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-f36f19b72d",
+        "start": "2024-08-30",
+        "val": 8709000000
+      },
+      {
+        "components": [
+          "F-298d29e9ce"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-298d29e9ce",
+        "start": "2024-11-29",
+        "val": 8053000000
+      },
+      {
+        "components": [
+          "F-910ad8311b"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-910ad8311b",
+        "start": "2025-02-28",
+        "val": 9301000000
+      },
+      {
+        "components": [
+          "F-49fb622c13",
+          "F-005c835a8f"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-49fb622c13 - F-005c835a8f",
+        "id": "D-784c348bcc",
+        "start": "2025-05-30",
+        "val": 11315000000
+      },
+      {
+        "components": [
+          "F-b11cd8f3c2"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-b11cd8f3c2",
+        "start": "2025-08-29",
+        "val": 13643000000
+      },
+      {
+        "components": [
+          "F-6429def3c7"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-6429def3c7",
+        "start": "2025-11-28",
+        "val": 23860000000
+      },
+      {
+        "components": [
+          "F-03e050e3a0"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-03e050e3a0",
+        "start": "2026-02-27",
+        "val": 41456000000
+      },
+      {
+        "components": [
+          "F-ea1467005d",
+          "F-adf7207965"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-ea1467005d - F-adf7207965",
+        "id": "D-e90aac72b9",
+        "start": "2026-05-29",
+        "val": 54229000000
+      }
+    ],
+    "rnd": [
+      {
+        "components": [
+          "F-128efecf5b"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-128efecf5b",
+        "start": "2024-08-30",
+        "val": 888000000
+      },
+      {
+        "components": [
+          "F-5e96ed32ad"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-5e96ed32ad",
+        "start": "2024-11-29",
+        "val": 898000000
+      },
+      {
+        "components": [
+          "F-137bbae41e"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-137bbae41e",
+        "start": "2025-02-28",
+        "val": 965000000
+      },
+      {
+        "components": [
+          "F-2c4cece295",
+          "F-77cf2b8408"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-2c4cece295 - F-77cf2b8408",
+        "id": "D-eedc17d470",
+        "start": "2025-05-30",
+        "val": 1047000000
+      },
+      {
+        "components": [
+          "F-7fe0105f12"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-7fe0105f12",
+        "start": "2025-08-29",
+        "val": 1171000000
+      },
+      {
+        "components": [
+          "F-0913a8e915"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-0913a8e915",
+        "start": "2025-11-28",
+        "val": 1250000000
+      },
+      {
+        "components": [
+          "F-aa03ffc666"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-aa03ffc666",
+        "start": "2026-02-27",
+        "val": 1316000000
+      },
+      {
+        "components": [
+          "F-1ede645360",
+          "F-e2e3d9a2b1"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-1ede645360 - F-e2e3d9a2b1",
+        "id": "D-dc1b77fd75",
+        "start": "2026-05-29",
+        "val": 1913000000
+      }
+    ],
+    "sbc": [
+      {
+        "components": [
+          "F-27441a62d7"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-27441a62d7",
+        "start": "2024-08-30",
+        "val": 220000000
+      },
+      {
+        "components": [
+          "F-8a3206fa0e",
+          "F-27441a62d7"
+        ],
+        "derived": true,
+        "end": "2025-02-27",
+        "formula": "F-8a3206fa0e - F-27441a62d7",
+        "id": "D-4371264a9a",
+        "start": "2024-11-29",
+        "val": 249000000
+      },
+      {
+        "components": [
+          "F-23f22185fd",
+          "F-8a3206fa0e"
+        ],
+        "derived": true,
+        "end": "2025-05-29",
+        "formula": "F-23f22185fd - F-8a3206fa0e",
+        "id": "D-8f0e287f55",
+        "start": "2025-02-28",
+        "val": 253000000
+      },
+      {
+        "components": [
+          "F-ddf00f0c21",
+          "F-23f22185fd"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-ddf00f0c21 - F-23f22185fd",
+        "id": "D-69e4caae79",
+        "start": "2025-05-30",
+        "val": 250000000
+      },
+      {
+        "components": [
+          "F-54e171c57a"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-54e171c57a",
+        "start": "2025-08-29",
+        "val": 290000000
+      },
+      {
+        "components": [
+          "F-7a588292d0",
+          "F-54e171c57a"
+        ],
+        "derived": true,
+        "end": "2026-02-26",
+        "formula": "F-7a588292d0 - F-54e171c57a",
+        "id": "D-04a6d2a792",
+        "start": "2025-11-28",
+        "val": 309000000
+      },
+      {
+        "components": [
+          "F-7fb874894f",
+          "F-7a588292d0"
+        ],
+        "derived": true,
+        "end": "2026-05-28",
+        "formula": "F-7fb874894f - F-7a588292d0",
+        "id": "D-0a8e938517",
+        "start": "2026-02-27",
+        "val": 355000000
+      },
+      {
+        "components": [
+          "F-727e739759",
+          "F-7fb874894f"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-727e739759 - F-7fb874894f",
+        "id": "D-8ea2f725b0",
+        "start": "2026-05-29",
+        "val": 379000000
+      }
+    ],
+    "sga": [
+      {
+        "components": [
+          "F-25b243e703"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-25b243e703",
+        "start": "2024-08-30",
+        "val": 288000000
+      },
+      {
+        "components": [
+          "F-606bdfa5c5"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-606bdfa5c5",
+        "start": "2024-11-29",
+        "val": 285000000
+      },
+      {
+        "components": [
+          "F-742711c5c6"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-742711c5c6",
+        "start": "2025-02-28",
+        "val": 318000000
+      },
+      {
+        "components": [
+          "F-fd18013bf2",
+          "F-983156a172"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-fd18013bf2 - F-983156a172",
+        "id": "D-2ca9ee50e5",
+        "start": "2025-05-30",
+        "val": 314000000
+      },
+      {
+        "components": [
+          "F-5bbdf97421"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-5bbdf97421",
+        "start": "2025-08-29",
+        "val": 337000000
+      },
+      {
+        "components": [
+          "F-26976bad3f"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-26976bad3f",
+        "start": "2025-11-28",
+        "val": 344000000
+      },
+      {
+        "components": [
+          "F-cd4e85786c"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-cd4e85786c",
+        "start": "2026-02-27",
+        "val": 407000000
+      },
+      {
+        "components": [
+          "F-653cdcb08c",
+          "F-9035fb57c5"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-653cdcb08c - F-9035fb57c5",
+        "id": "D-6c738561d6",
+        "start": "2026-05-29",
+        "val": 859000000
+      }
+    ],
+    "shares_outstanding": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "components": [
+          "F-fed0645069"
+        ],
+        "derived": false,
+        "end": "2026-10-02",
+        "formula": null,
+        "id": "F-fed0645069",
+        "val": 1131423212
+      }
+    ],
+    "short_term_investments": [
+      {
+        "components": [
+          "F-3635192c36"
+        ],
+        "derived": false,
+        "end": "2024-11-28",
+        "formula": null,
+        "id": "F-3635192c36",
+        "val": 895000000
+      },
+      {
+        "components": [
+          "F-aaf6a617dd"
+        ],
+        "derived": false,
+        "end": "2025-02-27",
+        "formula": null,
+        "id": "F-aaf6a617dd",
+        "val": 663000000
+      },
+      {
+        "components": [
+          "F-bb62072ca4"
+        ],
+        "derived": false,
+        "end": "2025-05-29",
+        "formula": null,
+        "id": "F-bb62072ca4",
+        "val": 648000000
+      },
+      {
+        "components": [
+          "F-55e40bb1f6"
+        ],
+        "derived": false,
+        "end": "2025-08-28",
+        "formula": null,
+        "id": "F-55e40bb1f6",
+        "val": 665000000
+      },
+      {
+        "components": [
+          "F-0e8b320eed"
+        ],
+        "derived": false,
+        "end": "2025-11-27",
+        "formula": null,
+        "id": "F-0e8b320eed",
+        "val": 587000000
+      },
+      {
+        "components": [
+          "F-63106bbb44"
+        ],
+        "derived": false,
+        "end": "2026-02-26",
+        "formula": null,
+        "id": "F-63106bbb44",
+        "val": 681000000
+      },
+      {
+        "components": [
+          "F-3a6f32741c"
+        ],
+        "derived": false,
+        "end": "2026-05-28",
+        "formula": null,
+        "id": "F-3a6f32741c",
+        "val": 1027000000
+      },
+      {
+        "components": [
+          "F-e8f2f41b64"
+        ],
+        "derived": false,
+        "end": "2026-09-03",
+        "formula": null,
+        "id": "F-e8f2f41b64",
+        "val": 5070000000
+      }
+    ],
+    "total_debt": [
+      {
+        "components": [
+          "F-351466c681",
+          "F-525bd9dbe9"
+        ],
+        "derived": true,
+        "end": "2024-11-28",
+        "formula": "F-351466c681 + F-525bd9dbe9",
+        "id": "S-7199ae697e",
+        "start": null,
+        "val": 13785000000
+      },
+      {
+        "components": [
+          "F-1562be5a85",
+          "F-64c3e08b69"
+        ],
+        "derived": true,
+        "end": "2025-02-27",
+        "formula": "F-1562be5a85 + F-64c3e08b69",
+        "id": "S-25c8d8d247",
+        "start": null,
+        "val": 14355000000
+      },
+      {
+        "components": [
+          "F-8a3e35d9ad",
+          "F-c31b3947e9"
+        ],
+        "derived": true,
+        "end": "2025-05-29",
+        "formula": "F-8a3e35d9ad + F-c31b3947e9",
+        "id": "S-8642c6c5d1",
+        "start": null,
+        "val": 15541000000
+      },
+      {
+        "components": [
+          "F-96ae3c0fd4",
+          "F-0484dabbee"
+        ],
+        "derived": true,
+        "end": "2025-08-28",
+        "formula": "F-96ae3c0fd4 + F-0484dabbee",
+        "id": "S-f61f0a6b28",
+        "start": null,
+        "val": 14577000000
+      },
+      {
+        "components": [
+          "F-8119e02e5d",
+          "F-666f0b8070"
+        ],
+        "derived": true,
+        "end": "2025-11-27",
+        "formula": "F-8119e02e5d + F-666f0b8070",
+        "id": "S-0265bb4929",
+        "start": null,
+        "val": 11756000000
+      },
+      {
+        "components": [
+          "F-903dc9cb52",
+          "F-e1b7196042"
+        ],
+        "derived": true,
+        "end": "2026-02-26",
+        "formula": "F-903dc9cb52 + F-e1b7196042",
+        "id": "S-6ae1124607",
+        "start": null,
+        "val": 10142000000
+      },
+      {
+        "components": [
+          "F-fa1ea3facd",
+          "F-e2ac052960"
+        ],
+        "derived": true,
+        "end": "2026-05-28",
+        "formula": "F-fa1ea3facd + F-e2ac052960",
+        "id": "S-b9ef2bc5f1",
+        "start": null,
+        "val": 5722000000
+      },
+      {
+        "components": [
+          "F-ca07e4ae2b",
+          "F-bce6b48da4"
+        ],
+        "derived": true,
+        "end": "2026-09-03",
+        "formula": "F-ca07e4ae2b + F-bce6b48da4",
+        "id": "S-0a86662e54",
+        "start": null,
+        "val": 5179000000
+      }
+    ]
+  },
+  "quarters": [
+    {
+      "calendar": "CY2024Q4",
+      "end": "2024-11-28",
+      "fiscal": "FY2025Q1",
+      "start": "2024-08-30"
+    },
+    {
+      "calendar": "CY2025Q1",
+      "end": "2025-02-27",
+      "fiscal": "FY2025Q2",
+      "start": "2024-11-29"
+    },
+    {
+      "calendar": "CY2025Q2",
+      "end": "2025-05-29",
+      "fiscal": "FY2025Q3",
+      "start": "2025-02-28"
+    },
+    {
+      "calendar": "CY2025Q3",
+      "end": "2025-08-28",
+      "fiscal": "FY2025Q4",
+      "start": "2025-05-30"
+    },
+    {
+      "calendar": "CY2025Q4",
+      "end": "2025-11-27",
+      "fiscal": "FY2026Q1",
+      "start": "2025-08-29"
+    },
+    {
+      "calendar": "CY2026Q1",
+      "end": "2026-02-26",
+      "fiscal": "FY2026Q2",
+      "start": "2025-11-28"
+    },
+    {
+      "calendar": "CY2026Q2",
+      "end": "2026-05-28",
+      "fiscal": "FY2026Q3",
+      "start": "2026-02-27"
+    },
+    {
+      "calendar": "CY2026Q3",
+      "end": "2026-09-03",
+      "fiscal": "FY2026Q4",
+      "start": "2026-05-29"
+    }
+  ]
+}

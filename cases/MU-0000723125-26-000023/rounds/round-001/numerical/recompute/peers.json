@@ -1,0 +1,70 @@
+[
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 573822520000.0,
+    "ev_sales": 10.061413241688877,
+    "market_cap": 540111520000.0,
+    "net_income_ttm": -11289000000,
+    "pe": null,
+    "price": 107.08,
+    "price_date": "2026-10-08",
+    "revenue_ttm": 57032000000,
+    "ticker": "INTC",
+    "ttm_end": "2026-06-27"
+  },
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 402601449029.51,
+    "ev_sales": 13.055791712212926,
+    "market_cap": 404393449029.51,
+    "net_income_ttm": 9267000000,
+    "pe": 43.638011117892525,
+    "price": 509.57,
+    "price_date": "2026-10-08",
+    "revenue_ttm": 30837000000,
+    "ticker": "AMAT",
+    "ttm_end": "2026-07-26"
+  },
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 399303889389.99994,
+    "ev_sales": 17.187156949539634,
+    "market_cap": 401160999389.99994,
+    "net_income_ttm": 7265396000,
+    "pe": 55.21529719646389,
+    "price": 320.59,
+    "price_date": "2026-10-08",
+    "revenue_ttm": 23232690000,
+    "ticker": "LRCX",
+    "ttm_end": "2026-06-28"
+  },
+  {
+    "calendar": "TTM to CY2026Q2",
+    "concepts": {
+      "net_income": "NetIncomeLoss",
+      "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax"
+    },
+    "ev": 261261456151.76,
+    "ev_sales": 19.23943575965376,
+    "market_cap": 257023883151.76,
+    "net_income_ttm": 4830771000,
+    "pe": 53.20556142109821,
+    "price": 196.72,
+    "price_date": "2026-10-08",
+    "revenue_ttm": 13579476000,
+    "ticker": "KLAC",
+    "ttm_end": "2026-06-30"
+  }
+]

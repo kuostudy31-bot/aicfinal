@@ -1,15 +1,21 @@
 {
   "accession": "0000723125-26-000023",
-  "artifacts": {},
-  "candidate_id": null,
+  "artifacts": {
+    "round-001": {
+      "assumptions.json": "20e9e03bf7937b005b3512c421b498f97e9fa86feee51820dce12a6621445a12",
+      "gates.json": "4863fdec01df14a15acf64df1102ae8242c6b180a28ece9a2f7c831c8ad18d2d",
+      "mapping.json": "22fcb4f5b2024fdef2943ffaa0e84a882182726228719eeb298cae846735a1f0",
+      "narrative.json": "31ba1af0e921083af6738b9e21cf9192e8de45738a2912baab5b53e36707f294",
+      "note.md": "48d49949107b6a8bb8a91131854e414fc8163a342bbc02b09e3178ad04ee3c1e",
+      "valuation_inputs.json": "501241a012251b2abb46805710c02a139e0d5bfb4f8f8bcec4641ef55737d3c9"
+    }
+  },
+  "candidate_id": "cand-b70a3fbcac71",
   "case_id": "MU-0000723125-26-000023",
   "clean_streak": 0,
   "cutoff_utc": "2026-10-09T12:21:00Z",
-  "dispatch_counts": {},
-  "hold": {
-    "at": "2026-11-15T07:50:02Z",
-    "by": "run session",
-    "reason": "Code defect in src/aicfinal/gates.py blocks generator round 1: gate_quotes divides every USD guidance value by 1e9 so per-share EPS guidance (37.84, 38.15) shows as 0.0 and cannot match Q-4; gate_mapping flags eps_diluted as stale on the 10-K derived Q4 that has no diluted EPS by design. Needs a code-owner fix (incidents #12 follow-up)."
+  "dispatch_counts": {
+    "gen-20261115T073305-99d304": 9
   },
   "invalid_submissions": 0,
   "ledger": {},
@@ -24,10 +30,10 @@
   "open_history": [],
   "opened_at": "2026-11-15T07:33:05Z",
   "pending": {
-    "issued_at": "2026-11-15T07:33:05Z",
-    "path": "cases/MU-0000723125-26-000023/rounds/round-001/request.json",
-    "phase": "generator",
-    "request_id": "gen-20261115T073305-99d304"
+    "issued_at": "2026-11-15T08:01:21Z",
+    "path": "cases/MU-0000723125-26-000023/rounds/round-001/reviews/review-01/request.json",
+    "phase": "critic",
+    "request_id": "crit-20261115T080121-5bb2e2"
   },
   "period_of_report": "2026-09-03",
   "prompt_versions": {
@@ -45,10 +51,10 @@
     "gen-writer": "v2",
     "orchestrator": "v1"
   },
-  "review": 0,
+  "review": 1,
   "round": 1,
   "snapshot_manifest_sha256": "0d1e5e4c919047a6c9598ba1a1d515855a5beabf9b4542e4e82dedbbfd8846b2",
-  "status": "GENERATOR_PENDING",
+  "status": "CRITIC_PENDING",
   "ticker": "MU",
-  "updated_at": "2026-11-15T07:50:02Z"
+  "updated_at": "2026-11-15T08:01:21Z"
 }

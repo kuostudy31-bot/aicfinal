@@ -44,14 +44,14 @@
     "value": 0.8675616367626178
   },
   "guide_eps_next_q_gaap": {
-    "display": "$0.0bn",
+    "display": "$37.84",
     "sources": [
       "Q-4"
     ],
     "value": 37.84
   },
   "guide_eps_next_q_nongaap": {
-    "display": "$0.0bn",
+    "display": "$38.15",
     "sources": [
       "Q-4"
     ],

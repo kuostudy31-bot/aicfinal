@@ -1,0 +1,8 @@
+{
+  "request_id": "gen-20261115T073305-99d304",
+  "role": "gen-writer",
+  "status": "complete",
+  "outputs": ["note.md"],
+  "repairs": [],
+  "notes": "Prompt gen-writer v2. note.md uses only {{key}} placeholders from the current computed/values.json and [[Q-id]] quotes Q-1 to Q-14 from narrative.json. The required sections are present, and so are the four disclosure items in policies.md section 6. Final eu.py compute: gate_findings [], target_price 1084, rating Neutral. Writing notes: (1) Reported figures, our forecasts and our views are labelled separately. The fourth-quarter extra week is stated as our calculation from the period end dates, because the filing says only that FY2026 had 53 weeks [Q-10]. (2) The note states that net cash ($38.3bn) leaves out long-term marketable investments. The claim that the rating would stay Neutral if they were included is attributed to gen-valuation and was not recomputed. This stays open for gen-mapping and the critics. (3) Content quirk, not a defect: ALLOWED_TOKEN in gates.py does not accept a year label followed directly by a period ('FY2027.'). Two sentences were reworded to avoid this; no figures changed. (4) narrative.json tags the EPS guidance with unit 'USD', not the contract's 'USD/share'. The gate passes and values.json shows $37.84 / $38.15 correctly. Left for gen-narrative."
+}

@@ -1,0 +1,21 @@
+{
+  "acceptance_rules": "references/acceptance.md",
+  "candidate_dir": "cases/MU-0000723125-26-000023/rounds/round-001/generator",
+  "candidate_id": "cand-b70a3fbcac71",
+  "case_id": "MU-0000723125-26-000023",
+  "computed_dir": "cases/MU-0000723125-26-000023/rounds/round-001/numerical/recompute",
+  "gates_file": "cases/MU-0000723125-26-000023/rounds/round-001/numerical/gates.json",
+  "issued_at": "2026-11-15T08:01:21Z",
+  "open_findings": [],
+  "output_dir": "cases/MU-0000723125-26-000023/rounds/round-001/reviews/review-01",
+  "phase": "critic",
+  "request_id": "crit-20261115T080121-5bb2e2",
+  "required_reports": [
+    "crit-provenance",
+    "crit-assumption",
+    "crit-compliance"
+  ],
+  "review": 1,
+  "round": 1,
+  "snapshot_dir": "cases/MU-0000723125-26-000023/snapshot"
+}
