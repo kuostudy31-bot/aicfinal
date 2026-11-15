@@ -82,5 +82,9 @@ Adoption is the owner's decision.
   type (the owner will enter it). If needed, start a new session whose initial task is the resume
   and mark the old one "由 run N 取代". Record each stall in docs/incidents.md.
 * Evolution change-002 (spelled-out quantities) and the peer-label code fix: approved 2026-11-15; record everything in the repo.
+* **2026-11-15 07:30 UTC: the owner asked for (a) a new evolution attempt, change-003 (re-evaluate the
+  spelled-quantity prompt change on inputs that keep the failure condition), and (b) a new research case for
+  MU on its FY2026 10-K (accession 0000723125-26-000023, accepted 2026-10-09).** Run MU as Live run 12 in a new
+  session; publication approval is delegated as before. Adopting change-003 still needs the owner.
 * Monitoring: no recurring 15-minute schedule; use the coordinator's idle-aware monitor, the
   watchdog command, and the planned Stop hook instead.
