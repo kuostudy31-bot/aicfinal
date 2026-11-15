@@ -1,0 +1,46 @@
+{
+  "request_id": "crit-20261115T032107-8539c4",
+  "role": "crit-assumption",
+  "candidate_id": "cand-301a62855764",
+  "verdict": "fail",
+  "findings": [
+    {
+      "id": "asm-002",
+      "severity": "major",
+      "title": "Per-share valuation ignores the customer penny warrants (up to 320M shares, about 19% of diluted shares) and the related contra-revenue",
+      "detail": "The 10-Q (periodic.txt, Note 14, line ~1425) says AMD issued warrants to two customers (Oct 2025, Feb 2026), 'each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share'. The risk factor (line ~2368) puts the combined total at up to 320 million shares. Line ~1439 says the weighted-average fair value is $178.58 per share 'as most market conditions had been met'. Line ~1441 reports a warrant liability of $1.2 billion and $4.5 billion of unrecognized grant-date fair value 'that would be recorded as a reduction of revenue'. valuation.json divides equity value by diluted_shares = 1,661M, which excludes all warrant shares (none have vested). share_change_qoq (+0.2%/qtr) is based only on the historical diluted-share trend. Neither valuation_inputs.json nor assumptions.json nor note.md mentions the warrants as potential dilution. Yet the DCF capitalises the Data Center/Helios ramp (Q-3, Q-4), and the purchase milestones that vest these warrants are tied to that same ramp. So the model takes the revenue but not the dilution attached to it. Illustrative full-dilution effect (my arithmetic from valuation.json, not a code output): DCF equity $324.5bn / 1,981M shares = about $164 versus $195.37; relative leg $748.0bn / 1,981M = about $378 versus $450.35; blended about $249 versus $297, a cut of roughly 16% in the target price. Under the policy bands the rating stays Underperform (upside about -48% instead of -38.6%), but a possible 16% swing in the target, undisclosed, is a material valuation omission. Separately, the $4.5bn of unrecognized warrant value will reduce reported revenue as qualifying revenue is recognised. Guidance probably already nets this out for FY2026Q4, but the rationale for later-year revenue/FCF does not mention it. The $1.2bn warrant liability (other long-term liabilities) is reasonably left out of net cash because it is equity-settled at $0.01, but that choice should be stated.",
+      "evidence": [
+        "snapshot/docs/periodic.txt (Note 14 customer warrants: 160M shares each at $0.01; $178.58/share fair value; $1.2bn liability; $4.5bn unrecognized grant-date fair value)",
+        "snapshot/docs/periodic.txt (risk factor: warrants exercisable for up to a combined 320 million shares)",
+        "numerical/recompute/valuation.json#diluted_shares (1,661,000,000)",
+        "numerical/recompute/valuation.json#dcf.equity_value, #relative_per_share, #target_price",
+        "generator/valuation_inputs.json#rationales (no mention of warrants or dilution)",
+        "generator/assumptions.json#rationales.share_change_qoq (historical trend only)"
+      ],
+      "required_evidence": "valuation_inputs.json rationales (and a sentence in note.md's valuation section or risks) acknowledge the customer warrants (up to 320M shares at $0.01, quotable from periodic.txt) as potential dilution not reflected in the code's diluted share count. They state the direction and rough size of the effect on the per-share target (and confirm the rating would not change), or explain with evidence why the dilution is treated as immaterial or not probable. They also note that the unrecognized warrant value will reduce future reported revenue, and state why the warrant liability is excluded from net cash."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "asm-001",
+      "evidence": "valuation_inputs.json rationales.peers now has a TTM period-alignment paragraph. It gives AMD's TTM end of 2026-09-26 and each peer's: INTC 2026-09-26 (aligned), NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01. It says the lag biases EV/Sales and the median upward, because NVDA and MRVL, both lagged, are the two middle values (median 16.27x = mean of MRVL 16.07x and NVDA 16.48x in numerical/recompute/peers.json). It says the multiple is not adjusted and that the relative leg should be read as generous. I checked the dates and the cited growth against snapshot/peers.json filtered to acceptance at or before the cutoff: NVDA quarterly Revenues $81.615bn (to 2026-04-26) then $96.221bn (to 2026-07-26); MRVL $2.4178bn then $2.7393bn; latest ends NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01, INTC 2026-09-26. All match."
+    }
+  ],
+  "checked": [
+    "Open findings in scope: asm-001 resolved. cmp-001, cmp-002 and prov-001 are outside the assumption scope and left to their critics. For context only: the rendered note now names both one-off items and draws no directional run-rate claim, and the disclosures name the release and the Yahoo price feed.",
+    "Next-quarter revenue vs guidance: FY2026Q4 revenue_qoq 27.1% gives $17.00bn, equal to the Q-1 midpoint ($16.49-17.51bn range)",
+    "Next-quarter gross margin: GAAP 53.4% versus non-GAAP guidance of 55% (Q-2). The bridge is explained (about 1.6pt amortization+SBC; Q3 GAAP 53.9% vs non-GAAP 56%)",
+    "Opex: 28.0% of revenue in FY2026Q4 (about $4.76bn, +8.7% q/q from $4.378bn), versus 32.7% in Q3. Operating leverage is explained and consistent with Q-4",
+    "Later quarters: +2%/+6%/+8% q/q and gross margin 53.5-54.0% are plausible against history (flat Q1s in FY2025/FY2026, +12.5%/+16.0% in Q2/Q3 FY2026), and the rationale explains them",
+    "Tax rate of 13%: underlying rates excluding the discrete SBC benefit fall in the 9.9-14.8% range. It matches the company's projected non-GAAP rate. The discrete items are not extrapolated",
+    "Share change of +0.2%/qtr matches the historical diluted trend (1,641M to 1,661M y/y). See asm-002 for the warrant dilution it omits",
+    "WACC 10.5% and terminal growth 3.0% are reasonable for a large-cap semiconductor. The CAPM inputs are labelled as assumptions",
+    "Terminal value share of EV is 75.2% (below the 80% flag) and is disclosed in the note",
+    "FCF margins: TTM CFO-capex from history.json = (2,600+2,955+2,366+1,202) - (222+389+808+648) = 7,056 on revenue of 45,436, or 15.5%, which matches the rationale. The year-1 margin of 18% rising to 22% is bounded by the FY2025 19.4% and the model's operating margin, and is explained",
+    "DCF revenue path: year 1 = code NTM $72.58bn, then +25/18/12/8%. Plausible as a glide path, and the rationale explains it",
+    "Net cash completeness: balance sheet at 2026-09-26 shows cash $7,404M + short-term investments $8,372M - long-term debt $7,079M (current portion nil; no commercial paper or revolver borrowings outstanding) = $8,697M, which matches valuation.json. Long-term marketable equity ($1.3bn) and lease liabilities are excluded, a conservative or immaterial choice",
+    "Peer set: NVDA/AVGO/MRVL/INTC are relevant to AMD's GPU/custom-silicon/CPU mix. The exclusions are explained. Calendar and fiscal alignment is now stated (asm-001)",
+    "Rationales exist for every assumption and valuation input and support the numbers chosen, except for the warrant-dilution gap (asm-002)",
+    "gates.json: no gate findings"
+  ]
+}

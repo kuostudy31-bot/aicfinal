@@ -1,0 +1,28 @@
+{
+  "request_id": "crit-20261115T032107-8539c4",
+  "role": "crit-provenance",
+  "candidate_id": "cand-301a62855764",
+  "verdict": "pass",
+  "findings": [],
+  "resolved": [
+    {
+      "id": "prov-001",
+      "evidence": "generator/note.md Results net-income bullet (rendered in numerical/recompute/note_rendered.md) now cites both one-off items by verbatim quote: [[Q-7]] (discrete tax benefit related to stock-based compensation of $772 million, periodic.txt lines 1481/1732) and [[Q-11]] (noncash charge of $1.2 billion from warrant-liability remeasurement within Other income (expense), net, periodic.txt line 1441). The claim that 'reported EPS overstates the recurring earnings run rate' has been removed. It is replaced by a labelled judgment that the two items move EPS in opposite directions and that their net effect cannot be determined from the filing. That judgment is consistent with the evidence: the 10-Q gives no after-tax effect for the warrant charge (the income-tax note at line 1481 and the warrant note at lines 1425-1441 give none). The amounts appear only inside verbatim quotes, and all quotes Q-1 to Q-11 match snapshot/docs text exactly."
+    }
+  ],
+  "checked": [
+    "numerical/gates.json: findings [] (request gen-20261115T031048-ced865); computed/*.json byte-identical to numerical/recompute/*.json (values, history, forecast, peers, valuation)",
+    "Every {{key}} in note.md exists in values.json; F-/D- sources resolve in snapshot/facts.json or history.json derived IDs, all with acceptance_utc <= cutoff 2026-11-03T23:00:17Z (max in snapshot equals the cutoff, i.e. the trigger 10-Q)",
+    "revenue_q F-6fa20ae3f8 = 13,377M for 2026-06-28..2026-09-26; yoy vs F-315037b1f4 9,246M (44.7%, labelled year on year); qoq vs F-0c22036940 11,536M (16.0%, labelled quarter on quarter)",
+    "revenue_ttm 45,436M = D-da671c66c3 (FY2025 10-K 34,639M less 9M 24,369M = 10,270M) + 10,253M + 11,536M + 13,377M; labelled trailing-twelve-month",
+    "fcf_q 554M = D-161017865b CFO 1,202M (9M 6,523M less 6M 5,321M) - D-91daa3cfaa capex 648M (1,845M less 1,197M); net_cash 8,697M = cash 7,404M + STI 8,372M - debt 7,079M",
+    "gross_margin_q 7,210/13,377 = 53.9%; operating_margin_q 2,832/13,377 = 21.2%; eps_q F-1e4bc98cca $1.46",
+    "Spot-check vs periodic.txt: net revenue 13,377 (line 203), net income 2,428 (line 237), total assets 94,812 (line 342), net income bullet amounts vs tax note (line 1481) and Other income note (lines 1726, 1441)",
+    "Fiscal vs calendar labels: FY2026 Q3 = CY2026Q3, quarter ended 2026-09-26; next quarter FY2026Q4",
+    "Quotes Q-1..Q-11 verbatim in snapshot/docs; Q-1..Q-4 from release_ex99_1.txt, Q-5..Q-11 from periodic.txt; contexts are faithful (Q-5 is cited for the mix-driven margin increase, Q-6 for export-control risk, Q-7/Q-11 for the one-off items)",
+    "Guidance values match quotes: guide_revenue_next_q $17.0bn = Q-1 'approximately $17 billion, plus or minus 3%' (low 16.49bn, high 17.51bn); guide_non_gaap_gross_margin_next_q 55.0% = Q-2; note flags non-GAAP vs GAAP model basis",
+    "mapping.json: all mapped concepts have latest observation 2026-09-26 (shares_outstanding dei 2026-10-28, before cutoff); liabilities deliberately null; no stale concepts",
+    "Price $483.90 close 2026-11-03 from snapshot/prices.json, session ended before cutoff",
+    "Open findings asm-001, cmp-001, cmp-002 are outside the provenance area and left to crit-assumption and crit-compliance. Observation for cmp-001: the Disclosures line names the EX-99.1 release and the Yahoo price provider but not the literal accession 0000002488-26-000188; gen-writer reports that no values key exists for it"
+  ]
+}

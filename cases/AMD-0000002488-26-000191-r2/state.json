@@ -24,6 +24,7 @@
   "cutoff_utc": "2026-11-03T23:00:17Z",
   "dispatch_counts": {
     "crit-20261115T030030-1acfec": 4,
+    "crit-20261115T032107-8539c4": 4,
     "gen-20261115T025408-b38ac7": 6,
     "gen-20261115T031048-ced865": 6
   },
@@ -31,6 +32,9 @@
   "ledger": {
     "asm-001": {
       "check": "Peer TTM period misalignment not noted in peer rationale",
+      "closed_by": "crit-assumption",
+      "closed_round": 2,
+      "closing_evidence": "valuation_inputs.json rationales.peers now has a TTM period-alignment paragraph. It gives AMD's TTM end of 2026-09-26 and each peer's: INTC 2026-09-26 (aligned), NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01. It says the lag biases EV/Sales and the median upward, because NVDA and MRVL, both lagged, are the two middle values (median 16.27x = mean of MRVL 16.07x and NVDA 16.48x in numerical/recompute/peers.json). It says the multiple is not adjusted and that the relative leg should be read as generous. I checked the dates and the cited growth against snapshot/peers.json filtered to acceptance at or before the cutoff: NVDA quarterly Revenues $81.615bn (to 2026-04-26) then $96.221bn (to 2026-07-26); MRVL $2.4178bn then $2.7393bn; latest ends NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01, INTC 2026-09-26. All match.",
       "detail": "The peer EV/Sales leg compares AMD TTM revenue ending 2026-09-26 with peer TTM revenue ending 2026-07-26 (NVDA), 2026-08-02 (AVGO) and 2026-08-01 (MRVL); only INTC ends 2026-09-26. valuation_inputs.json rationales.peers does not mention that the fiscal periods differ (calendar vs fiscal). For fast-growing peers, a TTM that lags by about two months modestly inflates EV/Sales and so the relative leg ($450.35/share). Under the policy bands this does not change the rating: the relative leg would have to rise sharply to move the blended target above -10%. However, the period mismatch should be stated.",
       "first_round": 1,
       "last_seen_round": 1,
@@ -38,13 +42,24 @@
       "required_evidence": "rationales.peers (or the note) states each peer's TTM end date versus AMD's 2026-09-26 TTM and says whether the lag biases the median multiple",
       "severity": "minor",
       "source": "critic",
+      "status": "closed"
+    },
+    "asm-002": {
+      "check": "Per-share valuation ignores the customer penny warrants (up to 320M shares, about 19% of diluted shares) and the related contra-revenue",
+      "detail": "The 10-Q (periodic.txt, Note 14, line ~1425) says AMD issued warrants to two customers (Oct 2025, Feb 2026), 'each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share'. The risk factor (line ~2368) puts the combined total at up to 320 million shares. Line ~1439 says the weighted-average fair value is $178.58 per share 'as most market conditions had been met'. Line ~1441 reports a warrant liability of $1.2 billion and $4.5 billion of unrecognized grant-date fair value 'that would be recorded as a reduction of revenue'. valuation.json divides equity value by diluted_shares = 1,661M, which excludes all warrant shares (none have vested). share_change_qoq (+0.2%/qtr) is based only on the historical diluted-share trend. Neither valuation_inputs.json nor assumptions.json nor note.md mentions the warrants as potential dilution. Yet the DCF capitalises the Data Center/Helios ramp (Q-3, Q-4), and the purchase milestones that vest these warrants are tied to that same ramp. So the model takes the revenue but not the dilution attached to it. Illustrative full-dilution effect (my arithmetic from valuation.json, not a code output): DCF equity $324.5bn / 1,981M shares = about $164 versus $195.37; relative leg $748.0bn / 1,981M = about $378 versus $450.35; blended about $249 versus $297, a cut of roughly 16% in the target price. Under the policy bands the rating stays Underperform (upside about -48% instead of -38.6%), but a possible 16% swing in the target, undisclosed, is a material valuation omission. Separately, the $4.5bn of unrecognized warrant value will reduce reported revenue as qualifying revenue is recognised. Guidance probably already nets this out for FY2026Q4, but the rationale for later-year revenue/FCF does not mention it. The $1.2bn warrant liability (other long-term liabilities) is reasonably left out of net cash because it is equity-settled at $0.01, but that choice should be stated.",
+      "first_round": 2,
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "valuation_inputs.json rationales (and a sentence in note.md's valuation section or risks) acknowledge the customer warrants (up to 320M shares at $0.01, quotable from periodic.txt) as potential dilution not reflected in the code's diluted share count. They state the direction and rough size of the effect on the per-share target (and confirm the rating would not change), or explain with evidence why the dilution is treated as immaterial or not probable. They also note that the unrecognized warrant value will reduce future reported revenue, and state why the warrant liability is excluded from net cash.",
+      "severity": "major",
+      "source": "critic",
       "status": "open"
     },
     "cmp-001": {
       "check": "Data-source disclosure omits the earnings-release accession and the price source",
-      "detail": "The Disclosures section cites only the trigger 10-Q accession 0000002488-26-000191 and the price date. Quotes Q-1 to Q-4 (guidance and demand commentary) come from release_ex99_1.txt, which is from accession 0000002488-26-000188 (snapshot/manifest.json), and the share price comes from the Yahoo chart endpoint (snapshot/prices.json note). Policy section 6 is met because the trigger accession, cutoff and price date are all present. Naming the release accession and the price provider would make the as-of trail complete.",
+      "detail": "Partly repaired. The Disclosures line now names the price provider ('unadjusted daily close from the Yahoo Finance chart endpoint (split-adjusted by the provider)', which matches the snapshot/prices.json note) and says peer market values come from the same feed. It also identifies the release as the Form 8-K exhibit EX-99.1, 'a separate EDGAR accession', and as the source of the guidance and demand quotes. The literal release accession 0000002488-26-000188 (snapshot/manifest.json, docs/release_ex99_1.txt) is still not named. gen-writer reports that the untagged_number gate would flag the digits and that values.json has no key for this accession. I checked values.json and confirmed it has no such key, only trigger_accession. Policy section 6 is satisfied because the trigger accession, cutoff and price date are present. The as-of trail is still incomplete by one identifier. Closing this needs a compute-side values key (for example release_accession) that the writer can reference as {{key}}.",
       "first_round": 1,
-      "last_seen_round": 1,
+      "last_seen_round": 2,
       "reopened": false,
       "required_evidence": "Disclosures line also names accession 0000002488-26-000188 for the release quotes and the provider of the closing price",
       "severity": "minor",
@@ -53,6 +68,9 @@
     },
     "cmp-002": {
       "check": "'All figures ... from SEC XBRL data' overstates the provenance of guidance and price figures",
+      "closed_by": "crit-compliance",
+      "closed_round": 2,
+      "closing_evidence": "note_rendered.md: the Results heading no longer tags the section '(SEC XBRL data)'. It now reads 'the financial figures are derived by code from SEC XBRL data, and quoted text is taken from the 10-Q'. The final disclosure reads 'All figures are generated by code and are unaudited by the author. Reported financial figures are derived from SEC XBRL data. Guidance figures ($17.0bn revenue, 55.0% non-GAAP gross margin) are taken from the quoted earnings-release text, not XBRL. The share price and peer market values come from the price feed named above.' This separates XBRL-derived figures, release-quoted guidance and price-feed data, and the policy section 6 code/unaudited statement is still present.",
       "detail": "The final disclosure says all figures are generated by code from SEC XBRL data. The Results section heading also tags the earnings release as '(SEC XBRL data)'. The guidance values (guide_revenue_next_q $17.0bn, guide_non_gaap_gross_margin_next_q 55.0%) come from release text quotes Q-1 and Q-2 (values.json sources), not XBRL. Price and peer market data come from the price host. The policy statement itself is present. The wording should limit the XBRL claim to reported financials, or note that guidance comes from quoted release text and prices from the price feed.",
       "first_round": 1,
       "last_seen_round": 1,
@@ -60,10 +78,13 @@
       "required_evidence": "Disclosure distinguishes XBRL-derived reported figures from release-quoted guidance and price-feed data",
       "severity": "minor",
       "source": "critic",
-      "status": "open"
+      "status": "closed"
     },
     "prov-001": {
       "check": "EPS run-rate judgment cites the discrete tax benefit but omits the offsetting $1.2bn noncash warrant charge",
+      "closed_by": "crit-provenance",
+      "closed_round": 2,
+      "closing_evidence": "generator/note.md Results net-income bullet (rendered in numerical/recompute/note_rendered.md) now cites both one-off items by verbatim quote: [[Q-7]] (discrete tax benefit related to stock-based compensation of $772 million, periodic.txt lines 1481/1732) and [[Q-11]] (noncash charge of $1.2 billion from warrant-liability remeasurement within Other income (expense), net, periodic.txt line 1441). The claim that 'reported EPS overstates the recurring earnings run rate' has been removed. It is replaced by a labelled judgment that the two items move EPS in opposite directions and that their net effect cannot be determined from the filing. That judgment is consistent with the evidence: the 10-Q gives no after-tax effect for the warrant charge (the income-tax note at line 1481 and the warrant note at lines 1425-1441 give none). The amounts appear only inside verbatim quotes, and all quotes Q-1 to Q-11 match snapshot/docs text exactly.",
       "detail": "The Results section says: 'Net income benefited from a large discrete tax benefit in the quarter, so the reported EPS overstates the recurring earnings run rate (our judgment, based on the income-tax note in the 10-Q).' The 10-Q does report a Q3 discrete tax benefit related to stock-based compensation of $772 million (income tax benefit of $555 million, ETR (29.6)%). The same filing also reports Other income (expense), net of $(902) million for the quarter. The filing says this was 'primarily driven by the change in fair value of warrant liability of $1.1 billion' and that the company 'recorded a noncash charge of $1.2 billion, primarily related to a loss from remeasurement of the warrant liability'. That pre-tax noncash charge is larger than the $772 million discrete tax benefit and pushes reported EPS the other way. The note uses only one of the two items, so the directional conclusion ('overstates the recurring earnings run rate') is not supported by the evidence it cites, and it may be wrong. The judgment label does not fix a one-sided reading of the filing.",
       "first_round": 1,
       "last_seen_round": 1,
@@ -71,7 +92,7 @@
       "required_evidence": "The note.md net-income bullet either names both one-off items (the $772M discrete tax benefit and the roughly $1.1-1.2bn noncash warrant remeasurement charge in other income) and draws a conclusion consistent with both, or drops the claim that reported EPS overstates the run rate. Any amounts cited must be available as {{key}} values or as quotes.",
       "severity": "major",
       "source": "critic",
-      "status": "open"
+      "status": "closed"
     }
   },
   "limits": {
@@ -85,14 +106,17 @@
   "open_history": [
     [
       "prov-001"
+    ],
+    [
+      "asm-002"
     ]
   ],
   "opened_at": "2026-11-15T02:54:08Z",
   "pending": {
-    "issued_at": "2026-11-15T03:21:07Z",
-    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-002/reviews/review-01/request.json",
-    "phase": "critic",
-    "request_id": "crit-20261115T032107-8539c4"
+    "issued_at": "2026-11-15T03:30:55Z",
+    "path": "cases/AMD-0000002488-26-000191-r2/rounds/round-003/request.json",
+    "phase": "generator",
+    "request_id": "gen-20261115T033055-31f7b7"
   },
   "period_of_report": "2026-09-26",
   "prompt_versions": {
@@ -110,10 +134,10 @@
     "gen-writer": "v2",
     "orchestrator": "v1"
   },
-  "review": 1,
-  "round": 2,
+  "review": 0,
+  "round": 3,
   "snapshot_manifest_sha256": "78ed765a2ad8beddc8831bd683d2913cd7407ee373c3fee22547cca377ac8bb1",
-  "status": "CRITIC_PENDING",
+  "status": "GENERATOR_PENDING",
   "ticker": "AMD",
-  "updated_at": "2026-11-15T03:21:07Z"
+  "updated_at": "2026-11-15T03:30:55Z"
 }

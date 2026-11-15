@@ -1,0 +1,170 @@
+{
+  "request_id": "crit-20261115T032107-8539c4",
+  "candidate_id": "cand-301a62855764",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "round": 2,
+  "review": 1,
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "request_id": "crit-20261115T032107-8539c4",
+      "candidate_id": "cand-301a62855764",
+      "verdict": "pass",
+      "open_finding_ids": [],
+      "resolved_ids": [
+        "prov-001"
+      ]
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "request_id": "crit-20261115T032107-8539c4",
+      "candidate_id": "cand-301a62855764",
+      "verdict": "fail",
+      "open_finding_ids": [
+        "asm-002"
+      ],
+      "resolved_ids": [
+        "asm-001"
+      ]
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "request_id": "crit-20261115T032107-8539c4",
+      "candidate_id": "cand-301a62855764",
+      "verdict": "pass",
+      "open_finding_ids": [
+        "cmp-001"
+      ],
+      "resolved_ids": [
+        "cmp-002"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "asm-002",
+      "severity": "major",
+      "title": "Per-share valuation ignores the customer penny warrants (up to 320M shares, about 19% of diluted shares) and the related contra-revenue",
+      "detail": "The 10-Q (periodic.txt, Note 14, line ~1425) says AMD issued warrants to two customers (Oct 2025, Feb 2026), 'each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share'. The risk factor (line ~2368) puts the combined total at up to 320 million shares. Line ~1439 says the weighted-average fair value is $178.58 per share 'as most market conditions had been met'. Line ~1441 reports a warrant liability of $1.2 billion and $4.5 billion of unrecognized grant-date fair value 'that would be recorded as a reduction of revenue'. valuation.json divides equity value by diluted_shares = 1,661M, which excludes all warrant shares (none have vested). share_change_qoq (+0.2%/qtr) is based only on the historical diluted-share trend. Neither valuation_inputs.json nor assumptions.json nor note.md mentions the warrants as potential dilution. Yet the DCF capitalises the Data Center/Helios ramp (Q-3, Q-4), and the purchase milestones that vest these warrants are tied to that same ramp. So the model takes the revenue but not the dilution attached to it. Illustrative full-dilution effect (my arithmetic from valuation.json, not a code output): DCF equity $324.5bn / 1,981M shares = about $164 versus $195.37; relative leg $748.0bn / 1,981M = about $378 versus $450.35; blended about $249 versus $297, a cut of roughly 16% in the target price. Under the policy bands the rating stays Underperform (upside about -48% instead of -38.6%), but a possible 16% swing in the target, undisclosed, is a material valuation omission. Separately, the $4.5bn of unrecognized warrant value will reduce reported revenue as qualifying revenue is recognised. Guidance probably already nets this out for FY2026Q4, but the rationale for later-year revenue/FCF does not mention it. The $1.2bn warrant liability (other long-term liabilities) is reasonably left out of net cash because it is equity-settled at $0.01, but that choice should be stated.",
+      "evidence": [
+        "snapshot/docs/periodic.txt (Note 14 customer warrants: 160M shares each at $0.01; $178.58/share fair value; $1.2bn liability; $4.5bn unrecognized grant-date fair value)",
+        "snapshot/docs/periodic.txt (risk factor: warrants exercisable for up to a combined 320 million shares)",
+        "numerical/recompute/valuation.json#diluted_shares (1,661,000,000)",
+        "numerical/recompute/valuation.json#dcf.equity_value, #relative_per_share, #target_price",
+        "generator/valuation_inputs.json#rationales (no mention of warrants or dilution)",
+        "generator/assumptions.json#rationales.share_change_qoq (historical trend only)"
+      ],
+      "required_evidence": "valuation_inputs.json rationales (and a sentence in note.md's valuation section or risks) acknowledge the customer warrants (up to 320M shares at $0.01, quotable from periodic.txt) as potential dilution not reflected in the code's diluted share count. They state the direction and rough size of the effect on the per-share target (and confirm the rating would not change), or explain with evidence why the dilution is treated as immaterial or not probable. They also note that the unrecognized warrant value will reduce future reported revenue, and state why the warrant liability is excluded from net cash.",
+      "critic": "crit-assumption"
+    },
+    {
+      "id": "cmp-001",
+      "severity": "minor",
+      "title": "Data-source disclosure still does not name the earnings-release accession (price provider now named)",
+      "detail": "Partly repaired. The Disclosures line now names the price provider ('unadjusted daily close from the Yahoo Finance chart endpoint (split-adjusted by the provider)', which matches the snapshot/prices.json note) and says peer market values come from the same feed. It also identifies the release as the Form 8-K exhibit EX-99.1, 'a separate EDGAR accession', and as the source of the guidance and demand quotes. The literal release accession 0000002488-26-000188 (snapshot/manifest.json, docs/release_ex99_1.txt) is still not named. gen-writer reports that the untagged_number gate would flag the digits and that values.json has no key for this accession. I checked values.json and confirmed it has no such key, only trigger_accession. Policy section 6 is satisfied because the trigger accession, cutoff and price date are present. The as-of trail is still incomplete by one identifier. Closing this needs a compute-side values key (for example release_accession) that the writer can reference as {{key}}.",
+      "evidence": [
+        "rounds/round-002/numerical/recompute/note_rendered.md#Disclosures",
+        "rounds/round-002/numerical/recompute/values.json (keys: trigger_accession only)",
+        "snapshot/manifest.json#files.docs/release_ex99_1.txt.accession",
+        "rounds/round-002/generator/reports/gen-writer.json#repairs[cmp-001]"
+      ],
+      "required_evidence": "Disclosures line names accession 0000002488-26-000188 for the release quotes, via a code-supplied {{key}}",
+      "critic": "crit-compliance"
+    }
+  ],
+  "resolved": [
+    {
+      "id": "prov-001",
+      "evidence": "generator/note.md Results net-income bullet (rendered in numerical/recompute/note_rendered.md) now cites both one-off items by verbatim quote: [[Q-7]] (discrete tax benefit related to stock-based compensation of $772 million, periodic.txt lines 1481/1732) and [[Q-11]] (noncash charge of $1.2 billion from warrant-liability remeasurement within Other income (expense), net, periodic.txt line 1441). The claim that 'reported EPS overstates the recurring earnings run rate' has been removed. It is replaced by a labelled judgment that the two items move EPS in opposite directions and that their net effect cannot be determined from the filing. That judgment is consistent with the evidence: the 10-Q gives no after-tax effect for the warrant charge (the income-tax note at line 1481 and the warrant note at lines 1425-1441 give none). The amounts appear only inside verbatim quotes, and all quotes Q-1 to Q-11 match snapshot/docs text exactly.",
+      "critic": "crit-provenance"
+    },
+    {
+      "id": "asm-001",
+      "evidence": "valuation_inputs.json rationales.peers now has a TTM period-alignment paragraph. It gives AMD's TTM end of 2026-09-26 and each peer's: INTC 2026-09-26 (aligned), NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01. It says the lag biases EV/Sales and the median upward, because NVDA and MRVL, both lagged, are the two middle values (median 16.27x = mean of MRVL 16.07x and NVDA 16.48x in numerical/recompute/peers.json). It says the multiple is not adjusted and that the relative leg should be read as generous. I checked the dates and the cited growth against snapshot/peers.json filtered to acceptance at or before the cutoff: NVDA quarterly Revenues $81.615bn (to 2026-04-26) then $96.221bn (to 2026-07-26); MRVL $2.4178bn then $2.7393bn; latest ends NVDA 2026-07-26, AVGO 2026-08-02, MRVL 2026-08-01, INTC 2026-09-26. All match.",
+      "critic": "crit-assumption"
+    },
+    {
+      "id": "cmp-002",
+      "evidence": "note_rendered.md: the Results heading no longer tags the section '(SEC XBRL data)'. It now reads 'the financial figures are derived by code from SEC XBRL data, and quoted text is taken from the 10-Q'. The final disclosure reads 'All figures are generated by code and are unaudited by the author. Reported financial figures are derived from SEC XBRL data. Guidance figures ($17.0bn revenue, 55.0% non-GAAP gross margin) are taken from the quoted earnings-release text, not XBRL. The share price and peer market values come from the price feed named above.' This separates XBRL-derived figures, release-quoted guidance and price-feed data, and the policy section 6 code/unaudited statement is still present.",
+      "critic": "crit-compliance"
+    }
+  ],
+  "conflicts": [],
+  "conflict_note": "No critic disputes another critic's finding or resolution. crit-provenance and crit-compliance both observed (outside their own resolution scope) that cmp-001 remains only partly repaired because no values key exists for release accession 0000002488-26-000188; this agrees with crit-compliance keeping cmp-001 open. asm-002 (warrant dilution) was raised only by crit-assumption; the other critics neither confirmed nor contested it.",
+  "open_findings_from_request": {
+    "prov-001": "resolved by crit-provenance",
+    "asm-001": "resolved by crit-assumption",
+    "cmp-001": "kept open (minor) by crit-compliance",
+    "cmp-002": "resolved by crit-compliance"
+  },
+  "new_findings": [
+    "asm-002"
+  ],
+  "blocking_open": [
+    "asm-002"
+  ],
+  "overall": "fail",
+  "coverage": {
+    "checked": {
+      "crit-provenance": [
+        "numerical/gates.json: findings [] (request gen-20261115T031048-ced865); computed/*.json byte-identical to numerical/recompute/*.json (values, history, forecast, peers, valuation)",
+        "Every {{key}} in note.md exists in values.json; F-/D- sources resolve in snapshot/facts.json or history.json derived IDs, all with acceptance_utc <= cutoff 2026-11-03T23:00:17Z (max in snapshot equals the cutoff, i.e. the trigger 10-Q)",
+        "revenue_q F-6fa20ae3f8 = 13,377M for 2026-06-28..2026-09-26; yoy vs F-315037b1f4 9,246M (44.7%, labelled year on year); qoq vs F-0c22036940 11,536M (16.0%, labelled quarter on quarter)",
+        "revenue_ttm 45,436M = D-da671c66c3 (FY2025 10-K 34,639M less 9M 24,369M = 10,270M) + 10,253M + 11,536M + 13,377M; labelled trailing-twelve-month",
+        "fcf_q 554M = D-161017865b CFO 1,202M (9M 6,523M less 6M 5,321M) - D-91daa3cfaa capex 648M (1,845M less 1,197M); net_cash 8,697M = cash 7,404M + STI 8,372M - debt 7,079M",
+        "gross_margin_q 7,210/13,377 = 53.9%; operating_margin_q 2,832/13,377 = 21.2%; eps_q F-1e4bc98cca $1.46",
+        "Spot-check vs periodic.txt: net revenue 13,377 (line 203), net income 2,428 (line 237), total assets 94,812 (line 342), net income bullet amounts vs tax note (line 1481) and Other income note (lines 1726, 1441)",
+        "Fiscal vs calendar labels: FY2026 Q3 = CY2026Q3, quarter ended 2026-09-26; next quarter FY2026Q4",
+        "Quotes Q-1..Q-11 verbatim in snapshot/docs; Q-1..Q-4 from release_ex99_1.txt, Q-5..Q-11 from periodic.txt; contexts are faithful (Q-5 is cited for the mix-driven margin increase, Q-6 for export-control risk, Q-7/Q-11 for the one-off items)",
+        "Guidance values match quotes: guide_revenue_next_q $17.0bn = Q-1 'approximately $17 billion, plus or minus 3%' (low 16.49bn, high 17.51bn); guide_non_gaap_gross_margin_next_q 55.0% = Q-2; note flags non-GAAP vs GAAP model basis",
+        "mapping.json: all mapped concepts have latest observation 2026-09-26 (shares_outstanding dei 2026-10-28, before cutoff); liabilities deliberately null; no stale concepts",
+        "Price $483.90 close 2026-11-03 from snapshot/prices.json, session ended before cutoff",
+        "Open findings asm-001, cmp-001, cmp-002 are outside the provenance area and left to crit-assumption and crit-compliance. Observation for cmp-001: the Disclosures line names the EX-99.1 release and the Yahoo price provider but not the literal accession 0000002488-26-000188; gen-writer reports that no values key exists for it"
+      ],
+      "crit-assumption": [
+        "Open findings in scope: asm-001 resolved. cmp-001, cmp-002 and prov-001 are outside the assumption scope and left to their critics. For context only: the rendered note now names both one-off items and draws no directional run-rate claim, and the disclosures name the release and the Yahoo price feed.",
+        "Next-quarter revenue vs guidance: FY2026Q4 revenue_qoq 27.1% gives $17.00bn, equal to the Q-1 midpoint ($16.49-17.51bn range)",
+        "Next-quarter gross margin: GAAP 53.4% versus non-GAAP guidance of 55% (Q-2). The bridge is explained (about 1.6pt amortization+SBC; Q3 GAAP 53.9% vs non-GAAP 56%)",
+        "Opex: 28.0% of revenue in FY2026Q4 (about $4.76bn, +8.7% q/q from $4.378bn), versus 32.7% in Q3. Operating leverage is explained and consistent with Q-4",
+        "Later quarters: +2%/+6%/+8% q/q and gross margin 53.5-54.0% are plausible against history (flat Q1s in FY2025/FY2026, +12.5%/+16.0% in Q2/Q3 FY2026), and the rationale explains them",
+        "Tax rate of 13%: underlying rates excluding the discrete SBC benefit fall in the 9.9-14.8% range. It matches the company's projected non-GAAP rate. The discrete items are not extrapolated",
+        "Share change of +0.2%/qtr matches the historical diluted trend (1,641M to 1,661M y/y). See asm-002 for the warrant dilution it omits",
+        "WACC 10.5% and terminal growth 3.0% are reasonable for a large-cap semiconductor. The CAPM inputs are labelled as assumptions",
+        "Terminal value share of EV is 75.2% (below the 80% flag) and is disclosed in the note",
+        "FCF margins: TTM CFO-capex from history.json = (2,600+2,955+2,366+1,202) - (222+389+808+648) = 7,056 on revenue of 45,436, or 15.5%, which matches the rationale. The year-1 margin of 18% rising to 22% is bounded by the FY2025 19.4% and the model's operating margin, and is explained",
+        "DCF revenue path: year 1 = code NTM $72.58bn, then +25/18/12/8%. Plausible as a glide path, and the rationale explains it",
+        "Net cash completeness: balance sheet at 2026-09-26 shows cash $7,404M + short-term investments $8,372M - long-term debt $7,079M (current portion nil; no commercial paper or revolver borrowings outstanding) = $8,697M, which matches valuation.json. Long-term marketable equity ($1.3bn) and lease liabilities are excluded, a conservative or immaterial choice",
+        "Peer set: NVDA/AVGO/MRVL/INTC are relevant to AMD's GPU/custom-silicon/CPU mix. The exclusions are explained. Calendar and fiscal alignment is now stated (asm-001)",
+        "Rationales exist for every assumption and valuation input and support the numbers chosen, except for the warrant-dilution gap (asm-002)",
+        "gates.json: no gate findings"
+      ],
+      "crit-compliance": [
+        "Information cutoff: note and rationales cite only FY2026Q3 and earlier data. Price is the 2026-11-03 close of $483.90 (last entry in snapshot/prices.json), from the session that ended before the 2026-11-03T23:00:17Z cutoff. Peer TTM ends (2026-07-26 to 2026-09-26) and INTC's 10-Q acceptance date of 2026-10-29 fall before the cutoff. No later quarters, prices or events are mentioned",
+        "All quotes in the note (Q-1 to Q-7, Q-11) come from narrative.json and snapshot docs; gates.json reports no findings (quote_verbatim, untagged_number, note_placeholder)",
+        "Policy section 6 disclosures: not-investment-advice line, data sources with accession, cutoff and price date, rating definitions matching the bands (+15% / -10%), and the code-generated/unaudited statement with the XBRL qualification are all present",
+        "Rating: upside -38.6% (valuation.json upside -0.3862) is at or below -10%, so Underperform is consistent with the bands. The note recommends no action beyond the rating and uses no promissory or guaranteed language",
+        "Labelling: reported facts, company guidance, our forecasts (from code/assumptions) and 'our judgment' statements are labelled separately. The non-GAAP vs GAAP margin distinction is stated",
+        "Net-income bullet (prov-001 area, left to crit-provenance to resolve): it now names both the discrete tax benefit (Q-7) and the noncash warrant charge (Q-11), and the 'overstates run rate' claim has been removed. The statement that the 10-Q gives no after-tax effect for the warrant charge matches my search of periodic.txt. 'Recurring earnings excluding both items' is consistent with the assumptions.json tax_rate rationale",
+        "tp_change_needs_rationale is false (prior_target_price null), so no target-change explanation is needed",
+        "Filing text treated as data: I searched the snapshot docs for embedded instructions and found none (only boilerplate 'instructions to Form 10-Q' and 'x86 instruction sets'). Nothing in the filings was followed",
+        "asm-001 (peer TTM alignment) is outside the compliance area. For information: valuation_inputs.json rationales.peers now states each peer's TTM end and the upward bias of the median multiple"
+      ]
+    },
+    "acceptance_areas": {
+      "A numerical gates": "gates.json reviewed by crit-provenance and crit-assumption (no gate findings); recompute byte-identity checked by crit-provenance; quote_verbatim/untagged_number/note_placeholder cited by crit-compliance",
+      "A information_cutoff": "crit-provenance (fact acceptance times, price) and crit-compliance (price, peers, no later events)",
+      "B provenance": "crit-provenance",
+      "B assumptions": "crit-assumption",
+      "B compliance": "crit-compliance",
+      "C research acceptance": "not met this review: crit-assumption verdict fail with open major asm-002",
+      "D rating follows bands": "crit-compliance (-38.6% -> Underperform)",
+      "D target-change rationale": "crit-compliance (tp_change_needs_rationale false)",
+      "D named approver": "outside critic scope (controller/approver step)",
+      "E limits": "outside critic scope (controller)"
+    },
+    "uncovered": []
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "accession": "0000002488-26-000191",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "issued_at": "2026-11-15T03:30:55Z",
+  "open_findings": [
+    {
+      "check": "Data-source disclosure omits the earnings-release accession and the price source",
+      "detail": "Partly repaired. The Disclosures line now names the price provider ('unadjusted daily close from the Yahoo Finance chart endpoint (split-adjusted by the provider)', which matches the snapshot/prices.json note) and says peer market values come from the same feed. It also identifies the release as the Form 8-K exhibit EX-99.1, 'a separate EDGAR accession', and as the source of the guidance and demand quotes. The literal release accession 0000002488-26-000188 (snapshot/manifest.json, docs/release_ex99_1.txt) is still not named. gen-writer reports that the untagged_number gate would flag the digits and that values.json has no key for this accession. I checked values.json and confirmed it has no such key, only trigger_accession. Policy section 6 is satisfied because the trigger accession, cutoff and price date are present. The as-of trail is still incomplete by one identifier. Closing this needs a compute-side values key (for example release_accession) that the writer can reference as {{key}}.",
+      "first_round": 1,
+      "id": "cmp-001",
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "Disclosures line also names accession 0000002488-26-000188 for the release quotes and the provider of the closing price",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Per-share valuation ignores the customer penny warrants (up to 320M shares, about 19% of diluted shares) and the related contra-revenue",
+      "detail": "The 10-Q (periodic.txt, Note 14, line ~1425) says AMD issued warrants to two customers (Oct 2025, Feb 2026), 'each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share'. The risk factor (line ~2368) puts the combined total at up to 320 million shares. Line ~1439 says the weighted-average fair value is $178.58 per share 'as most market conditions had been met'. Line ~1441 reports a warrant liability of $1.2 billion and $4.5 billion of unrecognized grant-date fair value 'that would be recorded as a reduction of revenue'. valuation.json divides equity value by diluted_shares = 1,661M, which excludes all warrant shares (none have vested). share_change_qoq (+0.2%/qtr) is based only on the historical diluted-share trend. Neither valuation_inputs.json nor assumptions.json nor note.md mentions the warrants as potential dilution. Yet the DCF capitalises the Data Center/Helios ramp (Q-3, Q-4), and the purchase milestones that vest these warrants are tied to that same ramp. So the model takes the revenue but not the dilution attached to it. Illustrative full-dilution effect (my arithmetic from valuation.json, not a code output): DCF equity $324.5bn / 1,981M shares = about $164 versus $195.37; relative leg $748.0bn / 1,981M = about $378 versus $450.35; blended about $249 versus $297, a cut of roughly 16% in the target price. Under the policy bands the rating stays Underperform (upside about -48% instead of -38.6%), but a possible 16% swing in the target, undisclosed, is a material valuation omission. Separately, the $4.5bn of unrecognized warrant value will reduce reported revenue as qualifying revenue is recognised. Guidance probably already nets this out for FY2026Q4, but the rationale for later-year revenue/FCF does not mention it. The $1.2bn warrant liability (other long-term liabilities) is reasonably left out of net cash because it is equity-settled at $0.01, but that choice should be stated.",
+      "first_round": 2,
+      "id": "asm-002",
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "valuation_inputs.json rationales (and a sentence in note.md's valuation section or risks) acknowledge the customer warrants (up to 320M shares at $0.01, quotable from periodic.txt) as potential dilution not reflected in the code's diluted share count. They state the direction and rough size of the effect on the per-share target (and confirm the rating would not change), or explain with evidence why the dilution is treated as immaterial or not probable. They also note that the unrecognized warrant value will reduce future reported revenue, and state why the warrant liability is excluded from net cash.",
+      "severity": "major",
+      "source": "critic",
+      "status": "open"
+    }
+  ],
+  "output_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-003/generator",
+  "phase": "generator",
+  "previous_generator_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-002/generator",
+  "prompt_versions": {
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "crit-lead": "v2",
+    "crit-provenance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1",
+    "gen-lead": "v2",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v2",
+    "orchestrator": "v1"
+  },
+  "repair_packet": {
+    "instruction": "Repair every open finding and supply the required evidence; findings close only when a fresh critic or the recomputed gates verify the repaired output.",
+    "open_findings": [
+      {
+        "check": "Per-share valuation ignores the customer penny warrants (up to 320M shares, about 19% of diluted shares) and the related contra-revenue",
+        "detail": "The 10-Q (periodic.txt, Note 14, line ~1425) says AMD issued warrants to two customers (Oct 2025, Feb 2026), 'each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share'. The risk factor (line ~2368) puts the combined total at up to 320 million shares. Line ~1439 says the weighted-average fair value is $178.58 per share 'as most market conditions had been met'. Line ~1441 reports a warrant liability of $1.2 billion and $4.5 billion of unrecognized grant-date fair value 'that would be recorded as a reduction of revenue'. valuation.json divides equity value by diluted_shares = 1,661M, which excludes all warrant shares (none have vested). share_change_qoq (+0.2%/qtr) is based only on the historical diluted-share trend. Neither valuation_inputs.json nor assumptions.json nor note.md mentions the warrants as potential dilution. Yet the DCF capitalises the Data Center/Helios ramp (Q-3, Q-4), and the purchase milestones that vest these warrants are tied to that same ramp. So the model takes the revenue but not the dilution attached to it. Illustrative full-dilution effect (my arithmetic from valuation.json, not a code output): DCF equity $324.5bn / 1,981M shares = about $164 versus $195.37; relative leg $748.0bn / 1,981M = about $378 versus $450.35; blended about $249 versus $297, a cut of roughly 16% in the target price. Under the policy bands the rating stays Underperform (upside about -48% instead of -38.6%), but a possible 16% swing in the target, undisclosed, is a material valuation omission. Separately, the $4.5bn of unrecognized warrant value will reduce reported revenue as qualifying revenue is recognised. Guidance probably already nets this out for FY2026Q4, but the rationale for later-year revenue/FCF does not mention it. The $1.2bn warrant liability (other long-term liabilities) is reasonably left out of net cash because it is equity-settled at $0.01, but that choice should be stated.",
+        "first_round": 2,
+        "id": "asm-002",
+        "last_seen_round": 2,
+        "reopened": false,
+        "required_evidence": "valuation_inputs.json rationales (and a sentence in note.md's valuation section or risks) acknowledge the customer warrants (up to 320M shares at $0.01, quotable from periodic.txt) as potential dilution not reflected in the code's diluted share count. They state the direction and rough size of the effect on the per-share target (and confirm the rating would not change), or explain with evidence why the dilution is treated as immaterial or not probable. They also note that the unrecognized warrant value will reduce future reported revenue, and state why the warrant liability is excluded from net cash.",
+        "severity": "major",
+        "source": "critic",
+        "status": "open"
+      }
+    ],
+    "reason": "critic findings open"
+  },
+  "request_id": "gen-20261115T033055-31f7b7",
+  "required_reports": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation",
+    "gen-writer"
+  ],
+  "round": 3,
+  "snapshot_dir": "cases/AMD-0000002488-26-000191-r2/snapshot",
+  "ticker": "AMD"
+}
