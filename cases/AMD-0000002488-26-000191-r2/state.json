@@ -1,5 +1,15 @@
 {
   "accession": "0000002488-26-000191",
+  "approval": {
+    "approver": "Repository owner (kuostudy31-bot); executed by Claude under the owner's delegation of 2026-11-14",
+    "at": "2026-11-15T03:55:18Z",
+    "candidate_id": "cand-9de0c1419071",
+    "case_id": "AMD-0000002488-26-000191-r2",
+    "decision": "approve",
+    "note": "Delegated approval after review: round 3, two consecutive clean full reviews (6/6 critic passes); both major findings closed (prov-001 unsupported tax-benefit claim; asm-002 customer-warrant dilution, now disclosed with quotes and a dilution sensitivity); 3 minor findings recorded. Figures code-generated, quotes verbatim, disclosures present; terminal value 75% of EV noted. First AMD publication, so no prior target price.",
+    "rating": "Underperform",
+    "target_price": 297
+  },
   "artifacts": {
     "round-001": {
       "assumptions.json": "11f28cae8592efb487f242779bd124312203cfa58a5b5a120454cb89e9ccc316",
@@ -148,11 +158,7 @@
     ]
   ],
   "opened_at": "2026-11-15T02:54:08Z",
-  "pending": {
-    "issued_at": "2026-11-15T03:53:05Z",
-    "phase": "approval",
-    "request_id": "appr-20261115T035305-4b0b93"
-  },
+  "pending": null,
   "period_of_report": "2026-09-26",
   "prompt_versions": {
     "crit-assumption": "v1",
@@ -172,7 +178,7 @@
   "review": 2,
   "round": 3,
   "snapshot_manifest_sha256": "78ed765a2ad8beddc8831bd683d2913cd7407ee373c3fee22547cca377ac8bb1",
-  "status": "AWAITING_APPROVAL",
+  "status": "PUBLISHED",
   "ticker": "AMD",
-  "updated_at": "2026-11-15T03:53:05Z"
+  "updated_at": "2026-11-15T03:55:18Z"
 }
