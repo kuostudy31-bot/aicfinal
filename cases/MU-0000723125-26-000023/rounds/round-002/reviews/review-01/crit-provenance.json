@@ -1,0 +1,56 @@
+{
+  "request_id": "crit-20261115T082227-82cb33",
+  "role": "crit-provenance",
+  "candidate_id": "cand-0aac844f50d1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "prov-005",
+      "severity": "minor",
+      "title": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed",
+      "detail": "The 'Valuation caveat' paragraph in note.md says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt lines 1763 and 2344). 'May retain all or a portion' means a partial return is possible even when the commitment is missed, so 'only if' overstates the condition. The paragraph also attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K as a paraphrase without a [[Q-id]]. The paraphrase is accurate (periodic.txt lines 1763 and 2961), but a reader cannot check it through the quote trail. The judgment itself (treat the deposits as operating liabilities) is labelled as our view and is not affected. Neither point changes any figure.",
+      "evidence": [
+        "generator/note.md (Model and valuation, 'Valuation caveat' paragraph)",
+        "snapshot/docs/periodic.txt#L1763",
+        "snapshot/docs/periodic.txt#L2344",
+        "snapshot/docs/periodic.txt#L2961"
+      ],
+      "required_evidence": "The caveat says 'returned if the customer meets ...' (or adds that the company may retain all or a portion otherwise) instead of 'only if'. Ideally the repayment-timing statement is cited through a verbatim narrative quote, e.g. 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.'"
+    }
+  ],
+  "resolved": [
+    {
+      "id": "prov-001",
+      "evidence": "narrative.json Q-1..Q-4 are now pipe-free single-cell quotes ('$61.5 billion ± $1.5 billion', 'Approximately 85.95%', 'Approximately $2.31 billion', '$37.84 ± $1.00'), and Q-15..Q-17 were added for non-GAAP ('Approximately 86.25%', 'Approximately $2.06 billion', '$38.15 ± $1.00'). Each appears verbatim in the release (lines 169-178, GAAP column first, non-GAAP second; the reconciliation table at lines 577-586 confirms the basis). In computed/note_rendered.md all 9 table lines have exactly 3 cells (header, separator and 7 rows), each quote appears whole, and the code column is populated. Key points now label the GAAP and non-GAAP guidance. No quote or rendered line outside the table contains a pipe. Recompute note_rendered.md is identical to computed/."
+    },
+    {
+      "id": "prov-002",
+      "evidence": "The code column is headed 'Code value (rounded)'. A sentence below the table says the verbatim quotes are authoritative for precision, that the display rounds to one decimal place, and that the non-GAAP gross margin display rounds down. The forecast bullets cite Q-2 and Q-3 instead of the rounded displays. Stored values are exact (0.8595, 0.8625, 2.31e9, 2.06e9, 37.84, 38.15 in values.json)."
+    },
+    {
+      "id": "prov-003",
+      "evidence": "narrative.json guidance eps_next_q_gaap (37.84, Q-4, low 36.84, high 38.84) and eps_next_q_nongaap (38.15, Q-17, low 37.15, high 39.15) now carry unit 'USD/share'."
+    },
+    {
+      "id": "prov-004",
+      "evidence": "The specialist-attributed 'rating would stay Neutral (not recomputed in code here)' sentence is gone. grep finds no 'specialist' in note.md. Net cash is now the code value {{net_cash}} = $68.3bn (valuation.json net_cash 68,274M = cash 38,364M (F-455b2cbdf8) + investments 35,089M (S-0f9cbd5118 = F-e8f2f41b64 5,070M + F-5368223b24 30,019M) - debt 5,179M (S-0a86662e54 = F-ca07e4ae2b 491M + F-bce6b48da4 4,688M)). This matches the 10-K balance sheet (periodic.txt lines 2018, 2022, 2032, 2046, 2052) and management's $73.45B cash and marketable investments (line 1761: 38,364 + 5,070 + 30,019 = 73,453M)."
+    }
+  ],
+  "checked": [
+    "gates.json: findings empty; sha256 of recompute forecast/history/peers/valuation/values equals the computed/ copies and the gate hashes; recompute note_rendered.md is identical to computed/note_rendered.md",
+    "All 38 {{keys}} in note.md exist in values.json; F-/D-/S- sources resolve in snapshot/facts.json or in history.json derived records whose components are facts accepted at or before the cutoff (latest 10-K 0000723125-26-000023, 2026-10-09T12:21:00Z)",
+    "revenue_q 54,229M = D-e90aac72b9 (FY 133,188M F-ea1467005d - 9M 78,959M F-adf7207965) over 2026-05-29..2026-09-03 (14 weeks); described as fiscal quarter FY2026 Q4 / CY2026Q3",
+    "revenue_qoq 30.8% vs FY2026Q3 41,456M (F-03e050e3a0); revenue_yoy 379.3% vs FY2025Q4 11,315M (D-784c348bcc = 37,378M - 26,063M); revenue_ttm 133,188M = sum of four quarters = FY2026; labels q/q, y/y and TTM correct; the extra-week caveat (Q-10) is accurate",
+    "gross_margin_q 86.8% (47,047/54,229), operating_margin_q 80.7% (43,751/54,229), net_income_q 37,701M (84,969 - 47,268), fcf_q 32,863M (CFO 43,973 - capex 11,110), all Q4 derived values",
+    "Spot-check against periodic.txt: revenue 133,188 (lines 1585, 1954), net income 84,969 (lines 1611, 1981, 2183), total assets 195,888 (line 2040, F-381c925c83), cash 38,364, short-term investments 5,070, long-term marketable investments 30,019, current debt 491, long-term debt 4,688",
+    "Valuation arithmetic: DCF equity = EV 919.67B + net cash 68.27B; relative = (15.12x * 133.19B + 68.27B)/1.145B = 1,818.6; blend 0.75*862.83 + 0.25*1,818.58 = 1,101.8 -> 1,102; upside 1,102/1,035.84 - 1 = 6.4%; Neutral per bands",
+    "Price 1,035.84 on 2026-10-08 is the last close in prices.json before the cutoff of 2026-10-09 12:21 UTC",
+    "Quotes Q-1..Q-17 all appear verbatim in the stated docs; the contexts of Q-6, Q-7, Q-8, Q-9, Q-10, Q-12 and Q-13 were read in full and are not truncated in a way that changes their meaning; GAAP/non-GAAP binding of guidance quotes is correct",
+    "Guidance values match quotes: revenue 61.5bn (60.0-63.0bn), GM 0.8595 / 0.8625, opex 2.31bn / 2.06bn, EPS 37.84 / 38.15 with +/-1.00 ranges",
+    "Disclosures: trigger_accession 0000723125-26-000023 (10-K) and release_accession 0000723125-26-000018 (manifest.json; filings.json: Form 8-K items 2.02/9.01, accepted 2026-09-30T20:02:22Z, before cutoff); the release is no longer called a 10-K exhibit",
+    "mapping.json: investments line = [AvailableForSaleSecuritiesDebtSecuritiesCurrent, ...Noncurrent], debt = [DebtCurrent, LongTermDebtAndCapitalLeaseObligations] (stale LongTermDebt avoided), diluted shares/EPS not differenced; all concepts current through 2026-09-03; shares_outstanding cover date 2026-10-02 is before cutoff",
+    "Peers in valuation_inputs.json (INTC, AMAT, LRCX, KLAC) match the note's 'fab-owning and wafer-fab-equipment' description",
+    "Data-gap statement (no Q4 diluted shares/EPS tagged; model uses 1,145M from F-3d172a9372) matches history.json",
+    "No figures in note.md outside {{keys}}/[[Q-ids]] other than year, period and form labels; no post-cutoff information observed"
+  ]
+}

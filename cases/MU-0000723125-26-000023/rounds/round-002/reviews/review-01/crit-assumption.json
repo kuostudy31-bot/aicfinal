@@ -1,0 +1,65 @@
+{
+  "request_id": "crit-20261115T082227-82cb33",
+  "role": "crit-assumption",
+  "candidate_id": "cand-0aac844f50d1",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "asm-004",
+      "severity": "minor",
+      "title": "Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale",
+      "detail": "The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties this to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The cash flow statement shows 'Other noncurrent liabilities | 9,633' for FY2026 (line 2202). The $9.03B of FY2026 Singapore top-up tax (line 3099) was accrued but has not been paid. The cash sits inside reported cash and therefore inside net cash of $68.274B. The year-1 FCF reconciliation in the fcf_margin rationale uses NTM net income at a 14.8% book tax rate, so it assumes cash taxes equal expense, and it says 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. Neither that rationale nor the net_cash rationale says when the accrued FY2026 liability will be paid. Paying it inside the forecast would be an extra cash outflow that is not in the FCF path. If it rolls over every year, it is a working-capital-type liability, and its balance would unwind in years 3-5 when modelled revenue falls. Size (my own arithmetic, not code output): $9.82B / 1,145M diluted shares = about $8.6 per share undiscounted on both legs. That moves the target price to about $1,093, about 5.6% upside, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002). It is small but should be stated.",
+      "evidence": [
+        "snapshot/docs/periodic.txt:3101",
+        "snapshot/docs/periodic.txt:1832",
+        "snapshot/docs/periodic.txt:2202",
+        "snapshot/docs/periodic.txt:3099",
+        "generator/valuation_inputs.json#rationales.fcf_margin",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "numerical/recompute/valuation.json#net_cash"
+      ],
+      "required_evidence": "The valuation_inputs.json net_cash or fcf_margin rationale states how the $9.82B noncurrent income taxes payable is treated: deducted as debt-like, paid inside the FCF path, or a rolling operating liability with no adjustment. It gives the reason and an approximate per-share sensitivity labelled as analyst arithmetic."
+    },
+    {
+      "id": "asm-005",
+      "severity": "minor",
+      "title": "The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg",
+      "detail": "Code output: DCF $862.83 per share (17% below the $1,035.84 close) and relative EV/Sales $1,818.58 per share (76% above). At dcf_weight 0.75 the blend is $1,101.77, +6.4%, Neutral. My own arithmetic, not code output: the rating would be Outperform at a DCF weight of about 0.656 or less, and Underperform at about 0.927 or more. So 0.75 is about 9 percentage points of weight from an Outperform call. The dcf_weight rationale gives qualitative reasons that partly offset each other (TTM base understates run-rate; non-memory peers overstate multiples) and says the weight was set before the target price was seen in round 1. That is acceptable as a judgment. However, the note reports only the DCF value and the peer multiple. It does not show the relative per-share value or the 75/25 weighting, so a reader cannot see that the two methods are about $956 per share apart and that the Neutral call rests on the weighting. Rating sensitivity should be visible to the reader. Not a blocker: the inputs are inside policy and the rationale exists.",
+      "evidence": [
+        "numerical/recompute/valuation.json#relative_per_share",
+        "numerical/recompute/valuation.json#dcf.per_share",
+        "numerical/recompute/valuation.json#dcf_weight",
+        "generator/valuation_inputs.json#rationales.dcf_weight",
+        "numerical/recompute/note_rendered.md:63-66"
+      ],
+      "required_evidence": "note.md shows the relative-value per-share figure and the DCF/relative weights through code values (if values.json provides keys for them), and adds one sentence, labelled analyst judgment, saying the rating is sensitive to the weighting."
+    }
+  ],
+  "resolved": [
+    {
+      "id": "asm-001",
+      "evidence": "mapping.json maps short_term_investments to [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent] with a rationale (5,070M + 30,019M = 35,089M; non-marketable equity investments of about $1.30B excluded). numerical/recompute/valuation.json (identical to computed/) shows short_term_investments 35,089,000,000 and net_cash 68,274,000,000 = 38,364M + 35,089M - 5,179M, which matches the balance sheet (periodic.txt lines 2032, 2050, 2052). note_rendered.md line 65 describes net cash as 'cash and cash equivalents plus short- and long-term marketable investments, less total debt (code output)'. The uncomputed 'rating would stay Neutral (according to the valuation specialist)' sentence is gone. The recomputed target price is $1,102 (+6.4%, Neutral)."
+    },
+    {
+      "id": "asm-002",
+      "evidence": "The valuation_inputs.json net_cash rationale states that the $12.895B noncurrent customer contract liabilities (F-3212bef088) are excluded as operating contract liabilities. It quotes the no-significant-financing-component language (periodic.txt line 2344, verified verbatim) and the conditional-return terms (line 1763, verified). It acknowledges the counter-arguments: the financing inflow sits in cash, and repayment falls in 2029-2031, inside DCF years 3-5. It gives an analyst-arithmetic sensitivity of about $11 per share. The WACC rationale no longer calls debt 'small' without qualification. note_rendered.md line 68 carries a labelled valuation caveat, and line 75 flags the treatment as a judgment that favours the shares."
+    },
+    {
+      "id": "asm-003",
+      "evidence": "Year-1 FCF margin is lowered from 55% to 50% (valuation.json dcf.fcf[0] = $134.75B on $269.50B). The fcf_margin rationale quotes the capex outlook verbatim (checked against periodic.txt line 1771). It reconciles year 1 as labelled analyst arithmetic: NTM net income $188.7B (matches forecast.json ntm.net_income 188,719M) + D&A ~$12B (FY2026 $9.503B, line 2187) + SBC ~$1.5B - net capex ~$55B - working capital ~$12B (receivables $36.197B, line 2024) = ~$135B, or 50%. It also gives a 47-53.5% range."
+    }
+  ],
+  "checked": [
+    "Next-quarter revenue vs guidance: FY2027Q1 $61.50B equals the guided midpoint ($61.5B +/- $1.5B); +13.4% on the 14-week Q4 base, about +22% on a 13-week base; rationale explains the 53-week effect",
+    "Next-quarter margins vs guidance: GM 85.95% = GAAP guidance; opex 3.76% x $61.5B = $2.31B = GAAP guidance; tax 14.8% = FY2026 ETR (Pillar Two); EPS $37.50 inside $37.84 +/- $1.00, shortfall explained by excluded interest income",
+    "Later-quarter path: revenue +8%/+5%/+3% q/q, decelerating from FY2026 (+20.6%, +74.9%, +73.7%, +30.8%); GM held flat on supply limits and price-band floors; plausible and explained",
+    "Valuation inputs: WACC 10.5% (cyclical premium, judgment, inside band); terminal growth 3.0% (inside band); terminal value 55.9% of EV (below 80%)",
+    "FCF margins vs history: FY2025 4.5%, FY2026 44.3% (CFO 89,675M - capex 30,712M on 133,188M); years 1-5 50/50/42/35/30%; year 1 reconciled to guided capex and working capital; terminal 30% below FY2025-26 pooled 35.5%",
+    "Revenue growth years 2-5 (+5%, -10%, -15%, -5%): cycle-normalisation judgment with rationale; year-5 revenue $205.7B",
+    "Net cash completeness: cash 38,364M, short-term 5,070M and long-term 30,019M marketable investments, current debt 491M and long-term debt 4,688M all match the balance sheet; customer deposits (12,895M) handled under asm-002; Pillar Two noncurrent taxes payable (9.82B) raised as asm-004; non-marketable equity investments (~1.30B) excluded with reason",
+    "Peer set: INTC, AMAT, LRCX, KLAC (fab-owning IDM and WFE on the memory capex cycle); no memory peer, caveat stated; peer TTM to CY2026Q2 (ends 2026-06-27 to 2026-07-26) vs MU fiscal period ending 2026-09-03 (CY2026Q3), alignment noted in rationale",
+    "Arithmetic spot-checks: relative leg 15.121 x 133.188B + 68.274B over 1,145M shares = $1,818.6; DCF pv_fcf[0] = 134.75B / 1.105; blended $1,101.77 -> TP $1,102, +6.39%, Neutral",
+    "Rationales present for every assumption and valuation input; they support the numbers chosen (weighting sensitivity noted under asm-005)",
+    "No information after the 2026-10-09T12:21Z cutoff used; the 8-K release (accepted 2026-09-30) and the 10-K are both before the cutoff"
+  ]
+}

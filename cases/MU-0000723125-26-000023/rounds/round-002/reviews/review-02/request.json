@@ -1,0 +1,58 @@
+{
+  "acceptance_rules": "references/acceptance.md",
+  "candidate_dir": "cases/MU-0000723125-26-000023/rounds/round-002/generator",
+  "candidate_id": "cand-0aac844f50d1",
+  "case_id": "MU-0000723125-26-000023",
+  "computed_dir": "cases/MU-0000723125-26-000023/rounds/round-002/numerical/recompute",
+  "gates_file": "cases/MU-0000723125-26-000023/rounds/round-002/numerical/gates.json",
+  "issued_at": "2026-11-15T08:26:22Z",
+  "open_findings": [
+    {
+      "check": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed",
+      "detail": "The 'Valuation caveat' paragraph in note.md says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt lines 1763 and 2344). 'May retain all or a portion' means a partial return is possible even when the commitment is missed, so 'only if' overstates the condition. The paragraph also attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K as a paraphrase without a [[Q-id]]. The paraphrase is accurate (periodic.txt lines 1763 and 2961), but a reader cannot check it through the quote trail. The judgment itself (treat the deposits as operating liabilities) is labelled as our view and is not affected. Neither point changes any figure.",
+      "first_round": 2,
+      "id": "prov-005",
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "The caveat says 'returned if the customer meets ...' (or adds that the company may retain all or a portion otherwise) instead of 'only if'. Ideally the repayment-timing statement is cited through a verbatim narrative quote, e.g. 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.'",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale",
+      "detail": "The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties this to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The cash flow statement shows 'Other noncurrent liabilities | 9,633' for FY2026 (line 2202). The $9.03B of FY2026 Singapore top-up tax (line 3099) was accrued but has not been paid. The cash sits inside reported cash and therefore inside net cash of $68.274B. The year-1 FCF reconciliation in the fcf_margin rationale uses NTM net income at a 14.8% book tax rate, so it assumes cash taxes equal expense, and it says 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. Neither that rationale nor the net_cash rationale says when the accrued FY2026 liability will be paid. Paying it inside the forecast would be an extra cash outflow that is not in the FCF path. If it rolls over every year, it is a working-capital-type liability, and its balance would unwind in years 3-5 when modelled revenue falls. Size (my own arithmetic, not code output): $9.82B / 1,145M diluted shares = about $8.6 per share undiscounted on both legs. That moves the target price to about $1,093, about 5.6% upside, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002). It is small but should be stated.",
+      "first_round": 2,
+      "id": "asm-004",
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "The valuation_inputs.json net_cash or fcf_margin rationale states how the $9.82B noncurrent income taxes payable is treated: deducted as debt-like, paid inside the FCF path, or a rolling operating liability with no adjustment. It gives the reason and an approximate per-share sensitivity labelled as analyst arithmetic.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    },
+    {
+      "check": "The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg",
+      "detail": "Code output: DCF $862.83 per share (17% below the $1,035.84 close) and relative EV/Sales $1,818.58 per share (76% above). At dcf_weight 0.75 the blend is $1,101.77, +6.4%, Neutral. My own arithmetic, not code output: the rating would be Outperform at a DCF weight of about 0.656 or less, and Underperform at about 0.927 or more. So 0.75 is about 9 percentage points of weight from an Outperform call. The dcf_weight rationale gives qualitative reasons that partly offset each other (TTM base understates run-rate; non-memory peers overstate multiples) and says the weight was set before the target price was seen in round 1. That is acceptable as a judgment. However, the note reports only the DCF value and the peer multiple. It does not show the relative per-share value or the 75/25 weighting, so a reader cannot see that the two methods are about $956 per share apart and that the Neutral call rests on the weighting. Rating sensitivity should be visible to the reader. Not a blocker: the inputs are inside policy and the rationale exists.",
+      "first_round": 2,
+      "id": "asm-005",
+      "last_seen_round": 2,
+      "reopened": false,
+      "required_evidence": "note.md shows the relative-value per-share figure and the DCF/relative weights through code values (if values.json provides keys for them), and adds one sentence, labelled analyst judgment, saying the rating is sensitive to the weighting.",
+      "severity": "minor",
+      "source": "critic",
+      "status": "open"
+    }
+  ],
+  "output_dir": "cases/MU-0000723125-26-000023/rounds/round-002/reviews/review-02",
+  "phase": "critic",
+  "request_id": "crit-20261115T082622-d16bf3",
+  "required_reports": [
+    "crit-provenance",
+    "crit-assumption",
+    "crit-compliance"
+  ],
+  "review": 2,
+  "round": 2,
+  "snapshot_dir": "cases/MU-0000723125-26-000023/snapshot"
+}

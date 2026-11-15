@@ -1,0 +1,244 @@
+{
+  "request_id": "crit-20261115T082227-82cb33",
+  "candidate_id": "cand-0aac844f50d1",
+  "reports": [
+    {
+      "role": "crit-provenance",
+      "file": "crit-provenance.json",
+      "request_id": "crit-20261115T082227-82cb33",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [
+        "prov-005"
+      ],
+      "resolved_ids": [
+        "prov-001",
+        "prov-002",
+        "prov-003",
+        "prov-004"
+      ]
+    },
+    {
+      "role": "crit-assumption",
+      "file": "crit-assumption.json",
+      "request_id": "crit-20261115T082227-82cb33",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [
+        "asm-004",
+        "asm-005"
+      ],
+      "resolved_ids": [
+        "asm-001",
+        "asm-002",
+        "asm-003"
+      ]
+    },
+    {
+      "role": "crit-compliance",
+      "file": "crit-compliance.json",
+      "request_id": "crit-20261115T082227-82cb33",
+      "candidate_id": "cand-0aac844f50d1",
+      "verdict": "pass",
+      "finding_ids": [],
+      "resolved_ids": [
+        "cmp-001",
+        "cmp-002",
+        "cmp-003"
+      ]
+    }
+  ],
+  "verdicts": {
+    "crit-provenance": "pass",
+    "crit-assumption": "pass",
+    "crit-compliance": "pass"
+  },
+  "findings": [
+    {
+      "id": "prov-005",
+      "severity": "minor",
+      "title": "Customer-deposit caveat paraphrases the 10-K more strongly than the source and is not quote-backed",
+      "detail": "The 'Valuation caveat' paragraph in note.md says 'a deposit is returned only if the customer meets its minimum purchase commitments'. The 10-K says deposits 'are returned to the customer if the customer meets the minimum purchase commitments. If the customer does not meet the minimum purchase commitments, we may retain all or a portion of the deposit' (periodic.txt lines 1763 and 2344). 'May retain all or a portion' means a partial return is possible even when the commitment is missed, so 'only if' overstates the condition. The paragraph also attributes 'nearly all of the deposits are scheduled to be repaid between 2029 and 2031' to the 10-K as a paraphrase without a [[Q-id]]. The paraphrase is accurate (periodic.txt lines 1763 and 2961), but a reader cannot check it through the quote trail. The judgment itself (treat the deposits as operating liabilities) is labelled as our view and is not affected. Neither point changes any figure.",
+      "evidence": [
+        "generator/note.md (Model and valuation, 'Valuation caveat' paragraph)",
+        "snapshot/docs/periodic.txt#L1763",
+        "snapshot/docs/periodic.txt#L2344",
+        "snapshot/docs/periodic.txt#L2961"
+      ],
+      "required_evidence": "The caveat says 'returned if the customer meets ...' (or adds that the company may retain all or a portion otherwise) instead of 'only if'. Ideally the repayment-timing statement is cited through a verbatim narrative quote, e.g. 'Nearly all of the deposits are scheduled to be repaid between 2029 and 2031.'"
+    },
+    {
+      "id": "asm-004",
+      "severity": "minor",
+      "title": "Pillar Two noncurrent income taxes payable ($9.82B) is not addressed in the net cash or FCF rationale",
+      "detail": "The 10-K says 'Other noncurrent liabilities included $9.82 billion and $648 million related to income taxes payable as of September 3, 2026 and August 28, 2025, respectively' (periodic.txt line 3101). MD&A ties this to Pillar Two: 'higher noncurrent income taxes payable related to the implementation of Pillar Two' (line 1832). The cash flow statement shows 'Other noncurrent liabilities | 9,633' for FY2026 (line 2202). The $9.03B of FY2026 Singapore top-up tax (line 3099) was accrued but has not been paid. The cash sits inside reported cash and therefore inside net cash of $68.274B. The year-1 FCF reconciliation in the fcf_margin rationale uses NTM net income at a 14.8% book tax rate, so it assumes cash taxes equal expense, and it says 'A recurring Pillar Two tax deferral is possible upside but is not assumed'. Neither that rationale nor the net_cash rationale says when the accrued FY2026 liability will be paid. Paying it inside the forecast would be an extra cash outflow that is not in the FCF path. If it rolls over every year, it is a working-capital-type liability, and its balance would unwind in years 3-5 when modelled revenue falls. Size (my own arithmetic, not code output): $9.82B / 1,145M diluted shares = about $8.6 per share undiscounted on both legs. That moves the target price to about $1,093, about 5.6% upside, and the rating stays Neutral. This is a judgment of the same kind as the customer deposits (asm-002). It is small but should be stated.",
+      "evidence": [
+        "snapshot/docs/periodic.txt:3101",
+        "snapshot/docs/periodic.txt:1832",
+        "snapshot/docs/periodic.txt:2202",
+        "snapshot/docs/periodic.txt:3099",
+        "generator/valuation_inputs.json#rationales.fcf_margin",
+        "generator/valuation_inputs.json#rationales.net_cash",
+        "numerical/recompute/valuation.json#net_cash"
+      ],
+      "required_evidence": "The valuation_inputs.json net_cash or fcf_margin rationale states how the $9.82B noncurrent income taxes payable is treated: deducted as debt-like, paid inside the FCF path, or a rolling operating liability with no adjustment. It gives the reason and an approximate per-share sensitivity labelled as analyst arithmetic."
+    },
+    {
+      "id": "asm-005",
+      "severity": "minor",
+      "title": "The rating depends on the DCF/EV-Sales weight, and the note does not show the relative-value leg",
+      "detail": "Code output: DCF $862.83 per share (17% below the $1,035.84 close) and relative EV/Sales $1,818.58 per share (76% above). At dcf_weight 0.75 the blend is $1,101.77, +6.4%, Neutral. My own arithmetic, not code output: the rating would be Outperform at a DCF weight of about 0.656 or less, and Underperform at about 0.927 or more. So 0.75 is about 9 percentage points of weight from an Outperform call. The dcf_weight rationale gives qualitative reasons that partly offset each other (TTM base understates run-rate; non-memory peers overstate multiples) and says the weight was set before the target price was seen in round 1. That is acceptable as a judgment. However, the note reports only the DCF value and the peer multiple. It does not show the relative per-share value or the 75/25 weighting, so a reader cannot see that the two methods are about $956 per share apart and that the Neutral call rests on the weighting. Rating sensitivity should be visible to the reader. Not a blocker: the inputs are inside policy and the rationale exists.",
+      "evidence": [
+        "numerical/recompute/valuation.json#relative_per_share",
+        "numerical/recompute/valuation.json#dcf.per_share",
+        "numerical/recompute/valuation.json#dcf_weight",
+        "generator/valuation_inputs.json#rationales.dcf_weight",
+        "numerical/recompute/note_rendered.md:63-66"
+      ],
+      "required_evidence": "note.md shows the relative-value per-share figure and the DCF/relative weights through code values (if values.json provides keys for them), and adds one sentence, labelled analyst judgment, saying the rating is sensitive to the weighting."
+    }
+  ],
+  "finding_sources": {
+    "prov-005": "crit-provenance",
+    "prov-001": "crit-provenance",
+    "prov-002": "crit-provenance",
+    "prov-003": "crit-provenance",
+    "prov-004": "crit-provenance",
+    "asm-004": "crit-assumption",
+    "asm-005": "crit-assumption",
+    "asm-001": "crit-assumption",
+    "asm-002": "crit-assumption",
+    "asm-003": "crit-assumption",
+    "cmp-001": "crit-compliance",
+    "cmp-002": "crit-compliance",
+    "cmp-003": "crit-compliance"
+  },
+  "resolved": [
+    {
+      "id": "prov-001",
+      "evidence": "narrative.json Q-1..Q-4 are now pipe-free single-cell quotes ('$61.5 billion ± $1.5 billion', 'Approximately 85.95%', 'Approximately $2.31 billion', '$37.84 ± $1.00'), and Q-15..Q-17 were added for non-GAAP ('Approximately 86.25%', 'Approximately $2.06 billion', '$38.15 ± $1.00'). Each appears verbatim in the release (lines 169-178, GAAP column first, non-GAAP second; the reconciliation table at lines 577-586 confirms the basis). In computed/note_rendered.md all 9 table lines have exactly 3 cells (header, separator and 7 rows), each quote appears whole, and the code column is populated. Key points now label the GAAP and non-GAAP guidance. No quote or rendered line outside the table contains a pipe. Recompute note_rendered.md is identical to computed/."
+    },
+    {
+      "id": "prov-002",
+      "evidence": "The code column is headed 'Code value (rounded)'. A sentence below the table says the verbatim quotes are authoritative for precision, that the display rounds to one decimal place, and that the non-GAAP gross margin display rounds down. The forecast bullets cite Q-2 and Q-3 instead of the rounded displays. Stored values are exact (0.8595, 0.8625, 2.31e9, 2.06e9, 37.84, 38.15 in values.json)."
+    },
+    {
+      "id": "prov-003",
+      "evidence": "narrative.json guidance eps_next_q_gaap (37.84, Q-4, low 36.84, high 38.84) and eps_next_q_nongaap (38.15, Q-17, low 37.15, high 39.15) now carry unit 'USD/share'."
+    },
+    {
+      "id": "prov-004",
+      "evidence": "The specialist-attributed 'rating would stay Neutral (not recomputed in code here)' sentence is gone. grep finds no 'specialist' in note.md. Net cash is now the code value {{net_cash}} = $68.3bn (valuation.json net_cash 68,274M = cash 38,364M (F-455b2cbdf8) + investments 35,089M (S-0f9cbd5118 = F-e8f2f41b64 5,070M + F-5368223b24 30,019M) - debt 5,179M (S-0a86662e54 = F-ca07e4ae2b 491M + F-bce6b48da4 4,688M)). This matches the 10-K balance sheet (periodic.txt lines 2018, 2022, 2032, 2046, 2052) and management's $73.45B cash and marketable investments (line 1761: 38,364 + 5,070 + 30,019 = 73,453M)."
+    },
+    {
+      "id": "asm-001",
+      "evidence": "mapping.json maps short_term_investments to [AvailableForSaleSecuritiesDebtSecuritiesCurrent, AvailableForSaleSecuritiesDebtSecuritiesNoncurrent] with a rationale (5,070M + 30,019M = 35,089M; non-marketable equity investments of about $1.30B excluded). numerical/recompute/valuation.json (identical to computed/) shows short_term_investments 35,089,000,000 and net_cash 68,274,000,000 = 38,364M + 35,089M - 5,179M, which matches the balance sheet (periodic.txt lines 2032, 2050, 2052). note_rendered.md line 65 describes net cash as 'cash and cash equivalents plus short- and long-term marketable investments, less total debt (code output)'. The uncomputed 'rating would stay Neutral (according to the valuation specialist)' sentence is gone. The recomputed target price is $1,102 (+6.4%, Neutral)."
+    },
+    {
+      "id": "asm-002",
+      "evidence": "The valuation_inputs.json net_cash rationale states that the $12.895B noncurrent customer contract liabilities (F-3212bef088) are excluded as operating contract liabilities. It quotes the no-significant-financing-component language (periodic.txt line 2344, verified verbatim) and the conditional-return terms (line 1763, verified). It acknowledges the counter-arguments: the financing inflow sits in cash, and repayment falls in 2029-2031, inside DCF years 3-5. It gives an analyst-arithmetic sensitivity of about $11 per share. The WACC rationale no longer calls debt 'small' without qualification. note_rendered.md line 68 carries a labelled valuation caveat, and line 75 flags the treatment as a judgment that favours the shares."
+    },
+    {
+      "id": "asm-003",
+      "evidence": "Year-1 FCF margin is lowered from 55% to 50% (valuation.json dcf.fcf[0] = $134.75B on $269.50B). The fcf_margin rationale quotes the capex outlook verbatim (checked against periodic.txt line 1771). It reconciles year 1 as labelled analyst arithmetic: NTM net income $188.7B (matches forecast.json ntm.net_income 188,719M) + D&A ~$12B (FY2026 $9.503B, line 2187) + SBC ~$1.5B - net capex ~$55B - working capital ~$12B (receivables $36.197B, line 2024) = ~$135B, or 50%. It also gives a 47-53.5% range."
+    },
+    {
+      "id": "cmp-001",
+      "evidence": "numerical/recompute/note_rendered.md line 5 and Disclosures lines 82-83 now name the Form 10-K, accession 0000723125-26-000023 (its acceptance sets the cutoff of 2026-10-09 12:21 UTC), and separately 'The earnings release, furnished separately on Form 8-K, accession 0000723125-26-000018, in September 2026, before the 10-K', as the source of the guidance, CEO statement and dividend quote. The accession comes from the code key values.json#release_accession (source snapshot/manifest.json), so the writer typed no digits. It matches snapshot/manifest.json (docs/release_ex99_1 earnings release.txt -> 0000723125-26-000018) and snapshot/filings.json (8-K, items 2.02,9.01, accepted 2026-09-30T20:02:22Z, before the cutoff). The false 'accompanying earnings release exhibit' wording is gone."
+    },
+    {
+      "id": "cmp-002",
+      "evidence": "The guidance quotes are now split into separate verbatim quotes without pipes: Q-1/Q-2/Q-3/Q-4 for GAAP and Q-15/Q-16/Q-17 for non-GAAP in generator/narrative.json. All 17 quotes are verbatim substrings of the snapshot docs, and none contains '|'. The guidance table in note_rendered.md lines 31-39 has exactly three cells in every row, with whole quotes and a populated code-value column. Key points line 10 also labels the GAAP and non-GAAP figures explicitly."
+    },
+    {
+      "id": "cmp-003",
+      "evidence": "The sentence citing 'the valuation specialist' has been removed. The note now has no reference to an internal role (grep of note_rendered.md for specialist/crit-/gen-/RUN_NOTES finds only the request_id HTML comment). Long-term marketable investments are now in code net cash (valuation.json short_term_investments 35,089,000,000; net_cash 68,274,000,000), and note line 65 describes this as code output. The remaining uncomputed statement (the customer-deposit caveat, line 68) is labelled 'our view, analyst judgment' and says 'we have not computed that alternative in code'."
+    }
+  ],
+  "finding_status": {
+    "asm-001": "resolved",
+    "asm-002": "resolved",
+    "asm-003": "resolved",
+    "cmp-001": "resolved",
+    "cmp-002": "resolved",
+    "cmp-003": "resolved",
+    "prov-001": "resolved",
+    "prov-002": "resolved",
+    "prov-003": "resolved",
+    "prov-004": "resolved",
+    "asm-004": "new",
+    "asm-005": "new",
+    "prov-005": "new"
+  },
+  "conflicts": [
+    {
+      "ids": [
+        "prov-005"
+      ],
+      "roles": [
+        "crit-provenance",
+        "crit-compliance"
+      ],
+      "description": "crit-compliance's checks list the note's prose claims 'deposits repaid 2029-2031 (periodic.txt lines 1763, 2961); return conditional on purchase commitments (line 1763)' as supported. crit-provenance (prov-005, minor) finds that the note's wording 'returned only if the customer meets its minimum purchase commitments' overstates the 10-K ('may retain all or a portion'), and that the repayment-timing paraphrase lacks a [[Q-id]]. Both views are kept; prov-005 stands as an open minor finding."
+    }
+  ],
+  "blocking_open": [],
+  "coverage": {
+    "checked": {
+      "crit-provenance": [
+        "gates.json: findings empty; sha256 of recompute forecast/history/peers/valuation/values equals the computed/ copies and the gate hashes; recompute note_rendered.md is identical to computed/note_rendered.md",
+        "All 38 {{keys}} in note.md exist in values.json; F-/D-/S- sources resolve in snapshot/facts.json or in history.json derived records whose components are facts accepted at or before the cutoff (latest 10-K 0000723125-26-000023, 2026-10-09T12:21:00Z)",
+        "revenue_q 54,229M = D-e90aac72b9 (FY 133,188M F-ea1467005d - 9M 78,959M F-adf7207965) over 2026-05-29..2026-09-03 (14 weeks); described as fiscal quarter FY2026 Q4 / CY2026Q3",
+        "revenue_qoq 30.8% vs FY2026Q3 41,456M (F-03e050e3a0); revenue_yoy 379.3% vs FY2025Q4 11,315M (D-784c348bcc = 37,378M - 26,063M); revenue_ttm 133,188M = sum of four quarters = FY2026; labels q/q, y/y and TTM correct; the extra-week caveat (Q-10) is accurate",
+        "gross_margin_q 86.8% (47,047/54,229), operating_margin_q 80.7% (43,751/54,229), net_income_q 37,701M (84,969 - 47,268), fcf_q 32,863M (CFO 43,973 - capex 11,110), all Q4 derived values",
+        "Spot-check against periodic.txt: revenue 133,188 (lines 1585, 1954), net income 84,969 (lines 1611, 1981, 2183), total assets 195,888 (line 2040, F-381c925c83), cash 38,364, short-term investments 5,070, long-term marketable investments 30,019, current debt 491, long-term debt 4,688",
+        "Valuation arithmetic: DCF equity = EV 919.67B + net cash 68.27B; relative = (15.12x * 133.19B + 68.27B)/1.145B = 1,818.6; blend 0.75*862.83 + 0.25*1,818.58 = 1,101.8 -> 1,102; upside 1,102/1,035.84 - 1 = 6.4%; Neutral per bands",
+        "Price 1,035.84 on 2026-10-08 is the last close in prices.json before the cutoff of 2026-10-09 12:21 UTC",
+        "Quotes Q-1..Q-17 all appear verbatim in the stated docs; the contexts of Q-6, Q-7, Q-8, Q-9, Q-10, Q-12 and Q-13 were read in full and are not truncated in a way that changes their meaning; GAAP/non-GAAP binding of guidance quotes is correct",
+        "Guidance values match quotes: revenue 61.5bn (60.0-63.0bn), GM 0.8595 / 0.8625, opex 2.31bn / 2.06bn, EPS 37.84 / 38.15 with +/-1.00 ranges",
+        "Disclosures: trigger_accession 0000723125-26-000023 (10-K) and release_accession 0000723125-26-000018 (manifest.json; filings.json: Form 8-K items 2.02/9.01, accepted 2026-09-30T20:02:22Z, before cutoff); the release is no longer called a 10-K exhibit",
+        "mapping.json: investments line = [AvailableForSaleSecuritiesDebtSecuritiesCurrent, ...Noncurrent], debt = [DebtCurrent, LongTermDebtAndCapitalLeaseObligations] (stale LongTermDebt avoided), diluted shares/EPS not differenced; all concepts current through 2026-09-03; shares_outstanding cover date 2026-10-02 is before cutoff",
+        "Peers in valuation_inputs.json (INTC, AMAT, LRCX, KLAC) match the note's 'fab-owning and wafer-fab-equipment' description",
+        "Data-gap statement (no Q4 diluted shares/EPS tagged; model uses 1,145M from F-3d172a9372) matches history.json",
+        "No figures in note.md outside {{keys}}/[[Q-ids]] other than year, period and form labels; no post-cutoff information observed"
+      ],
+      "crit-assumption": [
+        "Next-quarter revenue vs guidance: FY2027Q1 $61.50B equals the guided midpoint ($61.5B +/- $1.5B); +13.4% on the 14-week Q4 base, about +22% on a 13-week base; rationale explains the 53-week effect",
+        "Next-quarter margins vs guidance: GM 85.95% = GAAP guidance; opex 3.76% x $61.5B = $2.31B = GAAP guidance; tax 14.8% = FY2026 ETR (Pillar Two); EPS $37.50 inside $37.84 +/- $1.00, shortfall explained by excluded interest income",
+        "Later-quarter path: revenue +8%/+5%/+3% q/q, decelerating from FY2026 (+20.6%, +74.9%, +73.7%, +30.8%); GM held flat on supply limits and price-band floors; plausible and explained",
+        "Valuation inputs: WACC 10.5% (cyclical premium, judgment, inside band); terminal growth 3.0% (inside band); terminal value 55.9% of EV (below 80%)",
+        "FCF margins vs history: FY2025 4.5%, FY2026 44.3% (CFO 89,675M - capex 30,712M on 133,188M); years 1-5 50/50/42/35/30%; year 1 reconciled to guided capex and working capital; terminal 30% below FY2025-26 pooled 35.5%",
+        "Revenue growth years 2-5 (+5%, -10%, -15%, -5%): cycle-normalisation judgment with rationale; year-5 revenue $205.7B",
+        "Net cash completeness: cash 38,364M, short-term 5,070M and long-term 30,019M marketable investments, current debt 491M and long-term debt 4,688M all match the balance sheet; customer deposits (12,895M) handled under asm-002; Pillar Two noncurrent taxes payable (9.82B) raised as asm-004; non-marketable equity investments (~1.30B) excluded with reason",
+        "Peer set: INTC, AMAT, LRCX, KLAC (fab-owning IDM and WFE on the memory capex cycle); no memory peer, caveat stated; peer TTM to CY2026Q2 (ends 2026-06-27 to 2026-07-26) vs MU fiscal period ending 2026-09-03 (CY2026Q3), alignment noted in rationale",
+        "Arithmetic spot-checks: relative leg 15.121 x 133.188B + 68.274B over 1,145M shares = $1,818.6; DCF pv_fcf[0] = 134.75B / 1.105; blended $1,101.77 -> TP $1,102, +6.39%, Neutral",
+        "Rationales present for every assumption and valuation input; they support the numbers chosen (weighting sensitivity noted under asm-005)",
+        "No information after the 2026-10-09T12:21Z cutoff used; the 8-K release (accepted 2026-09-30) and the 10-K are both before the cutoff"
+      ],
+      "crit-compliance": [
+        "Information cutoff: cutoff_utc 2026-10-09T12:21:00Z (case.json). The note mentions no later quarter, price or event. The only later dates (2026-10-14 record date, 2026-10-29 payable date) are inside a verbatim quote of a dividend declared on 2026-09-30 in the pre-cutoff 8-K, so they are not leakage.",
+        "Price: $1,035.84 on 2026-10-08 is the last close in snapshot/prices.json. The cutoff is 08:21 ET on 2026-10-09, before that day's session, so this is the last close before the cutoff.",
+        "Snapshot facts.json: the latest 'filed' date is 2026-10-09, the cutoff date. Both source documents are pre-cutoff filings (10-K accepted at the cutoff; 8-K accepted 2026-09-30).",
+        "Quotes: all 17 narrative.json quotes are verbatim in snapshot/docs (programmatic substring check). The GAAP/non-GAAP attribution matches release lines 158-176.",
+        "Disclosures (policies.md section 6): the not-investment-advice line is present. Data sources list the 10-K and 8-K accessions, the cutoff and the price date. Rating definitions (+15% / -10%, otherwise Neutral) come from config-sourced values. The code-generated, SEC XBRL, unaudited statement is present. All are accurate.",
+        "Rating vs bands: upside 0.0639 (valuation.json), so Neutral is correct. Target price 1102 = round(0.75 x 862.83 + 0.25 x 1818.58 = 1101.77). The note recommends no action beyond the rating, and there is no promissory or guaranteed language.",
+        "tp_change_needs_rationale is false and prior_target_price is null, so no target-price change explanation is required.",
+        "Labelling: 'reported', 'our forecast' and 'our view' labels are defined (line 5) and applied consistently. The week-adjustment, deposit-treatment and cycle statements are marked as judgment and as not computed in code. The interest-income explanation for EPS versus guidance is supported by the assumptions.json tax_rate rationale.",
+        "Supporting text for prose claims: deposits repaid 2029-2031 (periodic.txt lines 1763, 2961); return conditional on purchase commitments (line 1763); 53-week FY2026 (Q-10).",
+        "No instruction from a filing was followed: a keyword scan of both snapshot docs for embedded instructions found none, and nothing in the note reflects filing text acting as a directive.",
+        "Open findings outside the compliance area (asm-001..003, prov-001..004) were left to crit-assumption and crit-provenance."
+      ]
+    },
+    "acceptance_areas": {
+      "A_numerical_gates": "covered: crit-provenance checked gates.json (no findings) and recompute hashes; crit-assumption checked assumption bounds and rationales; crit-compliance checked the information cutoff and quote verbatimness",
+      "B_critic_review": "covered: three fresh critics reported for this request; every prior open finding was addressed (resolved)",
+      "C_research_acceptance": "procedural (controller): all three verdicts are pass with no open blocker/major finding in this review",
+      "D_publication": "partially covered: crit-compliance checked rating vs policy bands and tp_change_needs_rationale (false). Named approval is out of scope for critics",
+      "E_limits": "not covered by any critic (controller-enforced)"
+    },
+    "uncovered_areas": [
+      "E_limits (controller-enforced, outside critic scope)",
+      "D_publication named-approver step (outside critic scope)"
+    ]
+  }
+}

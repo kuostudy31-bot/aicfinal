@@ -1,0 +1,34 @@
+{
+  "request_id": "crit-20261115T082227-82cb33",
+  "role": "crit-compliance",
+  "candidate_id": "cand-0aac844f50d1",
+  "verdict": "pass",
+  "findings": [],
+  "resolved": [
+    {
+      "id": "cmp-001",
+      "evidence": "numerical/recompute/note_rendered.md line 5 and Disclosures lines 82-83 now name the Form 10-K, accession 0000723125-26-000023 (its acceptance sets the cutoff of 2026-10-09 12:21 UTC), and separately 'The earnings release, furnished separately on Form 8-K, accession 0000723125-26-000018, in September 2026, before the 10-K', as the source of the guidance, CEO statement and dividend quote. The accession comes from the code key values.json#release_accession (source snapshot/manifest.json), so the writer typed no digits. It matches snapshot/manifest.json (docs/release_ex99_1 earnings release.txt -> 0000723125-26-000018) and snapshot/filings.json (8-K, items 2.02,9.01, accepted 2026-09-30T20:02:22Z, before the cutoff). The false 'accompanying earnings release exhibit' wording is gone."
+    },
+    {
+      "id": "cmp-002",
+      "evidence": "The guidance quotes are now split into separate verbatim quotes without pipes: Q-1/Q-2/Q-3/Q-4 for GAAP and Q-15/Q-16/Q-17 for non-GAAP in generator/narrative.json. All 17 quotes are verbatim substrings of the snapshot docs, and none contains '|'. The guidance table in note_rendered.md lines 31-39 has exactly three cells in every row, with whole quotes and a populated code-value column. Key points line 10 also labels the GAAP and non-GAAP figures explicitly."
+    },
+    {
+      "id": "cmp-003",
+      "evidence": "The sentence citing 'the valuation specialist' has been removed. The note now has no reference to an internal role (grep of note_rendered.md for specialist/crit-/gen-/RUN_NOTES finds only the request_id HTML comment). Long-term marketable investments are now in code net cash (valuation.json short_term_investments 35,089,000,000; net_cash 68,274,000,000), and note line 65 describes this as code output. The remaining uncomputed statement (the customer-deposit caveat, line 68) is labelled 'our view, analyst judgment' and says 'we have not computed that alternative in code'."
+    }
+  ],
+  "checked": [
+    "Information cutoff: cutoff_utc 2026-10-09T12:21:00Z (case.json). The note mentions no later quarter, price or event. The only later dates (2026-10-14 record date, 2026-10-29 payable date) are inside a verbatim quote of a dividend declared on 2026-09-30 in the pre-cutoff 8-K, so they are not leakage.",
+    "Price: $1,035.84 on 2026-10-08 is the last close in snapshot/prices.json. The cutoff is 08:21 ET on 2026-10-09, before that day's session, so this is the last close before the cutoff.",
+    "Snapshot facts.json: the latest 'filed' date is 2026-10-09, the cutoff date. Both source documents are pre-cutoff filings (10-K accepted at the cutoff; 8-K accepted 2026-09-30).",
+    "Quotes: all 17 narrative.json quotes are verbatim in snapshot/docs (programmatic substring check). The GAAP/non-GAAP attribution matches release lines 158-176.",
+    "Disclosures (policies.md section 6): the not-investment-advice line is present. Data sources list the 10-K and 8-K accessions, the cutoff and the price date. Rating definitions (+15% / -10%, otherwise Neutral) come from config-sourced values. The code-generated, SEC XBRL, unaudited statement is present. All are accurate.",
+    "Rating vs bands: upside 0.0639 (valuation.json), so Neutral is correct. Target price 1102 = round(0.75 x 862.83 + 0.25 x 1818.58 = 1101.77). The note recommends no action beyond the rating, and there is no promissory or guaranteed language.",
+    "tp_change_needs_rationale is false and prior_target_price is null, so no target-price change explanation is required.",
+    "Labelling: 'reported', 'our forecast' and 'our view' labels are defined (line 5) and applied consistently. The week-adjustment, deposit-treatment and cycle statements are marked as judgment and as not computed in code. The interest-income explanation for EPS versus guidance is supported by the assumptions.json tax_rate rationale.",
+    "Supporting text for prose claims: deposits repaid 2029-2031 (periodic.txt lines 1763, 2961); return conditional on purchase commitments (line 1763); 53-week FY2026 (Q-10).",
+    "No instruction from a filing was followed: a keyword scan of both snapshot docs for embedded instructions found none, and nothing in the note reflects filing text acting as a directive.",
+    "Open findings outside the compliance area (asm-001..003, prov-001..004) were left to crit-assumption and crit-provenance."
+  ]
+}
