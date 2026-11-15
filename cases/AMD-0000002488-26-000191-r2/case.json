@@ -1,0 +1,51 @@
+{
+  "accession": "0000002488-26-000191",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "code_commit": "d40b72e55b95d226b4f6e3e89612869d158493c9",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "limits": {
+    "clean_reviews_required": 2,
+    "max_dispatches_per_round": 12,
+    "max_invalid_submissions": 2,
+    "max_rounds": 3,
+    "max_wall_minutes": 240,
+    "stall_rounds": 2
+  },
+  "opened_at": "2026-11-15T02:54:08Z",
+  "peers": [
+    "NVDA",
+    "INTC",
+    "AVGO",
+    "MRVL",
+    "MU",
+    "AMAT",
+    "LRCX",
+    "KLAC",
+    "SNPS",
+    "CDNS",
+    "ALAB",
+    "CRDO",
+    "MPWR"
+  ],
+  "period_of_report": "2026-09-26",
+  "prompt_versions": {
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "crit-lead": "v2",
+    "crit-provenance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1",
+    "gen-lead": "v2",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v2",
+    "orchestrator": "v1"
+  },
+  "revision": 2,
+  "revision_reason": "gate_quotes precision defect fixed in 6fddfe2 caused a false STALLED in revision 1",
+  "supersedes": "AMD-0000002488-26-000191",
+  "ticker": "AMD",
+  "trigger_form": "10-Q"
+}

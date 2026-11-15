@@ -1,0 +1,37 @@
+{
+  "accession": "0000002488-26-000191",
+  "case_id": "AMD-0000002488-26-000191-r2",
+  "cutoff_utc": "2026-11-03T23:00:17Z",
+  "issued_at": "2026-11-15T02:54:08Z",
+  "open_findings": [],
+  "output_dir": "cases/AMD-0000002488-26-000191-r2/rounds/round-001/generator",
+  "phase": "generator",
+  "previous_generator_dir": null,
+  "prompt_versions": {
+    "crit-assumption": "v1",
+    "crit-compliance": "v1",
+    "crit-lead": "v2",
+    "crit-provenance": "v1",
+    "evo-proposer": "v1",
+    "evo-reviewer": "v1",
+    "gen-lead": "v2",
+    "gen-mapping": "v1",
+    "gen-model": "v1",
+    "gen-narrative": "v1",
+    "gen-valuation": "v1",
+    "gen-writer": "v2",
+    "orchestrator": "v1"
+  },
+  "repair_packet": null,
+  "request_id": "gen-20261115T025408-b38ac7",
+  "required_reports": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model",
+    "gen-valuation",
+    "gen-writer"
+  ],
+  "round": 1,
+  "snapshot_dir": "cases/AMD-0000002488-26-000191-r2/snapshot",
+  "ticker": "AMD"
+}
