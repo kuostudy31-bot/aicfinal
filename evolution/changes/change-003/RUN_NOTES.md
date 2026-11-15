@@ -146,3 +146,34 @@ python3 scripts/eu.py evo-rollback --role gen-writer --to v2 --approver "<owner 
 - `runs/<case>/{baseline,candidate}/inputs.json`, `inputs-2.json`, `note.md`, `note-2.md`
 - subagent transcripts in `evidence/transcripts/`: gen-lead, evo-proposer, 12 gen-writer runs,
   crit-lead and evo-reviewer
+
+## Adoption (2026-11-15 07:46 UTC)
+The owner chose "adopt and verify". The coordinator ran
+`eu.py evo-adopt --change change-003 --approver "Repository owner (kuostudy31-bot); adoption decided by the owner on 2026-11-15 (option 2: adopt and verify), executed by Claude"`.
+`prompts/gen-writer/v3.md` is the candidate (byte-identical) and the registry's active gen-writer
+pointer moved v2 → v3. Cases opened earlier keep their pinned version (MU-0000723125-26-000023
+keeps v2). The tag `prompt-gen-writer-v3` exists in the coordinator's checkout only: the session's
+git proxy accepts pushes to the working branch only (HTTP 403 for the tag). The registry entry
+records the tag name.
+
+## Post-adoption verification (review finding evo-003)
+The reviewer asked for one run of the adopted prompt **with** the rating-band, cutoff, price-date
+and accession keys present. The coordinator dispatched gen-writer v3 twice in evaluation mode
+(request `evov-20261115-v3check`; dispatch records in `trace.jsonl`, transcripts in
+`evidence/transcripts/`), on the change-002 frozen inputs, which hold all those keys:
+NVDA-0001045810-26-000075-r2 and the held-out AMD-0000002488-26-000191.
+
+| Case | Spelled quantities | Required keys used (rating_outperform_min, rating_underperform_max, cutoff_utc, price_date, trigger_accession) | Provenance findings | Result |
+|---|---|---|---|---|
+| NVDA r2 | none | all 5 | none | pass |
+| AMD r1 (held-out) | none | all 5 | none | pass |
+
+Evidence: `verification/<case>/{inputs.json,note.md}` and `verification/result.json`
+(`evolution.check_note` with the five keys required). Neither note uses the word "twelve"
+(evo-002). The NVDA writer reported that it had first written "twelve-month", found it with
+`gates.gate_note`/its own search, and changed it to NTM/TTM before finishing; the checked output
+is the final note. Both writers flagged, unresolved: the DCF/peer blend weight has no key, so the
+notes say "blends" without a number; AMD's `guide_diluted_shares_next_q` still renders raw, so the
+quote is cited instead.
+
+**Verdict: evo-003 is answered; v3 carries the disclosure values when code supplies them.**

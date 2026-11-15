@@ -1,0 +1,36 @@
+{
+  "acceptance_checks": {
+    "forbid_spelled_quantities": true,
+    "required_phrases": [],
+    "required_placeholders": [
+      "rating_outperform_min",
+      "rating_underperform_max",
+      "cutoff_utc",
+      "price_date",
+      "trigger_accession"
+    ]
+  },
+  "pass": true,
+  "prompt": "prompts/gen-writer/v3.md",
+  "purpose": "post-adoption check for review finding evo-003: gen-writer v3 with the rating-band, cutoff, price-date and accession keys present",
+  "rows": [
+    {
+      "case": "NVDA-0001045810-26-000075-r2",
+      "missing_phrases": [],
+      "missing_placeholders": [],
+      "pass": true,
+      "provenance_findings": [],
+      "spelled_quantities": [],
+      "twelve_word": 0
+    },
+    {
+      "case": "AMD-0000002488-26-000191",
+      "missing_phrases": [],
+      "missing_placeholders": [],
+      "pass": true,
+      "provenance_findings": [],
+      "spelled_quantities": [],
+      "twelve_word": 0
+    }
+  ]
+}
