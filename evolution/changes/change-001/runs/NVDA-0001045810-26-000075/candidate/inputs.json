@@ -1,0 +1,10 @@
+{
+  "case_id": "NVDA-0001045810-26-000075",
+  "instructions": "Evaluation mode: follow prompt_file, but do not run eu.py compute and do not write inside cases/; read keys from `values` and quotes from `narrative`; write only `output`.",
+  "mode": "evaluation",
+  "narrative": "evolution/changes/change-001/runs/NVDA-0001045810-26-000075/inputs/narrative.json",
+  "output": "evolution/changes/change-001/runs/NVDA-0001045810-26-000075/candidate/note.md",
+  "prompt_file": "prompts/gen-writer/candidate-change-001.md",
+  "role": "gen-writer",
+  "values": "evolution/changes/change-001/runs/NVDA-0001045810-26-000075/inputs/values.json"
+}
