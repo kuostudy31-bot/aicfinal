@@ -6,11 +6,6 @@
   "clean_streak": 0,
   "cutoff_utc": "2026-10-09T12:21:00Z",
   "dispatch_counts": {},
-  "hold": {
-    "at": "2026-11-15T07:37:58Z",
-    "by": "run session",
-    "reason": "Code defect blocks 10-K quarterization: src/aicfinal/model.py line 86 in forecast: shares = latest(hist, \"diluted_shares\")[\"val\"] -> TypeError: 'NoneType' object is not subscriptable (FY2026Q4 diluted_shares null; same pattern in valuation.py:79). Needs a code fix; see RUN_NOTES.md."
-  },
   "invalid_submissions": 0,
   "ledger": {},
   "limits": {
@@ -50,5 +45,5 @@
   "snapshot_manifest_sha256": "0d1e5e4c919047a6c9598ba1a1d515855a5beabf9b4542e4e82dedbbfd8846b2",
   "status": "GENERATOR_PENDING",
   "ticker": "MU",
-  "updated_at": "2026-11-15T07:37:58Z"
+  "updated_at": "2026-11-15T07:44:56Z"
 }

@@ -47,3 +47,45 @@ specialists, compute, submit, dispatch crit-lead, and continue. Never run `eu.py
   gen-lead instead of dispatching a second copy.
 * Transcripts are present in evidence/transcripts/ (orchestrator, gen-lead, gen-mapping, gen-narrative, gen-model).
   A grep for tokens, keys and credentials found no matches, so no lines were removed.
+
+## Resume after the 10-K fix (Live run 14)
+
+Entry session synced to origin/claude/trusting-thompson-r5m3id at a89f54a (the local branch had the stale tip 47fec25 again; kept as `backup/pre-forcepush-47fec25`).
+
+`eu.py release` output:
+```
+{
+  "case_id": "MU-0000723125-26-000023",
+  "status": "GENERATOR_PENDING",
+  "hold": null
+}
+```
+
+`eu.py resume` output:
+```
+{
+  "case_id": "MU-0000723125-26-000023",
+  "status": "GENERATOR_PENDING",
+  "checks": [
+    {
+      "snapshot_hashes": "ok"
+    }
+  ],
+  "next_action": "re-dispatch only ['gen-valuation', 'gen-writer'] for request gen-20261115T073305-99d304 (completed reports ['gen-mapping', 'gen-narrative', 'gen-model'] are kept)",
+  "pending": {
+    "issued_at": "2026-11-15T07:33:05Z",
+    "path": "cases/MU-0000723125-26-000023/rounds/round-001/request.json",
+    "phase": "generator",
+    "request_id": "gen-20261115T073305-99d304"
+  },
+  "reports_present": [
+    "gen-mapping",
+    "gen-narrative",
+    "gen-model"
+  ],
+  "reports_missing": [
+    "gen-valuation",
+    "gen-writer"
+  ]
+}
+```
